@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Voice wave icon -->
+  <g transform="translate(5, 10)">
+    <rect x="0" y="12" width="4" height="6" rx="2" fill="url(#logoGradient)"/>
+    <rect x="7" y="8" width="4" height="14" rx="2" fill="url(#logoGradient)"/>
+    <rect x="14" y="4" width="4" height="22" rx="2" fill="url(#logoGradient)"/>
+    <rect x="21" y="8" width="4" height="14" rx="2" fill="url(#logoGradient)"/>
+    <rect x="28" y="12" width="4" height="6" rx="2" fill="url(#logoGradient)"/>
+  </g>
+  <!-- Text -->
+  <text x="50" y="35" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="600" fill="#1f2937">
+    servi<tspan fill="url(#logoGradient)">io</tspan>
+  </text>
+</svg>
