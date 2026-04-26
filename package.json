@@ -1,0 +1,13 @@
+{
+  "name": "serviio-website",
+  "version": "1.0.0",
+  "description": "Serviio - AI Voice Agent for Restaurants",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

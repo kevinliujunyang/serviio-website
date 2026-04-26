@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
     <title>Serviio - 餐厅 AI 电话接单系统｜中英文双语智能接待</title>
     <meta name="description" content="Serviio 是专为餐厅打造的 AI 电话接待助手。24/7 自动接单，识别 7 国语言，对接 Square、Toast、Clover、Chowbus、Mealkeyway 等主流 POS 系统。按单 2% 收费，无月租，无安装费。">
     <meta name="keywords" content="餐厅 AI, AI 电话接单, 餐厅电话自动接单, AI 语音助手, 中餐馆 POS, Square POS, Toast POS, Clover POS, Chowbus, Mealkeyway, 餐厅自动化">
@@ -24,13 +25,17 @@
     <meta property="og:site_name" content="Serviio">
     <meta property="og:locale" content="zh_CN">
     <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:image" content="https://serviio.ai/assets/logo.svg">
+    <meta property="og:image" content="https://serviio.ai/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Serviio - 餐厅 AI 电话接单系统">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Serviio - 餐厅 AI 电话接单系统">
     <meta name="twitter:description" content="专为餐厅打造的 AI 电话接待助手。24/7 自动接单，支持 7 国语言。按单 2% 收费。">
-    <meta name="twitter:image" content="https://serviio.ai/assets/logo.svg">
+    <meta name="twitter:image" content="https://serviio.ai/assets/og-image.png">
+    <meta name="twitter:image:alt" content="Serviio - 餐厅 AI 电话接单系统">
 
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -40,9 +45,80 @@
         "name": "Serviio",
         "url": "https://serviio.ai",
         "logo": "https://serviio.ai/assets/logo.svg",
+        "image": "https://serviio.ai/assets/og-image.png",
         "email": "info@serviio.ai",
         "telephone": "+1-408-409-9079",
-        "description": "Serviio 是专为餐厅打造的 AI 电话接待助手。"
+        "description": "Serviio 是专为餐厅打造的 AI 电话接待助手。",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-408-409-9079",
+            "email": "info@serviio.ai",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+        }
+    }
+    </script>
+
+    <!-- JSON-LD: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": "zh-CN",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Serviio 支持我的 POS 系统吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "支持。我们直接对接 Square、Toast、Clover、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "AI 听起来会不会很机械？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "如果 AI 听不懂顾客的订单怎么办？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "可以保留餐厅原有的电话号码吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "有合约或取消费用吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "顾客数据如何保护？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。"
+                }
+            }
+        ]
     }
     </script>
 
@@ -64,47 +140,16 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwindcss.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            200: '#c7d2fe',
-                            300: '#a5b4fc',
-                            400: '#818cf8',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            800: '#3730a3',
-                            900: '#312e81',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Compiled Tailwind + custom styles -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* On Chinese page, prefer Noto Sans SC for Chinese glyph rendering */
         body { font-family: 'Noto Sans SC', 'Inter', system-ui, sans-serif; }
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-        }
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
@@ -515,6 +560,90 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">常见<span class="gradient-text">问题</span></h2>
+                <p class="text-xl text-gray-600">餐厅老板在合作前最想了解的问题。</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Serviio 支持我的 POS 系统吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        支持。我们直接对接 Square、Toast、Clover、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>AI 听起来会不会很机械？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>如果 AI 听不懂顾客的订单怎么办？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>可以保留餐厅原有的电话号码吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>有合约或取消费用吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>顾客数据如何保护？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
         <div class="max-w-7xl mx-auto">
@@ -660,7 +789,7 @@
 
         // Check for thank you state
         if (window.location.hash === '#thank-you') {
-            document.getElementById('contact-form').innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">感谢您的咨询！</h3><p class="text-gray-600">我们已收到您的请求，将在 24 小时内与您联系。</p></div>';
+            document.getElementById('contact-form').innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">感谢您的咨询！</h3><p class="text-gray-600">我们已收到您的请求，将在 24 小时内与您联系。</p></div>';
         }
     </script>
 </body>
