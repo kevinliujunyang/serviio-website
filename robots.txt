@@ -1,0 +1,7 @@
+# Serviio robots.txt
+# Allow all well-behaved crawlers, including search engines and AI assistants.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://serviio.ai/sitemap.xml
