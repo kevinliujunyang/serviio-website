@@ -61,7 +61,9 @@ Examples to include naturally across pages:
 - Chinese restaurant AI phone answering
 - AI phone answering for Chinese restaurants
 - Mandarin AI phone answering for restaurants
+- Mandarin restaurant phone ordering
 - Cantonese AI phone ordering for Chinese takeout
+- Cantonese restaurant phone order AI
 - bilingual restaurant phone order AI
 - restaurant AI phone order taker
 - AI order taker for restaurant phone calls

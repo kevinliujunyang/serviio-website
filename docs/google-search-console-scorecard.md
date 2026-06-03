@@ -48,6 +48,10 @@ Track these as exact query groups in Search Console exports:
 - pos system for chinese takeout restaurant
 - ai phone ordering for chinese takeout
 - bilingual restaurant phone ordering
+- mandarin ai phone answering for restaurants
+- mandarin restaurant phone ordering
+- cantonese ai phone ordering for chinese takeout
+- cantonese restaurant phone order ai
 - restaurant missed call recovery
 - 39 miles ai phone ordering
 - menusifu ai phone ordering
