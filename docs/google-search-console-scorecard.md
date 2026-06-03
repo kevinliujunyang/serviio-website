@@ -35,6 +35,8 @@ Track these as exact query groups in Search Console exports:
 
 - chinese restaurant ai phone ordering
 - ai phone answering for chinese restaurants
+- ai phone answering service for restaurants
+- restaurant ai phone answering service
 - restaurant ai phone order taker
 - restaurant phone order taker ai
 - ai order taker for restaurant phone calls

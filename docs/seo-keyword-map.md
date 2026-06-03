@@ -67,6 +67,8 @@ Examples to include naturally across pages:
 - Chinese restaurant AI phone ordering
 - Chinese restaurant AI phone answering
 - AI phone answering for Chinese restaurants
+- AI phone answering service for restaurants
+- restaurant AI phone answering service
 - Mandarin AI phone answering for restaurants
 - Mandarin restaurant phone ordering
 - Cantonese AI phone ordering for Chinese takeout
@@ -131,7 +133,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Restaurant tech AI phone ordering | restaurant tech AI phone ordering, restaurant technology AI ordering, restaurant tech phone order automation, restaurant tech voice AI | Broader restaurant technology discovery | `/restaurant-tech-ai-phone-ordering/` |
 | Restaurant automation software | restaurant automation software phone orders, restaurant operations automation, restaurant customer service automation, takeout order automation software | Buyer researches software category | `/restaurant-automation-software-phone-orders/` |
 | Restaurant call answering AI | restaurant call answering AI, AI restaurant call answering, restaurant call automation, restaurant phone call AI | Buyer searches call answering instead of order taking | Existing page plus stronger internal links |
-| Restaurant AI receptionist | restaurant AI receptionist, AI receptionist for restaurants, restaurant virtual receptionist, AI receptionist for Chinese restaurants, restaurant AI receptionist phone answering | Buyer searches the receptionist category before identifying phone-order automation | `/restaurant-phone-answering-service/` |
+| Restaurant AI receptionist and answering service | restaurant AI receptionist, AI receptionist for restaurants, restaurant virtual receptionist, AI receptionist for Chinese restaurants, restaurant AI receptionist phone answering, AI phone answering service for restaurants, restaurant AI phone answering service | Buyer searches the receptionist or answering-service category before identifying phone-order automation | `/restaurant-phone-answering-service/` |
 | Restaurant AI phone ordering guide | how restaurant AI phone ordering works, restaurant AI phone ordering POS workflow, restaurant AI phone ordering guide, AI phone orders to POS | Buyer or partner wants educational proof before contacting sales | `/guides/restaurant-ai-phone-ordering-pos-guide/` |
 
 ## POS-Specific Keywords
