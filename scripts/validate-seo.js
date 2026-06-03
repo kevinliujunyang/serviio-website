@@ -5,6 +5,8 @@ const SITE_ORIGIN = 'https://serviio.ai';
 const REQUIRED_FORM_FIELDS = [
   'lead_source',
   'ideal_customer_profile',
+];
+const REQUIRED_QUALIFICATION_FIELDS = [
   'restaurant_city',
   'restaurant_state',
   'phone_orders_per_week',
@@ -170,6 +172,10 @@ function validateForms(pages) {
     }
     for (const field of REQUIRED_FORM_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);
+    }
+    for (const field of REQUIRED_QUALIFICATION_FIELDS) {
+      if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);
+      if (!hasRequiredFormControl(html, field)) errors.push(`${file}: lead qualification field ${field} is not required`);
     }
     for (const field of REQUIRED_CORE_LEAD_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing core lead field ${field}`);
