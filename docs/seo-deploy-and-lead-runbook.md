@@ -116,6 +116,16 @@ After Cloudflare deploys:
    - `https://serviio.ai/zh/pos/menusifu-ai-phone-ordering/`
    - `https://serviio.ai/pos/39-miles-ai-phone-ordering/`
    - `https://serviio.ai/zh/pos/39-miles-ai-phone-ordering/`
+   - `https://serviio.ai/pos/square-ai-phone-ordering/`
+   - `https://serviio.ai/zh/pos/square-ai-phone-ordering/`
+   - `https://serviio.ai/pos/toast-ai-phone-ordering/`
+   - `https://serviio.ai/zh/pos/toast-ai-phone-ordering/`
+   - `https://serviio.ai/pos/clover-ai-phone-ordering/`
+   - `https://serviio.ai/zh/pos/clover-ai-phone-ordering/`
+   - `https://serviio.ai/pos/chowbus-ai-phone-ordering/`
+   - `https://serviio.ai/zh/pos/chowbus-ai-phone-ordering/`
+   - `https://serviio.ai/pos/mealkeyway-ai-phone-ordering/`
+   - `https://serviio.ai/zh/pos/mealkeyway-ai-phone-ordering/`
 5. Check Search Console again after Google crawls:
    - Pages indexed
    - Duplicate without user-selected canonical

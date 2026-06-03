@@ -90,10 +90,20 @@ Review clicks, impressions, CTR, and average position for:
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/pos/39-miles-ai-phone-ordering/`
+- `/zh/pos/39-miles-ai-phone-ordering/`
+- `/pos/square-ai-phone-ordering/`
+- `/zh/pos/square-ai-phone-ordering/`
+- `/pos/toast-ai-phone-ordering/`
+- `/zh/pos/toast-ai-phone-ordering/`
+- `/pos/clover-ai-phone-ordering/`
+- `/zh/pos/clover-ai-phone-ordering/`
 - `/zh/chinese-restaurant-pos-integration/`
 - `/pos/menusifu-ai-phone-ordering/`
+- `/zh/pos/menusifu-ai-phone-ordering/`
 - `/pos/chowbus-ai-phone-ordering/`
+- `/zh/pos/chowbus-ai-phone-ordering/`
 - `/pos/mealkeyway-ai-phone-ordering/`
+- `/zh/pos/mealkeyway-ai-phone-ordering/`
 
 ## Decision Rules
 
