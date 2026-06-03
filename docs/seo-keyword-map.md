@@ -140,9 +140,10 @@ These should not be the primary Serviio conversion wedge, but they can create re
 | POS comparison | Square vs Toast for restaurant phone orders, MenuSifu vs Chowbus, 39 Miles POS alternative, Chinese restaurant POS comparison | Use partner/referral content later |
 | POS integration education | how to connect phone orders to POS, restaurant POS integration service, restaurant phone order POS workflow | Educate and qualify integration demand |
 
-Recommended future URL:
+Recommended URL:
 
 - `/best-pos-for-chinese-restaurant-phone-orders/`
+- `/guides/chinese-restaurant-pos-comparison/`
 
 ## Restaurant Type Modifiers
 
@@ -273,12 +274,14 @@ Built pages:
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/guides/chinese-restaurant-pos-comparison/`
+- `/zh/guides/chinese-restaurant-pos-comparison/`
 
 Build next:
 
 1. Deploy the current page set and request indexing for all priority English and Chinese URLs.
 2. Expand from state pages to city pages once Search Console shows city impressions.
-3. Add POS comparison and POS partner referral guides once Search Console shows no-POS or vendor-comparison demand.
+3. Add narrower POS-vs-POS pages only if Search Console shows specific vendor-comparison impressions.
 4. Add new pages only for distinct search intent, such as city/service-area demand or POS comparison demand. Put close keyword variants inside existing pages.
 
 ## Internal Linking Rules

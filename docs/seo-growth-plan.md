@@ -111,6 +111,8 @@ Core pages:
 - `/zh/restaurant-automation-software-phone-orders/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/guides/chinese-restaurant-pos-comparison/`
+- `/zh/guides/chinese-restaurant-pos-comparison/`
 - `/service-areas/`
 - `/zh/service-areas/`
 - `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
@@ -149,6 +151,8 @@ POS-specific pages:
    - `/zh/chinese-restaurant-ai-phone-ordering/`
    - `/guides/restaurant-ai-phone-ordering-pos-guide/`
    - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+   - `/guides/chinese-restaurant-pos-comparison/`
+   - `/zh/guides/chinese-restaurant-pos-comparison/`
    - `/restaurant-phone-answering-service/`
    - `/zh/restaurant-phone-answering-service/`
    - `/ai-order-taking-for-restaurants/`
@@ -265,6 +269,8 @@ Content pages recently added:
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/guides/chinese-restaurant-pos-comparison/`
+- `/zh/guides/chinese-restaurant-pos-comparison/`
 - `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
@@ -283,7 +289,7 @@ Operational SEO work next:
 - Request indexing for every priority URL in Google Search Console.
 - Track impressions by keyword cluster, not only by exact-match keyword.
 - Expand city-level service-area pages beyond the first batch when Search Console shows city demand.
-- Add POS comparison and POS recommendation guides when no-POS or vendor-comparison queries appear.
+- Add narrower POS-vs-POS pages when no-POS or vendor-comparison queries show enough impressions.
 - Use the restaurant AI phone ordering POS guide as the default landing page for educational backlinks and directory submissions.
 
 Off-page work:

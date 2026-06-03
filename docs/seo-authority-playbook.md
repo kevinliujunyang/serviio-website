@@ -81,3 +81,5 @@ This helps other restaurant owners understand whether Serviio is relevant to the
 Record each submission, listing URL, UTM URL, and follow-up status in `docs/free-search-marketing-checklist.md`.
 
 Use `/guides/restaurant-ai-phone-ordering-pos-guide/` as the default link for educational submissions, community answers, and directory listings that prefer resource content over a direct sales page.
+
+Use `/guides/chinese-restaurant-pos-comparison/` for POS consultant outreach, restaurant technology resource pages, and conversations with no-POS owners who need a POS recommendation path before AI phone ordering.

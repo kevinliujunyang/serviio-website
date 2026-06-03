@@ -6,6 +6,8 @@ const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const priorityPatterns = [
   '/guides/restaurant-ai-phone-ordering-pos-guide/',
   '/zh/guides/restaurant-ai-phone-ordering-pos-guide/',
+  '/guides/chinese-restaurant-pos-comparison/',
+  '/zh/guides/chinese-restaurant-pos-comparison/',
   '/chinese-restaurant-ai-phone-ordering/',
   '/ai-phone-answering-for-chinese-restaurants/',
   '/restaurant-ai-phone-order-taker/',

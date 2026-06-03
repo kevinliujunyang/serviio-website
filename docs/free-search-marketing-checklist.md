@@ -97,7 +97,7 @@ Start with these categories before spending money on ads.
 | P1 | Restaurant technology directories | Vendor/resource listing | `/restaurant-pos-phone-order-integration/` | Restaurant POS phone order integration |
 | P1 | Chinese business associations | Member/vendor listing | `/chinese-restaurant-ai-phone-ordering/` | AI phone ordering for Chinese restaurants |
 | P1 | Asian chambers of commerce | Business directory | `/service-areas/` | AI phone ordering service areas |
-| P1 | POS consultants | Partner/resource link | `/chinese-restaurant-pos-integration/` | Chinese restaurant POS integration |
+| P1 | POS consultants | Partner/resource link | `/guides/chinese-restaurant-pos-comparison/` | Chinese restaurant POS comparison |
 | P2 | WeChat/community posts | Education/referral post | `/zh/chinese-restaurant-ai-phone-ordering/` | 中餐馆 AI 电话接单 |
 | P2 | Customer testimonials | Proof/backlink | relevant state or POS page | city + restaurant type + POS system |
 

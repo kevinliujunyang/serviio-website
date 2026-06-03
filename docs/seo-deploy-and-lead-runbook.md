@@ -68,6 +68,8 @@ After Cloudflare deploys:
    - `https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/`
    - `https://serviio.ai/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+   - `https://serviio.ai/guides/chinese-restaurant-pos-comparison/`
+   - `https://serviio.ai/zh/guides/chinese-restaurant-pos-comparison/`
    - `https://serviio.ai/chinese-restaurant-phone-order-automation/`
    - `https://serviio.ai/zh/chinese-restaurant-phone-order-automation/`
    - `https://serviio.ai/restaurant-pos-phone-order-integration/`
