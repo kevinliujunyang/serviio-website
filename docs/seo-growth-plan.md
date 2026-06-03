@@ -113,6 +113,18 @@ Core pages:
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/service-areas/`
 - `/zh/service-areas/`
+- `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 
 POS-specific pages:
 - `/pos/39-miles-ai-phone-ordering/`
@@ -175,6 +187,18 @@ POS-specific pages:
    - `/zh/ai-phone-agent-for-takeout-restaurants/`
    - `/service-areas/`
    - `/zh/service-areas/`
+   - `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
    - `/pos/menusifu-ai-phone-ordering/`
    - `/pos/39-miles-ai-phone-ordering/`
    - `/zh/pos/menusifu-ai-phone-ordering/`
@@ -241,12 +265,24 @@ Content pages recently added:
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 
 Operational SEO work next:
 - Deploy the current English and Chinese page set.
 - Request indexing for every priority URL in Google Search Console.
 - Track impressions by keyword cluster, not only by exact-match keyword.
-- Expand state-level service-area pages into city pages when Search Console shows city demand.
+- Expand city-level service-area pages beyond the first batch when Search Console shows city demand.
 - Add POS comparison and POS recommendation guides when no-POS or vendor-comparison queries appear.
 - Use the restaurant AI phone ordering POS guide as the default landing page for educational backlinks and directory submissions.
 

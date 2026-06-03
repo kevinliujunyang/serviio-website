@@ -10,6 +10,7 @@
     "smoke:prod": "node scripts/http-smoke.js https://serviio.ai",
     "indexing:urls": "node scripts/print-indexing-urls.js",
     "marketing:tracker": "node scripts/generate-free-search-tracker.js",
+    "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
     "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
   },
   "devDependencies": {

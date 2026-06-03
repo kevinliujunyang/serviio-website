@@ -226,6 +226,21 @@ State-level service-area pages now exist for the first high-priority local batch
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 
+City-level service-area pages now exist for the first high-priority local batch:
+
+- `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+
 ## Page-Build Priority
 
 Built pages:
