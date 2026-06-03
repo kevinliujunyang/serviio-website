@@ -39,7 +39,7 @@ npm run indexing:urls
 This repository currently has a mixed worktree during SEO buildout, so do not use `git add .` unless you have confirmed every untracked file belongs in the deploy.
 
 ```bash
-git add assets/css/styles.css assets/js/form-attribution.js index.html package.json sitemap.xml zh/index.html
+git add assets/css/styles.css assets/js/form-attribution.js index.html package.json sitemap.xml site-map zh/index.html zh/site-map
 git add ai-order-taking-for-restaurants ai-phone-agent-for-takeout-restaurants ai-phone-answering-for-chinese-restaurants ai-phone-ordering-for-chinese-takeout ai-restaurant-phone-agent bilingual-restaurant-phone-ordering
 git add ai-voice-assistant-for-restaurants best-pos-for-chinese-restaurant-phone-orders chinese-restaurant-ai-phone-ordering chinese-restaurant-phone-order-automation chinese-restaurant-pos-integration chinese-restaurant-voice-ai phone-order-ai-for-small-restaurants pos pos-integrated-ai-phone-agent
 git add restaurant-ai-assistant restaurant-ai-phone-order-taker restaurant-answering-service-for-takeout restaurant-automation-software-phone-orders restaurant-call-answering-ai restaurant-missed-call-recovery restaurant-phone-answering-service restaurant-phone-order-ai-pos restaurant-phone-order-automation restaurant-pos-phone-order-integration restaurant-pos-system-phone-orders restaurant-tech-ai-phone-ordering restaurant-voice-ordering-system service-areas takeout-order-phone-answering-service

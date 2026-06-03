@@ -739,4 +739,22 @@
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>
+  <url>
+    <loc>https://serviio.ai/site-map/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/site-map/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/site-map/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/site-map/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/site-map/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/site-map/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/site-map/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/site-map/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
 </urlset>
