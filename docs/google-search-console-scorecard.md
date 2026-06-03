@@ -28,6 +28,8 @@ Track these as exact query groups in Search Console exports:
 - chinese restaurant ai phone ordering
 - ai phone answering for chinese restaurants
 - restaurant ai phone order taker
+- restaurant phone order taker ai
+- ai order taker for restaurant phone calls
 - restaurant voice ordering system
 - restaurant pos phone order integration
 - pos integrated ai phone agent

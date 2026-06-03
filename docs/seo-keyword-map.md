@@ -20,7 +20,9 @@ Examples:
 
 - Chinese restaurant AI phone ordering
 - AI phone answering for Chinese restaurants
+- restaurant phone order taker AI
 - restaurant AI phone order taker
+- AI order taker for restaurant phone calls
 - POS integrated AI phone agent restaurant
 - restaurant POS system phone orders
 - restaurant AI assistant for takeout orders
@@ -95,7 +97,7 @@ These should get the strongest landing pages, direct CTAs, lead forms, FAQs, sch
 | --- | --- | --- | --- |
 | Chinese restaurant phone ordering | chinese restaurant ai phone ordering, chinese restaurant phone order AI, chinese takeout AI ordering, Chinese restaurant phone automation | Owner wants fewer missed calls and better phone-order handling | Existing niche landing pages |
 | AI phone answering for Chinese restaurants | AI phone answering for Chinese restaurants, Chinese restaurant AI phone answering, bilingual AI answering for Chinese restaurants | Owner wants calls answered in English/Chinese | Existing niche landing pages |
-| Restaurant AI phone order taker | restaurant AI phone order taker, AI phone order taker for restaurants, AI order taker for restaurant phone calls | Owner is searching for the product category | Existing category page |
+| Restaurant phone order taker AI | restaurant phone order taker AI, restaurant AI phone order taker, AI phone order taker for restaurants, AI order taker for restaurant phone calls | Owner is searching for the phone-order product category | Existing category page |
 | POS-integrated AI phone agent | POS integrated AI phone agent restaurant, restaurant AI POS integration, AI phone ordering POS integration, AI order taking POS integration | Owner already has POS and wants automation connected to workflow | Existing POS integration page plus new broader page |
 | Restaurant phone order AI POS | restaurant phone order AI POS, restaurant phone ordering AI POS system, phone order AI for restaurant POS, restaurant POS phone order automation | Owner wants phone orders to flow into POS/kitchen | New priority page |
 
