@@ -27,6 +27,8 @@ Primary search themes:
 - Restaurant AI phone order taker
 - AI phone answering for Chinese restaurants
 - Restaurant voice ordering system
+- Restaurant phone ordering system
+- Phone ordering system for restaurants
 - AI phone agent for takeout restaurants
 - Restaurant phone order AI POS
 - Restaurant AI POS integration

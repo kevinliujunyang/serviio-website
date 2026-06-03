@@ -31,6 +31,8 @@ Track these as exact query groups in Search Console exports:
 - restaurant phone order taker ai
 - ai order taker for restaurant phone calls
 - restaurant voice ordering system
+- restaurant phone ordering system
+- phone ordering system for restaurants
 - restaurant pos phone order integration
 - pos integrated ai phone agent
 - restaurant phone order ai pos

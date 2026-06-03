@@ -82,6 +82,8 @@ Examples to include naturally across pages:
 - AI voice assistant for restaurants
 - restaurant voice AI assistant
 - restaurant phone order automation
+- restaurant phone ordering system
+- phone ordering system for restaurants
 - automated phone ordering for restaurants
 - restaurant phone answering AI
 - restaurant call answering AI
@@ -124,6 +126,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Restaurant customer service AI | restaurant customer service AI, AI customer service for restaurants, restaurant AI customer support, restaurant customer service automation | Buyer wants AI to answer customer questions and recover missed phone demand | `/restaurant-ai-assistant/` |
 | AI voice assistant for restaurants | AI voice assistant for restaurants, restaurant voice AI assistant, voice assistant restaurant ordering, voice AI for restaurant phone calls | Buyer uses "voice assistant" instead of "phone agent" | `/ai-voice-assistant-for-restaurants/` |
 | Restaurant phone order automation | restaurant phone order automation, automate restaurant phone orders, automated phone ordering for restaurants, restaurant phone automation | Buyer describes the workflow problem | `/restaurant-phone-order-automation/` |
+| Restaurant phone ordering system | restaurant phone ordering system, phone ordering system for restaurants, restaurant phone order system, AI phone ordering system for restaurants | Buyer wants a complete system for phone order capture, voice ordering, and POS-ready handoff | `/restaurant-voice-ordering-system/` |
 | Restaurant POS system phone orders | restaurant POS system phone orders, POS system for restaurant phone orders, restaurant phone orders POS integration, phone order POS system restaurant | Buyer is POS-aware and wants phone order workflow | `/restaurant-pos-system-phone-orders/` |
 | Restaurant tech AI phone ordering | restaurant tech AI phone ordering, restaurant technology AI ordering, restaurant tech phone order automation, restaurant tech voice AI | Broader restaurant technology discovery | `/restaurant-tech-ai-phone-ordering/` |
 | Restaurant automation software | restaurant automation software phone orders, restaurant operations automation, restaurant customer service automation, takeout order automation software | Buyer researches software category | `/restaurant-automation-software-phone-orders/` |
