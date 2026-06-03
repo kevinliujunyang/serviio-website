@@ -37,6 +37,37 @@ function extractAttr(html, regex) {
   return match ? match[1] : '';
 }
 
+function asArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+
+function validateJsonLdOfferPricing(data, file, errors) {
+  if (!data || typeof data !== 'object') return;
+
+  const types = asArray(data['@type']);
+  if (types.includes('Offer')) {
+    const description = String(data.description || '');
+    const describesPercentageFee = description.includes('%') || description.includes('％');
+    const hasFixedPriceFields = Object.prototype.hasOwnProperty.call(data, 'price') ||
+      Object.prototype.hasOwnProperty.call(data, 'priceCurrency');
+
+    if (describesPercentageFee && hasFixedPriceFields) {
+      errors.push(`${file}: percentage Offer must use description only, not price or priceCurrency`);
+    }
+    if (data.price === '2' && data.priceCurrency === 'USD') {
+      errors.push(`${file}: 2% fee is encoded as fixed USD price in JSON-LD`);
+    }
+  }
+
+  for (const value of Object.values(data)) {
+    if (Array.isArray(value)) {
+      for (const item of value) validateJsonLdOfferPricing(item, file, errors);
+    } else if (value && typeof value === 'object') {
+      validateJsonLdOfferPricing(value, file, errors);
+    }
+  }
+}
+
 function validateMetadata(pages) {
   const errors = [];
   let jsonLdBlocks = 0;
@@ -58,7 +89,8 @@ function validateMetadata(pages) {
 
     for (const match of jsonLd) {
       try {
-        JSON.parse(match[1]);
+        const data = JSON.parse(match[1]);
+        validateJsonLdOfferPricing(data, file, errors);
         jsonLdBlocks += 1;
       } catch (error) {
         errors.push(`${file}: invalid JSON-LD (${error.message})`);
