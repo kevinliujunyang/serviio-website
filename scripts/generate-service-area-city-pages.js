@@ -104,6 +104,17 @@ const cities = [
     zhState: '马萨诸塞州',
     zhNearby: 'Quincy、Cambridge、Malden、Brookline、Allston、Somerville 和唐人街',
   },
+  {
+    slug: 'philadelphia-chinese-restaurant-ai-phone-ordering',
+    city: 'Philadelphia',
+    state: 'Pennsylvania',
+    abbr: 'PA',
+    stateSlug: 'pennsylvania-chinese-restaurant-ai-phone-ordering',
+    nearby: 'Chinatown, University City, Northeast Philadelphia, South Philadelphia, King of Prussia, and Cherry Hill',
+    zhCity: '费城',
+    zhState: '宾州',
+    zhNearby: '唐人街、University City、费城东北区、南费城、King of Prussia 和 Cherry Hill',
+  },
 ];
 
 function writeFile(file, content) {

@@ -57,6 +57,9 @@ Track these as exact query groups in Search Console exports:
 - massachusetts chinese restaurant ai phone ordering
 - boston chinese restaurant ai phone ordering
 - restaurant ai assistant boston
+- pennsylvania chinese restaurant ai phone ordering
+- philadelphia chinese restaurant ai phone ordering
+- restaurant pos phone order integration philadelphia
 
 ## Priority Landing Pages
 
@@ -96,6 +99,10 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
 - `/pos/39-miles-ai-phone-ordering/`
 - `/zh/pos/39-miles-ai-phone-ordering/`
 - `/pos/square-ai-phone-ordering/`

@@ -40,7 +40,7 @@ Use this matrix to cover every meaningful combination across landing-page copy, 
 | Phone-order use case | phone orders, phone order taking, takeout orders, pickup orders, missed calls, rush-hour calls, after-hours calls, multi-line calls, menu questions, SMS confirmation |
 | POS qualifier | POS integration, POS system phone orders, existing POS, integrated with POS, phone orders to POS, kitchen handoff, order injection, Square POS, Toast POS, Clover POS, 39 Miles, MenuSifu, Chowbus, Mealkeyway |
 | Language qualifier | Chinese, Mandarin, Cantonese, bilingual, English and Chinese, multilingual restaurant phone answering |
-| Location qualifier | United States, California, Bay Area, San Francisco, Los Angeles, New York, New Jersey, Texas, Seattle, Chicago, Boston |
+| Location qualifier | United States, California, Bay Area, San Francisco, Los Angeles, New York, New Jersey, Texas, Seattle, Chicago, Boston, Philadelphia, Pennsylvania |
 
 High-value combination patterns:
 
@@ -215,6 +215,8 @@ Service-area pages and sections should combine city/state with restaurant type a
 - restaurant phone order automation Seattle
 - Chinese restaurant POS integration Chicago
 - restaurant AI assistant Boston
+- Chinese restaurant AI phone ordering Philadelphia
+- restaurant POS phone order integration Pennsylvania
 
 State-level service-area pages now exist for the first high-priority local batch:
 
@@ -228,6 +230,8 @@ State-level service-area pages now exist for the first high-priority local batch
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
 
 City-level service-area pages now exist for the first high-priority local batch:
 
@@ -245,6 +249,8 @@ City-level service-area pages now exist for the first high-priority local batch:
 - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
 
 ## Page-Build Priority
 
@@ -278,6 +284,8 @@ Built pages:
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/guides/chinese-restaurant-pos-comparison/`

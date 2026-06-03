@@ -77,6 +77,16 @@ const states = [
     zhCities: '波士顿、Quincy、Cambridge、Malden、Brookline、Allston 和 Somerville',
     zhCityList: ['波士顿', 'Quincy', 'Cambridge', 'Malden', 'Brookline', 'Allston'],
   },
+  {
+    slug: 'pennsylvania-chinese-restaurant-ai-phone-ordering',
+    name: 'Pennsylvania',
+    abbr: 'PA',
+    cities: 'Philadelphia, University City, Chinatown, Northeast Philadelphia, King of Prussia, and Pittsburgh',
+    cityList: ['Philadelphia', 'University City', 'Chinatown', 'Northeast Philadelphia', 'King of Prussia', 'Pittsburgh'],
+    zhName: '宾州',
+    zhCities: '费城、University City、唐人街、费城东北区、King of Prussia 和 Pittsburgh',
+    zhCityList: ['费城', 'University City', '唐人街', '费城东北区', 'King of Prussia', 'Pittsburgh'],
+  },
 ];
 
 function writeFile(file, content) {

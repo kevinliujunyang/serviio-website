@@ -127,6 +127,10 @@ Core pages:
 - `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
 
 POS-specific pages:
 - `/pos/39-miles-ai-phone-ordering/`
@@ -203,6 +207,10 @@ POS-specific pages:
    - `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
    - `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
    - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+   - `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+   - `/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
    - `/pos/menusifu-ai-phone-ordering/`
    - `/pos/39-miles-ai-phone-ordering/`
    - `/zh/pos/menusifu-ai-phone-ordering/`
@@ -267,6 +275,10 @@ Content pages recently added:
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/guides/chinese-restaurant-pos-comparison/`
@@ -283,6 +295,10 @@ Content pages recently added:
 - `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
 
 Operational SEO work next:
 - Deploy the current English and Chinese page set.

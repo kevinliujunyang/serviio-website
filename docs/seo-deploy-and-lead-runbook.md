@@ -102,6 +102,8 @@ After Cloudflare deploys:
    - `https://serviio.ai/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+   - `https://serviio.ai/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
+   - `https://serviio.ai/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
@@ -116,6 +118,8 @@ After Cloudflare deploys:
    - `https://serviio.ai/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+   - `https://serviio.ai/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
+   - `https://serviio.ai/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/pos/menusifu-ai-phone-ordering/`
    - `https://serviio.ai/zh/pos/menusifu-ai-phone-ordering/`
    - `https://serviio.ai/pos/39-miles-ai-phone-ordering/`
