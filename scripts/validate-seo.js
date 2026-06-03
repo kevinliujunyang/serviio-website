@@ -10,6 +10,7 @@ const REQUIRED_FORM_FIELDS = [
   'phone_orders_per_week',
   'pos_recommendation_interest',
 ];
+const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
 
 function walkHtmlPages(dir = '.') {
@@ -138,6 +139,9 @@ function validateForms(pages) {
     for (const field of REQUIRED_FORM_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);
     }
+    for (const field of REQUIRED_CORE_LEAD_FIELDS) {
+      if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing core lead field ${field}`);
+    }
     const hasPosQualification = POS_QUALIFICATION_FIELDS.some((field) => html.includes(`name="${field}"`));
     if (!hasPosQualification) {
       errors.push(`${file}: form missing POS qualification field (${POS_QUALIFICATION_FIELDS.join(' or ')})`);
@@ -238,6 +242,7 @@ console.log([
   `${metadata.jsonLdBlocks} JSON-LD blocks valid`,
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
+  'core lead contact fields validated',
   'POS qualification validated',
   'internal links validated',
   'form attribution validated',
