@@ -10,6 +10,14 @@ Google does not provide one official organic SEO score. Use this scorecard inste
 
 Track every Monday after deployment.
 
+Analyze a Search Console CSV export with:
+
+```bash
+npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
+```
+
+Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, and low-CTR title/meta rewrite candidates.
+
 | Metric | Source | Target |
 | --- | --- | --- |
 | Indexed sitemap URLs | Search Console Pages report | 90%+ of submitted URLs indexed |

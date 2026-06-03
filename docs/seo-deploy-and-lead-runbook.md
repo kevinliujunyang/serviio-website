@@ -232,6 +232,12 @@ Every week:
 5. Ask 1 pilot or customer for a testimonial that includes city, restaurant type, POS system, and phone-order pain.
 6. Add one new page only if Search Console shows a query cluster with impressions and no matching landing page.
 
+Use the Search Console export analyzer before deciding what to edit:
+
+```bash
+npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
+```
+
 ## Google Scorecard
 
 Google does not provide one organic SEO score. Use `docs/google-search-console-scorecard.md` as the weekly scorecard for:
