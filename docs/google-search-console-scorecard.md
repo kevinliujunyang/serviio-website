@@ -35,6 +35,8 @@ Track these as exact query groups in Search Console exports:
 
 - chinese restaurant ai phone ordering
 - ai phone answering for chinese restaurants
+- chinese restaurant phone answering service
+- phone answering service for chinese restaurants
 - ai phone answering service for restaurants
 - restaurant ai phone answering service
 - restaurant ai phone order taker
@@ -105,6 +107,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/ai-phone-agent-for-takeout-restaurants/`
 - `/ai-phone-answering-for-chinese-restaurants/`
 - `/zh/ai-phone-answering-for-chinese-restaurants/`
+- `/chinese-restaurant-phone-answering-service/`
+- `/zh/chinese-restaurant-phone-answering-service/`
 - `/chinese-restaurant-phone-order-automation/`
 - `/zh/chinese-restaurant-phone-order-automation/`
 - `/ai-phone-ordering-for-chinese-takeout/`

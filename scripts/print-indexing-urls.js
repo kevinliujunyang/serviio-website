@@ -12,6 +12,8 @@ const priorityPatterns = [
   '/zh/chinese-restaurant-ai-phone-ordering/',
   '/ai-phone-answering-for-chinese-restaurants/',
   '/zh/ai-phone-answering-for-chinese-restaurants/',
+  '/chinese-restaurant-phone-answering-service/',
+  '/zh/chinese-restaurant-phone-answering-service/',
   '/ai-order-taking-for-restaurants/',
   '/zh/ai-order-taking-for-restaurants/',
   '/ai-restaurant-phone-agent/',
