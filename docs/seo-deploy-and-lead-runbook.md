@@ -156,6 +156,8 @@ Every Formspree form loads `/assets/js/form-attribution.js`, which appends:
 
 Use these fields to compare SEO, paid search, community posts, directory listings, and partner referrals.
 
+Free search marketing submissions and UTM tracking rules live in `docs/free-search-marketing-checklist.md`.
+
 ## Weekly SEO Routine
 
 Every week:

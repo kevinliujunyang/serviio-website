@@ -6,6 +6,8 @@ Build enough off-page authority, local trust, and referral traffic to support fi
 
 ## Priority Backlink Targets
 
+The operational tracker for free listing and outreach work lives in `docs/free-search-marketing-checklist.md`.
+
 Restaurant technology directories:
 - restaurant technology marketplaces
 - restaurant POS consultant directories
@@ -73,3 +75,4 @@ This helps other restaurant owners understand whether Serviio is relevant to the
 4. Ask 1 customer or pilot restaurant for a testimonial.
 5. Review Search Console queries and add internal links to pages that are gaining impressions.
 
+Record each submission, listing URL, UTM URL, and follow-up status in `docs/free-search-marketing-checklist.md`.
