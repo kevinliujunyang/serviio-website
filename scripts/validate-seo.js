@@ -43,6 +43,13 @@ function asArray(value) {
   return Array.isArray(value) ? value : [value];
 }
 
+function hasRequiredFormControl(html, field) {
+  const controls = html.match(/<(input|select|textarea)\b[^>]*>/g) || [];
+  return controls.some((control) =>
+    control.includes(`name="${field}"`) && /\srequired(?:\s|>|=)/.test(control)
+  );
+}
+
 function validateJsonLdOfferPricing(data, file, errors) {
   if (!data || typeof data !== 'object') return;
 
@@ -141,10 +148,15 @@ function validateForms(pages) {
     }
     for (const field of REQUIRED_CORE_LEAD_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing core lead field ${field}`);
+      if (!hasRequiredFormControl(html, field)) errors.push(`${file}: core lead field ${field} is not required`);
     }
     const hasPosQualification = POS_QUALIFICATION_FIELDS.some((field) => html.includes(`name="${field}"`));
     if (!hasPosQualification) {
       errors.push(`${file}: form missing POS qualification field (${POS_QUALIFICATION_FIELDS.join(' or ')})`);
+    }
+    const hasRequiredPosQualification = POS_QUALIFICATION_FIELDS.some((field) => hasRequiredFormControl(html, field));
+    if (!hasRequiredPosQualification) {
+      errors.push(`${file}: POS qualification field is not required`);
     }
   }
 
@@ -243,6 +255,7 @@ console.log([
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
   'core lead contact fields validated',
+  'required lead qualification fields validated',
   'POS qualification validated',
   'internal links validated',
   'form attribution validated',
