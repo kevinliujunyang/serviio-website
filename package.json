@@ -5,6 +5,10 @@
   "private": true,
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
+    "validate:seo": "node scripts/validate-seo.js",
+    "smoke:http": "node scripts/http-smoke.js",
+    "smoke:prod": "node scripts/http-smoke.js https://serviio.ai",
+    "indexing:urls": "node scripts/print-indexing-urls.js",
     "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
   },
   "devDependencies": {

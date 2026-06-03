@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <title>AI Phone Ordering for Chinese Restaurants | Serviio</title>
+    <meta name="description" content="AI phone ordering for Chinese restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and other POS systems.">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="canonical" href="https://serviio.ai/chinese-restaurant-ai-phone-ordering/">
+    <link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-ai-phone-ordering/">
+    <link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/">
+    <link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-ai-phone-ordering/">
+    <meta property="og:title" content="AI Phone Ordering for Chinese Restaurants">
+    <meta property="og:description" content="Bilingual AI phone ordering for Chinese restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and other POS systems.">
+    <meta property="og:url" content="https://serviio.ai/chinese-restaurant-ai-phone-ordering/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Serviio">
+    <meta property="og:image" content="https://serviio.ai/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Phone Ordering for Chinese Restaurants">
+    <meta name="twitter:description" content="POS-integrated AI phone ordering for Chinese restaurants.">
+    <meta name="twitter:image" content="https://serviio.ai/assets/og-image.png">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Serviio",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Cloud",
+        "description": "AI phone ordering assistant for Chinese restaurants that answers calls, takes orders, and integrates with restaurant POS systems.",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Chinese restaurant owners in the United States"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "2",
+            "priceCurrency": "USD",
+            "description": "2% per completed order. No monthly fees and no setup costs."
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Does Serviio work for Chinese restaurants?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Serviio is built for restaurants that receive phone orders in English and Chinese. It can answer calls, understand menu questions, confirm modifiers, and send orders to the kitchen."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Which POS systems can Serviio integrate with?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Serviio can integrate with POS systems including 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and other systems that provide an API or integration path."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if my restaurant does not have a POS system?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can still contact Serviio. We prioritize restaurants with an existing POS for fast launch, but we can record your interest and discuss POS options if you are considering one."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Service","name":"AI phone ordering and POS integration for Chinese restaurants","serviceType":"Restaurant AI phone ordering","description":"AI phone ordering for Chinese restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and other POS systems.","provider":{"@type":"Organization","name":"Serviio","url":"https://serviio.ai"},"areaServed":{"@type":"Country","name":"United States"},"audience":{"@type":"Audience","audienceType":"Chinese restaurant owners in the United States"}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://serviio.ai/"},{"@type":"ListItem","position":2,"name":"Chinese Restaurant AI Phone Ordering","item":"https://serviio.ai/chinese-restaurant-ai-phone-ordering/"}]}
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900 antialiased">
+    <nav class="fixed w-full z-50 glass border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/"><img src="/assets/logo.svg" alt="Serviio - AI phone ordering for Chinese restaurants" class="h-8"></a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#pos" class="text-gray-600 hover:text-gray-900 transition">POS Integrations</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">How It Works</a>
+                    <a href="/service-areas/" class="text-gray-600 hover:text-gray-900 transition">Service Areas</a>
+                    <a href="#contact" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">Get Demo</a>
+                    <a href="/zh/chinese-restaurant-ai-phone-ordering/" hreflang="zh" class="text-gray-600 hover:text-gray-900 transition">中文</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#pos" class="block text-gray-600 hover:text-gray-900">POS Integrations</a>
+                <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">How It Works</a>
+                <a href="/service-areas/" class="block text-gray-600 hover:text-gray-900">Service Areas</a>
+                <a href="/zh/chinese-restaurant-ai-phone-ordering/" hreflang="zh" class="block text-gray-600 hover:text-gray-900">中文</a>
+                <a href="#contact" class="block gradient-bg text-white px-5 py-2 rounded-full font-medium text-center">Get Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center px-4 py-2 bg-primary-50 rounded-full text-primary-600 text-sm font-medium mb-8">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                            Built for Chinese restaurants using modern POS systems
+                        </div>
+                        <h1 class="text-5xl sm:text-6xl font-bold tracking-tight mb-6">
+                            AI phone ordering for Chinese restaurants
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8">
+                            Serviio answers phone calls in English and Chinese, takes orders naturally, handles modifiers and menu questions, then sends confirmed orders into your POS or kitchen workflow.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#contact" class="gradient-bg text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-lg shadow-primary-500/25 text-center">Check POS Fit</a>
+                            <a href="#pos" class="bg-gray-100 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-200 transition text-center">See POS Systems</a>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-b from-primary-50 to-white rounded-3xl p-8">
+                        <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-md">
+                                        <p class="text-gray-800">"你好，我想点外卖，一份鱼香肉丝和两份春卷。"</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 justify-end">
+                                    <div class="gradient-bg rounded-2xl rounded-tr-none px-4 py-3 max-w-md">
+                                        <p class="text-white">"好的。鱼香肉丝要白饭还是炒饭？春卷需要几份酱？"</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="pt-4 border-t border-gray-100">
+                                    <p class="text-sm text-gray-500 mb-3">Qualified order sent to POS</p>
+                                    <div class="grid grid-cols-2 gap-3 text-center">
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <div class="font-semibold">No busy signal</div>
+                                            <div class="text-gray-500 text-sm">Multi-line calls</div>
+                                        </div>
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <div class="font-semibold">No re-entry</div>
+                                            <div class="text-gray-500 text-sm">POS workflow</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pos" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Connect phone orders to the POS your restaurant already uses</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Serviio prioritizes restaurants that already have a POS because those locations can launch faster and avoid manual order entry. For the broader workflow, see the <a href="/restaurant-pos-phone-order-integration/" class="text-primary-600 hover:text-primary-700 font-semibold">restaurant POS phone order integration guide</a>.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="/pos/39-miles-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">39 Miles</a>
+                    <a href="/pos/square-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">Square</a>
+                    <a href="/pos/toast-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">Toast</a>
+                    <a href="/pos/clover-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">Clover</a>
+                    <a href="/pos/menusifu-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">MenuSifu</a>
+                    <a href="/pos/chowbus-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">Chowbus</a>
+                    <a href="/pos/mealkeyway-ai-phone-ordering/" class="bg-white border border-gray-200 rounded-xl py-6 px-4 text-center font-semibold hover:shadow-md hover:border-primary-200 transition">Mealkeyway</a>
+                </div>
+                <p class="text-center text-gray-600 mt-8">Using another POS? If it has an API or export workflow, we can evaluate the integration path.</p>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Built around how Chinese restaurants actually receive calls</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Customers call during rush hour, ask menu questions, switch languages, and change orders. Serviio handles the call before your team loses the order.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">1</div>
+                        <h3 class="text-xl font-semibold mb-3">Answer every call</h3>
+                        <p class="text-gray-600">Serviio handles multiple calls at once in English, Chinese, and five other languages, even when your front desk is busy.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">2</div>
+                        <h3 class="text-xl font-semibold mb-3">Confirm the order</h3>
+                        <p class="text-gray-600">The AI asks clarifying questions about rice, spice level, substitutions, pickup time, and special instructions before submission.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">3</div>
+                        <h3 class="text-xl font-semibold mb-3">Send to your POS</h3>
+                        <p class="text-gray-600">Confirmed orders flow to your POS or kitchen process so staff can focus on cooking and serving guests.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-6">Restaurants without a POS can still talk to us</h2>
+                        <p class="text-xl text-gray-600 mb-6">Serviio prioritizes POS-ready restaurants for faster launch. If you do not have a POS yet, we can keep your information and ask whether you want to evaluate POS options.</p>
+                        <p class="text-gray-600">This keeps the main sales process focused while still capturing demand from restaurants that are modernizing their ordering stack.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-gray-100">
+                        <h3 class="text-2xl font-semibold mb-4">Best-fit lead profile</h3>
+                        <ul class="space-y-4 text-gray-700">
+                            <li class="flex gap-3"><span class="text-green-500 font-bold">✓</span><span>Chinese restaurant in the United States</span></li>
+                            <li class="flex gap-3"><span class="text-green-500 font-bold">✓</span><span>Gets meaningful phone order volume</span></li>
+                            <li class="flex gap-3"><span class="text-green-500 font-bold">✓</span><span>Uses 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS</span></li>
+                            <li class="flex gap-3"><span class="text-green-500 font-bold">✓</span><span>Wants fewer missed calls and less manual order entry</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold text-white mb-4">Find out if Serviio can connect to your POS</h2>
+                        <p class="text-xl text-gray-400 mb-8">Tell us which system your restaurant uses. We will confirm the fastest integration path and follow up within 24 hours.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-gray-300"><span class="text-primary-400 font-bold">✓</span><span>14-day free trial</span></div>
+                            <div class="flex items-center gap-3 text-gray-300"><span class="text-primary-400 font-bold">✓</span><span>2% per completed order</span></div>
+                            <div class="flex items-center gap-3 text-gray-300"><span class="text-primary-400 font-bold">✓</span><span>No monthly fee or setup fee</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8">
+                        <form id="contact-form" action="https://formspree.io/f/xeeezpzn" method="POST" class="space-y-6">
+                            <input type="hidden" name="_subject" value="Chinese Restaurant POS Lead - Serviio">
+                            <input type="hidden" name="_next" value="https://serviio.ai/chinese-restaurant-ai-phone-ordering/#thank-you">
+                            <input type="hidden" name="lead_source" value="english_chinese_restaurant_pos_landing_page"><input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
+                            <div>
+                                <label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">Restaurant Name</label>
+                                <input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Golden Dragon">
+                            </div>
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Owner or manager name">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
+                            </div>
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                            <input type="text" id="city" name="restaurant_city" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="San Francisco">
+                        </div>
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                            <input type="text" id="state" name="restaurant_state" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="CA">
+                        </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="you@restaurant.com">
+                            </div>
+                            <div>
+                                <label for="pos_system" class="block text-sm font-medium text-gray-700 mb-2">Current POS System</label>
+                                <select id="pos_system" name="pos_system" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+                                    <option value="">Select your POS</option>
+                                    <option>39 Miles</option>
+                                    <option>Square</option>
+                                    <option>Toast</option>
+                                    <option>Clover</option>
+                                    <option>MenuSifu</option>
+                                    <option>Chowbus</option>
+                                    <option>Mealkeyway</option>
+                                    <option>Other POS</option>
+                                    <option>No POS yet</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="phone_orders" class="block text-sm font-medium text-gray-700 mb-2">Approximate phone orders per week</label>
+                                <select id="phone_orders" name="phone_orders_per_week" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+                                    <option value="">Select range</option>
+                                    <option>Under 25</option>
+                                    <option>25-75</option>
+                                    <option>76-150</option>
+                                    <option>150+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="pos_interest" class="block text-sm font-medium text-gray-700 mb-2">If you do not have a POS, do you want POS recommendations?</label>
+                                <select id="pos_interest" name="pos_recommendation_interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+                                    <option value="">Select one</option>
+                                    <option>Yes, I want POS recommendations</option>
+                                    <option>No, I only want AI phone ordering</option>
+                                    <option>Not applicable, I already have a POS</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">Check My POS Integration</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <img src="/assets/logo.svg" alt="Serviio" class="h-8 brightness-0 invert">
+                    <p class="text-gray-500 mt-2">AI phone ordering for Chinese restaurants</p>
+                </div>
+                <div class="flex gap-8 text-gray-400">
+                    <a href="/" class="hover:text-white transition">Home</a>
+                    <a href="/zh/chinese-restaurant-ai-phone-ordering/" hreflang="zh" class="hover:text-white transition">中文</a>
+                    <a href="/service-areas/" class="hover:text-white transition">Service Areas</a>
+                    <a href="#contact" class="hover:text-white transition">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2026 Serviio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+        if (window.location.hash === '#thank-you') {
+            document.getElementById('contact-form').innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3><p class="text-gray-600">We received your POS integration request and will follow up within 24 hours.</p></div>';
+        }
+    </script>
+    <script src="/assets/js/form-attribution.js"></script>
+</body>
+</html>
