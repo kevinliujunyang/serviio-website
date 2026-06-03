@@ -226,6 +226,8 @@ State-level service-area pages now exist for the first high-priority local batch
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 
 City-level service-area pages now exist for the first high-priority local batch:
 
@@ -241,6 +243,8 @@ City-level service-area pages now exist for the first high-priority local batch:
 - `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 
 ## Page-Build Priority
 
@@ -272,6 +276,8 @@ Built pages:
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 - `/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/guides/chinese-restaurant-pos-comparison/`

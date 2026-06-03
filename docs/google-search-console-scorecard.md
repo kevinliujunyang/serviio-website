@@ -54,6 +54,9 @@ Track these as exact query groups in Search Console exports:
 - square ai phone ordering for restaurants
 - toast ai phone ordering for restaurants
 - clover ai phone ordering for restaurants
+- massachusetts chinese restaurant ai phone ordering
+- boston chinese restaurant ai phone ordering
+- restaurant ai assistant boston
 
 ## Priority Landing Pages
 
@@ -89,6 +92,10 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 - `/pos/39-miles-ai-phone-ordering/`
 - `/zh/pos/39-miles-ai-phone-ordering/`
 - `/pos/square-ai-phone-ordering/`

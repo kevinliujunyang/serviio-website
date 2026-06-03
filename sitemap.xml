@@ -848,6 +848,24 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/guides/restaurant-ai-phone-ordering-pos-guide/"/>
@@ -900,5 +918,27 @@
     <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+</urlset>
+efreq>
+    <priority>0.82</priority>
   </url>
 </urlset>

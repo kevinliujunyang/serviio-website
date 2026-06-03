@@ -93,6 +93,17 @@ const cities = [
     zhState: '伊利诺伊州',
     zhNearby: '唐人街、Bridgeport、Uptown、Naperville、Schaumburg 和 Evanston',
   },
+  {
+    slug: 'boston-chinese-restaurant-ai-phone-ordering',
+    city: 'Boston',
+    state: 'Massachusetts',
+    abbr: 'MA',
+    stateSlug: 'massachusetts-chinese-restaurant-ai-phone-ordering',
+    nearby: 'Quincy, Cambridge, Malden, Brookline, Allston, Somerville, and Chinatown',
+    zhCity: '波士顿',
+    zhState: '马萨诸塞州',
+    zhNearby: 'Quincy、Cambridge、Malden、Brookline、Allston、Somerville 和唐人街',
+  },
 ];
 
 function writeFile(file, content) {

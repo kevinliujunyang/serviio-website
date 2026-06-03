@@ -67,6 +67,16 @@ const states = [
     zhCities: '休斯顿、达拉斯、Plano、奥斯汀、圣安东尼奥、Sugar Land 和 Richardson',
     zhCityList: ['休斯顿', '达拉斯', 'Plano', '奥斯汀', '圣安东尼奥', 'Sugar Land'],
   },
+  {
+    slug: 'massachusetts-chinese-restaurant-ai-phone-ordering',
+    name: 'Massachusetts',
+    abbr: 'MA',
+    cities: 'Boston, Quincy, Cambridge, Malden, Brookline, Allston, and Somerville',
+    cityList: ['Boston', 'Quincy', 'Cambridge', 'Malden', 'Brookline', 'Allston'],
+    zhName: '马萨诸塞州',
+    zhCities: '波士顿、Quincy、Cambridge、Malden、Brookline、Allston 和 Somerville',
+    zhCityList: ['波士顿', 'Quincy', 'Cambridge', 'Malden', 'Brookline', 'Allston'],
+  },
 ];
 
 function writeFile(file, content) {
@@ -247,26 +257,40 @@ function updateIndexingScript() {
 
 function updateServiceAreaIndex() {
   let html = fs.readFileSync('service-areas/index.html', 'utf8');
-  const links = states.map((state) => `<a href="/service-areas/${state.slug}/" class="text-primary-600 hover:text-primary-700">${state.name} Chinese restaurant AI phone ordering</a>`).join('');
+  const links = states.map((state) => `<a href="/service-areas/${state.slug}/" class="text-primary-600 hover:text-primary-700">${state.name} Chinese restaurant AI phone ordering</a>`);
   if (!html.includes('/service-areas/california-chinese-restaurant-ai-phone-ordering/')) {
     html = html.replace('</div>\n            </div>\n        </section>\n\n        <section class="py-20 px-4 sm:px-6 lg:px-8">', `</div>
-                <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">${links}</div>
+                <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">${links.join('')}</div>
             </div>
         </section>
 
         <section class="py-20 px-4 sm:px-6 lg:px-8">`);
+  } else {
+    const missing = links.filter((link) => !html.includes(link.match(/href="([^"]+)/)[1])).join('');
+    if (missing) {
+      html = html.replace('<a class="text-primary-600 hover:text-primary-700" href="/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/">', `${missing}<a class="text-primary-600 hover:text-primary-700" href="/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/">`);
+    }
+  }
+  if (html !== fs.readFileSync('service-areas/index.html', 'utf8')) {
     fs.writeFileSync('service-areas/index.html', html);
   }
 
   let zh = fs.readFileSync('zh/service-areas/index.html', 'utf8');
-  const zhLinks = states.map((state) => `<a href="/zh/service-areas/${state.slug}/" class="text-primary-600 hover:text-primary-700">${state.zhName}中餐馆 AI 电话接单</a>`).join('');
+  const zhLinks = states.map((state) => `<a href="/zh/service-areas/${state.slug}/" class="text-primary-600 hover:text-primary-700">${state.zhName}中餐馆 AI 电话接单</a>`);
   if (!zh.includes('/zh/service-areas/california-chinese-restaurant-ai-phone-ordering/')) {
     zh = zh.replace('</div>\n            </div>\n        </section>\n\n        <section id="contact"', `</div>
-                <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">${zhLinks}</div>
+                <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">${zhLinks.join('')}</div>
             </div>
         </section>
 
         <section id="contact"`);
+  } else {
+    const missing = zhLinks.filter((link) => !zh.includes(link.match(/href="([^"]+)/)[1])).join('');
+    if (missing) {
+      zh = zh.replace('<a class="text-primary-600 hover:text-primary-700" href="/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/">', `${missing}<a class="text-primary-600 hover:text-primary-700" href="/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/">`);
+    }
+  }
+  if (zh !== fs.readFileSync('zh/service-areas/index.html', 'utf8')) {
     fs.writeFileSync('zh/service-areas/index.html', zh);
   }
 }
