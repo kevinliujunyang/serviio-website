@@ -26,6 +26,7 @@ The validation script checks:
 - POS recommendation intent for restaurants without a POS
 - persisted source attribution through first-touch landing fields, current-page fields, UTM fields, `gclid`, and `msclkid`
 - internal links
+- homepage Organization schema authority signals for contact, Chinese restaurant AI ordering, POS integration, and named POS systems
 - Search Console priority paths against `sitemap.xml` and `scripts/print-indexing-urls.js`
 - `robots.txt` sitemap discovery
 

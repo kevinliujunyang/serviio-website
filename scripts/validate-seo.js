@@ -14,6 +14,20 @@ const REQUIRED_QUALIFICATION_FIELDS = [
 ];
 const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
+const REQUIRED_ORGANIZATION_TOPICS = [
+  'restaurant AI phone ordering',
+  'AI phone answering for Chinese restaurants',
+  'restaurant AI phone order taker',
+  'POS integrated AI phone agent for restaurants',
+  'Chinese restaurant POS integration',
+  '39 Miles POS',
+  'Square POS',
+  'Toast POS',
+  'Clover POS',
+  'MenuSifu POS',
+  'Chowbus POS',
+  'Mealkeyway POS',
+];
 
 function walkHtmlPages(dir = '.') {
   const pages = [];
@@ -234,6 +248,83 @@ function validateRobots() {
   return { errors };
 }
 
+function extractJsonLdObjects(file) {
+  const html = fs.readFileSync(file, 'utf8');
+  const objects = [];
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    objects.push(JSON.parse(match[1]));
+  }
+  return objects;
+}
+
+function hasType(data, type) {
+  return asArray(data?.['@type']).includes(type);
+}
+
+function validateOrganizationAuthority() {
+  const errors = [];
+  const homepageFiles = ['index.html', 'zh/index.html'];
+
+  for (const file of homepageFiles) {
+    const organization = extractJsonLdObjects(file).find((data) => hasType(data, 'Organization'));
+
+    if (!organization) {
+      errors.push(`${file}: missing Organization JSON-LD`);
+      continue;
+    }
+    if (organization['@id'] !== `${SITE_ORIGIN}/#organization`) {
+      errors.push(`${file}: Organization JSON-LD missing canonical @id`);
+    }
+    if (organization.url !== SITE_ORIGIN) {
+      errors.push(`${file}: Organization JSON-LD must use ${SITE_ORIGIN} as url`);
+    }
+    if (organization.telephone !== '+1-408-409-9079') {
+      errors.push(`${file}: Organization JSON-LD telephone must match public phone`);
+    }
+    if (organization.email !== 'info@serviio.ai') {
+      errors.push(`${file}: Organization JSON-LD email must match public email`);
+    }
+
+    const contactPoints = asArray(organization.contactPoint).filter(Boolean);
+    const contactTypes = new Set(contactPoints.map((point) => point.contactType));
+    for (const contactType of ['sales', 'customer support']) {
+      if (!contactTypes.has(contactType)) {
+        errors.push(`${file}: Organization JSON-LD missing ${contactType} contactPoint`);
+      }
+    }
+    for (const point of contactPoints) {
+      const languages = asArray(point.availableLanguage).filter(Boolean);
+      for (const language of ['English', 'Chinese']) {
+        if (!languages.includes(language)) {
+          errors.push(`${file}: Organization JSON-LD ${point.contactType || 'unknown'} contactPoint missing ${language}`);
+        }
+      }
+    }
+
+    const topics = asArray(organization.knowsAbout).filter(Boolean);
+    for (const topic of REQUIRED_ORGANIZATION_TOPICS) {
+      if (!topics.includes(topic)) {
+        errors.push(`${file}: Organization JSON-LD missing knowsAbout topic "${topic}"`);
+      }
+    }
+    if (!organization.hasOfferCatalog || organization.hasOfferCatalog['@type'] !== 'OfferCatalog') {
+      errors.push(`${file}: Organization JSON-LD missing hasOfferCatalog`);
+    }
+    const catalogItems = asArray(organization.hasOfferCatalog?.itemListElement).filter(Boolean);
+    if (catalogItems.length < 3) {
+      errors.push(`${file}: Organization JSON-LD offer catalog must include at least 3 offers`);
+    }
+    const offerText = JSON.stringify([organization.hasOfferCatalog, organization.makesOffer]);
+    for (const phrase of ['2%', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus']) {
+      if (!offerText.includes(phrase)) {
+        errors.push(`${file}: Organization JSON-LD offer text missing ${phrase}`);
+      }
+    }
+  }
+
+  return { errors, homepageCount: homepageFiles.length };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -318,6 +409,7 @@ const sitemap = validateSitemap(pages);
 const forms = validateForms(pages);
 const links = validateInternalLinks(pages);
 const robots = validateRobots();
+const organizationAuthority = validateOrganizationAuthority();
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const errors = [
@@ -326,6 +418,7 @@ const errors = [
   ...forms.errors,
   ...links.errors,
   ...robots.errors,
+  ...organizationAuthority.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
 ];
@@ -345,6 +438,7 @@ console.log([
   'required lead qualification fields validated',
   'POS qualification validated',
   'internal links validated',
+  `${organizationAuthority.homepageCount} Organization authority schemas validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'robots.txt validated',

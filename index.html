@@ -41,24 +41,85 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
+        "@id": "https://serviio.ai/#organization",
         "name": "Serviio",
         "url": "https://serviio.ai",
         "logo": "https://serviio.ai/assets/logo.svg",
         "image": "https://serviio.ai/assets/og-image.png",
         "email": "info@serviio.ai",
         "telephone": "+1-408-409-9079",
-        "description": "AI voice agent that automates restaurant phone orders.",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+1-408-409-9079",
-            "email": "info@serviio.ai",
-            "contactType": "customer service",
-            "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
-        },
+        "description": "AI voice agent that automates restaurant phone orders and sends completed orders into restaurant POS workflows.",
+        "contactPoint": [
+            {
+                "@type": "ContactPoint",
+                "telephone": "+1-408-409-9079",
+                "email": "info@serviio.ai",
+                "contactType": "sales",
+                "areaServed": "US",
+                "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
+            },
+            {
+                "@type": "ContactPoint",
+                "telephone": "+1-408-409-9079",
+                "email": "info@serviio.ai",
+                "contactType": "customer support",
+                "areaServed": "US",
+                "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
+            }
+        ],
         "areaServed": {
             "@type": "Country",
             "name": "United States"
-        }
+        },
+        "knowsAbout": [
+            "restaurant AI phone ordering",
+            "AI phone answering for Chinese restaurants",
+            "restaurant AI phone order taker",
+            "POS integrated AI phone agent for restaurants",
+            "restaurant phone order automation",
+            "Chinese restaurant POS integration",
+            "39 Miles POS",
+            "Square POS",
+            "Toast POS",
+            "Clover POS",
+            "MenuSifu POS",
+            "Chowbus POS",
+            "Mealkeyway POS",
+            "bilingual restaurant phone answering"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Restaurant AI phone ordering services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "AI restaurant phone ordering",
+                    "description": "24/7 AI phone order taking for restaurants, billed at 2% per completed order with no monthly fee."
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Restaurant POS phone order integration",
+                    "description": "Phone orders routed into existing restaurant POS workflows, including 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway."
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Multilingual restaurant phone answering",
+                    "description": "AI phone answering in English, Spanish, Chinese, Japanese, Hindi, French, and Italian."
+                }
+            ]
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "name": "Chinese restaurant AI phone ordering",
+                "description": "AI phone ordering and POS integration for Chinese restaurants in the United States."
+            },
+            {
+                "@type": "Offer",
+                "name": "POS workflow evaluation",
+                "description": "Evaluation for restaurants using, choosing, or changing POS systems before adding AI phone ordering."
+            }
+        ]
     }
     </script>
 

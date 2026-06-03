@@ -42,24 +42,85 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
+        "@id": "https://serviio.ai/#organization",
         "name": "Serviio",
         "url": "https://serviio.ai",
         "logo": "https://serviio.ai/assets/logo.svg",
         "image": "https://serviio.ai/assets/og-image.png",
         "email": "info@serviio.ai",
         "telephone": "+1-408-409-9079",
-        "description": "Serviio 是专为餐厅打造的 AI 电话接待助手。",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+1-408-409-9079",
-            "email": "info@serviio.ai",
-            "contactType": "customer service",
-            "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
-        },
+        "description": "Serviio 是专为餐厅打造的 AI 电话接单助手，可自动接听电话、完成点餐，并进入餐厅 POS 流程。",
+        "contactPoint": [
+            {
+                "@type": "ContactPoint",
+                "telephone": "+1-408-409-9079",
+                "email": "info@serviio.ai",
+                "contactType": "sales",
+                "areaServed": "US",
+                "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
+            },
+            {
+                "@type": "ContactPoint",
+                "telephone": "+1-408-409-9079",
+                "email": "info@serviio.ai",
+                "contactType": "customer support",
+                "areaServed": "US",
+                "availableLanguage": ["English", "Spanish", "Chinese", "Japanese", "Hindi", "French", "Italian"]
+            }
+        ],
         "areaServed": {
             "@type": "Country",
             "name": "United States"
-        }
+        },
+        "knowsAbout": [
+            "restaurant AI phone ordering",
+            "AI phone answering for Chinese restaurants",
+            "restaurant AI phone order taker",
+            "POS integrated AI phone agent for restaurants",
+            "restaurant phone order automation",
+            "Chinese restaurant POS integration",
+            "39 Miles POS",
+            "Square POS",
+            "Toast POS",
+            "Clover POS",
+            "MenuSifu POS",
+            "Chowbus POS",
+            "Mealkeyway POS",
+            "bilingual restaurant phone answering"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "餐厅 AI 电话接单服务",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "餐厅 AI 电话接单",
+                    "description": "为餐厅提供 24/7 AI 电话接单服务，按完成订单 2% 收费，无月租。"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "餐厅 POS 电话订单对接",
+                    "description": "将电话订单进入餐厅现有 POS 流程，支持 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等系统。"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "多语言餐厅电话接待",
+                    "description": "支持英语、西班牙语、中文、日语、印地语、法语、意大利语的 AI 电话接待。"
+                }
+            ]
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "name": "中餐馆 AI 电话接单",
+                "description": "面向美国中餐馆的 AI 电话接单与 POS 对接。"
+            },
+            {
+                "@type": "Offer",
+                "name": "POS 流程评估",
+                "description": "为正在使用、选择或更换 POS 系统的餐厅评估 AI 电话接单接入方式。"
+            }
+        ]
     }
     </script>
 
