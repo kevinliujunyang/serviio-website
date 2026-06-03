@@ -39,6 +39,9 @@ Track these as exact query groups in Search Console exports:
 - restaurant phone order automation
 - restaurant ai assistant
 - ai assistant for restaurants
+- restaurant customer service ai
+- ai customer service for restaurants
+- restaurant ai customer support
 - ai voice assistant for restaurants
 - restaurant ai receptionist
 - ai receptionist for restaurants

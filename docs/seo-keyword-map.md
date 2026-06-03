@@ -26,6 +26,9 @@ Examples:
 - POS integrated AI phone agent restaurant
 - restaurant POS system phone orders
 - restaurant AI assistant for takeout orders
+- restaurant customer service AI
+- AI customer service for restaurants
+- restaurant AI customer support
 - restaurant AI receptionist
 - AI receptionist for restaurants
 - restaurant virtual receptionist
@@ -118,6 +121,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Cluster | Keyword Variants | Primary Intent | Recommended URL |
 | --- | --- | --- | --- |
 | Restaurant AI assistant | restaurant AI assistant, AI assistant for restaurants, restaurant phone AI assistant, AI assistant for restaurant owners | Broader buyer researching AI tools for operations | `/restaurant-ai-assistant/` |
+| Restaurant customer service AI | restaurant customer service AI, AI customer service for restaurants, restaurant AI customer support, restaurant customer service automation | Buyer wants AI to answer customer questions and recover missed phone demand | `/restaurant-ai-assistant/` |
 | AI voice assistant for restaurants | AI voice assistant for restaurants, restaurant voice AI assistant, voice assistant restaurant ordering, voice AI for restaurant phone calls | Buyer uses "voice assistant" instead of "phone agent" | `/ai-voice-assistant-for-restaurants/` |
 | Restaurant phone order automation | restaurant phone order automation, automate restaurant phone orders, automated phone ordering for restaurants, restaurant phone automation | Buyer describes the workflow problem | `/restaurant-phone-order-automation/` |
 | Restaurant POS system phone orders | restaurant POS system phone orders, POS system for restaurant phone orders, restaurant phone orders POS integration, phone order POS system restaurant | Buyer is POS-aware and wants phone order workflow | `/restaurant-pos-system-phone-orders/` |
@@ -214,6 +218,8 @@ Use these to cover the different ways buyers describe the same category:
 - restaurant automation software
 - restaurant call answering AI
 - restaurant customer service AI
+- AI customer service for restaurants
+- restaurant AI customer support
 - restaurant tech AI
 
 ## Location Modifiers
