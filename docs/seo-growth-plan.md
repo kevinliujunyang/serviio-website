@@ -225,6 +225,7 @@ All lead forms should preserve:
 - restaurant name
 - owner or manager name
 - phone
+- email
 - city
 - state
 - current POS or POS status

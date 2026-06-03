@@ -184,6 +184,7 @@ Respond to high-priority leads within 24 hours.
 First follow-up should confirm:
 - Restaurant type
 - City and state
+- Email and phone
 - Current POS
 - Weekly phone-order volume
 - Main pain: missed calls, bilingual calls, manual entry, or after-hours calls

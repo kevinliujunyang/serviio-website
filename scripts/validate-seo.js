@@ -12,7 +12,7 @@ const REQUIRED_QUALIFICATION_FIELDS = [
   'phone_orders_per_week',
   'pos_recommendation_interest',
 ];
-const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone'];
+const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
 
 function walkHtmlPages(dir = '.') {
