@@ -26,6 +26,10 @@ Examples:
 - POS integrated AI phone agent restaurant
 - restaurant POS system phone orders
 - restaurant AI assistant for takeout orders
+- restaurant AI receptionist
+- AI receptionist for restaurants
+- restaurant virtual receptionist
+- AI receptionist for Chinese restaurants
 - Chinese restaurant POS integration AI phone ordering
 - restaurant tech AI phone ordering for POS systems
 - bilingual restaurant phone order AI
@@ -38,7 +42,7 @@ Use this matrix to cover every meaningful combination across landing-page copy, 
 | Dimension | Terms To Combine |
 | --- | --- |
 | Restaurant type | restaurant, Chinese restaurant, Chinese takeout, Asian restaurant, takeout restaurant, quick-service restaurant, family-owned restaurant, independent restaurant, small restaurant |
-| AI category | AI phone ordering, AI phone answering, AI phone agent, AI voice agent, AI voice assistant, restaurant AI assistant, restaurant voice AI, AI order taker, restaurant automation software |
+| AI category | AI phone ordering, AI phone answering, AI phone agent, AI voice agent, AI voice assistant, restaurant AI assistant, restaurant AI receptionist, restaurant virtual receptionist, restaurant voice AI, AI order taker, restaurant automation software |
 | Phone-order use case | phone orders, phone order taking, takeout orders, pickup orders, missed calls, rush-hour calls, after-hours calls, multi-line calls, menu questions, SMS confirmation |
 | POS qualifier | POS integration, POS system phone orders, existing POS, integrated with POS, phone orders to POS, kitchen handoff, order injection, Square POS, Toast POS, Clover POS, 39 Miles, MenuSifu, Chowbus, Mealkeyway |
 | Language qualifier | Chinese, Mandarin, Cantonese, bilingual, English and Chinese, multilingual restaurant phone answering |
@@ -68,6 +72,10 @@ Examples to include naturally across pages:
 - restaurant AI phone order taker
 - AI order taker for restaurant phone calls
 - restaurant AI assistant for phone orders
+- restaurant AI receptionist
+- AI receptionist for restaurants
+- restaurant virtual receptionist
+- AI receptionist for Chinese restaurants
 - AI voice assistant for restaurants
 - restaurant voice AI assistant
 - restaurant phone order automation
@@ -116,6 +124,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Restaurant tech AI phone ordering | restaurant tech AI phone ordering, restaurant technology AI ordering, restaurant tech phone order automation, restaurant tech voice AI | Broader restaurant technology discovery | `/restaurant-tech-ai-phone-ordering/` |
 | Restaurant automation software | restaurant automation software phone orders, restaurant operations automation, restaurant customer service automation, takeout order automation software | Buyer researches software category | `/restaurant-automation-software-phone-orders/` |
 | Restaurant call answering AI | restaurant call answering AI, AI restaurant call answering, restaurant call automation, restaurant phone call AI | Buyer searches call answering instead of order taking | Existing page plus stronger internal links |
+| Restaurant AI receptionist | restaurant AI receptionist, AI receptionist for restaurants, restaurant virtual receptionist, AI receptionist for Chinese restaurants, restaurant AI receptionist phone answering | Buyer searches the receptionist category before identifying phone-order automation | `/restaurant-phone-answering-service/` |
 | Restaurant AI phone ordering guide | how restaurant AI phone ordering works, restaurant AI phone ordering POS workflow, restaurant AI phone ordering guide, AI phone orders to POS | Buyer or partner wants educational proof before contacting sales | `/guides/restaurant-ai-phone-ordering-pos-guide/` |
 
 ## POS-Specific Keywords
@@ -197,6 +206,8 @@ Use these to cover the different ways buyers describe the same category:
 - AI voice agent
 - AI voice assistant
 - restaurant AI assistant
+- restaurant AI receptionist
+- restaurant virtual receptionist
 - restaurant voice AI
 - AI order taker
 - AI order taking

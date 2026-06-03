@@ -40,6 +40,10 @@ Track these as exact query groups in Search Console exports:
 - restaurant ai assistant
 - ai assistant for restaurants
 - ai voice assistant for restaurants
+- restaurant ai receptionist
+- ai receptionist for restaurants
+- restaurant virtual receptionist
+- ai receptionist for chinese restaurants
 - restaurant tech ai phone ordering
 - restaurant automation software phone orders
 - automate restaurant phone orders
