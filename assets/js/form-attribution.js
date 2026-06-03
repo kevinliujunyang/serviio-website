@@ -1,8 +1,11 @@
 (function () {
   var params = new URLSearchParams(window.location.search);
-  var attributionFields = {
-    landing_page: window.location.href,
-    landing_path: window.location.pathname,
+  var storageKey = 'serviio_attribution';
+  var sessionKey = 'serviio_session_attribution';
+  var now = new Date().toISOString();
+  var currentAttribution = {
+    current_page: window.location.href,
+    current_path: window.location.pathname,
     referrer: document.referrer || '',
     utm_source: params.get('utm_source') || '',
     utm_medium: params.get('utm_medium') || '',
@@ -12,6 +15,59 @@
     gclid: params.get('gclid') || '',
     msclkid: params.get('msclkid') || '',
   };
+  var hasCampaignSignal = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+    'gclid',
+    'msclkid',
+  ].some(function (name) {
+    return Boolean(currentAttribution[name]);
+  });
+
+  function readStoredAttribution(key) {
+    try {
+      return JSON.parse(window.sessionStorage.getItem(key) || 'null') || {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function writeStoredAttribution(key, value) {
+    try {
+      window.sessionStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      // Ignore private-mode or blocked-storage failures; current-page fields still submit.
+    }
+  }
+
+  var firstTouch = readStoredAttribution(storageKey);
+  if (!firstTouch.landing_page || hasCampaignSignal) {
+    firstTouch = {
+      landing_page: window.location.href,
+      landing_path: window.location.pathname,
+      first_referrer: document.referrer || firstTouch.first_referrer || '',
+      first_utm_source: currentAttribution.utm_source || firstTouch.first_utm_source || '',
+      first_utm_medium: currentAttribution.utm_medium || firstTouch.first_utm_medium || '',
+      first_utm_campaign: currentAttribution.utm_campaign || firstTouch.first_utm_campaign || '',
+      first_utm_term: currentAttribution.utm_term || firstTouch.first_utm_term || '',
+      first_utm_content: currentAttribution.utm_content || firstTouch.first_utm_content || '',
+      first_gclid: currentAttribution.gclid || firstTouch.first_gclid || '',
+      first_msclkid: currentAttribution.msclkid || firstTouch.first_msclkid || '',
+      first_seen_at: firstTouch.first_seen_at || now,
+    };
+    writeStoredAttribution(storageKey, firstTouch);
+  }
+
+  var sessionAttribution = readStoredAttribution(sessionKey);
+  sessionAttribution.last_page = window.location.href;
+  sessionAttribution.last_path = window.location.pathname;
+  sessionAttribution.last_seen_at = now;
+  writeStoredAttribution(sessionKey, sessionAttribution);
+
+  var attributionFields = Object.assign({}, firstTouch, currentAttribution, sessionAttribution);
 
   function ensureHiddenField(form, name, value) {
     var field = form.querySelector('input[name="' + name + '"]');

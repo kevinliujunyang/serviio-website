@@ -150,18 +150,45 @@ function validateRobots() {
   return { errors };
 }
 
+function validateAttributionScript() {
+  const errors = [];
+  const file = 'assets/js/form-attribution.js';
+  if (!fs.existsSync(file)) {
+    errors.push(`${file}: missing`);
+    return { errors };
+  }
+  const js = fs.readFileSync(file, 'utf8');
+  const requiredSnippets = [
+    'sessionStorage',
+    'serviio_attribution',
+    'landing_page',
+    'first_utm_source',
+    'current_page',
+    'last_page',
+    'utm_campaign',
+    'gclid',
+    'msclkid',
+  ];
+  for (const snippet of requiredSnippets) {
+    if (!js.includes(snippet)) errors.push(`${file}: missing ${snippet}`);
+  }
+  return { errors };
+}
+
 const pages = walkHtmlPages();
 const metadata = validateMetadata(pages);
 const sitemap = validateSitemap(pages);
 const forms = validateForms(pages);
 const links = validateInternalLinks(pages);
 const robots = validateRobots();
+const attribution = validateAttributionScript();
 const errors = [
   ...metadata.errors,
   ...sitemap.errors,
   ...forms.errors,
   ...links.errors,
   ...robots.errors,
+  ...attribution.errors,
 ];
 
 if (errors.length > 0) {
@@ -175,5 +202,6 @@ console.log([
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
   'internal links validated',
+  'form attribution validated',
   'robots.txt validated',
 ].join('\n'));

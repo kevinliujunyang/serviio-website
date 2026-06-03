@@ -24,7 +24,7 @@ The validation script checks:
 - sitemap coverage
 - lead-form qualification fields
 - POS recommendation intent for restaurants without a POS
-- source attribution through `landing_page`, `referrer`, UTM fields, `gclid`, and `msclkid`
+- persisted source attribution through first-touch landing fields, current-page fields, UTM fields, `gclid`, and `msclkid`
 - internal links
 - `robots.txt` sitemap discovery
 
@@ -171,6 +171,17 @@ First follow-up should confirm:
 Every Formspree form loads `/assets/js/form-attribution.js`, which appends:
 - `landing_page`
 - `landing_path`
+- `first_referrer`
+- `first_utm_source`
+- `first_utm_medium`
+- `first_utm_campaign`
+- `first_utm_term`
+- `first_utm_content`
+- `first_gclid`
+- `first_msclkid`
+- `first_seen_at`
+- `current_page`
+- `current_path`
 - `referrer`
 - `utm_source`
 - `utm_medium`
@@ -179,8 +190,11 @@ Every Formspree form loads `/assets/js/form-attribution.js`, which appends:
 - `utm_content`
 - `gclid`
 - `msclkid`
+- `last_page`
+- `last_path`
+- `last_seen_at`
 
-Use these fields to compare SEO, paid search, community posts, directory listings, and partner referrals.
+Use first-touch fields to attribute the original directory, community, Search Console, or partner referral. Use current and last fields to see which page finally converted after the visitor browsed the site.
 
 Free search marketing submissions and UTM tracking rules live in `docs/free-search-marketing-checklist.md`.
 

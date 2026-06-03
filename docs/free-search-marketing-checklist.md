@@ -133,7 +133,7 @@ Good early signs:
 - Listings go live with followed or crawlable links.
 - Search Console impressions appear for target query clusters.
 - Referral sessions show `utm_campaign=free_search_marketing`.
-- Formspree leads include `landing_page`, `utm_source`, POS system, city/state, and phone-order volume.
+- Formspree leads include `landing_page`, `first_utm_source`, `current_page`, POS system, city/state, and phone-order volume.
 - Partner or directory traffic produces POS-ready Chinese restaurant leads.
 
 Do not count a listing as successful until it is live and the URL is recorded.

@@ -126,7 +126,7 @@ If a page is discovered but not indexed:
 If leads are low despite impressions:
 - tighten CTA copy
 - reduce ambiguity in the form
-- compare `lead_source`, `landing_page`, and `utm_*` fields
+- compare `lead_source`, `landing_page`, `first_utm_*`, `current_page`, and `utm_*` fields
 - prioritize pages that attract POS-ready restaurants
 
 ## Minimum Evidence For Progress
