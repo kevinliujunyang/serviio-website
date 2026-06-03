@@ -26,6 +26,7 @@ The validation script checks:
 - POS recommendation intent for restaurants without a POS
 - persisted source attribution through first-touch landing fields, current-page fields, UTM fields, `gclid`, and `msclkid`
 - internal links
+- Search Console priority paths against `sitemap.xml` and `scripts/print-indexing-urls.js`
 - `robots.txt` sitemap discovery
 
 To print the priority Search Console URL Inspection list:

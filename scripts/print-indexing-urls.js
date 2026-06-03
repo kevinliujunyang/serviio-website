@@ -9,7 +9,9 @@ const priorityPatterns = [
   '/guides/chinese-restaurant-pos-comparison/',
   '/zh/guides/chinese-restaurant-pos-comparison/',
   '/chinese-restaurant-ai-phone-ordering/',
+  '/zh/chinese-restaurant-ai-phone-ordering/',
   '/ai-phone-answering-for-chinese-restaurants/',
+  '/zh/ai-phone-answering-for-chinese-restaurants/',
   '/ai-order-taking-for-restaurants/',
   '/zh/ai-order-taking-for-restaurants/',
   '/ai-restaurant-phone-agent/',
@@ -17,7 +19,9 @@ const priorityPatterns = [
   '/ai-phone-agent-for-takeout-restaurants/',
   '/zh/ai-phone-agent-for-takeout-restaurants/',
   '/restaurant-ai-phone-order-taker/',
+  '/zh/restaurant-ai-phone-order-taker/',
   '/restaurant-pos-phone-order-integration/',
+  '/zh/restaurant-pos-phone-order-integration/',
   '/chinese-restaurant-pos-integration/',
   '/restaurant-phone-order-ai-pos/',
   '/pos-integrated-ai-phone-agent/',
@@ -55,8 +59,11 @@ const priorityPatterns = [
   '/zh/restaurant-phone-order-automation/',
   '/zh/restaurant-automation-software-phone-orders/',
   '/chinese-restaurant-phone-order-automation/',
+  '/zh/chinese-restaurant-phone-order-automation/',
   '/chinese-restaurant-voice-ai/',
+  '/zh/chinese-restaurant-voice-ai/',
   '/ai-phone-ordering-for-chinese-takeout/',
+  '/zh/ai-phone-ordering-for-chinese-takeout/',
   '/pos/39-miles-ai-phone-ordering/',
   '/zh/pos/39-miles-ai-phone-ordering/',
   '/pos/square-ai-phone-ordering/',
@@ -72,6 +79,7 @@ const priorityPatterns = [
   '/pos/mealkeyway-ai-phone-ordering/',
   '/zh/pos/mealkeyway-ai-phone-ordering/',
   '/service-areas/',
+  '/zh/service-areas/',
   '/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/',
   '/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/',
   '/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/',
@@ -103,7 +111,7 @@ const priorityPatterns = [
 ];
 
 const priorityUrls = urls.filter((url) =>
-  priorityPatterns.some((pattern) => new URL(url).pathname.includes(pattern))
+  priorityPatterns.includes(new URL(url).pathname)
 );
 const remainingUrls = urls.filter((url) => !priorityUrls.includes(url));
 

@@ -259,6 +259,59 @@ function validateAttributionScript() {
   return { errors };
 }
 
+function extractScorecardPriorityPaths() {
+  const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'utf8');
+  const section = scorecard.match(/## Priority Landing Pages([\s\S]*?)(?:\n## |\n$)/);
+  if (!section) return [];
+  return [...section[1].matchAll(/^- `([^`]+)`/gm)].map((match) => match[1]);
+}
+
+function extractIndexingPriorityPatterns() {
+  const script = fs.readFileSync('scripts/print-indexing-urls.js', 'utf8');
+  const section = script.match(/const priorityPatterns = \[([\s\S]*?)\];/);
+  if (!section) return [];
+  return [...section[1].matchAll(/'([^']+)'/g)].map((match) => match[1]);
+}
+
+function validateSearchConsoleCoverage() {
+  const errors = [];
+  const scorecardPaths = extractScorecardPriorityPaths();
+  const indexingPatterns = extractIndexingPriorityPatterns();
+  const xml = fs.readFileSync('sitemap.xml', 'utf8');
+  const sitemapPaths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
+
+  if (scorecardPaths.length === 0) {
+    errors.push('docs/google-search-console-scorecard.md: missing Priority Landing Pages paths');
+  }
+  if (indexingPatterns.length === 0) {
+    errors.push('scripts/print-indexing-urls.js: missing priorityPatterns');
+  }
+
+  for (const scorecardPath of scorecardPaths) {
+    if (!scorecardPath.startsWith('/')) {
+      errors.push(`docs/google-search-console-scorecard.md: priority path must start with / (${scorecardPath})`);
+      continue;
+    }
+    if (!fs.existsSync(pagePathFromUrl(SITE_ORIGIN + scorecardPath))) {
+      errors.push(`docs/google-search-console-scorecard.md: priority path points to missing page ${scorecardPath}`);
+    }
+    if (!sitemapPaths.includes(scorecardPath)) {
+      errors.push(`docs/google-search-console-scorecard.md: priority path missing from sitemap ${scorecardPath}`);
+    }
+    if (!indexingPatterns.includes(scorecardPath)) {
+      errors.push(`scripts/print-indexing-urls.js: missing scorecard priority path ${scorecardPath}`);
+    }
+  }
+
+  for (const indexingPattern of indexingPatterns) {
+    if (!scorecardPaths.includes(indexingPattern) && !['/service-areas/', '/zh/service-areas/'].includes(indexingPattern)) {
+      errors.push(`docs/google-search-console-scorecard.md: missing indexing priority path ${indexingPattern}`);
+    }
+  }
+
+  return { errors, priorityPathCount: scorecardPaths.length };
+}
+
 const pages = walkHtmlPages();
 const metadata = validateMetadata(pages);
 const sitemap = validateSitemap(pages);
@@ -266,6 +319,7 @@ const forms = validateForms(pages);
 const links = validateInternalLinks(pages);
 const robots = validateRobots();
 const attribution = validateAttributionScript();
+const searchConsoleCoverage = validateSearchConsoleCoverage();
 const errors = [
   ...metadata.errors,
   ...sitemap.errors,
@@ -273,6 +327,7 @@ const errors = [
   ...links.errors,
   ...robots.errors,
   ...attribution.errors,
+  ...searchConsoleCoverage.errors,
 ];
 
 if (errors.length > 0) {
@@ -291,5 +346,6 @@ console.log([
   'POS qualification validated',
   'internal links validated',
   'form attribution validated',
+  `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'robots.txt validated',
 ].join('\n'));

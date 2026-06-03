@@ -82,6 +82,10 @@ Review clicks, impressions, CTR, and average position for:
 
 - `/chinese-restaurant-ai-phone-ordering/`
 - `/zh/chinese-restaurant-ai-phone-ordering/`
+- `/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/guides/chinese-restaurant-pos-comparison/`
+- `/zh/guides/chinese-restaurant-pos-comparison/`
 - `/ai-order-taking-for-restaurants/`
 - `/zh/ai-order-taking-for-restaurants/`
 - `/ai-restaurant-phone-agent/`
@@ -90,8 +94,18 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/ai-phone-agent-for-takeout-restaurants/`
 - `/ai-phone-answering-for-chinese-restaurants/`
 - `/zh/ai-phone-answering-for-chinese-restaurants/`
+- `/chinese-restaurant-phone-order-automation/`
+- `/zh/chinese-restaurant-phone-order-automation/`
+- `/ai-phone-ordering-for-chinese-takeout/`
+- `/zh/ai-phone-ordering-for-chinese-takeout/`
+- `/chinese-restaurant-voice-ai/`
+- `/zh/chinese-restaurant-voice-ai/`
 - `/restaurant-ai-phone-order-taker/`
+- `/zh/restaurant-ai-phone-order-taker/`
 - `/restaurant-pos-phone-order-integration/`
+- `/zh/restaurant-pos-phone-order-integration/`
+- `/chinese-restaurant-pos-integration/`
+- `/zh/chinese-restaurant-pos-integration/`
 - `/pos-integrated-ai-phone-agent/`
 - `/zh/pos-integrated-ai-phone-agent/`
 - `/restaurant-phone-order-ai-pos/`
@@ -136,6 +150,18 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
+- `/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
+- `/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
@@ -150,7 +176,6 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/pos/toast-ai-phone-ordering/`
 - `/pos/clover-ai-phone-ordering/`
 - `/zh/pos/clover-ai-phone-ordering/`
-- `/zh/chinese-restaurant-pos-integration/`
 - `/pos/menusifu-ai-phone-ordering/`
 - `/zh/pos/menusifu-ai-phone-ordering/`
 - `/pos/chowbus-ai-phone-ordering/`
