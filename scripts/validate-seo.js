@@ -10,6 +10,7 @@ const REQUIRED_FORM_FIELDS = [
   'phone_orders_per_week',
   'pos_recommendation_interest',
 ];
+const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
 
 function walkHtmlPages(dir = '.') {
   const pages = [];
@@ -137,6 +138,10 @@ function validateForms(pages) {
     for (const field of REQUIRED_FORM_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);
     }
+    const hasPosQualification = POS_QUALIFICATION_FIELDS.some((field) => html.includes(`name="${field}"`));
+    if (!hasPosQualification) {
+      errors.push(`${file}: form missing POS qualification field (${POS_QUALIFICATION_FIELDS.join(' or ')})`);
+    }
   }
 
   return { errors, formCount };
@@ -233,6 +238,7 @@ console.log([
   `${metadata.jsonLdBlocks} JSON-LD blocks valid`,
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
+  'POS qualification validated',
   'internal links validated',
   'form attribution validated',
   'robots.txt validated',
