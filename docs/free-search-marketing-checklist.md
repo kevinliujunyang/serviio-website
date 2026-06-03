@@ -97,8 +97,14 @@ Start with these categories before spending money on ads.
 | P1 | Restaurant technology directories | Vendor/resource listing | `/restaurant-pos-phone-order-integration/` | Restaurant POS phone order integration |
 | P1 | Chinese business associations | Member/vendor listing | `/chinese-restaurant-ai-phone-ordering/` | AI phone ordering for Chinese restaurants |
 | P1 | Asian chambers of commerce | Business directory | `/service-areas/` | AI phone ordering service areas |
+| P1 | State Asian chambers | Local business directory | `/service-areas/california-chinese-restaurant-ai-phone-ordering/` | California Chinese restaurant AI phone ordering |
+| P1 | State Asian chambers | Local business directory | `/service-areas/new-york-chinese-restaurant-ai-phone-ordering/` | New York Chinese restaurant AI phone ordering |
+| P1 | State Asian chambers | Local business directory | `/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/` | Massachusetts Chinese restaurant AI phone ordering |
+| P1 | State Asian chambers | Local business directory | `/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/` | Pennsylvania Chinese restaurant AI phone ordering |
 | P1 | POS consultants | Partner/resource link | `/guides/chinese-restaurant-pos-comparison/` | Chinese restaurant POS comparison |
 | P2 | WeChat/community posts | Education/referral post | `/zh/chinese-restaurant-ai-phone-ordering/` | 中餐馆 AI 电话接单 |
+| P2 | Local restaurant owner groups | Community post | `/service-areas/boston-chinese-restaurant-ai-phone-ordering/` | Boston Chinese restaurant AI phone ordering |
+| P2 | Local restaurant owner groups | Community post | `/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/` | Philadelphia Chinese restaurant AI phone ordering |
 | P2 | Customer testimonials | Proof/backlink | relevant state or POS page | city + restaurant type + POS system |
 
 ## Copy Blocks
