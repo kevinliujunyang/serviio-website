@@ -142,6 +142,20 @@ After Cloudflare deploys:
 
 ## Lead Scoring
 
+Export Formspree submissions as CSV and score them with:
+
+```bash
+npm run leads:score -- path/to/formspree-export.csv --out scored-leads.csv
+```
+
+For a quick count without writing a scored CSV:
+
+```bash
+npm run leads:score -- path/to/formspree-export.csv --summary-only
+```
+
+Call high-priority leads first. The script writes `lead_priority`, `lead_score`, and `lead_reason` before the original Formspree columns.
+
 Score Formspree leads in this order.
 
 High priority:
