@@ -1,0 +1,240 @@
+const fs = require('fs');
+
+const rows = [
+  {
+    priority: 'P0',
+    channel: 'Business profile',
+    target: 'Google Business Profile',
+    url: 'https://www.google.com/business/',
+    status: 'not_started',
+    landingPath: '/',
+    source: 'google_business_profile',
+    medium: 'organic_listing',
+    anchor: 'AI phone ordering for restaurants',
+    notes: 'Create service-area profile if eligible; add phone, website, logo, services, and posts.',
+  },
+  {
+    priority: 'P0',
+    channel: 'Business profile',
+    target: 'Bing Places for Business',
+    url: 'https://www.bingplaces.com/',
+    status: 'not_started',
+    landingPath: '/',
+    source: 'bing_places',
+    medium: 'organic_listing',
+    anchor: 'Restaurant AI phone answering',
+    notes: 'Mirror Google listing details; verify NAP and website.',
+  },
+  {
+    priority: 'P0',
+    channel: 'Business profile',
+    target: 'Apple Business Connect',
+    url: 'https://businessconnect.apple.com/',
+    status: 'not_started',
+    landingPath: '/',
+    source: 'apple_business_connect',
+    medium: 'organic_listing',
+    anchor: 'AI phone ordering for restaurants',
+    notes: 'Add logo, description, service area, phone, website, and action link.',
+  },
+  {
+    priority: 'P0',
+    channel: 'Webmaster tool',
+    target: 'Google Search Console sitemap',
+    url: 'https://search.google.com/search-console',
+    status: 'not_started',
+    landingPath: '/sitemap.xml',
+    source: 'google_search_console',
+    medium: 'indexing',
+    anchor: 'Submit sitemap',
+    notes: 'Submit sitemap and request indexing for priority URLs from npm run indexing:urls.',
+  },
+  {
+    priority: 'P0',
+    channel: 'Webmaster tool',
+    target: 'Bing Webmaster Tools sitemap',
+    url: 'https://www.bing.com/webmasters/',
+    status: 'not_started',
+    landingPath: '/sitemap.xml',
+    source: 'bing_webmaster_tools',
+    medium: 'indexing',
+    anchor: 'Submit sitemap',
+    notes: 'Submit sitemap and highest-priority POS and Chinese restaurant URLs.',
+  },
+  {
+    priority: 'P1',
+    channel: 'AI directory',
+    target: 'AI tool directories',
+    url: '',
+    status: 'not_started',
+    landingPath: '/restaurant-ai-phone-order-taker/',
+    source: 'ai_directory',
+    medium: 'organic_listing',
+    anchor: 'Restaurant AI phone order taker',
+    notes: 'Use short listing description; find free AI tool and SaaS directories.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Startup directory',
+    target: 'Startup and SaaS directories',
+    url: '',
+    status: 'not_started',
+    landingPath: '/ai-voice-assistant-for-restaurants/',
+    source: 'startup_directory',
+    medium: 'organic_listing',
+    anchor: 'AI voice assistant for restaurants',
+    notes: 'Submit free startup/SaaS listings that allow B2B products.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Restaurant technology directory',
+    target: 'Restaurant tech vendor/resource lists',
+    url: '',
+    status: 'not_started',
+    landingPath: '/restaurant-pos-phone-order-integration/',
+    source: 'restaurant_tech_directory',
+    medium: 'organic_listing',
+    anchor: 'Restaurant POS phone order integration',
+    notes: 'Prioritize directories read by independent restaurant owners and consultants.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Chinese business association',
+    target: 'Chinese restaurant or business associations',
+    url: '',
+    status: 'not_started',
+    landingPath: '/chinese-restaurant-ai-phone-ordering/',
+    source: 'chinese_business_association',
+    medium: 'organic_listing',
+    anchor: 'AI phone ordering for Chinese restaurants',
+    notes: 'Ask for vendor/resource listing; use Chinese restaurant listing description.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Asian chamber',
+    target: 'Asian chambers of commerce',
+    url: '',
+    status: 'not_started',
+    landingPath: '/service-areas/',
+    source: 'asian_chamber',
+    medium: 'organic_listing',
+    anchor: 'AI phone ordering service areas',
+    notes: 'Target CA, NY, NJ, TX service areas first.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Partner outreach',
+    target: 'POS consultants',
+    url: '',
+    status: 'not_started',
+    landingPath: '/chinese-restaurant-pos-integration/',
+    source: 'pos_consultant',
+    medium: 'partner_referral',
+    anchor: 'Chinese restaurant POS integration',
+    notes: 'Offer referral path for restaurants with phone-order automation need.',
+  },
+  {
+    priority: 'P1',
+    channel: 'Partner outreach',
+    target: 'Restaurant website agencies',
+    url: '',
+    status: 'not_started',
+    landingPath: '/restaurant-phone-order-automation/',
+    source: 'restaurant_website_agency',
+    medium: 'partner_referral',
+    anchor: 'Restaurant phone order automation',
+    notes: 'Pitch as add-on for restaurant sites that still receive phone orders.',
+  },
+  {
+    priority: 'P2',
+    channel: 'Community post',
+    target: 'WeChat or Chinese restaurant owner groups',
+    url: '',
+    status: 'not_started',
+    landingPath: '/zh/chinese-restaurant-ai-phone-ordering/',
+    source: 'wechat_chinese_restaurant_group',
+    medium: 'community_post',
+    anchor: '中餐馆 AI 电话接单',
+    notes: 'Use Chinese copy; track group name and post date.',
+  },
+  {
+    priority: 'P2',
+    channel: 'Community post',
+    target: 'Local restaurant owner groups',
+    url: '',
+    status: 'not_started',
+    landingPath: '/service-areas/california-chinese-restaurant-ai-phone-ordering/',
+    source: 'local_restaurant_group_ca',
+    medium: 'community_post',
+    anchor: 'California Chinese restaurant AI phone ordering',
+    notes: 'Start with California market; repeat for NY, NJ, TX after response.',
+  },
+  {
+    priority: 'P2',
+    channel: 'Customer proof',
+    target: 'Pilot restaurant testimonial',
+    url: '',
+    status: 'not_started',
+    landingPath: '/chinese-restaurant-ai-phone-ordering/',
+    source: 'customer_testimonial',
+    medium: 'customer_proof',
+    anchor: 'Chinese restaurant AI phone ordering testimonial',
+    notes: 'Ask for quote including city, restaurant type, POS, and phone-order pain.',
+  },
+];
+
+const headers = [
+  'priority',
+  'channel',
+  'target',
+  'url',
+  'status',
+  'owner',
+  'date_submitted',
+  'date_live',
+  'landing_url',
+  'utm_url',
+  'anchor_or_listing_phrase',
+  'notes',
+];
+
+function absoluteUrl(path) {
+  return `https://serviio.ai${path}`;
+}
+
+function utmUrl(row) {
+  const url = new URL(absoluteUrl(row.landingPath));
+  url.searchParams.set('utm_source', row.source);
+  url.searchParams.set('utm_medium', row.medium);
+  url.searchParams.set('utm_campaign', 'free_search_marketing');
+  return url.toString();
+}
+
+function csvEscape(value) {
+  const stringValue = String(value ?? '');
+  if (/[",\n]/.test(stringValue)) {
+    return `"${stringValue.replace(/"/g, '""')}"`;
+  }
+  return stringValue;
+}
+
+const csv = [
+  headers.join(','),
+  ...rows.map((row) => [
+    row.priority,
+    row.channel,
+    row.target,
+    row.url,
+    row.status,
+    '',
+    '',
+    '',
+    absoluteUrl(row.landingPath),
+    utmUrl(row),
+    row.anchor,
+    row.notes,
+  ].map(csvEscape).join(',')),
+].join('\n');
+
+fs.writeFileSync('docs/free-search-marketing-tracker.csv', `${csv}\n`);
+console.log(`Wrote ${rows.length} rows to docs/free-search-marketing-tracker.csv`);

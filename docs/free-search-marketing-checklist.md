@@ -10,6 +10,14 @@ Paid SEM can be tested later, but this checklist focuses on free or no-budget ac
 
 Use one row per listing, directory submission, community post, or partner outreach.
 
+Seed tracker:
+
+```bash
+npm run marketing:tracker
+```
+
+This writes `docs/free-search-marketing-tracker.csv` with priority channels, landing URLs, and UTM URLs.
+
 Required fields:
 
 | Field | What To Record |
