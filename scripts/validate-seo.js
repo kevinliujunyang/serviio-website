@@ -34,8 +34,18 @@ function pagePathFromUrl(url) {
   return pathname.replace(/^\//, '').replace(/\/$/, '') + '/index.html';
 }
 
+function pageUrlFromPath(page) {
+  const urlPath = page === 'index.html' ? '/' : '/' + page.replace(/index\.html$/, '');
+  return SITE_ORIGIN + urlPath;
+}
+
 function extractAttr(html, regex) {
   const match = html.match(regex);
+  return match ? match[1] : '';
+}
+
+function extractTagAttr(tag, attr) {
+  const match = tag.match(new RegExp(`${attr}="([^"]+)"`));
   return match ? match[1] : '';
 }
 
@@ -80,12 +90,14 @@ function validateJsonLdOfferPricing(data, file, errors) {
 function validateMetadata(pages) {
   const errors = [];
   let jsonLdBlocks = 0;
+  let alternateLinks = 0;
 
   for (const file of pages) {
     const html = fs.readFileSync(file, 'utf8');
     const title = extractAttr(html, /<title>([^<]+)<\/title>/);
     const description = extractAttr(html, /<meta name="description" content="([^"]+)/);
     const canonical = extractAttr(html, /<link rel="canonical" href="([^"]+)/);
+    const alternates = [...html.matchAll(/<link\b[^>]*rel="alternate"[^>]*>/g)].map((match) => match[0]);
     const jsonLd = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
 
     if (!title) errors.push(`${file}: missing title`);
@@ -94,6 +106,19 @@ function validateMetadata(pages) {
     if (description.length > 170) errors.push(`${file}: meta description too long (${description.length})`);
     if (!canonical) errors.push(`${file}: missing canonical`);
     if (canonical && !canonical.startsWith(SITE_ORIGIN + '/')) errors.push(`${file}: canonical is not on ${SITE_ORIGIN}`);
+    if (canonical && canonical !== pageUrlFromPath(file)) errors.push(`${file}: canonical must self-reference ${pageUrlFromPath(file)}`);
+    if (alternates.length === 0) errors.push(`${file}: missing hreflang alternates`);
+    for (const alternate of alternates) {
+      alternateLinks += 1;
+      const hreflang = extractTagAttr(alternate, 'hreflang');
+      const href = extractTagAttr(alternate, 'href');
+      if (!hreflang) errors.push(`${file}: alternate missing hreflang`);
+      if (!href) errors.push(`${file}: alternate missing href`);
+      if (href && !href.startsWith(SITE_ORIGIN + '/')) errors.push(`${file}: alternate href is not on ${SITE_ORIGIN}`);
+      if (href && href.startsWith(SITE_ORIGIN + '/') && !fs.existsSync(pagePathFromUrl(href))) {
+        errors.push(`${file}: alternate ${hreflang || 'unknown'} points to missing ${pagePathFromUrl(href)}`);
+      }
+    }
     if (jsonLd.length === 0) errors.push(`${file}: missing JSON-LD`);
 
     for (const match of jsonLd) {
@@ -107,7 +132,7 @@ function validateMetadata(pages) {
     }
   }
 
-  return { errors, jsonLdBlocks };
+  return { errors, jsonLdBlocks, alternateLinks };
 }
 
 function validateSitemap(pages) {
@@ -252,6 +277,7 @@ if (errors.length > 0) {
 console.log([
   `${pages.length} crawlable pages`,
   `${metadata.jsonLdBlocks} JSON-LD blocks valid`,
+  `${metadata.alternateLinks} hreflang alternates valid`,
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
   'core lead contact fields validated',
