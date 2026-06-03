@@ -112,6 +112,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Restaurant tech AI phone ordering | restaurant tech AI phone ordering, restaurant technology AI ordering, restaurant tech phone order automation, restaurant tech voice AI | Broader restaurant technology discovery | `/restaurant-tech-ai-phone-ordering/` |
 | Restaurant automation software | restaurant automation software phone orders, restaurant operations automation, restaurant customer service automation, takeout order automation software | Buyer researches software category | `/restaurant-automation-software-phone-orders/` |
 | Restaurant call answering AI | restaurant call answering AI, AI restaurant call answering, restaurant call automation, restaurant phone call AI | Buyer searches call answering instead of order taking | Existing page plus stronger internal links |
+| Restaurant AI phone ordering guide | how restaurant AI phone ordering works, restaurant AI phone ordering POS workflow, restaurant AI phone ordering guide, AI phone orders to POS | Buyer or partner wants educational proof before contacting sales | `/guides/restaurant-ai-phone-ordering-pos-guide/` |
 
 ## POS-Specific Keywords
 
@@ -255,12 +256,14 @@ Built pages:
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 
 Build next:
 
 1. Deploy the current page set and request indexing for all priority English and Chinese URLs.
 2. Expand from state pages to city pages once Search Console shows city impressions.
-3. Blog or guide content for POS comparison, POS partner referrals, and restaurant technology authority.
+3. Add POS comparison and POS partner referral guides once Search Console shows no-POS or vendor-comparison demand.
 4. Add new pages only for distinct search intent, such as city/service-area demand or POS comparison demand. Put close keyword variants inside existing pages.
 
 ## Internal Linking Rules

@@ -72,8 +72,8 @@ Use `utm_medium=partner_referral` for consultants or partner links, and `utm_med
 
 6. Submit free AI/product listings.
    - Start with AI tool directories, startup directories, and SaaS directories that allow free submission.
-   - Best landing URL: `https://serviio.ai/restaurant-ai-phone-order-taker/`
-   - Anchor text: `restaurant AI phone order taker`
+   - Best landing URL: `https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/`
+   - Anchor text: `restaurant AI phone ordering POS guide`
 
 7. Submit local and restaurant industry listings.
    - Target Chinese business associations, Asian chambers of commerce, restaurant technology directories, and restaurant consultant resource pages.
@@ -91,6 +91,7 @@ Start with these categories before spending money on ads.
 | P0 | Bing Places | Free Bing local/business profile | `/` | Restaurant AI phone answering |
 | P0 | Bing Webmaster Tools | Free indexing and query data | `/sitemap.xml` | Sitemap submission |
 | P0 | Apple Business Connect | Free Apple Maps/Siri profile | `/` | AI phone ordering for restaurants |
+| P1 | Educational resource listings | Free guide/resource link | `/guides/restaurant-ai-phone-ordering-pos-guide/` | Restaurant AI phone ordering POS guide |
 | P1 | AI directories | Free product listing | `/restaurant-ai-phone-order-taker/` | Restaurant AI phone order taker |
 | P1 | Startup directories | Free SaaS listing | `/ai-voice-assistant-for-restaurants/` | AI voice assistant for restaurants |
 | P1 | Restaurant technology directories | Vendor/resource listing | `/restaurant-pos-phone-order-integration/` | Restaurant POS phone order integration |

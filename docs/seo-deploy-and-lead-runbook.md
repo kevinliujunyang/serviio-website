@@ -66,6 +66,8 @@ After Cloudflare deploys:
 4. Use URL Inspection and request indexing for the highest-priority pages:
    - `https://serviio.ai/chinese-restaurant-ai-phone-ordering/`
    - `https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/`
+   - `https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/`
+   - `https://serviio.ai/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
    - `https://serviio.ai/chinese-restaurant-phone-order-automation/`
    - `https://serviio.ai/zh/chinese-restaurant-phone-order-automation/`
    - `https://serviio.ai/restaurant-pos-phone-order-integration/`

@@ -109,6 +109,8 @@ Core pages:
 - `/zh/restaurant-phone-order-automation/`
 - `/restaurant-automation-software-phone-orders/`
 - `/zh/restaurant-automation-software-phone-orders/`
+- `/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 - `/service-areas/`
 - `/zh/service-areas/`
 
@@ -133,6 +135,8 @@ POS-specific pages:
 5. Use URL Inspection to request indexing for:
    - `/chinese-restaurant-ai-phone-ordering/`
    - `/zh/chinese-restaurant-ai-phone-ordering/`
+   - `/guides/restaurant-ai-phone-ordering-pos-guide/`
+   - `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
    - `/restaurant-phone-answering-service/`
    - `/zh/restaurant-phone-answering-service/`
    - `/ai-order-taking-for-restaurants/`
@@ -235,6 +239,8 @@ Content pages recently added:
 - `/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
 - `/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
 - `/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
+- `/guides/restaurant-ai-phone-ordering-pos-guide/`
+- `/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
 
 Operational SEO work next:
 - Deploy the current English and Chinese page set.
@@ -242,6 +248,7 @@ Operational SEO work next:
 - Track impressions by keyword cluster, not only by exact-match keyword.
 - Expand state-level service-area pages into city pages when Search Console shows city demand.
 - Add POS comparison and POS recommendation guides when no-POS or vendor-comparison queries appear.
+- Use the restaurant AI phone ordering POS guide as the default landing page for educational backlinks and directory submissions.
 
 Off-page work:
 - Create a Google Business Profile if Serviio has a service-area business presence.

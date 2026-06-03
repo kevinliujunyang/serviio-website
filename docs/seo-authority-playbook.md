@@ -56,6 +56,9 @@ Serviio is an AI phone answering system for restaurants. It can answer in Englis
 If your restaurant gets regular phone orders and already uses a POS, you can check fit here:
 https://serviio.ai/chinese-restaurant-ai-phone-ordering/
 
+For an educational explanation of the workflow before evaluating vendors:
+https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/
+
 ## Review/Testimonial Request
 
 Hi [Customer],
@@ -76,3 +79,5 @@ This helps other restaurant owners understand whether Serviio is relevant to the
 5. Review Search Console queries and add internal links to pages that are gaining impressions.
 
 Record each submission, listing URL, UTM URL, and follow-up status in `docs/free-search-marketing-checklist.md`.
+
+Use `/guides/restaurant-ai-phone-ordering-pos-guide/` as the default link for educational submissions, community answers, and directory listings that prefer resource content over a direct sales page.

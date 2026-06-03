@@ -63,6 +63,18 @@ const rows = [
   },
   {
     priority: 'P1',
+    channel: 'Educational resource listing',
+    target: 'Restaurant tech resource pages',
+    url: '',
+    status: 'not_started',
+    landingPath: '/guides/restaurant-ai-phone-ordering-pos-guide/',
+    source: 'educational_resource_listing',
+    medium: 'organic_listing',
+    anchor: 'Restaurant AI phone ordering POS guide',
+    notes: 'Use for directories, newsletters, and resource pages that prefer educational links over product pages.',
+  },
+  {
+    priority: 'P1',
     channel: 'AI directory',
     target: 'AI tool directories',
     url: '',

@@ -4,6 +4,8 @@ const xml = fs.readFileSync('sitemap.xml', 'utf8');
 const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 
 const priorityPatterns = [
+  '/guides/restaurant-ai-phone-ordering-pos-guide/',
+  '/zh/guides/restaurant-ai-phone-ordering-pos-guide/',
   '/chinese-restaurant-ai-phone-ordering/',
   '/ai-phone-answering-for-chinese-restaurants/',
   '/restaurant-ai-phone-order-taker/',
