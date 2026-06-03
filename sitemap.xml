@@ -920,6 +920,24 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/mandarin-cantonese-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/mandarin-cantonese-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/mandarin-cantonese-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/mandarin-cantonese-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/mandarin-cantonese-ai-phone-ordering/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/mandarin-cantonese-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/mandarin-cantonese-ai-phone-ordering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/mandarin-cantonese-ai-phone-ordering/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/site-map/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/site-map/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/site-map/"/>

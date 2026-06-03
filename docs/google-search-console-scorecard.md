@@ -69,6 +69,7 @@ Track these as exact query groups in Search Console exports:
 - bilingual restaurant phone ordering
 - mandarin ai phone answering for restaurants
 - mandarin restaurant phone ordering
+- mandarin and cantonese ai phone ordering
 - cantonese ai phone ordering for chinese takeout
 - cantonese restaurant phone order ai
 - restaurant missed call recovery
@@ -108,6 +109,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/chinese-restaurant-phone-order-automation/`
 - `/ai-phone-ordering-for-chinese-takeout/`
 - `/zh/ai-phone-ordering-for-chinese-takeout/`
+- `/mandarin-cantonese-ai-phone-ordering/`
+- `/zh/mandarin-cantonese-ai-phone-ordering/`
 - `/chinese-restaurant-voice-ai/`
 - `/zh/chinese-restaurant-voice-ai/`
 - `/restaurant-ai-phone-order-taker/`

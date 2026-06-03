@@ -64,6 +64,8 @@ const priorityPatterns = [
   '/zh/chinese-restaurant-voice-ai/',
   '/ai-phone-ordering-for-chinese-takeout/',
   '/zh/ai-phone-ordering-for-chinese-takeout/',
+  '/mandarin-cantonese-ai-phone-ordering/',
+  '/zh/mandarin-cantonese-ai-phone-ordering/',
   '/pos/39-miles-ai-phone-ordering/',
   '/zh/pos/39-miles-ai-phone-ordering/',
   '/pos/square-ai-phone-ordering/',
