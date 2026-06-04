@@ -143,6 +143,7 @@ These should become new pages or expanded sections once the current P0 pages are
 | Restaurant AI receptionist and answering service | restaurant AI receptionist, AI receptionist for restaurants, restaurant virtual receptionist, restaurant AI receptionist phone answering, AI phone answering service for restaurants, restaurant AI phone answering service | Buyer searches the receptionist or answering-service category before identifying phone-order automation | `/restaurant-phone-answering-service/` |
 | Chinese restaurant AI receptionist | Chinese restaurant AI receptionist, AI receptionist for Chinese restaurants, Chinese restaurant virtual receptionist, Chinese restaurant AI front desk, AI receptionist Chinese takeout | Chinese restaurant owner wants receptionist-style phone coverage, not a generic restaurant AI page | `/chinese-restaurant-ai-receptionist/` |
 | Restaurant AI phone ordering guide | how restaurant AI phone ordering works, restaurant AI phone ordering POS workflow, restaurant AI phone ordering guide, AI phone orders to POS | Buyer or partner wants educational proof before contacting sales | `/guides/restaurant-ai-phone-ordering-pos-guide/` |
+| Connect phone orders to POS | how to connect phone orders to POS, restaurant POS integration service, restaurant phone order POS workflow, phone orders connected to restaurant POS | POS-aware owner wants a practical phone-order workflow before requesting a fit check | `/guides/connect-phone-orders-to-pos/` |
 
 ## POS-Specific Keywords
 
@@ -176,6 +177,7 @@ Recommended URL:
 - `/takeout-pos-system/`
 - `/best-pos-for-chinese-restaurant-phone-orders/`
 - `/guides/chinese-restaurant-pos-comparison/`
+- `/guides/connect-phone-orders-to-pos/`
 
 ## Restaurant Type Modifiers
 

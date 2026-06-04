@@ -938,6 +938,24 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/guides/connect-phone-orders-to-pos/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/guides/connect-phone-orders-to-pos/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/guides/connect-phone-orders-to-pos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/guides/connect-phone-orders-to-pos/"/>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/guides/connect-phone-orders-to-pos/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/guides/connect-phone-orders-to-pos/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/guides/connect-phone-orders-to-pos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/guides/connect-phone-orders-to-pos/"/>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/guides/chinese-restaurant-pos-comparison/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/guides/chinese-restaurant-pos-comparison/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/guides/chinese-restaurant-pos-comparison/"/>
