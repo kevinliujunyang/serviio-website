@@ -956,6 +956,24 @@
     <priority>0.86</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/chinese-restaurant-ai-receptionist/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-ai-receptionist/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-ai-receptionist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-ai-receptionist/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/chinese-restaurant-ai-receptionist/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-ai-receptionist/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-ai-receptionist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-ai-receptionist/"/>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/site-map/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/site-map/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/site-map/"/>

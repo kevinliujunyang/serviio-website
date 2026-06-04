@@ -61,6 +61,8 @@ Track these as exact query groups in Search Console exports:
 - ai receptionist for restaurants
 - restaurant virtual receptionist
 - ai receptionist for chinese restaurants
+- chinese restaurant ai receptionist
+- chinese restaurant virtual receptionist
 - restaurant tech ai phone ordering
 - restaurant automation software phone orders
 - automate restaurant phone orders
@@ -109,6 +111,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/ai-phone-answering-for-chinese-restaurants/`
 - `/chinese-restaurant-phone-answering-service/`
 - `/zh/chinese-restaurant-phone-answering-service/`
+- `/chinese-restaurant-ai-receptionist/`
+- `/zh/chinese-restaurant-ai-receptionist/`
 - `/chinese-restaurant-phone-order-automation/`
 - `/zh/chinese-restaurant-phone-order-automation/`
 - `/ai-phone-ordering-for-chinese-takeout/`
