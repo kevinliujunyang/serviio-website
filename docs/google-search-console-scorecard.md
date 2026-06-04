@@ -162,6 +162,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/best-pos-for-chinese-restaurant-phone-orders/`
 - `/chinese-restaurant-pos-system/`
 - `/zh/chinese-restaurant-pos-system/`
+- `/takeout-pos-system/`
+- `/zh/takeout-pos-system/`
 - `/restaurant-automation-software-phone-orders/`
 - `/zh/restaurant-automation-software-phone-orders/`
 - `/service-areas/california-chinese-restaurant-ai-phone-ordering/`
