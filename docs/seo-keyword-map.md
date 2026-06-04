@@ -172,6 +172,7 @@ These should not be the primary Serviio conversion wedge, but they can create re
 
 Recommended URL:
 
+- `/chinese-restaurant-pos-system/`
 - `/best-pos-for-chinese-restaurant-phone-orders/`
 - `/guides/chinese-restaurant-pos-comparison/`
 

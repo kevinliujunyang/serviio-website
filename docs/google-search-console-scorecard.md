@@ -68,6 +68,7 @@ Track these as exact query groups in Search Console exports:
 - automate restaurant phone orders
 - automated phone ordering for restaurants
 - best pos for chinese restaurant
+- chinese restaurant pos system
 - pos system for chinese takeout restaurant
 - ai phone ordering for chinese takeout
 - bilingual restaurant phone ordering
@@ -159,6 +160,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/restaurant-tech-ai-phone-ordering/`
 - `/best-pos-for-chinese-restaurant-phone-orders/`
 - `/zh/best-pos-for-chinese-restaurant-phone-orders/`
+- `/chinese-restaurant-pos-system/`
+- `/zh/chinese-restaurant-pos-system/`
 - `/restaurant-automation-software-phone-orders/`
 - `/zh/restaurant-automation-software-phone-orders/`
 - `/service-areas/california-chinese-restaurant-ai-phone-ordering/`
