@@ -16,6 +16,16 @@ const REQUIRED_QUALIFICATION_FIELDS = [
 ];
 const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
+const ALLOWED_CONVERSION_OFFERS = new Set([
+  'ai_phone_order_fit_check',
+  'chinese_restaurant_fit_check',
+  'homepage_pos_fit_check',
+  'local_pos_fit_check',
+  'named_pos_fit_check',
+  'pos_integration_fit_check',
+  'pos_recommendation_fit_check',
+  'pos_readiness_checklist',
+]);
 const INDEXNOW_KEY = '13f7c37452042c38a20123e6f2db6946';
 const REQUIRED_ORGANIZATION_TOPICS = [
   'restaurant AI phone ordering',
@@ -223,6 +233,10 @@ function validateForms(pages) {
     }
     for (const field of REQUIRED_FORM_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);
+    }
+    const conversionOffer = extractAttr(html, /name="conversion_offer"\s+value="([^"]+)"/);
+    if (conversionOffer && !ALLOWED_CONVERSION_OFFERS.has(conversionOffer)) {
+      errors.push(`${file}: unknown conversion_offer "${conversionOffer}"`);
     }
     for (const field of REQUIRED_QUALIFICATION_FIELDS) {
       if (!html.includes(`name="${field}"`)) errors.push(`${file}: form missing ${field}`);

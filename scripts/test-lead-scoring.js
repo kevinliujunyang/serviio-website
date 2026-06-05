@@ -144,6 +144,64 @@ assert.strictEqual(homepagePosFitDemo.priority_seo_source, 'yes');
 assert.match(homepagePosFitDemo.buyer_profile, /offer:homepage_pos_fit_check/);
 assert.match(homepagePosFitDemo.lead_reason, /priority SEO source/);
 
+const namedPosOfferDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'POS Offer Bistro',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/pos/square-ai-phone-ordering/',
+  pos_system: 'Square',
+  phone_orders_per_week: 'Under 25',
+  conversion_offer: 'named_pos_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(namedPosOfferDemo.lead_priority, 'medium');
+assert.strictEqual(namedPosOfferDemo.lead_route, 'demo_queue');
+assert.strictEqual(namedPosOfferDemo.priority_seo_source, 'yes');
+assert.match(namedPosOfferDemo.buyer_profile, /offer:named_pos_fit_check/);
+
+const posRecommendationOfferReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'POS Recommendation Noodle Shop',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/best-pos-for-chinese-restaurant-phone-orders/',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: '25-75',
+  conversion_offer: 'pos_recommendation_fit_check',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+});
+assert.strictEqual(posRecommendationOfferReferral.lead_route, 'pos_referral');
+assert.strictEqual(posRecommendationOfferReferral.partner_referral_priority, 'hot');
+assert.strictEqual(posRecommendationOfferReferral.priority_seo_source, 'yes');
+assert.match(posRecommendationOfferReferral.buyer_profile, /offer:pos_recommendation_fit_check/);
+
+const posIntegrationOfferDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'Integration Test Kitchen',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/guides/connect-phone-orders-to-pos/',
+  pos_system: 'Other POS',
+  phone_orders_per_week: 'Under 25',
+  conversion_offer: 'pos_integration_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(posIntegrationOfferDemo.lead_priority, 'medium');
+assert.strictEqual(posIntegrationOfferDemo.lead_route, 'demo_queue');
+assert.match(posIntegrationOfferDemo.buyer_profile, /offer:pos_integration_fit_check/);
+
+const aiPhoneOrderOfferDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'General Restaurant',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/restaurant-ai-assistant/',
+  pos_system: 'Clover',
+  phone_orders_per_week: 'Under 25',
+  conversion_offer: 'ai_phone_order_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(aiPhoneOrderOfferDemo.lead_priority, 'medium');
+assert.strictEqual(aiPhoneOrderOfferDemo.lead_route, 'demo_queue');
+assert.match(aiPhoneOrderOfferDemo.buyer_profile, /offer:ai_phone_order_fit_check/);
+
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);
