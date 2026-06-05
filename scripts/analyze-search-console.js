@@ -41,6 +41,16 @@ const CLUSTERS = [
   },
 ];
 
+const LINK_SOURCE_HINTS = {
+  'Chinese restaurant AI phone ordering': '/, /chinese-restaurant-ai-phone-ordering/, /site-map/',
+  'POS integration and POS-ready phone orders': '/, /restaurant-pos-phone-order-integration/, /guides/connect-phone-orders-to-pos/, /site-map/',
+  'Restaurant AI phone order taker': '/, /restaurant-ai-phone-order-taker/, /ai-order-taking-for-restaurants/, /site-map/',
+  'Restaurant phone answering and receptionist': '/, /restaurant-phone-answering-service/, /chinese-restaurant-phone-answering-service/, /site-map/',
+  'Restaurant AI assistant and automation': '/, /restaurant-ai-assistant/, /restaurant-automation-software-phone-orders/, /site-map/',
+  'Local service-area demand': '/service-areas/, /, /site-map/',
+  'Unclassified restaurant AI demand': '/, /site-map/',
+};
+
 const FIELD_ALIASES = {
   query: ['query', 'queries', 'search query', 'top queries'],
   page: ['page', 'pages', 'landing page', 'url'],
@@ -231,6 +241,50 @@ function topRows(rows, predicate, limit = 10) {
     .slice(0, limit);
 }
 
+function targetPath(row) {
+  return row.page || row.preferredPath || '(manual review)';
+}
+
+function buildInternalLinkActions(rows) {
+  const candidates = rows.filter((row) =>
+    row.impressions >= 5 &&
+    row.position > 8 &&
+    targetPath(row) !== '(manual review)'
+  );
+  const grouped = new Map();
+
+  for (const row of candidates) {
+    const target = targetPath(row);
+    if (!grouped.has(target)) {
+      grouped.set(target, {
+        target,
+        cluster: row.cluster,
+        impressions: 0,
+        weightedPosition: 0,
+        rows: [],
+      });
+    }
+
+    const group = grouped.get(target);
+    group.impressions += row.impressions;
+    group.weightedPosition += row.position * Math.max(1, row.impressions);
+    group.rows.push(row);
+  }
+
+  return [...grouped.values()]
+    .map((group) => ({
+      ...group,
+      averagePosition: group.weightedPosition / group.rows.reduce((sum, row) => sum + Math.max(1, row.impressions), 0),
+      anchors: topRows(group.rows, () => true, 3).map((row) => row.query).filter(Boolean),
+      sourceHints: LINK_SOURCE_HINTS[group.cluster] || LINK_SOURCE_HINTS['Unclassified restaurant AI demand'],
+    }))
+    .sort((a, b) => {
+      if (b.impressions !== a.impressions) return b.impressions - a.impressions;
+      return a.averagePosition - b.averagePosition;
+    })
+    .slice(0, 10);
+}
+
 function formatNumber(value, decimals = 0) {
   return Number(value || 0).toLocaleString('en-US', {
     minimumFractionDigits: decimals,
@@ -258,6 +312,7 @@ function renderReport(rows) {
   const nearPageOne = topRows(rows, (row) => row.impressions >= 5 && row.position > 8 && row.position <= 20);
   const lowCtr = topRows(rows, (row) => row.impressions >= 10 && row.position > 0 && row.position <= 20 && row.ctr < 2);
   const noKnownPage = topRows(rows, (row) => row.impressions >= 5 && !row.page);
+  const internalLinkActions = buildInternalLinkActions(rows);
 
   return [
     '# Serviio Search Console Export Analysis',
@@ -308,6 +363,22 @@ function renderReport(rows) {
         formatNumber(row.impressions),
         formatNumber(row.position, 1),
         row.preferredPath || '(manual review)',
+      ]),
+    ),
+    '',
+    '## Internal-Link Action Queue',
+    '',
+    'Aggregated target pages from weak-position and near-page-one rows. Add exact or close-variant anchors from the suggested source hubs first.',
+    '',
+    renderTable(
+      ['Target page', 'Cluster', 'Impressions', 'Avg position', 'Anchor phrases', 'Suggested source hubs'],
+      internalLinkActions.map((action) => [
+        action.target,
+        action.cluster,
+        formatNumber(action.impressions),
+        formatNumber(action.averagePosition, 1),
+        action.anchors.join('<br>') || '(query missing)',
+        action.sourceHints,
       ]),
     ),
     '',

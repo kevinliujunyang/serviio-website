@@ -16,7 +16,7 @@ Analyze a Search Console CSV export with:
 npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
 ```
 
-Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, and low-CTR title/meta rewrite candidates.
+Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, and low-CTR title/meta rewrite candidates.
 
 | Metric | Source | Target |
 | --- | --- | --- |
@@ -28,6 +28,14 @@ Use the report to find page-one wins, position 8-20 opportunities, weak-position
 | Page-one target queries | Search Console query export | Increase count of queries with position 1-10 |
 | Qualified form leads | Formspree plus attribution fields | Increase leads from priority pages |
 | High-priority lead rate | Lead scoring rubric | More POS-ready Chinese restaurant owners |
+
+## Weekly Action Queue
+
+After running the Search Console analyzer, use `Internal-Link Action Queue` first. For each target page:
+- Add one exact or close-variant anchor from a suggested source hub.
+- Prefer homepage, sitemap, guide, POS, and core category links before creating a new page.
+- Re-run `npm run validate:seo` after link edits.
+- Recheck the same query/page rows the following week to see whether average position moves toward page one.
 
 ## Priority Queries
 
