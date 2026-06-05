@@ -17,6 +17,7 @@ const FIELD_ALIASES = {
   pos: ['pos_system', 'pos system', 'pos_status', 'pos status', 'current_pos', 'current pos'],
   posFocus: ['pos_focus', 'pos focus', 'target_pos', 'target pos'],
   phoneOrders: ['phone_orders_per_week', 'phone orders per week', 'weekly_phone_orders', 'weekly phone orders'],
+  conversionOffer: ['conversion_offer', 'conversion offer', 'offer', 'content_offer', 'content offer'],
   posRecommendationInterest: [
     'pos_recommendation_interest',
     'pos recommendation interest',
@@ -101,6 +102,7 @@ function buildBuyerProfile({
   if (hasUsLocation) parts.push('us_location_captured');
   if (partnerReferralPriority !== 'none') parts.push(`partner_referral:${partnerReferralPriority}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
+  if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
 
   return parts.join(' | ');
@@ -428,6 +430,7 @@ function scoreLead(record) {
     pos_focus: values.posFocus,
     pos_system: values.pos,
     phone_orders_per_week: values.phoneOrders,
+    conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
     lead_source: values.leadSource,
     landing_path: values.landingPath || values.currentPath,
@@ -521,6 +524,7 @@ function main() {
     'pos_focus',
     'pos_system',
     'phone_orders_per_week',
+    'conversion_offer',
     'pos_recommendation_interest',
     'lead_source',
     'landing_path',
