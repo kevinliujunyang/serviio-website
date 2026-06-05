@@ -15,6 +15,7 @@ const REQUIRED_QUALIFICATION_FIELDS = [
 ];
 const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
+const INDEXNOW_KEY = '13f7c37452042c38a20123e6f2db6946';
 const REQUIRED_ORGANIZATION_TOPICS = [
   'restaurant AI phone ordering',
   'AI phone answering for Chinese restaurants',
@@ -283,6 +284,37 @@ function validateRobots() {
   return { errors };
 }
 
+function validateIndexNowSetup() {
+  const errors = [];
+  const keyFile = `${INDEXNOW_KEY}.txt`;
+  if (!fs.existsSync(keyFile)) {
+    errors.push(`${keyFile}: missing IndexNow key file`);
+  } else {
+    const keyFileValue = fs.readFileSync(keyFile, 'utf8').trim();
+    if (keyFileValue !== INDEXNOW_KEY) {
+      errors.push(`${keyFile}: IndexNow key file content mismatch`);
+    }
+  }
+
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  if (packageJson.scripts?.['indexnow:payload'] !== 'node scripts/submit-indexnow.js') {
+    errors.push('package.json: missing indexnow:payload script');
+  }
+  if (packageJson.scripts?.['indexnow:submit'] !== 'node scripts/submit-indexnow.js --submit') {
+    errors.push('package.json: missing indexnow:submit script');
+  }
+
+  const script = fs.readFileSync('scripts/submit-indexnow.js', 'utf8');
+  if (!script.includes(INDEXNOW_KEY)) {
+    errors.push('scripts/submit-indexnow.js: missing IndexNow key');
+  }
+  if (!script.includes('INDEXNOW_KEY_LOCATION') || !script.includes('${SITE_ORIGIN}/${INDEXNOW_KEY}.txt')) {
+    errors.push('scripts/submit-indexnow.js: missing IndexNow keyLocation constant');
+  }
+
+  return { errors };
+}
+
 function extractJsonLdObjects(file) {
   const html = fs.readFileSync(file, 'utf8');
   const objects = [];
@@ -524,6 +556,7 @@ const sitemap = validateSitemap(pages);
 const forms = validateForms(pages);
 const links = validateInternalLinks(pages);
 const robots = validateRobots();
+const indexNow = validateIndexNowSetup();
 const organizationAuthority = validateOrganizationAuthority();
 const homepageSoftwareApplication = validateHomepageSoftwareApplication();
 const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
@@ -536,6 +569,7 @@ const errors = [
   ...forms.errors,
   ...links.errors,
   ...robots.errors,
+  ...indexNow.errors,
   ...organizationAuthority.errors,
   ...homepageSoftwareApplication.errors,
   ...homepagePriorityNavLinks.errors,
@@ -565,5 +599,6 @@ console.log([
   `${posFocusFields.posPageCount} POS focus fields validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
+  'IndexNow setup validated',
   'robots.txt validated',
 ].join('\n'));

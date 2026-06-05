@@ -97,6 +97,11 @@ Use `utm_medium=partner_referral` for consultants or partner links, and `utm_med
 5. Submit sitemap in Bing Webmaster Tools.
    - Sitemap: `https://serviio.ai/sitemap.xml`
    - Use Bing URL submission for highest-priority POS and Chinese restaurant pages.
+   - After deploy, use IndexNow for the top-priority URL batch:
+     ```bash
+     npm run indexnow:payload
+     npm run indexnow:submit
+     ```
 
 6. Submit free AI/product listings.
    - Start with AI tool directories, startup directories, and SaaS directories that allow free submission.

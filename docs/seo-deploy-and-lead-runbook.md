@@ -37,6 +37,18 @@ To print the priority Search Console URL Inspection list:
 npm run indexing:urls
 ```
 
+To prepare a Bing/IndexNow batch for the top-priority buyer-intent URLs:
+
+```bash
+npm run indexnow:payload
+```
+
+After the pushed deploy is live and the IndexNow key file is reachable at `https://serviio.ai/13f7c37452042c38a20123e6f2db6946.txt`, submit the top-priority URL batch with:
+
+```bash
+npm run indexnow:submit
+```
+
 ## Deploy
 
 This repository currently has a mixed worktree during SEO buildout, so do not use `git add .` unless you have confirmed every untracked file belongs in the deploy.
@@ -65,18 +77,26 @@ After Cloudflare deploys:
    ```bash
    npm run smoke:prod
    ```
-3. In Google Search Console, submit `https://serviio.ai/sitemap.xml`.
-4. Print the current URL Inspection queue:
+3. Confirm the IndexNow key file returns HTTP 200:
+   ```bash
+   curl -s https://serviio.ai/13f7c37452042c38a20123e6f2db6946.txt
+   ```
+4. Submit the top-priority URL batch to IndexNow:
+   ```bash
+   npm run indexnow:submit
+   ```
+5. In Google Search Console, submit `https://serviio.ai/sitemap.xml`.
+6. Print the current URL Inspection queue:
    ```bash
    npm run indexing:urls
    ```
-5. In Google Search Console, request indexing for every URL under `Top Priority URL Inspection List` first. These are the strongest buyer-intent pages for Chinese restaurant owners, POS-ready workflows, and named POS systems.
-6. If daily URL Inspection quota remains, request indexing for `Secondary Priority URL Inspection List`, prioritizing:
+7. In Google Search Console, request indexing for every URL under `Top Priority URL Inspection List` first. These are the strongest buyer-intent pages for Chinese restaurant owners, POS-ready workflows, and named POS systems.
+8. If daily URL Inspection quota remains, request indexing for `Secondary Priority URL Inspection List`, prioritizing:
    - pages with exact Chinese restaurant plus POS or phone-order intent
    - service-area pages for states or cities where outreach is active
    - guide pages used in directory, community, or partner submissions
-7. Save the command output with the Search Console submission date so the next weekly review knows which URLs were requested.
-8. Check Search Console again after Google crawls:
+9. Save the command output with the Search Console submission date so the next weekly review knows which URLs were requested.
+10. Check Search Console again after Google crawls:
    - Pages indexed
    - Duplicate without user-selected canonical
    - Crawled but not indexed
