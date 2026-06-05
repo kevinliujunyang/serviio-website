@@ -56,6 +56,7 @@ const PHONE_ORDER_PATTERN = /phone|call|answer|ordering|order\s*taker|order\s*ta
 const COMMERCIAL_INTENT_PATTERN = /ai|assistant|agent|automation|service|system|integration|pos|ordering|answering|receptionist/i;
 const BUYER_PAGE_PATTERN = /chinese-restaurant|pos|phone-order|phone-answering|ai-phone|restaurant-ai|service-areas/i;
 const LOCAL_SERVICE_AREA_PATTERN = /california|san\s*francisco|los\s*angeles|new\s*york|new\s*jersey|texas|houston|seattle|chicago|boston|philadelphia|pennsylvania|massachusetts|service-area|service\s*area/i;
+const PHONE_ANSWERING_PATTERN = /answering|answer\s*phone|receptionist|virtual\s*receptionist|missed\s*call|call\s*answer/i;
 
 const FIELD_ALIASES = {
   query: ['query', 'queries', 'search query', 'top queries'],
@@ -418,6 +419,79 @@ function buildInternalLinkActions(rows) {
     .slice(0, 10);
 }
 
+function rewriteTitleFor(row) {
+  const text = `${row.query} ${row.page}`;
+  const posMatch = text.match(/39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway/i);
+
+  if (posMatch) {
+    const posName = posMatch[0]
+      .replace(/\b39\s*miles\b/i, '39 Miles')
+      .replace(/\bsquare\b/i, 'Square')
+      .replace(/\btoast\b/i, 'Toast')
+      .replace(/\bclover\b/i, 'Clover')
+      .replace(/\bmenu\s*sifu\b/i, 'MenuSifu')
+      .replace(/\bmenusifu\b/i, 'MenuSifu')
+      .replace(/\bchowbus\b/i, 'Chowbus')
+      .replace(/\bmealkeyway\b/i, 'Mealkeyway');
+    return `${posName} AI Phone Ordering for Restaurants - Serviio`;
+  }
+  if (isLocalServiceAreaIntent(row)) {
+    const cityMatch = text.match(/san\s*francisco|los\s*angeles|new\s*york|new\s*jersey|texas|houston|seattle|chicago|boston|philadelphia|pennsylvania|massachusetts|california/i);
+    const location = cityMatch ? cityMatch[0].replace(/\b\w/g, (char) => char.toUpperCase()) : 'Local';
+    return `${location} Chinese Restaurant AI Phone Ordering - Serviio`;
+  }
+  if (isPosIntent(row)) return 'Restaurant POS Phone Order Integration - Serviio';
+  if (isChineseIntent(row) && PHONE_ANSWERING_PATTERN.test(text)) return 'Chinese Restaurant Phone Answering Service - Serviio';
+  if (isChineseIntent(row)) return 'Chinese Restaurant AI Phone Ordering - Serviio';
+  if (isPhoneOrderIntent(row)) return 'Restaurant AI Phone Order Taker - Serviio';
+  return 'Restaurant AI Phone Assistant - Serviio';
+}
+
+function rewriteMetaFor(row) {
+  if (isPosIntent(row)) {
+    return 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.';
+  }
+  if (isChineseIntent(row)) {
+    return 'AI phone ordering for Chinese restaurants. Serviio answers calls, captures takeout orders, supports bilingual callers, and checks POS readiness.';
+  }
+  if (isLocalServiceAreaIntent(row)) {
+    return 'Serviio helps local Chinese restaurants answer calls, recover phone orders, and route POS-ready owners to an AI phone ordering fit check.';
+  }
+  return 'Serviio answers restaurant calls, takes phone orders, captures POS status, and helps owners qualify AI phone ordering fit.';
+}
+
+function rewriteReason(row) {
+  if (row.position > 0 && row.position <= 10 && row.ctr < 2) {
+    return 'page-one low CTR';
+  }
+  if (row.position > 8 && row.position <= 20) {
+    return 'near page one';
+  }
+  return 'buyer-intent rewrite candidate';
+}
+
+function buildTitleMetaRewriteBriefs(rows) {
+  return rows
+    .filter((row) =>
+      row.impressions >= 5 &&
+      buyerIntentScore(row).score >= 45 &&
+      ((row.position > 0 && row.position <= 10 && row.ctr < 2) || (row.position > 8 && row.position <= 20))
+    )
+    .map((row) => ({
+      ...row,
+      intentScore: buyerIntentScore(row).score,
+      rewriteReason: rewriteReason(row),
+      suggestedTitle: rewriteTitleFor(row),
+      suggestedMeta: rewriteMetaFor(row),
+    }))
+    .sort((a, b) => {
+      if (b.intentScore !== a.intentScore) return b.intentScore - a.intentScore;
+      if (b.impressions !== a.impressions) return b.impressions - a.impressions;
+      return a.position - b.position;
+    })
+    .slice(0, 10);
+}
+
 function formatNumber(value, decimals = 0) {
   return Number(value || 0).toLocaleString('en-US', {
     minimumFractionDigits: decimals,
@@ -448,6 +522,7 @@ function renderReport(rows) {
   const internalLinkActions = buildInternalLinkActions(rows);
   const buyerIntentActions = buildBuyerIntentActions(rows);
   const posSpecificActions = buildPosSpecificActions(rows);
+  const titleMetaRewriteBriefs = buildTitleMetaRewriteBriefs(rows);
 
   return [
     '# Serviio Search Console Export Analysis',
@@ -582,6 +657,22 @@ function renderReport(rows) {
       ]),
     ),
     '',
+    '## Title/Meta Rewrite Briefs',
+    '',
+    'Use these when a high-intent query is already on page one with weak CTR, or is close enough to page one that clearer owner-focused title/meta copy can help.',
+    '',
+    renderTable(
+      ['Score', 'Reason', 'Query', 'Page', 'Suggested title', 'Suggested meta'],
+      titleMetaRewriteBriefs.map((row) => [
+        `${row.intentScore}/100`,
+        row.rewriteReason,
+        row.query || '(query missing)',
+        row.page || row.preferredPath || '(page missing)',
+        row.suggestedTitle,
+        row.suggestedMeta,
+      ]),
+    ),
+    '',
     '## Rows Missing Landing Page',
     '',
     renderTable(
@@ -628,6 +719,7 @@ module.exports = {
   buyerIntentScore,
   buildBuyerIntentActions,
   buildPosSpecificActions,
+  buildTitleMetaRewriteBriefs,
   normalizeRecord,
   parseCsv,
   renderReport,
