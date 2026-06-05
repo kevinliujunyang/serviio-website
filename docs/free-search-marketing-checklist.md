@@ -34,6 +34,12 @@ npm run marketing:summary
 
 Prioritize rows listed under `Ready-To-Submit Rows` first because they already have a submission, profile, or outreach URL. Use `marketing:prospects` for rows that still need target research.
 
+Print ready-to-paste submission packets for rows with a known target URL:
+
+```bash
+npm run marketing:packets
+```
+
 Use the ready-to-paste listing and outreach copy in:
 
 ```text
