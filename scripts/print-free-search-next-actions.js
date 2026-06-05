@@ -136,6 +136,10 @@ function packetHint(row) {
   if (row.channel === 'AI directory') return 'Use the AI Directory Form Pack and choose voice AI, AI agent, automation, restaurant technology, or customer service AI.';
   if (row.channel === 'Chinese business association') return 'Use the Chinese Association Outreach Copy and include both English and Chinese landing URLs.';
   if (row.channel === 'Restaurant technology directory') return 'Use Restaurant Technology Directory Copy and emphasize POS-ready phone-order workflows.';
+  if (row.channel === 'POS-specific outreach') return 'Use POS-Specific Partner Outreach Copy and swap in the POS name plus the tracker UTM URL.';
+  if (row.channel === 'Partner outreach' && /website/i.test(row.target)) return 'Use Restaurant Website and Online Ordering Partner Copy with the tracker UTM URL.';
+  if (row.channel === 'Partner outreach') return 'Use POS Consultant Outreach Copy and ask for a referral path.';
+  if (row.channel === 'Community post') return 'Use Community Permission Request Copy before posting; use Approved Community Post only after permission.';
   return 'Use the closest copy block in docs/free-search-submission-copy.md.';
 }
 

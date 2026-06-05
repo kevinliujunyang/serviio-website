@@ -144,6 +144,104 @@ https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/
 Thanks,
 Serviio
 
+## POS-Specific Partner Outreach Copy
+
+Use this for 39 Miles, MenuSifu, Chowbus, Mealkeyway, Square, Toast, and Clover partner/referral targets.
+
+### Subject Options
+
+- AI phone ordering add-on for [POS] restaurants
+- Referral path for [POS] restaurants missing phone orders
+- Partner question: phone orders for [POS] restaurant operators
+
+### Email
+
+Hi [Name],
+
+Serviio helps restaurants answer phone calls with AI, capture structured takeout order details, and evaluate how confirmed orders can move into the restaurant's POS or kitchen workflow.
+
+We are especially focused on Chinese restaurants and takeout-heavy operators already using [POS]. These restaurants often still receive high phone volume during lunch and dinner rush, even when online ordering is available.
+
+Would you be open to a short partner/referral conversation? We can route POS-ready restaurants to an AI phone-ordering demo, and no-POS restaurants can be qualified separately for POS recommendations before they are a fit for Serviio.
+
+Relevant page:
+[Use the tracker UTM URL]
+
+Thanks,
+Serviio
+
+### Follow-Up
+
+Hi [Name],
+
+Following up on the note below. The best fit is a restaurant that already uses [POS], receives regular phone orders, and wants fewer missed calls or less manual re-entry during rush hours.
+
+If there is a better person for partner or integration conversations, could you point me in the right direction?
+
+Thanks,
+Serviio
+
+## Restaurant Website and Online Ordering Partner Copy
+
+Use this for restaurant website agencies, online ordering vendors, and menu/ordering providers.
+
+Subject: AI phone-ordering add-on for restaurant website clients
+
+Hi [Name],
+
+Serviio helps restaurants capture phone orders with AI when guests still call instead of ordering online. It can answer in English and Chinese, ask about modifiers, confirm pickup details, and evaluate POS or kitchen handoff options.
+
+This can be a useful add-on for restaurant website and online-ordering clients who still miss calls, still take orders manually, or still need staff to re-enter phone orders during rush hours.
+
+Would you be open to discussing a referral path for restaurant clients using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or similar POS platforms?
+
+Relevant page:
+https://serviio.ai/restaurant-phone-order-automation/
+
+Thanks,
+Serviio
+
+## Community Permission Request Copy
+
+Use this before posting in restaurant-owner communities, WeChat groups, Meetup groups, Reddit communities, or chamber discussion spaces.
+
+### English Permission Request
+
+Hi [Name],
+
+I work on Serviio, an AI phone answering and order-taking system for restaurants. We are trying to share a practical resource for Chinese restaurants and takeout-heavy restaurants that already use a POS and still receive phone orders during rush hours.
+
+Before posting, I wanted to ask whether it is appropriate to share a short resource/demo link with your group. The post would focus on missed calls, bilingual English/Chinese phone orders, and POS-ready workflows rather than a generic sales pitch.
+
+If allowed, I will keep it short and follow any group rules.
+
+Thanks,
+Serviio
+
+### Chinese Permission Request
+
+您好 [Name]，
+
+我是 Serviio 的团队成员。Serviio 是面向餐馆的 AI 电话接听和接单系统，重点帮助已经使用 POS、但高峰期仍然经常接电话接单的中餐馆。
+
+在群里发布前，想先请问是否可以分享一个简短资源或演示链接。内容会围绕中餐馆高峰期漏接电话、中英文电话接单、以及和 POS/厨房流程对接的实际问题，不会刷屏。
+
+如果允许，我会按照群规简短发布。
+
+谢谢，
+Serviio
+
+### Approved Community Post
+
+Many takeout-heavy restaurants still lose phone orders during lunch and dinner rush because staff are packing orders, serving guests, or answering in-store questions.
+
+Serviio is an AI phone answering and order-taking system for restaurants. It can answer in English and Chinese, ask about modifiers and pickup details, and evaluate POS workflows for systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+
+Best fit: Chinese restaurants or takeout restaurants that already use a POS and receive regular phone orders.
+
+Check fit:
+[Use the tracker UTM URL]
+
 ## Community Post Copy
 
 Many Chinese restaurants still lose phone orders during lunch and dinner rush because staff are busy packing orders, serving guests, or answering in-store questions.

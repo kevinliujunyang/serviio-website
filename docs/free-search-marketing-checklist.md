@@ -166,6 +166,7 @@ Serviio helps Chinese restaurants answer phone orders with AI in English and Chi
 Serviio 是面向美国中餐馆的 AI 电话接单系统，可用中文和英文接听电话、确认外卖和自取订单、处理菜单问题和备注，并评估与 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等 POS 系统的对接流程。
 
 Full submission copy, category suggestions, feature lists, pricing text, and association outreach templates live in `docs/free-search-submission-copy.md`.
+For the highest-scoring POS/referral rows, use the POS-specific partner, restaurant website partner, and community permission-request blocks in that file before marking a row as submitted.
 
 ## Weekly Routine
 
