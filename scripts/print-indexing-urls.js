@@ -157,6 +157,8 @@ const topPriorityPatterns = [
   '/zh/mandarin-cantonese-ai-phone-ordering/',
   '/guides/chinese-restaurant-pos-comparison/',
   '/zh/guides/chinese-restaurant-pos-comparison/',
+  '/best-pos-for-chinese-restaurant-phone-orders/',
+  '/zh/best-pos-for-chinese-restaurant-phone-orders/',
   '/pos/39-miles-ai-phone-ordering/',
   '/zh/pos/39-miles-ai-phone-ordering/',
   '/pos/menusifu-ai-phone-ordering/',
