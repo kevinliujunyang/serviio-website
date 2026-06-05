@@ -193,6 +193,17 @@
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Cloud",
         "description": "AI voice agent for restaurants. Answers phone calls 24/7, takes orders in 7 languages, integrates with major POS systems.",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Chinese restaurant owners in the United States using POS systems"
+        },
+        "featureList": [
+            "AI phone ordering for restaurants",
+            "Bilingual English and Chinese phone answering",
+            "Restaurant POS integration for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway",
+            "SMS order confirmations",
+            "Multi-line call handling"
+        ],
         "offers": {
             "@type": "Offer",
             "description": "2% per completed order. No monthly fees, no setup costs."
@@ -223,10 +234,11 @@
                 <div class="flex items-center">
                     <img src="assets/logo.svg" alt="Serviio - AI Voice Agent for Restaurants" class="h-8">
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden xl:flex items-center space-x-6">
                     <a href="#features" class="text-gray-600 hover:text-gray-900 transition">Features</a>
                     <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">How It Works</a>
                     <a href="/restaurant-phone-answering-service/" class="text-gray-600 hover:text-gray-900 transition">Phone Answering</a>
+                    <a href="/restaurant-pos-phone-order-integration/" class="text-gray-600 hover:text-gray-900 transition">POS Integration</a>
                     <a href="/chinese-restaurant-ai-phone-ordering/" class="text-gray-600 hover:text-gray-900 transition">Chinese Restaurants</a>
                     <a href="/service-areas/" class="text-gray-600 hover:text-gray-900 transition">Service Areas</a>
                     <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">Pricing</a>
@@ -256,7 +268,7 @@
                     <a href="#contact" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">Get Started</a>
                 </div>
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2">
+                <button id="mobile-menu-btn" class="xl:hidden p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -264,7 +276,7 @@
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
+        <div id="mobile-menu" class="hidden xl:hidden border-t border-gray-100 bg-white">
             <div class="px-4 py-4 space-y-3">
                 <a href="#features" class="block text-gray-600 hover:text-gray-900">Features</a>
                 <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">How It Works</a>

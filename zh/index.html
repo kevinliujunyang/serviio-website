@@ -195,6 +195,17 @@
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Cloud",
         "description": "专为餐厅打造的 AI 电话接单系统，24/7 自动接听电话，支持 7 国语言，对接主流 POS。",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "使用 POS 的美国中餐馆老板"
+        },
+        "featureList": [
+            "餐厅 AI 电话接单",
+            "中英文双语电话接听",
+            "对接 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus 和 Mealkeyway 等餐厅 POS",
+            "短信订单确认",
+            "多线路同时接听"
+        ],
         "offers": {
             "@type": "Offer",
             "description": "按完成订单 2% 收费，无月租，无安装费。"
@@ -229,10 +240,11 @@
                 <div class="flex items-center">
                     <a href="/zh/"><img src="../assets/logo.svg" alt="Serviio - 餐厅 AI 电话接单系统" class="h-8"></a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden xl:flex items-center space-x-6">
                     <a href="#features" class="text-gray-600 hover:text-gray-900 transition">功能特点</a>
                     <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">使用流程</a>
                     <a href="/zh/restaurant-phone-answering-service/" class="text-gray-600 hover:text-gray-900 transition">电话接听</a>
+                    <a href="/zh/restaurant-pos-phone-order-integration/" class="text-gray-600 hover:text-gray-900 transition">POS 对接</a>
                     <a href="/zh/chinese-restaurant-ai-phone-ordering/" class="text-gray-600 hover:text-gray-900 transition">中餐馆方案</a>
                     <a href="/zh/service-areas/" class="text-gray-600 hover:text-gray-900 transition">服务地区</a>
                     <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">价格方案</a>
@@ -262,7 +274,7 @@
                     <a href="#contact" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">立即开始</a>
                 </div>
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2">
+                <button id="mobile-menu-btn" class="xl:hidden p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -270,7 +282,7 @@
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
+        <div id="mobile-menu" class="hidden xl:hidden border-t border-gray-100 bg-white">
             <div class="px-4 py-4 space-y-3">
                 <a href="#features" class="block text-gray-600 hover:text-gray-900">功能特点</a>
                 <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">使用流程</a>

@@ -326,6 +326,67 @@ function validateOrganizationAuthority() {
   return { errors, homepageCount: homepageFiles.length };
 }
 
+function validateHomepageSoftwareApplication() {
+  const errors = [];
+  const homepageFiles = ['index.html', 'zh/index.html'];
+  const featureRequirements = {
+    'index.html': ['AI phone ordering', 'Chinese phone answering', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus', 'Mealkeyway', 'SMS', 'Multi-line'],
+    'zh/index.html': ['餐厅 AI 电话接单', '中英文', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus', 'Mealkeyway', '短信', '多线路'],
+  };
+
+  for (const file of homepageFiles) {
+    const software = extractJsonLdObjects(file).find((data) => hasType(data, 'SoftwareApplication'));
+    if (!software) {
+      errors.push(`${file}: missing SoftwareApplication JSON-LD`);
+      continue;
+    }
+    if (!software.audience || software.audience['@type'] !== 'Audience') {
+      errors.push(`${file}: SoftwareApplication JSON-LD missing target Audience`);
+    }
+    const audienceType = String(software.audience?.audienceType || '');
+    if (!audienceType.includes('POS')) {
+      errors.push(`${file}: SoftwareApplication audience must mention POS`);
+    }
+    const featureText = JSON.stringify(asArray(software.featureList).filter(Boolean));
+    for (const phrase of featureRequirements[file]) {
+      if (!featureText.includes(phrase)) {
+        errors.push(`${file}: SoftwareApplication featureList missing ${phrase}`);
+      }
+    }
+  }
+
+  return { errors, homepageCount: homepageFiles.length };
+}
+
+function validateHomepagePriorityNavLinks() {
+  const errors = [];
+  const requiredLinks = {
+    'index.html': [
+      '/restaurant-phone-answering-service/',
+      '/restaurant-pos-phone-order-integration/',
+      '/chinese-restaurant-ai-phone-ordering/',
+      '/service-areas/',
+    ],
+    'zh/index.html': [
+      '/zh/restaurant-phone-answering-service/',
+      '/zh/restaurant-pos-phone-order-integration/',
+      '/zh/chinese-restaurant-ai-phone-ordering/',
+      '/zh/service-areas/',
+    ],
+  };
+
+  for (const [file, links] of Object.entries(requiredLinks)) {
+    const html = fs.readFileSync(file, 'utf8');
+    for (const href of links) {
+      if (!html.includes(`href="${href}"`)) {
+        errors.push(`${file}: homepage priority nav missing ${href}`);
+      }
+    }
+  }
+
+  return { errors, homepageCount: Object.keys(requiredLinks).length };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -411,6 +472,8 @@ const forms = validateForms(pages);
 const links = validateInternalLinks(pages);
 const robots = validateRobots();
 const organizationAuthority = validateOrganizationAuthority();
+const homepageSoftwareApplication = validateHomepageSoftwareApplication();
+const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const errors = [
@@ -420,6 +483,8 @@ const errors = [
   ...links.errors,
   ...robots.errors,
   ...organizationAuthority.errors,
+  ...homepageSoftwareApplication.errors,
+  ...homepagePriorityNavLinks.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
 ];
@@ -440,6 +505,8 @@ console.log([
   'POS qualification validated',
   'internal links validated',
   `${organizationAuthority.homepageCount} Organization authority schemas validated`,
+  `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
+  `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'robots.txt validated',
