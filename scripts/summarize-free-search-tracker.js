@@ -63,10 +63,18 @@ function statusRank(status) {
   }[status] ?? 9;
 }
 
+function hasTargetUrl(row) {
+  return /^https?:\/\//.test(row.url);
+}
+
+function targetUrlRank(row) {
+  return hasTargetUrl(row) ? 0 : 1;
+}
+
 function nextAction(row) {
   if (row.status === 'follow-up needed') return 'Follow up and ask for live listing or next step';
   if (row.status === 'submitted') return 'Check whether listing is live and record date_live';
-  if (row.status === 'not_started' && row.url) return 'Submit or contact using the listed URL';
+  if (row.status === 'not_started' && hasTargetUrl(row)) return 'Submit or contact using the listed URL';
   if (row.status === 'not_started') return 'Find target URL with npm run marketing:prospects';
   if (row.status === 'live') return 'Monitor referral traffic and lead attribution';
   if (row.status === 'rejected') return 'Archive or replace with a better target';
@@ -94,14 +102,21 @@ const nextRows = rows
     if (priorityDiff) return priorityDiff;
     const statusDiff = statusRank(a.status) - statusRank(b.status);
     if (statusDiff) return statusDiff;
+    const targetUrlDiff = targetUrlRank(a) - targetUrlRank(b);
+    if (targetUrlDiff) return targetUrlDiff;
     return a.channel.localeCompare(b.channel) || a.target.localeCompare(b.target);
   })
   .slice(0, 15);
+
+const readyRows = rows.filter((row) => row.status === 'not_started' && hasTargetUrl(row));
+const needsTargetRows = rows.filter((row) => row.status === 'not_started' && !hasTargetUrl(row));
 
 console.log('# Serviio Free Search Tracker Summary');
 console.log('');
 console.log(`Rows: ${rows.length}`);
 console.log(`Active rows: ${rows.filter((row) => ACTIVE_STATUSES.has(row.status)).length}`);
+console.log(`Ready-to-submit rows: ${readyRows.length}`);
+console.log(`Rows needing target research: ${needsTargetRows.length}`);
 console.log('');
 printCounts('By Priority', byPriority);
 printCounts('By Status', byStatus);
@@ -117,4 +132,13 @@ for (const row of nextRows) {
   console.log(`  Landing: ${row.landing_url}`);
   console.log(`  UTM: ${row.utm_url}`);
   console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
+}
+
+console.log('');
+console.log('## Ready-To-Submit Rows');
+for (const row of readyRows
+  .sort((a, b) => priorityRank(a.priority) - priorityRank(b.priority) || a.channel.localeCompare(b.channel) || a.target.localeCompare(b.target))
+  .slice(0, 12)) {
+  console.log(`- [${row.priority}] ${row.target}: ${row.url}`);
+  console.log(`  Use: ${row.utm_url}`);
 }
