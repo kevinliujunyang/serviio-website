@@ -168,6 +168,7 @@ These should not be the primary Serviio conversion wedge, but they can create re
 | --- | --- | --- |
 | Chinese restaurant POS system | Chinese restaurant POS system, best POS for Chinese restaurant, POS system for Chinese takeout, Chinese restaurant order POS | Capture as POS recommendation lead |
 | Takeout POS system | POS system for takeout restaurant, restaurant POS for phone orders, best POS for takeout orders, restaurant POS order management | Capture and qualify for POS readiness |
+| Chinese takeout POS system | Chinese takeout POS system, POS system for Chinese takeout, Chinese takeout order POS, best POS for Chinese takeout orders | Capture and qualify Chinese takeout POS readiness |
 | POS comparison | Square vs Toast for restaurant phone orders, MenuSifu vs Chowbus, 39 Miles POS alternative, Chinese restaurant POS comparison | Use partner/referral content later |
 | POS integration education | how to connect phone orders to POS, restaurant POS integration service, restaurant phone order POS workflow | Educate and qualify integration demand |
 
@@ -175,6 +176,7 @@ Recommended URL:
 
 - `/chinese-restaurant-pos-system/`
 - `/takeout-pos-system/`
+- `/chinese-takeout-pos-system/`
 - `/best-pos-for-chinese-restaurant-phone-orders/`
 - `/guides/chinese-restaurant-pos-comparison/`
 - `/guides/connect-phone-orders-to-pos/`
