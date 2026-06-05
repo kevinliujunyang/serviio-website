@@ -18,6 +18,14 @@ npm run marketing:tracker
 
 This writes `docs/free-search-marketing-tracker.csv` with priority channels, landing URLs, and UTM URLs.
 
+Print search queries for finding free directory, association, community, and partner targets:
+
+```bash
+npm run marketing:prospects
+```
+
+Use the output to find real submission pages and outreach targets, then record the live URL or contact URL back into `docs/free-search-marketing-tracker.csv`.
+
 Required fields:
 
 | Field | What To Record |

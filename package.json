@@ -12,6 +12,7 @@
     "leads:score": "node scripts/score-formspree-leads.js",
     "search:analyze": "node scripts/analyze-search-console.js",
     "marketing:tracker": "node scripts/generate-free-search-tracker.js",
+    "marketing:prospects": "node scripts/print-free-search-prospect-queries.js",
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
     "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
   },
