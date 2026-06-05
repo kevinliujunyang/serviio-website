@@ -286,6 +286,16 @@ function validateRobots() {
 
 function validateIndexNowSetup() {
   const errors = [];
+  const requiredTopPriorityPaths = [
+    '/',
+    '/zh/',
+    '/restaurant-pos-phone-order-integration/',
+    '/zh/restaurant-pos-phone-order-integration/',
+    '/guides/connect-phone-orders-to-pos/',
+    '/zh/guides/connect-phone-orders-to-pos/',
+    '/pos/mealkeyway-ai-phone-ordering/',
+    '/zh/pos/mealkeyway-ai-phone-ordering/',
+  ];
   const keyFile = `${INDEXNOW_KEY}.txt`;
   if (!fs.existsSync(keyFile)) {
     errors.push(`${keyFile}: missing IndexNow key file`);
@@ -310,6 +320,11 @@ function validateIndexNowSetup() {
   }
   if (!script.includes('INDEXNOW_KEY_LOCATION') || !script.includes('${SITE_ORIGIN}/${INDEXNOW_KEY}.txt')) {
     errors.push('scripts/submit-indexnow.js: missing IndexNow keyLocation constant');
+  }
+  for (const path of requiredTopPriorityPaths) {
+    if (!script.includes(`'${path}'`)) {
+      errors.push(`scripts/submit-indexnow.js: top-priority IndexNow batch missing ${path}`);
+    }
   }
 
   return { errors };
@@ -611,7 +626,7 @@ function validateFreeSearchTracker() {
   if (!tracker.includes('utm_source=indexnow&utm_medium=indexing&utm_campaign=free_search_marketing')) {
     errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow UTM URL');
   }
-  if (!tracker.includes('Submitted 28 top-priority Chinese restaurant and POS URLs')) {
+  if (!tracker.includes('Submitted top-priority Chinese restaurant and POS URLs')) {
     errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow submission evidence note');
   }
   if (packageJson.scripts?.['marketing:next'] !== 'node scripts/print-free-search-next-actions.js') {

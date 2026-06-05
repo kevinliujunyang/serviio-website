@@ -7,8 +7,14 @@ const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 const INDEXNOW_KEY = '13f7c37452042c38a20123e6f2db6946';
 const INDEXNOW_KEY_LOCATION = `${SITE_ORIGIN}/${INDEXNOW_KEY}.txt`;
 const TOP_PRIORITY_PATHS = [
+  '/',
+  '/zh/',
   '/chinese-restaurant-ai-phone-ordering/',
   '/zh/chinese-restaurant-ai-phone-ordering/',
+  '/restaurant-pos-phone-order-integration/',
+  '/zh/restaurant-pos-phone-order-integration/',
+  '/guides/connect-phone-orders-to-pos/',
+  '/zh/guides/connect-phone-orders-to-pos/',
   '/chinese-restaurant-ai-order-taker/',
   '/zh/chinese-restaurant-ai-order-taker/',
   '/chinese-restaurant-pos-ai-phone-agent/',
@@ -35,6 +41,8 @@ const TOP_PRIORITY_PATHS = [
   '/zh/pos/toast-ai-phone-ordering/',
   '/pos/clover-ai-phone-ordering/',
   '/zh/pos/clover-ai-phone-ordering/',
+  '/pos/mealkeyway-ai-phone-ordering/',
+  '/zh/pos/mealkeyway-ai-phone-ordering/',
 ];
 
 function parseArgs(argv) {

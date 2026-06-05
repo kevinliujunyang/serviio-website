@@ -135,8 +135,14 @@ const priorityPatterns = [
 ];
 
 const topPriorityPatterns = [
+  '/',
+  '/zh/',
   '/chinese-restaurant-ai-phone-ordering/',
   '/zh/chinese-restaurant-ai-phone-ordering/',
+  '/restaurant-pos-phone-order-integration/',
+  '/zh/restaurant-pos-phone-order-integration/',
+  '/guides/connect-phone-orders-to-pos/',
+  '/zh/guides/connect-phone-orders-to-pos/',
   '/chinese-restaurant-ai-order-taker/',
   '/zh/chinese-restaurant-ai-order-taker/',
   '/chinese-restaurant-pos-ai-phone-agent/',
@@ -163,6 +169,8 @@ const topPriorityPatterns = [
   '/zh/pos/toast-ai-phone-ordering/',
   '/pos/clover-ai-phone-ordering/',
   '/zh/pos/clover-ai-phone-ordering/',
+  '/pos/mealkeyway-ai-phone-ordering/',
+  '/zh/pos/mealkeyway-ai-phone-ordering/',
 ];
 
 const priorityUrls = urls.filter((url) =>
@@ -171,8 +179,9 @@ const priorityUrls = urls.filter((url) =>
 const topPriorityUrls = urls.filter((url) =>
   topPriorityPatterns.includes(new URL(url).pathname)
 );
+const prioritizedUrlSet = new Set([...priorityUrls, ...topPriorityUrls]);
 const secondaryPriorityUrls = priorityUrls.filter((url) => !topPriorityUrls.includes(url));
-const remainingUrls = urls.filter((url) => !priorityUrls.includes(url));
+const remainingUrls = urls.filter((url) => !prioritizedUrlSet.has(url));
 
 console.log('# Top Priority URL Inspection List');
 console.log(topPriorityUrls.join('\n'));
