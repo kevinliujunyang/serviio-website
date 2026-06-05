@@ -18,6 +18,7 @@ const REQUIRED_ORGANIZATION_TOPICS = [
   'restaurant AI phone ordering',
   'AI phone answering for Chinese restaurants',
   'restaurant AI phone order taker',
+  'restaurant customer service AI',
   'POS integrated AI phone agent for restaurants',
   'Chinese restaurant POS integration',
   '39 Miles POS',
