@@ -453,6 +453,34 @@ function validateHomepagePriorityNavLinks() {
   return { errors, homepageCount: Object.keys(requiredLinks).length };
 }
 
+function validateHomepageAuthorityHubLinks() {
+  const errors = [];
+  const html = fs.readFileSync('index.html', 'utf8');
+  const requiredAnchors = [
+    { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles POS AI phone agent' },
+    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu POS AI phone agent' },
+    { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chinese restaurant Chowbus phone orders' },
+    { href: '/pos/mealkeyway-ai-phone-ordering/', text: 'Mealkeyway POS AI phone agent' },
+    { href: '/pos/square-ai-phone-ordering/', text: 'AI phone agent Square POS' },
+    { href: '/pos/toast-ai-phone-ordering/', text: 'AI phone agent Toast POS' },
+    { href: '/pos/clover-ai-phone-ordering/', text: 'AI phone agent Clover POS' },
+    { href: '/takeout-pos-system/', text: 'POS system for takeout restaurant' },
+    { href: '/chinese-takeout-pos-system/', text: 'Chinese takeout order POS' },
+    { href: '/restaurant-tech-ai-phone-ordering/', text: 'Restaurant tech AI phone ordering' },
+    { href: '/restaurant-call-answering-ai/', text: 'Restaurant call answering AI' },
+    { href: '/restaurant-pos-phone-order-integration/', text: 'Restaurant POS phone order integration' },
+  ];
+
+  for (const { href, text } of requiredAnchors) {
+    const linkPattern = new RegExp(`<a\\b[^>]*href="${href.replace(/\//g, '\\/')}"[^>]*>[\\s\\S]*?${text}[\\s\\S]*?<\\/a>`);
+    if (!linkPattern.test(html)) {
+      errors.push(`index.html: homepage authority hub missing anchor "${text}" to ${href}`);
+    }
+  }
+
+  return { errors, anchorCount: requiredAnchors.length };
+}
+
 function validatePosFocusFields(pages) {
   const errors = [];
   const posPages = pages.filter((file) => file.startsWith('pos/') || file.startsWith('zh/pos/'));
@@ -655,6 +683,7 @@ const indexNow = validateIndexNowSetup();
 const organizationAuthority = validateOrganizationAuthority();
 const homepageSoftwareApplication = validateHomepageSoftwareApplication();
 const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
+const homepageAuthorityHubLinks = validateHomepageAuthorityHubLinks();
 const posFocusFields = validatePosFocusFields(pages);
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
@@ -671,6 +700,7 @@ const errors = [
   ...organizationAuthority.errors,
   ...homepageSoftwareApplication.errors,
   ...homepagePriorityNavLinks.errors,
+  ...homepageAuthorityHubLinks.errors,
   ...posFocusFields.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
@@ -697,6 +727,7 @@ console.log([
   `${organizationAuthority.homepageCount} Organization authority schemas validated`,
   `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
   `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
+  `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
   `${posFocusFields.posPageCount} POS focus fields validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
