@@ -65,78 +65,17 @@ After Cloudflare deploys:
    npm run smoke:prod
    ```
 3. In Google Search Console, submit `https://serviio.ai/sitemap.xml`.
-4. Use URL Inspection and request indexing for the highest-priority pages:
-   - `https://serviio.ai/chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/guides/restaurant-ai-phone-ordering-pos-guide/`
-   - `https://serviio.ai/zh/guides/restaurant-ai-phone-ordering-pos-guide/`
-   - `https://serviio.ai/guides/chinese-restaurant-pos-comparison/`
-   - `https://serviio.ai/zh/guides/chinese-restaurant-pos-comparison/`
-   - `https://serviio.ai/chinese-restaurant-phone-order-automation/`
-   - `https://serviio.ai/zh/chinese-restaurant-phone-order-automation/`
-   - `https://serviio.ai/restaurant-pos-phone-order-integration/`
-   - `https://serviio.ai/zh/restaurant-pos-phone-order-integration/`
-   - `https://serviio.ai/chinese-restaurant-pos-integration/`
-   - `https://serviio.ai/zh/chinese-restaurant-pos-integration/`
-   - `https://serviio.ai/restaurant-phone-order-ai-pos/`
-   - `https://serviio.ai/zh/restaurant-phone-order-ai-pos/`
-   - `https://serviio.ai/restaurant-ai-assistant/`
-   - `https://serviio.ai/zh/restaurant-ai-assistant/`
-   - `https://serviio.ai/restaurant-pos-system-phone-orders/`
-   - `https://serviio.ai/zh/restaurant-pos-system-phone-orders/`
-   - `https://serviio.ai/ai-voice-assistant-for-restaurants/`
-   - `https://serviio.ai/zh/ai-voice-assistant-for-restaurants/`
-   - `https://serviio.ai/restaurant-tech-ai-phone-ordering/`
-   - `https://serviio.ai/zh/restaurant-tech-ai-phone-ordering/`
-   - `https://serviio.ai/best-pos-for-chinese-restaurant-phone-orders/`
-   - `https://serviio.ai/zh/best-pos-for-chinese-restaurant-phone-orders/`
-   - `https://serviio.ai/restaurant-phone-order-automation/`
-   - `https://serviio.ai/zh/restaurant-phone-order-automation/`
-   - `https://serviio.ai/restaurant-automation-software-phone-orders/`
-   - `https://serviio.ai/zh/restaurant-automation-software-phone-orders/`
-   - `https://serviio.ai/service-areas/california-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/california-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/new-york-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/new-york-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/houston-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/seattle-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/chicago-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/boston-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/zh/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/`
-   - `https://serviio.ai/pos/menusifu-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/menusifu-ai-phone-ordering/`
-   - `https://serviio.ai/pos/39-miles-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/39-miles-ai-phone-ordering/`
-   - `https://serviio.ai/pos/square-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/square-ai-phone-ordering/`
-   - `https://serviio.ai/pos/toast-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/toast-ai-phone-ordering/`
-   - `https://serviio.ai/pos/clover-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/clover-ai-phone-ordering/`
-   - `https://serviio.ai/pos/chowbus-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/chowbus-ai-phone-ordering/`
-   - `https://serviio.ai/pos/mealkeyway-ai-phone-ordering/`
-   - `https://serviio.ai/zh/pos/mealkeyway-ai-phone-ordering/`
-5. Check Search Console again after Google crawls:
+4. Print the current URL Inspection queue:
+   ```bash
+   npm run indexing:urls
+   ```
+5. In Google Search Console, request indexing for every URL under `Top Priority URL Inspection List` first. These are the strongest buyer-intent pages for Chinese restaurant owners, POS-ready workflows, and named POS systems.
+6. If daily URL Inspection quota remains, request indexing for `Secondary Priority URL Inspection List`, prioritizing:
+   - pages with exact Chinese restaurant plus POS or phone-order intent
+   - service-area pages for states or cities where outreach is active
+   - guide pages used in directory, community, or partner submissions
+7. Save the command output with the Search Console submission date so the next weekly review knows which URLs were requested.
+8. Check Search Console again after Google crawls:
    - Pages indexed
    - Duplicate without user-selected canonical
    - Crawled but not indexed

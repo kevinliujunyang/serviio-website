@@ -132,12 +132,49 @@ const priorityPatterns = [
   '/zh/service-areas/texas-chinese-restaurant-ai-phone-ordering/',
 ];
 
+const topPriorityPatterns = [
+  '/chinese-restaurant-ai-phone-ordering/',
+  '/zh/chinese-restaurant-ai-phone-ordering/',
+  '/chinese-restaurant-ai-order-taker/',
+  '/zh/chinese-restaurant-ai-order-taker/',
+  '/chinese-restaurant-pos-ai-phone-agent/',
+  '/zh/chinese-restaurant-pos-ai-phone-agent/',
+  '/chinese-restaurant-phone-order-pos-workflow/',
+  '/zh/chinese-restaurant-phone-order-pos-workflow/',
+  '/chinese-restaurant-customer-service-ai/',
+  '/zh/chinese-restaurant-customer-service-ai/',
+  '/ai-phone-ordering-for-chinese-takeout/',
+  '/zh/ai-phone-ordering-for-chinese-takeout/',
+  '/mandarin-cantonese-ai-phone-ordering/',
+  '/zh/mandarin-cantonese-ai-phone-ordering/',
+  '/guides/chinese-restaurant-pos-comparison/',
+  '/zh/guides/chinese-restaurant-pos-comparison/',
+  '/pos/39-miles-ai-phone-ordering/',
+  '/zh/pos/39-miles-ai-phone-ordering/',
+  '/pos/menusifu-ai-phone-ordering/',
+  '/zh/pos/menusifu-ai-phone-ordering/',
+  '/pos/chowbus-ai-phone-ordering/',
+  '/zh/pos/chowbus-ai-phone-ordering/',
+  '/pos/square-ai-phone-ordering/',
+  '/zh/pos/square-ai-phone-ordering/',
+  '/pos/toast-ai-phone-ordering/',
+  '/zh/pos/toast-ai-phone-ordering/',
+  '/pos/clover-ai-phone-ordering/',
+  '/zh/pos/clover-ai-phone-ordering/',
+];
+
 const priorityUrls = urls.filter((url) =>
   priorityPatterns.includes(new URL(url).pathname)
 );
+const topPriorityUrls = urls.filter((url) =>
+  topPriorityPatterns.includes(new URL(url).pathname)
+);
+const secondaryPriorityUrls = priorityUrls.filter((url) => !topPriorityUrls.includes(url));
 const remainingUrls = urls.filter((url) => !priorityUrls.includes(url));
 
-console.log('# Priority URL Inspection List');
-console.log(priorityUrls.join('\n'));
+console.log('# Top Priority URL Inspection List');
+console.log(topPriorityUrls.join('\n'));
+console.log('\n# Secondary Priority URL Inspection List');
+console.log(secondaryPriorityUrls.join('\n'));
 console.log('\n# Remaining Sitemap URLs');
 console.log(remainingUrls.join('\n'));
