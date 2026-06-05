@@ -122,6 +122,7 @@ These should get the strongest landing pages, direct CTAs, lead forms, FAQs, sch
 | Chinese restaurant phone answering service | Chinese restaurant phone answering service, phone answering service for Chinese restaurants, Chinese takeout phone answering service, answering service for Chinese restaurant | Owner searches for answering-service help before searching for AI automation | `/chinese-restaurant-phone-answering-service/` |
 | Chinese restaurant AI order taker | Chinese restaurant AI order taker, AI order taker for Chinese restaurants, Chinese takeout AI order taker, Chinese restaurant phone order taker AI | Chinese restaurant owner wants AI to take phone orders with bilingual support and POS-ready handoff | `/chinese-restaurant-ai-order-taker/` |
 | Restaurant phone order taker AI | restaurant phone order taker AI, restaurant AI phone order taker, AI phone order taker for restaurants, AI order taker for restaurant phone calls | Owner is searching for the phone-order product category | Existing category page |
+| Chinese restaurant POS AI phone agent | Chinese restaurant POS AI phone agent, Chinese restaurant POS AI agent, Chinese restaurant AI phone agent POS, Chinese restaurant POS integrated AI phone agent | Chinese restaurant owner already thinks in POS terms and wants a phone agent connected to the kitchen workflow | `/chinese-restaurant-pos-ai-phone-agent/` |
 | POS-integrated AI phone agent | POS integrated AI phone agent restaurant, restaurant AI POS integration, AI phone ordering POS integration, AI order taking POS integration | Owner already has POS and wants automation connected to workflow | Existing POS integration page plus new broader page |
 | Restaurant phone order AI POS | restaurant phone order AI POS, restaurant phone ordering AI POS system, phone order AI for restaurant POS, restaurant POS phone order automation | Owner wants phone orders to flow into POS/kitchen | New priority page |
 
@@ -180,6 +181,7 @@ Recommended URL:
 - `/takeout-pos-system/`
 - `/chinese-takeout-pos-system/`
 - `/chinese-restaurant-ai-order-taker/`
+- `/chinese-restaurant-pos-ai-phone-agent/`
 - `/chinese-restaurant-phone-order-pos-workflow/`
 - `/best-pos-for-chinese-restaurant-phone-orders/`
 - `/guides/chinese-restaurant-pos-comparison/`

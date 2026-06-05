@@ -118,6 +118,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/chinese-restaurant-phone-order-automation/`
 - `/chinese-restaurant-ai-order-taker/`
 - `/zh/chinese-restaurant-ai-order-taker/`
+- `/chinese-restaurant-pos-ai-phone-agent/`
+- `/zh/chinese-restaurant-pos-ai-phone-agent/`
 - `/ai-phone-ordering-for-chinese-takeout/`
 - `/zh/ai-phone-ordering-for-chinese-takeout/`
 - `/mandarin-cantonese-ai-phone-ordering/`
