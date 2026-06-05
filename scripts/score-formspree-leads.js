@@ -17,6 +17,17 @@ const FIELD_ALIASES = {
   pos: ['pos_system', 'pos system', 'pos_status', 'pos status', 'current_pos', 'current pos'],
   posFocus: ['pos_focus', 'pos focus', 'target_pos', 'target pos'],
   phoneOrders: ['phone_orders_per_week', 'phone orders per week', 'weekly_phone_orders', 'weekly phone orders'],
+  pain: [
+    'main_pain',
+    'main pain',
+    'pain',
+    'pain_point',
+    'pain point',
+    'restaurant_pain',
+    'restaurant pain',
+    'message',
+    'notes',
+  ],
   conversionOffer: ['conversion_offer', 'conversion offer', 'offer', 'content_offer', 'content offer'],
   posRecommendationInterest: [
     'pos_recommendation_interest',
@@ -43,9 +54,17 @@ const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
 const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai|local-pos|local_pos|local\s+pos|pos-readiness|pos_readiness|partner-referral|partner_referral|organic-listing|organic_listing|community-post|community_post|free-search|free_search/i;
+const PAIN_PATTERNS = [
+  ['missed_calls', /missed\s*call|miss\s+calls|busy\s*signal|hang\s*up|can't\s+answer|cannot\s+answer|ring\s+through|lost\s+call|漏接|忙线/i],
+  ['rush_hour', /rush|lunch|dinner|peak|busy\s+hour|高峰|午餐|晚餐/i],
+  ['bilingual_calls', /bilingual|mandarin|cantonese|chinese|language|english\s+and\s+chinese|普通话|粤语|中文|双语/i],
+  ['manual_entry', /manual|re-?enter|retype|typing|enter\s+orders|pos\s+entry|staff\s+entry|手动|录入/i],
+  ['after_hours', /after\s*hours|closed|night|late|24\/7|voicemail|下班|关门/i],
+];
+const URGENT_PAIN_SIGNALS = new Set(['missed_calls', 'rush_hour', 'manual_entry', 'after_hours']);
 
-function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource }) {
-  if (posReady && highVolume && (chineseIntent || prioritySource)) {
+function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource, urgentPain }) {
+  if (posReady && (highVolume || urgentPain) && (chineseIntent || prioritySource)) {
     return {
       route: 'call_now',
       nextAction: 'Call within 24 hours; qualify POS integration path and demo timing.',
@@ -93,6 +112,7 @@ function buildBuyerProfile({
   prioritySource,
   hasUsLocation,
   partnerReferralPriority,
+  painSignal,
   values,
 }) {
   const parts = [posReadiness, `${volume}_phone_volume`];
@@ -101,6 +121,7 @@ function buildBuyerProfile({
   if (prioritySource) parts.push('priority_seo_source');
   if (hasUsLocation) parts.push('us_location_captured');
   if (partnerReferralPriority !== 'none') parts.push(`partner_referral:${partnerReferralPriority}`);
+  if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
@@ -117,6 +138,7 @@ function classifyPartnerReferral({
   chineseIntent,
   prioritySource,
   hasUsLocation,
+  urgentPain,
 }) {
   if (posReady) {
     return {
@@ -134,7 +156,7 @@ function classifyPartnerReferral({
     };
   }
 
-  if ((highVolume || mediumVolume) && hasUsLocation && (chineseIntent || prioritySource)) {
+  if ((highVolume || mediumVolume || urgentPain) && hasUsLocation && (chineseIntent || prioritySource)) {
     return {
       monetizationRoute: 'pos_partner_referral',
       partnerReferralPriority: 'hot',
@@ -296,6 +318,17 @@ function classifyPhoneVolume(value) {
   return 'unknown';
 }
 
+function classifyPainSignal(value) {
+  const text = String(value || '').trim();
+  if (!text) return 'unknown';
+
+  const matches = PAIN_PATTERNS
+    .filter(([, pattern]) => pattern.test(text))
+    .map(([signal]) => signal);
+
+  return matches.length ? matches.join('+') : 'other';
+}
+
 function hasKnownPos(value) {
   const text = String(value || '');
   return NAMED_POS_PATTERN.test(text) || OTHER_POS_PATTERN.test(text);
@@ -327,6 +360,10 @@ function scoreLead(record) {
   const volume = classifyPhoneVolume(values.phoneOrders);
   const highVolume = volume === 'high';
   const mediumVolume = volume === 'medium';
+  const painSignal = classifyPainSignal(values.pain);
+  const urgentPain = painSignal
+    .split('+')
+    .some((signal) => URGENT_PAIN_SIGNALS.has(signal));
   const chineseIntent = CHINESE_INTENT_PATTERN.test(sourceText);
   const prioritySource = PRIORITY_SOURCE_PATTERN.test(sourceText);
   const hasUsLocation = values.city !== '' && values.state !== '';
@@ -340,6 +377,7 @@ function scoreLead(record) {
     chineseIntent,
     prioritySource,
     hasUsLocation,
+    urgentPain,
   });
 
   let score = 0;
@@ -380,9 +418,16 @@ function scoreLead(record) {
     score += 12;
     reasons.push('no POS but wants POS recommendation');
   }
+  if (urgentPain) {
+    score += 12;
+    reasons.push(`urgent pain: ${painSignal}`);
+  } else if (painSignal !== 'unknown') {
+    score += 5;
+    reasons.push(`pain: ${painSignal}`);
+  }
 
   let priority = 'review';
-  if (posReady && highVolume && (chineseIntent || prioritySource)) {
+  if (posReady && (highVolume || urgentPain) && (chineseIntent || prioritySource)) {
     priority = 'high';
   } else if (posReady && (mediumVolume || prioritySource || chineseIntent)) {
     priority = 'medium';
@@ -397,6 +442,7 @@ function scoreLead(record) {
     mediumVolume,
     chineseIntent,
     prioritySource,
+    urgentPain,
   });
 
   return {
@@ -407,6 +453,8 @@ function scoreLead(record) {
     lead_reason: reasons.length ? reasons.join('; ') : 'manual review needed',
     pos_readiness: posReadiness,
     phone_volume_tier: volume,
+    pain_signal: painSignal,
+    urgent_pain_signal: yesNo(urgentPain),
     chinese_or_asian_intent: yesNo(chineseIntent),
     priority_seo_source: yesNo(prioritySource),
     us_location_captured: yesNo(hasUsLocation),
@@ -417,6 +465,7 @@ function scoreLead(record) {
       prioritySource,
       hasUsLocation,
       partnerReferralPriority: partnerReferral.partnerReferralPriority,
+      painSignal,
       values,
     }),
     monetization_route: partnerReferral.monetizationRoute,
@@ -431,6 +480,7 @@ function scoreLead(record) {
     pos_focus: values.posFocus,
     pos_system: values.pos,
     phone_orders_per_week: values.phoneOrders,
+    main_pain: values.pain,
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
     lead_source: values.leadSource,
@@ -509,6 +559,8 @@ function main() {
     'lead_reason',
     'pos_readiness',
     'phone_volume_tier',
+    'pain_signal',
+    'urgent_pain_signal',
     'chinese_or_asian_intent',
     'priority_seo_source',
     'us_location_captured',
@@ -525,6 +577,7 @@ function main() {
     'pos_focus',
     'pos_system',
     'phone_orders_per_week',
+    'main_pain',
     'conversion_offer',
     'pos_recommendation_interest',
     'lead_source',
@@ -548,6 +601,7 @@ if (require.main === module) {
 
 module.exports = {
   classifyPhoneVolume,
+  classifyPainSignal,
   hasKnownPos,
   parseCsv,
   scoreLead,

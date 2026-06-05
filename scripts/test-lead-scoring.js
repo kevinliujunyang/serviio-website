@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { hasKnownPos, scoreLead, summarize } = require('./score-formspree-leads');
+const { classifyPainSignal, hasKnownPos, scoreLead, summarize } = require('./score-formspree-leads');
 
 const baseLead = {
   restaurant: 'Golden Dragon Chinese Restaurant',
@@ -201,6 +201,37 @@ const aiPhoneOrderOfferDemo = scoreLead({
 assert.strictEqual(aiPhoneOrderOfferDemo.lead_priority, 'medium');
 assert.strictEqual(aiPhoneOrderOfferDemo.lead_route, 'demo_queue');
 assert.match(aiPhoneOrderOfferDemo.buyer_profile, /offer:ai_phone_order_fit_check/);
+
+const urgentPainDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'Rush Hour Dumpling',
+  pos_system: 'Toast',
+  phone_orders_per_week: '25-75',
+  main_pain: 'We miss calls during dinner rush and staff re-enter phone orders into POS.',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(urgentPainDemo.lead_priority, 'high');
+assert.strictEqual(urgentPainDemo.lead_route, 'call_now');
+assert.strictEqual(urgentPainDemo.pain_signal, 'missed_calls+rush_hour+manual_entry');
+assert.strictEqual(urgentPainDemo.urgent_pain_signal, 'yes');
+assert.match(urgentPainDemo.lead_reason, /urgent pain: missed_calls\+rush_hour\+manual_entry/);
+assert.match(urgentPainDemo.buyer_profile, /pain:missed_calls\+rush_hour\+manual_entry/);
+
+const urgentNoPosReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Late Night Noodle',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: 'Under 25',
+  main_pain: 'Customers call after hours and leave voicemail orders.',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+});
+assert.strictEqual(urgentNoPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(urgentNoPosReferral.partner_referral_priority, 'hot');
+assert.strictEqual(urgentNoPosReferral.urgent_pain_signal, 'yes');
+
+assert.strictEqual(classifyPainSignal('Need Mandarin and Cantonese call handling'), 'bilingual_calls');
+assert.strictEqual(classifyPainSignal('General question'), 'other');
+assert.strictEqual(classifyPainSignal(''), 'unknown');
 
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /Hot POS partner referrals: 1/);

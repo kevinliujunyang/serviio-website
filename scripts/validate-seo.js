@@ -714,6 +714,34 @@ function validateSearchConsoleAnalyzerWorkflow() {
   return { errors };
 }
 
+function validateLeadScoringWorkflow() {
+  const errors = [];
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  const scorer = fs.readFileSync('scripts/score-formspree-leads.js', 'utf8');
+  const test = fs.readFileSync('scripts/test-lead-scoring.js', 'utf8');
+  const runbook = fs.readFileSync('docs/seo-deploy-and-lead-runbook.md', 'utf8');
+
+  if (packageJson.scripts?.['leads:score'] !== 'node scripts/score-formspree-leads.js') {
+    errors.push('package.json: missing leads:score script');
+  }
+  if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
+    errors.push('package.json: missing leads:test script');
+  }
+  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal']) {
+    if (!scorer.includes(snippet)) {
+      errors.push(`scripts/score-formspree-leads.js: missing ${snippet}`);
+    }
+  }
+  if (!test.includes('urgentPainDemo') || !test.includes('classifyPainSignal')) {
+    errors.push('scripts/test-lead-scoring.js: missing urgent pain signal regression coverage');
+  }
+  if (!runbook.includes('pain_signal') || !runbook.includes('urgent_pain_signal')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing lead pain signal workflow');
+  }
+
+  return { errors };
+}
+
 function validateServiceAreaGeneration(pages) {
   const errors = [];
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -770,6 +798,7 @@ const searchConsoleCoverage = validateSearchConsoleCoverage();
 const freeSearchTracker = validateFreeSearchTracker();
 const keywordCoverageTooling = validateKeywordCoverageTooling();
 const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
+const leadScoringWorkflow = validateLeadScoringWorkflow();
 const serviceAreaGeneration = validateServiceAreaGeneration(pages);
 const errors = [
   ...metadata.errors,
@@ -789,6 +818,7 @@ const errors = [
   ...freeSearchTracker.errors,
   ...keywordCoverageTooling.errors,
   ...searchConsoleAnalyzerWorkflow.errors,
+  ...leadScoringWorkflow.errors,
   ...serviceAreaGeneration.errors,
 ];
 
@@ -819,6 +849,7 @@ console.log([
   'free search tracker validated',
   'keyword coverage tooling validated',
   'Search Console analyzer workflow validated',
+  'lead scoring workflow validated',
   `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
   'IndexNow setup validated',
   'robots.txt validated',

@@ -130,6 +130,8 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `lead_reason`
 - `pos_readiness`
 - `phone_volume_tier`
+- `pain_signal`
+- `urgent_pain_signal`
 - `chinese_or_asian_intent`
 - `priority_seo_source`
 - `us_location_captured`
@@ -140,7 +142,9 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `partner_referral_priority`
 - `partner_next_action`
 
-Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, partner referral priority, the POS-specific landing-page focus, conversion offer such as `pos_readiness_checklist`, and the original `lead_source`.
+Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, partner referral priority, urgent pain signals, the POS-specific landing-page focus, conversion offer such as `pos_readiness_checklist`, and the original `lead_source`.
+
+Use `pain_signal` and `urgent_pain_signal` to spot owners with immediate operational pain. Urgent pain includes missed calls, rush-hour call overload, manual POS re-entry, or after-hours calls. These leads can outrank similar-volume leads because the business problem is clearer.
 
 Use `monetization_route` to split follow-up:
 - `serviio_demo`: POS-ready restaurant lead. Keep this in Serviio's demo pipeline first.
