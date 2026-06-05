@@ -18,6 +18,10 @@ npm run search:analyze -- path/to/search-console-export.csv --out search-console
 
 Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, and low-CTR title/meta rewrite candidates.
 
+Start with `Buyer-Intent Action Queue` before generic SEO cleanups. It scores query/page rows for Chinese restaurant, POS, named-POS, phone-order, and commercial intent so the weekly work stays focused on pages most likely to produce qualified restaurant-owner leads.
+
+Use `POS-Specific Query Opportunities` to improve pages and outreach anchors for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway searches. These rows may have lower volume, but they are closer to the POS-ready buyer profile.
+
 Audit whether priority queries are represented in crawlable page text with:
 
 ```bash
@@ -44,6 +48,12 @@ After running the Search Console analyzer, use `Internal-Link Action Queue` firs
 - Prefer homepage, sitemap, guide, POS, and core category links before creating a new page.
 - Re-run `npm run validate:seo` after link edits.
 - Recheck the same query/page rows the following week to see whether average position moves toward page one.
+
+When time is limited, use this order:
+1. Buyer-intent rows with score 80+ and position 8-20.
+2. POS-specific rows for named POS systems, even at lower volume.
+3. Internal-link action queue for pages with impressions but weak position.
+4. CTR rewrite candidates that are already in positions 1-20.
 
 ## Priority Queries
 

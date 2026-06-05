@@ -51,6 +51,11 @@ const LINK_SOURCE_HINTS = {
   'Unclassified restaurant AI demand': '/, /site-map/',
 };
 
+const POS_QUERY_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway/i;
+const PHONE_ORDER_PATTERN = /phone|call|answer|ordering|order\s*taker|order\s*taking|takeout|pickup|missed/i;
+const COMMERCIAL_INTENT_PATTERN = /ai|assistant|agent|automation|service|system|integration|pos|ordering|answering|receptionist/i;
+const BUYER_PAGE_PATTERN = /chinese-restaurant|pos|phone-order|phone-answering|ai-phone|restaurant-ai|service-areas/i;
+
 const FIELD_ALIASES = {
   query: ['query', 'queries', 'search query', 'top queries'],
   page: ['page', 'pages', 'landing page', 'url'],
@@ -245,6 +250,122 @@ function targetPath(row) {
   return row.page || row.preferredPath || '(manual review)';
 }
 
+function isChineseIntent(row) {
+  return /chinese|中餐|asian|mandarin|cantonese/i.test(`${row.query} ${row.page} ${row.cluster}`);
+}
+
+function isPosIntent(row) {
+  return /pos|point\s*of\s*sale/i.test(`${row.query} ${row.page} ${row.cluster}`) || POS_QUERY_PATTERN.test(`${row.query} ${row.page}`);
+}
+
+function isPhoneOrderIntent(row) {
+  return PHONE_ORDER_PATTERN.test(`${row.query} ${row.page} ${row.cluster}`);
+}
+
+function buyerIntentScore(row) {
+  let score = 0;
+  const reasons = [];
+
+  if (isChineseIntent(row)) {
+    score += 25;
+    reasons.push('Chinese/Asian');
+  }
+  if (isPosIntent(row)) {
+    score += 25;
+    reasons.push('POS');
+  }
+  if (POS_QUERY_PATTERN.test(`${row.query} ${row.page}`)) {
+    score += 20;
+    reasons.push('named POS');
+  }
+  if (isPhoneOrderIntent(row)) {
+    score += 15;
+    reasons.push('phone-order');
+  }
+  if (COMMERCIAL_INTENT_PATTERN.test(row.query)) {
+    score += 10;
+    reasons.push('commercial term');
+  }
+  if (BUYER_PAGE_PATTERN.test(row.page)) {
+    score += 8;
+    reasons.push('buyer page');
+  }
+  if (row.position > 7 && row.position <= 20) {
+    score += 10;
+    reasons.push('near page one');
+  } else if (row.position > 20 && row.position <= 50) {
+    score += 5;
+    reasons.push('needs authority');
+  }
+  if (row.impressions >= 50) {
+    score += 10;
+    reasons.push('50+ impressions');
+  } else if (row.impressions >= 10) {
+    score += 5;
+    reasons.push('10+ impressions');
+  }
+
+  return {
+    score: Math.min(100, score),
+    reasons: reasons.join(', ') || 'low commercial signal',
+  };
+}
+
+function recommendedAction(row) {
+  if (!row.page && row.preferredPath) {
+    return `Map query to ${row.preferredPath}; request indexing and add an internal link from ${LINK_SOURCE_HINTS[row.cluster] || '/'}.`;
+  }
+  if (row.position > 0 && row.position <= 10 && row.ctr < 2) {
+    return 'Rewrite title/meta for clearer Chinese restaurant, POS, and phone-order pain; keep page indexed.';
+  }
+  if (row.position > 8 && row.position <= 20) {
+    return 'Push to page one with exact-anchor internal links, FAQ copy, and one relevant directory/partner backlink.';
+  }
+  if (row.position > 20) {
+    return 'Strengthen on-page coverage, add source-hub internal links, then build authority to this page.';
+  }
+  return 'Monitor clicks and preserve ranking; use the winning query as an anchor to related POS pages.';
+}
+
+function buildBuyerIntentActions(rows) {
+  return rows
+    .filter((row) => row.impressions >= 5 && buyerIntentScore(row).score >= 45)
+    .map((row) => {
+      const intent = buyerIntentScore(row);
+      return {
+        ...row,
+        intentScore: intent.score,
+        intentReasons: intent.reasons,
+        action: recommendedAction(row),
+      };
+    })
+    .sort((a, b) => {
+      if (b.intentScore !== a.intentScore) return b.intentScore - a.intentScore;
+      if (b.impressions !== a.impressions) return b.impressions - a.impressions;
+      return a.position - b.position;
+    })
+    .slice(0, 15);
+}
+
+function buildPosSpecificActions(rows) {
+  return rows
+    .filter((row) => row.impressions >= 3 && POS_QUERY_PATTERN.test(`${row.query} ${row.page}`))
+    .map((row) => {
+      const intent = buyerIntentScore(row);
+      return {
+        ...row,
+        intentScore: intent.score,
+        intentReasons: intent.reasons,
+        action: recommendedAction(row),
+      };
+    })
+    .sort((a, b) => {
+      if (b.intentScore !== a.intentScore) return b.intentScore - a.intentScore;
+      return b.impressions - a.impressions;
+    })
+    .slice(0, 12);
+}
+
 function buildInternalLinkActions(rows) {
   const candidates = rows.filter((row) =>
     row.impressions >= 5 &&
@@ -313,6 +434,8 @@ function renderReport(rows) {
   const lowCtr = topRows(rows, (row) => row.impressions >= 10 && row.position > 0 && row.position <= 20 && row.ctr < 2);
   const noKnownPage = topRows(rows, (row) => row.impressions >= 5 && !row.page);
   const internalLinkActions = buildInternalLinkActions(rows);
+  const buyerIntentActions = buildBuyerIntentActions(rows);
+  const posSpecificActions = buildPosSpecificActions(rows);
 
   return [
     '# Serviio Search Console Export Analysis',
@@ -334,6 +457,40 @@ function renderReport(rows) {
         formatNumber(cluster.clicks),
         `${formatNumber(cluster.ctr, 1)}%`,
         formatNumber(cluster.averagePosition, 1),
+      ]),
+    ),
+    '',
+    '## Buyer-Intent Action Queue',
+    '',
+    'Highest commercial-value rows across Chinese restaurant, POS, named POS, and phone-order intent. Work these before generic restaurant-tech queries.',
+    '',
+    renderTable(
+      ['Score', 'Query', 'Page', 'Impressions', 'CTR', 'Position', 'Why', 'Action'],
+      buyerIntentActions.map((row) => [
+        `${row.intentScore}/100`,
+        row.query || '(query missing)',
+        row.page || row.preferredPath || '(page missing)',
+        formatNumber(row.impressions),
+        `${formatNumber(row.ctr, 1)}%`,
+        formatNumber(row.position, 1),
+        row.intentReasons,
+        row.action,
+      ]),
+    ),
+    '',
+    '## POS-Specific Query Opportunities',
+    '',
+    'Named-POS rows are usually lower volume but higher lead quality. Use these for POS landing-page updates, partner outreach anchors, and targeted backlinks.',
+    '',
+    renderTable(
+      ['Score', 'Query', 'Page', 'Impressions', 'Position', 'Action'],
+      posSpecificActions.map((row) => [
+        `${row.intentScore}/100`,
+        row.query || '(query missing)',
+        row.page || row.preferredPath || '(page missing)',
+        formatNumber(row.impressions),
+        formatNumber(row.position, 1),
+        row.action,
       ]),
     ),
     '',
@@ -451,4 +608,15 @@ function main() {
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  buyerIntentScore,
+  buildBuyerIntentActions,
+  buildPosSpecificActions,
+  normalizeRecord,
+  parseCsv,
+  renderReport,
+};
