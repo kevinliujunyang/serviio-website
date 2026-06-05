@@ -73,7 +73,7 @@ const rows = [
     source: 'indexnow',
     medium: 'indexing',
     anchor: 'Priority Chinese restaurant and POS URL submission',
-    notes: 'Submitted top-priority Chinese restaurant and POS URLs with npm run indexnow:submit; response HTTP 202. Refreshed after POS internal-link and homepage POS-fit updates on 2026-06-05. Submitted expanded 36-URL IndexNow batch on 2026-06-05; response HTTP 200.',
+    notes: 'Submitted top-priority Chinese restaurant and POS URLs with npm run indexnow:submit; response HTTP 202. Refreshed after POS internal-link and homepage POS-fit updates on 2026-06-05. Submitted expanded 36-URL IndexNow batch on 2026-06-05; response HTTP 200. Promoted best POS pages and submitted expanded 38-URL IndexNow batch on 2026-06-05; response HTTP 200.',
   },
   {
     priority: 'P1',
