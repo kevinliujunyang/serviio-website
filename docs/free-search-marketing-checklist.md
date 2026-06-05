@@ -120,6 +120,11 @@ Use `utm_medium=partner_referral` for consultants or partner links, and `utm_med
      npm run indexnow:payload
      npm run indexnow:submit
      ```
+   - For sitewide form or content updates, use the full sitemap batch:
+     ```bash
+     npm run indexnow:payload:all
+     npm run indexnow:submit:all
+     ```
    - Record the result in the `IndexNow priority URL batch` tracker row.
 
 6. Submit free AI/product listings.

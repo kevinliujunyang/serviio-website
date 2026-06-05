@@ -43,10 +43,22 @@ To prepare a Bing/IndexNow batch for the top-priority buyer-intent URLs:
 npm run indexnow:payload
 ```
 
+For sitewide content or form changes that affect every landing page, prepare the full sitemap batch:
+
+```bash
+npm run indexnow:payload:all
+```
+
 After the pushed deploy is live and the IndexNow key file is reachable at `https://serviio.ai/13f7c37452042c38a20123e6f2db6946.txt`, submit the top-priority URL batch with:
 
 ```bash
 npm run indexnow:submit
+```
+
+If the deploy changed most or all pages, submit the full sitemap batch instead:
+
+```bash
+npm run indexnow:submit:all
 ```
 
 ## Deploy
@@ -77,26 +89,34 @@ After Cloudflare deploys:
    ```bash
    npm run smoke:prod
    ```
-3. Confirm the IndexNow key file returns HTTP 200:
+3. For sitewide lead-form changes, confirm a representative production page contains the new field before requesting recrawl:
+   ```bash
+   curl -s https://serviio.ai/ | rg 'name="main_pain"'
+   ```
+4. Confirm the IndexNow key file returns HTTP 200:
    ```bash
    curl -s https://serviio.ai/13f7c37452042c38a20123e6f2db6946.txt
    ```
-4. Submit the top-priority URL batch to IndexNow:
+5. Submit the top-priority URL batch to IndexNow:
    ```bash
    npm run indexnow:submit
    ```
-5. In Google Search Console, submit `https://serviio.ai/sitemap.xml`.
-6. Print the current URL Inspection queue:
+   If the deploy changed every lead form, submit the full sitemap batch:
+   ```bash
+   npm run indexnow:submit:all
+   ```
+6. In Google Search Console, submit `https://serviio.ai/sitemap.xml`.
+7. Print the current URL Inspection queue:
    ```bash
    npm run indexing:urls
    ```
-7. In Google Search Console, request indexing for every URL under `Top Priority URL Inspection List` first. These are the strongest buyer-intent pages for Chinese restaurant owners, POS-ready workflows, and named POS systems.
-8. If daily URL Inspection quota remains, request indexing for `Secondary Priority URL Inspection List`, prioritizing:
+8. In Google Search Console, request indexing for every URL under `Top Priority URL Inspection List` first. These are the strongest buyer-intent pages for Chinese restaurant owners, POS-ready workflows, and named POS systems.
+9. If daily URL Inspection quota remains, request indexing for `Secondary Priority URL Inspection List`, prioritizing:
    - pages with exact Chinese restaurant plus POS or phone-order intent
    - service-area pages for states or cities where outreach is active
    - guide pages used in directory, community, or partner submissions
-9. Save the command output with the Search Console submission date so the next weekly review knows which URLs were requested.
-10. Check Search Console again after Google crawls:
+10. Save the command output with the Search Console submission date so the next weekly review knows which URLs were requested.
+11. Check Search Console again after Google crawls:
    - Pages indexed
    - Duplicate without user-selected canonical
    - Crawled but not indexed

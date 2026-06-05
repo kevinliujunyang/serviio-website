@@ -328,8 +328,14 @@ function validateIndexNowSetup() {
   if (packageJson.scripts?.['indexnow:payload'] !== 'node scripts/submit-indexnow.js') {
     errors.push('package.json: missing indexnow:payload script');
   }
+  if (packageJson.scripts?.['indexnow:payload:all'] !== 'node scripts/submit-indexnow.js --all') {
+    errors.push('package.json: missing indexnow:payload:all script');
+  }
   if (packageJson.scripts?.['indexnow:submit'] !== 'node scripts/submit-indexnow.js --submit') {
     errors.push('package.json: missing indexnow:submit script');
+  }
+  if (packageJson.scripts?.['indexnow:submit:all'] !== 'node scripts/submit-indexnow.js --all --submit') {
+    errors.push('package.json: missing indexnow:submit:all script');
   }
 
   const script = fs.readFileSync('scripts/submit-indexnow.js', 'utf8');
@@ -647,6 +653,9 @@ function validateFreeSearchTracker() {
   if (!tracker.includes('Submitted top-priority Chinese restaurant and POS URLs')) {
     errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow submission evidence note');
   }
+  if (!tracker.includes('indexnow:submit:all')) {
+    errors.push('docs/free-search-marketing-tracker.csv: missing full-site IndexNow follow-up note');
+  }
   if (packageJson.scripts?.['marketing:next'] !== 'node scripts/print-free-search-next-actions.js') {
     errors.push('package.json: missing marketing:next script');
   }
@@ -656,6 +665,9 @@ function validateFreeSearchTracker() {
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:next workflow');
+  }
+  if (!checklist.includes('npm run indexnow:submit:all')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing full-site IndexNow workflow');
   }
 
   return { errors };
