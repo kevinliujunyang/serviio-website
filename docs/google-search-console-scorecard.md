@@ -18,6 +18,14 @@ npm run search:analyze -- path/to/search-console-export.csv --out search-console
 
 Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, and low-CTR title/meta rewrite candidates.
 
+Audit whether priority queries are represented in crawlable page text with:
+
+```bash
+npm run seo:coverage
+```
+
+Use missing exact phrases as internal-link, FAQ, title/meta, or body-copy candidates before creating another landing page.
+
 | Metric | Source | Target |
 | --- | --- | --- |
 | Indexed sitemap URLs | Search Console Pages report | 90%+ of submitted URLs indexed |

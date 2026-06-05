@@ -575,6 +575,27 @@ function validateFreeSearchTracker() {
   return { errors };
 }
 
+function validateKeywordCoverageTooling() {
+  const errors = [];
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  if (packageJson.scripts?.['seo:coverage'] !== 'node scripts/audit-keyword-coverage.js') {
+    errors.push('package.json: missing seo:coverage script');
+  }
+  if (!fs.existsSync('scripts/audit-keyword-coverage.js')) {
+    errors.push('scripts/audit-keyword-coverage.js: missing keyword coverage audit');
+  }
+  const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'utf8');
+  if (!scorecard.includes('npm run seo:coverage')) {
+    errors.push('docs/google-search-console-scorecard.md: missing seo:coverage workflow');
+  }
+  const keywordMap = fs.readFileSync('docs/seo-keyword-map.md', 'utf8');
+  if (!keywordMap.includes('npm run seo:coverage')) {
+    errors.push('docs/seo-keyword-map.md: missing seo:coverage workflow');
+  }
+
+  return { errors };
+}
+
 const pages = walkHtmlPages();
 const metadata = validateMetadata(pages);
 const sitemap = validateSitemap(pages);
@@ -589,6 +610,7 @@ const posFocusFields = validatePosFocusFields(pages);
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const freeSearchTracker = validateFreeSearchTracker();
+const keywordCoverageTooling = validateKeywordCoverageTooling();
 const errors = [
   ...metadata.errors,
   ...sitemap.errors,
@@ -603,6 +625,7 @@ const errors = [
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
   ...freeSearchTracker.errors,
+  ...keywordCoverageTooling.errors,
 ];
 
 if (errors.length > 0) {
@@ -627,6 +650,7 @@ console.log([
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'free search tracker validated',
+  'keyword coverage tooling validated',
   'IndexNow setup validated',
   'robots.txt validated',
 ].join('\n'));

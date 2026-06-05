@@ -15,6 +15,7 @@
     "leads:score": "node scripts/score-formspree-leads.js",
     "leads:test": "node scripts/test-lead-scoring.js",
     "search:analyze": "node scripts/analyze-search-console.js",
+    "seo:coverage": "node scripts/audit-keyword-coverage.js",
     "marketing:tracker": "node scripts/generate-free-search-tracker.js",
     "marketing:prospects": "node scripts/print-free-search-prospect-queries.js",
     "marketing:summary": "node scripts/summarize-free-search-tracker.js",

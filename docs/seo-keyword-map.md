@@ -10,6 +10,14 @@ Serviio should target every meaningful keyword combination across restaurant typ
 
 The highest-value buyer is still a Chinese restaurant owner in the United States who already uses a POS system and receives meaningful phone-order volume. Broader terms like "restaurant tech" and "restaurant AI assistant" should be targeted, but they are higher competition and should support the conversion pages instead of replacing the niche wedge.
 
+Check exact phrase coverage for the Search Console priority query list with:
+
+```bash
+npm run seo:coverage
+```
+
+Missing phrases should usually be added to existing page copy, FAQs, schema, or internal anchors before creating a new page.
+
 ## Keyword Combination Formula
 
 Use this formula to generate target phrases:
