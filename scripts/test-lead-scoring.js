@@ -126,6 +126,24 @@ assert.strictEqual(localPosFitReferral.partner_referral_priority, 'hot');
 assert.strictEqual(localPosFitReferral.priority_seo_source, 'yes');
 assert.match(localPosFitReferral.buyer_profile, /partner_referral:hot/);
 
+const homepagePosFitDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'Homepage POS Fit Bistro',
+  restaurant_city: 'San Francisco',
+  restaurant_state: 'CA',
+  lead_source: 'homepage',
+  landing_page: 'https://serviio.ai/',
+  pos_system: 'Toast',
+  phone_orders_per_week: '76-150',
+  conversion_offer: 'homepage_pos_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(homepagePosFitDemo.lead_priority, 'high');
+assert.strictEqual(homepagePosFitDemo.lead_route, 'call_now');
+assert.strictEqual(homepagePosFitDemo.priority_seo_source, 'yes');
+assert.match(homepagePosFitDemo.buyer_profile, /offer:homepage_pos_fit_check/);
+assert.match(homepagePosFitDemo.lead_reason, /priority SEO source/);
+
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);

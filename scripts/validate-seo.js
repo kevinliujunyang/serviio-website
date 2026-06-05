@@ -481,6 +481,20 @@ function validateHomepageAuthorityHubLinks() {
   return { errors, anchorCount: requiredAnchors.length };
 }
 
+function validateHomepageConversionOffers() {
+  const errors = [];
+  const homepageFiles = ['index.html', 'zh/index.html'];
+
+  for (const file of homepageFiles) {
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('name="conversion_offer" value="homepage_pos_fit_check"')) {
+      errors.push(`${file}: homepage form missing homepage_pos_fit_check conversion_offer`);
+    }
+  }
+
+  return { errors, homepageCount: homepageFiles.length };
+}
+
 function validatePosFocusFields(pages) {
   const errors = [];
   const posPages = pages.filter((file) => file.startsWith('pos/') || file.startsWith('zh/pos/'));
@@ -684,6 +698,7 @@ const organizationAuthority = validateOrganizationAuthority();
 const homepageSoftwareApplication = validateHomepageSoftwareApplication();
 const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
 const homepageAuthorityHubLinks = validateHomepageAuthorityHubLinks();
+const homepageConversionOffers = validateHomepageConversionOffers();
 const posFocusFields = validatePosFocusFields(pages);
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
@@ -701,6 +716,7 @@ const errors = [
   ...homepageSoftwareApplication.errors,
   ...homepagePriorityNavLinks.errors,
   ...homepageAuthorityHubLinks.errors,
+  ...homepageConversionOffers.errors,
   ...posFocusFields.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
@@ -728,6 +744,7 @@ console.log([
   `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
   `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
   `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
+  `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
   `${posFocusFields.posPageCount} POS focus fields validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
