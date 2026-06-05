@@ -218,6 +218,24 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/chinese-restaurant-ai-order-taker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-ai-order-taker/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-ai-order-taker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-ai-order-taker/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/chinese-restaurant-ai-order-taker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-ai-order-taker/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-ai-order-taker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-ai-order-taker/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/ai-restaurant-phone-agent/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/ai-restaurant-phone-agent/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/ai-restaurant-phone-agent/"/>

@@ -74,6 +74,8 @@ const priorityPatterns = [
   '/zh/restaurant-automation-software-phone-orders/',
   '/chinese-restaurant-phone-order-automation/',
   '/zh/chinese-restaurant-phone-order-automation/',
+  '/chinese-restaurant-ai-order-taker/',
+  '/zh/chinese-restaurant-ai-order-taker/',
   '/chinese-restaurant-voice-ai/',
   '/zh/chinese-restaurant-voice-ai/',
   '/ai-phone-ordering-for-chinese-takeout/',
