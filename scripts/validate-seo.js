@@ -6,6 +6,7 @@ const SITE_ORIGIN = 'https://serviio.ai';
 const REQUIRED_FORM_FIELDS = [
   'lead_source',
   'ideal_customer_profile',
+  'conversion_offer',
 ];
 const REQUIRED_QUALIFICATION_FIELDS = [
   'restaurant_city',
@@ -754,6 +755,7 @@ console.log([
   `${sitemap.locCount} sitemap URLs`,
   `${forms.formCount} lead forms validated`,
   'core lead contact fields validated',
+  `${forms.formCount} conversion offers validated`,
   'required lead qualification fields validated',
   'POS qualification validated',
   'internal links validated',
