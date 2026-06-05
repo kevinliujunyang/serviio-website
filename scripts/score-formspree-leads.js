@@ -35,7 +35,8 @@ const FIELD_ALIASES = {
   utmCampaign: ['utm_campaign', 'utm campaign'],
 };
 
-const KNOWN_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway|pos|point\s*of\s*sale/i;
+const NAMED_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway/i;
+const OTHER_POS_PATTERN = /(^|\b)(other|another|existing|current|custom|local|legacy)\s+(pos|point\s*of\s*sale)\b|\b(already\s+have|use|using|on)\s+(a\s+)?(pos|point\s*of\s*sale)\b/i;
 const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\b)|\u6682\u65f6\u6ca1\u6709/i;
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
@@ -219,6 +220,11 @@ function classifyPhoneVolume(value) {
   return 'unknown';
 }
 
+function hasKnownPos(value) {
+  const text = String(value || '');
+  return NAMED_POS_PATTERN.test(text) || OTHER_POS_PATTERN.test(text);
+}
+
 function scoreLead(record) {
   const values = leadValues(record);
   const posText = values.pos.toLowerCase();
@@ -238,7 +244,7 @@ function scoreLead(record) {
   ].join(' ');
 
   const noPos = NO_POS_PATTERN.test(posText);
-  const posReady = !noPos && KNOWN_POS_PATTERN.test(posText);
+  const posReady = !noPos && hasKnownPos(values.pos);
   const wantsPosRecommendation = WANTS_POS_PATTERN.test(values.posRecommendationInterest);
   const volume = classifyPhoneVolume(values.phoneOrders);
   const highVolume = volume === 'high';
@@ -410,4 +416,14 @@ function main() {
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  classifyPhoneVolume,
+  hasKnownPos,
+  parseCsv,
+  scoreLead,
+  summarize,
+};

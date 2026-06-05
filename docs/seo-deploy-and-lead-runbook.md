@@ -95,6 +95,12 @@ For a quick count without writing a scored CSV:
 npm run leads:score -- path/to/formspree-export.csv --summary-only
 ```
 
+Before processing a new export format, run the scorer regression check:
+
+```bash
+npm run leads:test
+```
+
 Call high-priority leads first. The script writes `lead_priority`, `lead_route`, `lead_next_action`, `lead_score`, and `lead_reason` before the original Formspree columns.
 
 Score Formspree leads in this order.
