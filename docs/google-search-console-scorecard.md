@@ -76,13 +76,21 @@ Track these as exact query groups in Search Console exports:
 - restaurant phone order ai pos
 - restaurant ai pos integration
 - restaurant pos system phone orders
+- restaurant POS phone order automation
+- AI phone ordering for existing POS
+- phone orders connected to restaurant POS
+- restaurant POS integration service
+- how to connect phone orders to POS
 - restaurant phone order automation
 - restaurant ai assistant
 - ai assistant for restaurants
+- restaurant AI assistant for phone orders
 - restaurant customer service ai
 - ai customer service for restaurants
 - restaurant ai customer support
 - ai voice assistant for restaurants
+- voice assistant restaurant ordering
+- voice AI for restaurant phone calls
 - restaurant ai receptionist
 - ai receptionist for restaurants
 - restaurant virtual receptionist
@@ -90,12 +98,25 @@ Track these as exact query groups in Search Console exports:
 - chinese restaurant ai receptionist
 - chinese restaurant virtual receptionist
 - restaurant tech ai phone ordering
+- restaurant technology AI phone ordering
+- restaurant technology AI ordering
+- restaurant tech phone order automation
+- restaurant tech voice AI
+- restaurant operations automation
+- restaurant customer service automation
+- takeout order automation software
 - restaurant automation software phone orders
 - automate restaurant phone orders
 - automated phone ordering for restaurants
 - best pos for chinese restaurant
 - chinese restaurant pos system
 - pos system for chinese takeout restaurant
+- POS system for takeout restaurant
+- restaurant POS for phone orders
+- best POS for takeout orders
+- restaurant POS order management
+- Chinese takeout order POS
+- best POS for Chinese takeout orders
 - ai phone ordering for chinese takeout
 - bilingual restaurant phone ordering
 - mandarin ai phone answering for restaurants
@@ -103,14 +124,35 @@ Track these as exact query groups in Search Console exports:
 - mandarin and cantonese ai phone ordering
 - cantonese ai phone ordering for chinese takeout
 - cantonese restaurant phone order ai
+- restaurant phone answering AI
+- AI restaurant call answering
+- restaurant call automation
+- restaurant phone call AI
 - restaurant missed call recovery
 - 39 miles ai phone ordering
+- 39 Miles POS AI phone agent
+- Chinese restaurant 39 Miles phone orders
 - menusifu ai phone ordering
+- MenuSifu POS AI phone agent
+- Chinese restaurant MenuSifu phone orders
 - chowbus ai phone ordering
+- Chowbus POS AI phone agent
+- Chinese restaurant Chowbus phone orders
 - mealkeyway ai phone ordering
+- Mealkeyway POS AI phone agent
+- Chinese restaurant Mealkeyway phone orders
 - square ai phone ordering for restaurants
+- Square POS phone order AI
+- AI phone agent Square POS
+- Chinese restaurant Square phone orders
 - toast ai phone ordering for restaurants
+- Toast POS phone order AI
+- AI phone agent Toast POS
+- Chinese restaurant Toast phone orders
 - clover ai phone ordering for restaurants
+- Clover POS phone order AI
+- AI phone agent Clover POS
+- Chinese restaurant Clover phone orders
 - massachusetts chinese restaurant ai phone ordering
 - boston chinese restaurant ai phone ordering
 - restaurant ai assistant boston
