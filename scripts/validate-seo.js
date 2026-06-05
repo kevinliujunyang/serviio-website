@@ -387,6 +387,25 @@ function validateHomepagePriorityNavLinks() {
   return { errors, homepageCount: Object.keys(requiredLinks).length };
 }
 
+function validatePosFocusFields(pages) {
+  const errors = [];
+  const posPages = pages.filter((file) => file.startsWith('pos/') || file.startsWith('zh/pos/'));
+
+  for (const file of posPages) {
+    const html = fs.readFileSync(file, 'utf8');
+    const posFocus = html.match(/name="pos_focus"\s+value="([^"]+)"/);
+    if (!posFocus) {
+      errors.push(`${file}: POS-specific form missing hidden pos_focus`);
+      continue;
+    }
+    if (!posFocus[1].trim()) {
+      errors.push(`${file}: POS-specific form has empty pos_focus`);
+    }
+  }
+
+  return { errors, posPageCount: posPages.length };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -474,6 +493,7 @@ const robots = validateRobots();
 const organizationAuthority = validateOrganizationAuthority();
 const homepageSoftwareApplication = validateHomepageSoftwareApplication();
 const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
+const posFocusFields = validatePosFocusFields(pages);
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const errors = [
@@ -485,6 +505,7 @@ const errors = [
   ...organizationAuthority.errors,
   ...homepageSoftwareApplication.errors,
   ...homepagePriorityNavLinks.errors,
+  ...posFocusFields.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
 ];
@@ -507,6 +528,7 @@ console.log([
   `${organizationAuthority.homepageCount} Organization authority schemas validated`,
   `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
   `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
+  `${posFocusFields.posPageCount} POS focus fields validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'robots.txt validated',

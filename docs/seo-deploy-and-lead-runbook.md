@@ -112,9 +112,10 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `chinese_or_asian_intent`
 - `priority_seo_source`
 - `us_location_captured`
+- `pos_focus`
 - `buyer_profile`
 
-Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, and the original `lead_source`.
+Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, the POS-specific landing-page focus, and the original `lead_source`.
 
 Score Formspree leads in this order.
 

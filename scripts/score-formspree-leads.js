@@ -15,6 +15,7 @@ const FIELD_ALIASES = {
   city: ['restaurant_city', 'city', 'restaurant city'],
   state: ['restaurant_state', 'state', 'restaurant state'],
   pos: ['pos_system', 'pos system', 'pos_status', 'pos status', 'current_pos', 'current pos'],
+  posFocus: ['pos_focus', 'pos focus', 'target_pos', 'target pos'],
   phoneOrders: ['phone_orders_per_week', 'phone orders per week', 'weekly_phone_orders', 'weekly phone orders'],
   posRecommendationInterest: [
     'pos_recommendation_interest',
@@ -97,6 +98,7 @@ function buildBuyerProfile({
   if (chineseIntent) parts.push('chinese_or_asian_intent');
   if (prioritySource) parts.push('priority_seo_source');
   if (hasUsLocation) parts.push('us_location_captured');
+  if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
 
   return parts.join(' | ');
@@ -259,6 +261,7 @@ function scoreLead(record) {
   const posText = values.pos.toLowerCase();
   const sourceText = [
     values.restaurant,
+    values.posFocus,
     values.leadSource,
     values.landingPage,
     values.landingPath,
@@ -364,6 +367,7 @@ function scoreLead(record) {
     contact_phone: values.phone,
     restaurant_city: values.city,
     restaurant_state: values.state,
+    pos_focus: values.posFocus,
     pos_system: values.pos,
     phone_orders_per_week: values.phoneOrders,
     pos_recommendation_interest: values.posRecommendationInterest,
@@ -449,6 +453,7 @@ function main() {
     'contact_phone',
     'restaurant_city',
     'restaurant_state',
+    'pos_focus',
     'pos_system',
     'phone_orders_per_week',
     'pos_recommendation_interest',

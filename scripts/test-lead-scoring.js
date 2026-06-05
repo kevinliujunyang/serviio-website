@@ -15,6 +15,7 @@ const baseLead = {
 const highPriority = scoreLead({
   ...baseLead,
   pos_system: 'MenuSifu',
+  pos_focus: 'MenuSifu',
   phone_orders_per_week: '150+',
   pos_recommendation_interest: 'Not applicable, I already have a POS',
 });
@@ -25,8 +26,10 @@ assert.strictEqual(highPriority.phone_volume_tier, 'high');
 assert.strictEqual(highPriority.chinese_or_asian_intent, 'yes');
 assert.strictEqual(highPriority.priority_seo_source, 'yes');
 assert.strictEqual(highPriority.us_location_captured, 'yes');
+assert.strictEqual(highPriority.pos_focus, 'MenuSifu');
 assert.match(highPriority.lead_reason, /existing POS/);
 assert.match(highPriority.buyer_profile, /pos_ready/);
+assert.match(highPriority.buyer_profile, /pos_focus:MenuSifu/);
 assert.match(highPriority.buyer_profile, /source:chinese_restaurant_pos_ai_phone_agent/);
 
 const otherPosLead = scoreLead({
