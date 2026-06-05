@@ -26,6 +26,12 @@ npm run marketing:prospects
 
 Use the output to find real submission pages and outreach targets, then record the live URL or contact URL back into `docs/free-search-marketing-tracker.csv`.
 
+Print the current tracker status and next execution queue:
+
+```bash
+npm run marketing:summary
+```
+
 Use the ready-to-paste listing and outreach copy in:
 
 ```text
