@@ -16,11 +16,13 @@ Analyze a Search Console CSV export with:
 npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
 ```
 
-Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, and low-CTR title/meta rewrite candidates.
+Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, low-CTR title/meta rewrite candidates, and the `Title/Meta Rewrite Briefs` table.
 
 Start with `Buyer-Intent Action Queue` before generic SEO cleanups. It scores query/page rows for Chinese restaurant, POS, named-POS, phone-order, and commercial intent so the weekly work stays focused on pages most likely to produce qualified restaurant-owner leads.
 
 Use `POS-Specific Query Opportunities` to improve pages and outreach anchors for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway searches. These rows may have lower volume, but they are closer to the POS-ready buyer profile.
+
+Use `Title/Meta Rewrite Briefs` as the direct page-edit queue for high-intent rows that are either near page one or already on page one with weak CTR. Apply these suggestions before broad copy rewrites because they are tied to real Search Console query/page evidence.
 
 Audit whether priority queries are represented in crawlable page text with:
 
@@ -52,8 +54,9 @@ After running the Search Console analyzer, use `Internal-Link Action Queue` firs
 When time is limited, use this order:
 1. Buyer-intent rows with score 80+ and position 8-20.
 2. POS-specific rows for named POS systems, even at lower volume.
-3. Internal-link action queue for pages with impressions but weak position.
-4. CTR rewrite candidates that are already in positions 1-20.
+3. Title/meta rewrite briefs for page-one low-CTR and near-page-one rows.
+4. Internal-link action queue for pages with impressions but weak position.
+5. CTR rewrite candidates that are already in positions 1-20.
 
 ## Priority Queries
 

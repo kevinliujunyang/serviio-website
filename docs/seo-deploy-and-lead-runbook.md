@@ -241,6 +241,12 @@ Use the Search Console export analyzer before deciding what to edit:
 npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
 ```
 
+Work the generated report in this order:
+1. `Buyer-Intent Action Queue` for high-value Chinese restaurant, POS, and phone-order rows.
+2. `POS-Specific Query Opportunities` for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway pages or outreach anchors.
+3. `Title/Meta Rewrite Briefs` for page-one low-CTR rows and near-page-one rows where title/meta copy can pull more qualified clicks.
+4. `Internal-Link Action Queue` for pages that need more internal authority.
+
 ## Google Scorecard
 
 Google does not provide one organic SEO score. Use `docs/google-search-console-scorecard.md` as the weekly scorecard for:

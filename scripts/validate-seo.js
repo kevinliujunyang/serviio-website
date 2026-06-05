@@ -681,6 +681,39 @@ function validateKeywordCoverageTooling() {
   return { errors };
 }
 
+function validateSearchConsoleAnalyzerWorkflow() {
+  const errors = [];
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  const analyzer = fs.readFileSync('scripts/analyze-search-console.js', 'utf8');
+  const test = fs.readFileSync('scripts/test-search-console-analyzer.js', 'utf8');
+  const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'utf8');
+  const runbook = fs.readFileSync('docs/seo-deploy-and-lead-runbook.md', 'utf8');
+
+  if (packageJson.scripts?.['search:analyze'] !== 'node scripts/analyze-search-console.js') {
+    errors.push('package.json: missing search:analyze script');
+  }
+  if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
+    errors.push('package.json: missing search:test script');
+  }
+  if (!analyzer.includes('buildTitleMetaRewriteBriefs')) {
+    errors.push('scripts/analyze-search-console.js: missing title/meta rewrite brief builder');
+  }
+  if (!analyzer.includes('Title/Meta Rewrite Briefs')) {
+    errors.push('scripts/analyze-search-console.js: missing Title/Meta Rewrite Briefs report section');
+  }
+  if (!test.includes('buildTitleMetaRewriteBriefs') || !test.includes('page-one low CTR')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing title/meta rewrite brief regression coverage');
+  }
+  if (!scorecard.includes('Title/Meta Rewrite Briefs')) {
+    errors.push('docs/google-search-console-scorecard.md: missing Title/Meta Rewrite Briefs workflow');
+  }
+  if (!runbook.includes('Title/Meta Rewrite Briefs')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing Title/Meta Rewrite Briefs workflow');
+  }
+
+  return { errors };
+}
+
 function validateServiceAreaGeneration(pages) {
   const errors = [];
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -736,6 +769,7 @@ const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const freeSearchTracker = validateFreeSearchTracker();
 const keywordCoverageTooling = validateKeywordCoverageTooling();
+const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
 const serviceAreaGeneration = validateServiceAreaGeneration(pages);
 const errors = [
   ...metadata.errors,
@@ -754,6 +788,7 @@ const errors = [
   ...searchConsoleCoverage.errors,
   ...freeSearchTracker.errors,
   ...keywordCoverageTooling.errors,
+  ...searchConsoleAnalyzerWorkflow.errors,
   ...serviceAreaGeneration.errors,
 ];
 
@@ -783,6 +818,7 @@ console.log([
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'free search tracker validated',
   'keyword coverage tooling validated',
+  'Search Console analyzer workflow validated',
   `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
   'IndexNow setup validated',
   'robots.txt validated',
