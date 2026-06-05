@@ -32,7 +32,7 @@ Print the current tracker status and next execution queue:
 npm run marketing:summary
 ```
 
-Prioritize rows listed under `Ready-To-Submit Rows` first because they already have a submission, profile, or outreach URL. Use `marketing:prospects` for rows that still need target research.
+Prioritize `High-Impact Submission Queue` first. It scores rows by priority, ready URL, partner/referral value, POS intent, Chinese/Asian restaurant fit, and local landing-page relevance. Use `Ready-To-Submit Rows` when you need quick submissions with known URLs, and use `marketing:prospects` for high-score rows that still need target research.
 
 Print ready-to-paste submission packets for rows with a known target URL:
 
