@@ -554,6 +554,7 @@ function validateFreeSearchTracker() {
   const errors = [];
   const tracker = fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8');
   const generator = fs.readFileSync('scripts/generate-free-search-tracker.js', 'utf8');
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
   for (const content of [tracker, generator]) {
     if (!content.includes('IndexNow priority URL batch')) {
@@ -570,6 +571,16 @@ function validateFreeSearchTracker() {
   }
   if (!tracker.includes('Submitted 28 top-priority Chinese restaurant and POS URLs')) {
     errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow submission evidence note');
+  }
+  if (packageJson.scripts?.['marketing:next'] !== 'node scripts/print-free-search-next-actions.js') {
+    errors.push('package.json: missing marketing:next script');
+  }
+  if (!fs.existsSync('scripts/print-free-search-next-actions.js')) {
+    errors.push('scripts/print-free-search-next-actions.js: missing free search next-action brief');
+  }
+  const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
+  if (!checklist.includes('npm run marketing:next')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing marketing:next workflow');
   }
 
   return { errors };

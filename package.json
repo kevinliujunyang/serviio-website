@@ -20,6 +20,7 @@
     "marketing:prospects": "node scripts/print-free-search-prospect-queries.js",
     "marketing:summary": "node scripts/summarize-free-search-tracker.js",
     "marketing:packets": "node scripts/print-free-search-submission-packets.js",
+    "marketing:next": "node scripts/print-free-search-next-actions.js",
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
     "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
   },

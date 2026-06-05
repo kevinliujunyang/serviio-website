@@ -34,6 +34,14 @@ npm run marketing:summary
 
 Prioritize `High-Impact Submission Queue` first. It scores rows by priority, ready URL, partner/referral value, POS intent, Chinese/Asian restaurant fit, and local landing-page relevance. Use `Ready-To-Submit Rows` when you need quick submissions with known URLs, and use `marketing:prospects` for high-score rows that still need target research.
 
+Print an execution-ready brief for the next manual submission session:
+
+```bash
+npm run marketing:next
+```
+
+Use `Ready Submissions` first when time is limited. Use `Target Research` for the highest-score partner, POS consultant, and restaurant-technology rows that still need a real target URL.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:
