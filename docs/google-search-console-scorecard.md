@@ -130,29 +130,37 @@ Track these as exact query groups in Search Console exports:
 - restaurant phone call AI
 - restaurant missed call recovery
 - 39 miles ai phone ordering
+- 39 Miles phone order integration
 - 39 Miles POS AI phone agent
 - Chinese restaurant 39 Miles phone orders
 - menusifu ai phone ordering
+- MenuSifu phone order integration
 - MenuSifu POS AI phone agent
 - Chinese restaurant MenuSifu phone orders
 - chowbus ai phone ordering
+- Chowbus phone order integration
 - Chowbus POS AI phone agent
 - Chinese restaurant Chowbus phone orders
 - mealkeyway ai phone ordering
+- Mealkeyway phone order integration
 - Mealkeyway POS AI phone agent
 - Chinese restaurant Mealkeyway phone orders
 - square ai phone ordering for restaurants
+- Square restaurant phone order integration
 - Square POS phone order AI
 - AI phone agent Square POS
 - Chinese restaurant Square phone orders
 - toast ai phone ordering for restaurants
+- Toast restaurant phone order integration
 - Toast POS phone order AI
 - AI phone agent Toast POS
 - Chinese restaurant Toast phone orders
 - clover ai phone ordering for restaurants
+- Clover restaurant phone order integration
 - Clover POS phone order AI
 - AI phone agent Clover POS
 - Chinese restaurant Clover phone orders
+- restaurant without POS
 - massachusetts chinese restaurant ai phone ordering
 - boston chinese restaurant ai phone ordering
 - restaurant ai assistant boston
