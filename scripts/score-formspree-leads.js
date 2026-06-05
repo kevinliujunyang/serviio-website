@@ -73,6 +73,35 @@ function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, medium
   };
 }
 
+function classifyPosReadiness({ posReady, noPos, wantsPosRecommendation }) {
+  if (posReady) return 'pos_ready';
+  if (noPos && wantsPosRecommendation) return 'pos_referral_candidate';
+  if (noPos) return 'no_pos_nurture';
+  return 'unknown_pos_status';
+}
+
+function yesNo(value) {
+  return value ? 'yes' : 'no';
+}
+
+function buildBuyerProfile({
+  posReadiness,
+  volume,
+  chineseIntent,
+  prioritySource,
+  hasUsLocation,
+  values,
+}) {
+  const parts = [posReadiness, `${volume}_phone_volume`];
+
+  if (chineseIntent) parts.push('chinese_or_asian_intent');
+  if (prioritySource) parts.push('priority_seo_source');
+  if (hasUsLocation) parts.push('us_location_captured');
+  if (values.leadSource) parts.push(`source:${values.leadSource}`);
+
+  return parts.join(' | ');
+}
+
 function parseArgs(argv) {
   const args = { input: '', out: '', summaryOnly: false };
 
@@ -252,6 +281,7 @@ function scoreLead(record) {
   const chineseIntent = CHINESE_INTENT_PATTERN.test(sourceText);
   const prioritySource = PRIORITY_SOURCE_PATTERN.test(sourceText);
   const hasUsLocation = values.city !== '' && values.state !== '';
+  const posReadiness = classifyPosReadiness({ posReady, noPos, wantsPosRecommendation });
 
   let score = 0;
   const reasons = [];
@@ -315,6 +345,19 @@ function scoreLead(record) {
     lead_next_action: routing.nextAction,
     lead_score: Math.max(0, Math.min(100, score)),
     lead_reason: reasons.length ? reasons.join('; ') : 'manual review needed',
+    pos_readiness: posReadiness,
+    phone_volume_tier: volume,
+    chinese_or_asian_intent: yesNo(chineseIntent),
+    priority_seo_source: yesNo(prioritySource),
+    us_location_captured: yesNo(hasUsLocation),
+    buyer_profile: buildBuyerProfile({
+      posReadiness,
+      volume,
+      chineseIntent,
+      prioritySource,
+      hasUsLocation,
+      values,
+    }),
     restaurant_name: values.restaurant,
     contact_name: values.name,
     contact_email: values.email,
@@ -348,6 +391,8 @@ function summarize(scoredRows) {
     `- Call now route: ${routeCounts.call_now || 0}`,
     `- Demo queue route: ${routeCounts.demo_queue || 0}`,
     `- POS referral route: ${routeCounts.pos_referral || 0}`,
+    `- No-POS nurture route: ${routeCounts.nurture_no_pos || 0}`,
+    `- Manual review route: ${routeCounts.manual_review || 0}`,
   ];
 
   const topLeads = scoredRows
@@ -392,6 +437,12 @@ function main() {
     'lead_next_action',
     'lead_score',
     'lead_reason',
+    'pos_readiness',
+    'phone_volume_tier',
+    'chinese_or_asian_intent',
+    'priority_seo_source',
+    'us_location_captured',
+    'buyer_profile',
     'restaurant_name',
     'contact_name',
     'contact_email',

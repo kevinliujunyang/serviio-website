@@ -101,7 +101,20 @@ Before processing a new export format, run the scorer regression check:
 npm run leads:test
 ```
 
-Call high-priority leads first. The script writes `lead_priority`, `lead_route`, `lead_next_action`, `lead_score`, and `lead_reason` before the original Formspree columns.
+Call high-priority leads first. The script writes routing, fit, and contact columns before the original Formspree columns:
+- `lead_priority`
+- `lead_route`
+- `lead_next_action`
+- `lead_score`
+- `lead_reason`
+- `pos_readiness`
+- `phone_volume_tier`
+- `chinese_or_asian_intent`
+- `priority_seo_source`
+- `us_location_captured`
+- `buyer_profile`
+
+Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, and the original `lead_source`.
 
 Score Formspree leads in this order.
 

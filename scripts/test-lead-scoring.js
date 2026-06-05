@@ -20,7 +20,14 @@ const highPriority = scoreLead({
 });
 assert.strictEqual(highPriority.lead_priority, 'high');
 assert.strictEqual(highPriority.lead_route, 'call_now');
+assert.strictEqual(highPriority.pos_readiness, 'pos_ready');
+assert.strictEqual(highPriority.phone_volume_tier, 'high');
+assert.strictEqual(highPriority.chinese_or_asian_intent, 'yes');
+assert.strictEqual(highPriority.priority_seo_source, 'yes');
+assert.strictEqual(highPriority.us_location_captured, 'yes');
 assert.match(highPriority.lead_reason, /existing POS/);
+assert.match(highPriority.buyer_profile, /pos_ready/);
+assert.match(highPriority.buyer_profile, /source:chinese_restaurant_pos_ai_phone_agent/);
 
 const otherPosLead = scoreLead({
   ...baseLead,
@@ -41,6 +48,7 @@ const noPosReferral = scoreLead({
 });
 assert.strictEqual(noPosReferral.lead_priority, 'nurture');
 assert.strictEqual(noPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(noPosReferral.pos_readiness, 'pos_referral_candidate');
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
 
 const ambiguousPos = scoreLead({
@@ -51,11 +59,14 @@ const ambiguousPos = scoreLead({
   pos_recommendation_interest: 'Maybe later',
 });
 assert.strictEqual(ambiguousPos.lead_route, 'manual_review');
+assert.strictEqual(ambiguousPos.pos_readiness, 'unknown_pos_status');
+assert.strictEqual(ambiguousPos.phone_volume_tier, 'medium');
 assert.strictEqual(hasKnownPos('Considering a POS'), false);
 assert.strictEqual(hasKnownPos('I use a local POS'), true);
 
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /High priority: 2/);
 assert.match(summary, /POS referral route: 1/);
+assert.match(summary, /Manual review route: 1/);
 
 console.log('Lead scoring tests passed');
