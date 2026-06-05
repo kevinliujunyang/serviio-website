@@ -607,6 +607,44 @@ function validateKeywordCoverageTooling() {
   return { errors };
 }
 
+function validateServiceAreaGeneration(pages) {
+  const errors = [];
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  const requiredScripts = {
+    'generate:city-pages': 'node scripts/generate-service-area-city-pages.js',
+    'generate:state-pages': 'node scripts/generate-service-area-state-pages.js',
+    'generate:service-area-pages': 'node scripts/generate-service-area-pages.js',
+  };
+
+  for (const [scriptName, command] of Object.entries(requiredScripts)) {
+    if (packageJson.scripts?.[scriptName] !== command) {
+      errors.push(`package.json: missing ${scriptName} script`);
+    }
+  }
+
+  for (const file of [
+    'scripts/generate-service-area-city-pages.js',
+    'scripts/generate-service-area-state-pages.js',
+    'scripts/generate-service-area-pages.js',
+  ]) {
+    if (!fs.existsSync(file)) errors.push(`${file}: missing service-area generation script`);
+  }
+
+  const serviceAreaLeadPages = pages.filter((file) => {
+    if (!file.startsWith('service-areas/') && !file.startsWith('zh/service-areas/')) return false;
+    return fs.readFileSync(file, 'utf8').includes('formspree.io');
+  });
+
+  for (const file of serviceAreaLeadPages) {
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('name="conversion_offer" value="local_pos_fit_check"')) {
+      errors.push(`${file}: service-area form missing local_pos_fit_check conversion_offer`);
+    }
+  }
+
+  return { errors, serviceAreaLeadPageCount: serviceAreaLeadPages.length };
+}
+
 const pages = walkHtmlPages();
 const metadata = validateMetadata(pages);
 const sitemap = validateSitemap(pages);
@@ -622,6 +660,7 @@ const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
 const freeSearchTracker = validateFreeSearchTracker();
 const keywordCoverageTooling = validateKeywordCoverageTooling();
+const serviceAreaGeneration = validateServiceAreaGeneration(pages);
 const errors = [
   ...metadata.errors,
   ...sitemap.errors,
@@ -637,6 +676,7 @@ const errors = [
   ...searchConsoleCoverage.errors,
   ...freeSearchTracker.errors,
   ...keywordCoverageTooling.errors,
+  ...serviceAreaGeneration.errors,
 ];
 
 if (errors.length > 0) {
@@ -662,6 +702,7 @@ console.log([
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
   'free search tracker validated',
   'keyword coverage tooling validated',
+  `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
   'IndexNow setup validated',
   'robots.txt validated',
 ].join('\n'));

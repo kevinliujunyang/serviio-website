@@ -25,6 +25,8 @@
     "marketing:test": "node scripts/test-marketing-outreach-export.js",
     "marketing:next": "node scripts/print-free-search-next-actions.js",
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
+    "generate:state-pages": "node scripts/generate-service-area-state-pages.js",
+    "generate:service-area-pages": "node scripts/generate-service-area-pages.js",
     "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
   },
   "devDependencies": {
