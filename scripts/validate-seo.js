@@ -550,6 +550,31 @@ function validateSearchConsoleCoverage() {
   return { errors, priorityPathCount: scorecardPaths.length };
 }
 
+function validateFreeSearchTracker() {
+  const errors = [];
+  const tracker = fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8');
+  const generator = fs.readFileSync('scripts/generate-free-search-tracker.js', 'utf8');
+
+  for (const content of [tracker, generator]) {
+    if (!content.includes('IndexNow priority URL batch')) {
+      errors.push('free search tracker: missing IndexNow priority URL batch row');
+      break;
+    }
+  }
+
+  if (!tracker.includes('https://api.indexnow.org/indexnow')) {
+    errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow endpoint URL');
+  }
+  if (!tracker.includes('utm_source=indexnow&utm_medium=indexing&utm_campaign=free_search_marketing')) {
+    errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow UTM URL');
+  }
+  if (!tracker.includes('Submitted 28 top-priority Chinese restaurant and POS URLs')) {
+    errors.push('docs/free-search-marketing-tracker.csv: missing IndexNow submission evidence note');
+  }
+
+  return { errors };
+}
+
 const pages = walkHtmlPages();
 const metadata = validateMetadata(pages);
 const sitemap = validateSitemap(pages);
@@ -563,6 +588,7 @@ const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
 const posFocusFields = validatePosFocusFields(pages);
 const attribution = validateAttributionScript();
 const searchConsoleCoverage = validateSearchConsoleCoverage();
+const freeSearchTracker = validateFreeSearchTracker();
 const errors = [
   ...metadata.errors,
   ...sitemap.errors,
@@ -576,6 +602,7 @@ const errors = [
   ...posFocusFields.errors,
   ...attribution.errors,
   ...searchConsoleCoverage.errors,
+  ...freeSearchTracker.errors,
 ];
 
 if (errors.length > 0) {
@@ -599,6 +626,7 @@ console.log([
   `${posFocusFields.posPageCount} POS focus fields validated`,
   'form attribution validated',
   `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
+  'free search tracker validated',
   'IndexNow setup validated',
   'robots.txt validated',
 ].join('\n'));

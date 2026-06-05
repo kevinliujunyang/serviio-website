@@ -34,6 +34,8 @@ npm run marketing:summary
 
 Prioritize `High-Impact Submission Queue` first. It scores rows by priority, ready URL, partner/referral value, POS intent, Chinese/Asian restaurant fit, and local landing-page relevance. Use `Ready-To-Submit Rows` when you need quick submissions with known URLs, and use `marketing:prospects` for high-score rows that still need target research.
 
+The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
+
 Print ready-to-paste submission packets for rows with a known target URL:
 
 ```bash
@@ -102,6 +104,7 @@ Use `utm_medium=partner_referral` for consultants or partner links, and `utm_med
      npm run indexnow:payload
      npm run indexnow:submit
      ```
+   - Record the result in the `IndexNow priority URL batch` tracker row.
 
 6. Submit free AI/product listings.
    - Start with AI tool directories, startup directories, and SaaS directories that allow free submission.

@@ -148,6 +148,9 @@ function opportunityScore(row) {
 }
 
 function nextAction(row) {
+  if (row.target === 'IndexNow priority URL batch' && row.status === 'submitted') {
+    return 'Monitor Bing/participating search engines for crawl and indexing signals';
+  }
   if (row.status === 'follow-up needed') return 'Follow up and ask for live listing or next step';
   if (row.status === 'submitted') return 'Check whether listing is live and record date_live';
   if (row.status === 'not_started' && hasTargetUrl(row)) return 'Submit or contact using the listed URL';
