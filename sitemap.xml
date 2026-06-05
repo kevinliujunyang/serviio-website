@@ -686,6 +686,24 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-phone-order-pos-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/chinese-restaurant-phone-order-pos-workflow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/chinese-restaurant-phone-order-pos-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/restaurant-phone-order-automation/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-phone-order-automation/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-phone-order-automation/"/>

@@ -166,6 +166,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/takeout-pos-system/`
 - `/chinese-takeout-pos-system/`
 - `/zh/chinese-takeout-pos-system/`
+- `/chinese-restaurant-phone-order-pos-workflow/`
+- `/zh/chinese-restaurant-phone-order-pos-workflow/`
 - `/guides/connect-phone-orders-to-pos/`
 - `/zh/guides/connect-phone-orders-to-pos/`
 - `/restaurant-automation-software-phone-orders/`
