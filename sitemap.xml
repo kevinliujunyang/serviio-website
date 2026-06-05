@@ -1118,6 +1118,24 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/restaurant-customer-service-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-customer-service-ai/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-customer-service-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/restaurant-customer-service-ai/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/restaurant-customer-service-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-customer-service-ai/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-customer-service-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/restaurant-customer-service-ai/"/>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/site-map/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/site-map/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/site-map/"/>

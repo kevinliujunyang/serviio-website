@@ -33,6 +33,8 @@ const priorityPatterns = [
   '/pos-integrated-ai-phone-agent/',
   '/zh/pos-integrated-ai-phone-agent/',
   '/restaurant-ai-assistant/',
+  '/restaurant-customer-service-ai/',
+  '/zh/restaurant-customer-service-ai/',
   '/zh/chinese-restaurant-pos-integration/',
   '/zh/restaurant-phone-order-ai-pos/',
   '/zh/restaurant-ai-assistant/',

@@ -34,6 +34,9 @@ Primary search themes:
 - Restaurant AI POS integration
 - Restaurant AI assistant
 - AI assistant for restaurants
+- Restaurant customer service AI
+- AI customer service for restaurants
+- Restaurant AI customer support
 - AI voice assistant for restaurants
 - Restaurant tech AI phone ordering
 - Restaurant technology AI ordering
@@ -99,6 +102,8 @@ Core pages:
 - `/zh/restaurant-phone-order-ai-pos/`
 - `/restaurant-ai-assistant/`
 - `/zh/restaurant-ai-assistant/`
+- `/restaurant-customer-service-ai/`
+- `/zh/restaurant-customer-service-ai/`
 - `/restaurant-pos-system-phone-orders/`
 - `/zh/restaurant-pos-system-phone-orders/`
 - `/ai-voice-assistant-for-restaurants/`
@@ -258,6 +263,8 @@ Content pages recently added:
 - `/zh/restaurant-phone-order-ai-pos/`
 - `/restaurant-ai-assistant/`
 - `/zh/restaurant-ai-assistant/`
+- `/restaurant-customer-service-ai/`
+- `/zh/restaurant-customer-service-ai/`
 - `/restaurant-pos-system-phone-orders/`
 - `/zh/restaurant-pos-system-phone-orders/`
 - `/ai-voice-assistant-for-restaurants/`

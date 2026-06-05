@@ -140,6 +140,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/restaurant-phone-order-ai-pos/`
 - `/restaurant-ai-assistant/`
 - `/zh/restaurant-ai-assistant/`
+- `/restaurant-customer-service-ai/`
+- `/zh/restaurant-customer-service-ai/`
 - `/restaurant-phone-answering-service/`
 - `/zh/restaurant-phone-answering-service/`
 - `/restaurant-call-answering-ai/`
