@@ -50,6 +50,14 @@ Print ready-to-paste submission packets for rows with a known target URL:
 npm run marketing:packets
 ```
 
+Export outreach-ready CSV for spreadsheet, CRM, or mail-merge execution:
+
+```bash
+npm run marketing:outreach-csv -- --out outreach.csv --limit 25
+```
+
+The default export focuses on partner outreach, POS-specific outreach, Chinese/Asian associations, community posts, educational/resource listings, and restaurant technology directories. Use `--all` only when you also want generic directories, business profiles, and webmaster rows.
+
 Use the ready-to-paste listing and outreach copy in:
 
 ```text

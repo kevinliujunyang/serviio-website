@@ -333,58 +333,77 @@ function packetFor(row) {
   };
 }
 
-const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
-const readyRows = rows
-  .filter((row) => row.status === 'not_started' && hasTargetUrl(row))
-  .sort(compareRows);
-
-console.log('# Serviio Ready Submission Packets');
-console.log('');
-console.log('Use these packets with rows listed by npm run marketing:summary. After submitting, update docs/free-search-marketing-tracker.csv with status, owner, date_submitted, and notes.');
-console.log('');
-
-for (const row of readyRows) {
-  const packet = packetFor(row);
-  const opportunity = opportunityScore(row);
-  console.log(`## ${row.priority} - ${row.target}`);
-  console.log(`Opportunity score: ${opportunity.score}/100 (${opportunity.reasons})`);
-  console.log(`Channel: ${row.channel}`);
-  console.log(`Submission/contact URL: ${row.url}`);
-  console.log(`Tracker landing URL: ${row.landing_url}`);
-  console.log(`Tracker UTM URL: ${row.utm_url}`);
-  console.log(`Clean fallback URL: ${cleanUrl(row)}`);
-  console.log(`Anchor/listing phrase: ${row.anchor_or_listing_phrase}`);
-  console.log('');
-  if (packet.subject) console.log(`Subject: ${packet.subject}`);
-  console.log(`Title: ${packet.title}`);
-  console.log(`Tagline: ${packet.tagline}`);
-  console.log(`Short description: ${packet.shortDescription}`);
-  console.log('');
-  console.log('Long description:');
-  console.log(packet.longDescription);
-  console.log('');
-  if (packet.chinesePermission) {
-    console.log('Chinese permission request:');
-    console.log(packet.chinesePermission);
-    console.log('');
-  }
-  if (packet.approvedPost) {
-    console.log('Approved post after permission:');
-    console.log(packet.approvedPost);
-    console.log('');
-  }
-  if (packet.followUp) {
-    console.log('Follow-up:');
-    console.log(packet.followUp);
-    console.log('');
-  }
-  console.log(`Categories: ${packet.categories}`);
-  console.log(`Features: ${packet.features}`);
-  console.log(`Pricing: ${packet.pricing}`);
-  console.log(`Contact email: info@serviio.ai`);
-  console.log('');
-  console.log('After submission: set status=submitted, date_submitted=YYYY-MM-DD, and paste the confirmation or follow-up note into notes.');
-  console.log('');
+function readySubmissionRows(rows) {
+  return rows
+    .filter((row) => row.status === 'not_started' && hasTargetUrl(row))
+    .sort(compareRows);
 }
 
-console.log(`Generated ${readyRows.length} ready submission packets from ${CSV_PATH}`);
+function main() {
+  const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
+  const readyRows = readySubmissionRows(rows);
+
+  console.log('# Serviio Ready Submission Packets');
+  console.log('');
+  console.log('Use these packets with rows listed by npm run marketing:summary. After submitting, update docs/free-search-marketing-tracker.csv with status, owner, date_submitted, and notes.');
+  console.log('');
+
+  for (const row of readyRows) {
+    const packet = packetFor(row);
+    const opportunity = opportunityScore(row);
+    console.log(`## ${row.priority} - ${row.target}`);
+    console.log(`Opportunity score: ${opportunity.score}/100 (${opportunity.reasons})`);
+    console.log(`Channel: ${row.channel}`);
+    console.log(`Submission/contact URL: ${row.url}`);
+    console.log(`Tracker landing URL: ${row.landing_url}`);
+    console.log(`Tracker UTM URL: ${row.utm_url}`);
+    console.log(`Clean fallback URL: ${cleanUrl(row)}`);
+    console.log(`Anchor/listing phrase: ${row.anchor_or_listing_phrase}`);
+    console.log('');
+    if (packet.subject) console.log(`Subject: ${packet.subject}`);
+    console.log(`Title: ${packet.title}`);
+    console.log(`Tagline: ${packet.tagline}`);
+    console.log(`Short description: ${packet.shortDescription}`);
+    console.log('');
+    console.log('Long description:');
+    console.log(packet.longDescription);
+    console.log('');
+    if (packet.chinesePermission) {
+      console.log('Chinese permission request:');
+      console.log(packet.chinesePermission);
+      console.log('');
+    }
+    if (packet.approvedPost) {
+      console.log('Approved post after permission:');
+      console.log(packet.approvedPost);
+      console.log('');
+    }
+    if (packet.followUp) {
+      console.log('Follow-up:');
+      console.log(packet.followUp);
+      console.log('');
+    }
+    console.log(`Categories: ${packet.categories}`);
+    console.log(`Features: ${packet.features}`);
+    console.log(`Pricing: ${packet.pricing}`);
+    console.log(`Contact email: info@serviio.ai`);
+    console.log('');
+    console.log('After submission: set status=submitted, date_submitted=YYYY-MM-DD, and paste the confirmation or follow-up note into notes.');
+    console.log('');
+  }
+
+  console.log(`Generated ${readyRows.length} ready submission packets from ${CSV_PATH}`);
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  compareRows,
+  hasTargetUrl,
+  opportunityScore,
+  packetFor,
+  parseCsv,
+  readySubmissionRows,
+};
