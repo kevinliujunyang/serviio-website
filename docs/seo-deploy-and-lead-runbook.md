@@ -9,6 +9,7 @@ Turn the expanded SEO site into indexed pages and qualified leads for Chinese re
 Run these before every deploy:
 
 ```bash
+npm run sitemap:sync
 npm run build
 npm run validate:seo
 python3 -m http.server 4173

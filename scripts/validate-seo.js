@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const SITE_ORIGIN = 'https://serviio.ai';
 const REQUIRED_FORM_FIELDS = [
@@ -155,12 +156,37 @@ function validateMetadata(pages) {
 function validateSitemap(pages) {
   const errors = [];
   const xml = fs.readFileSync('sitemap.xml', 'utf8');
+  const urlEntries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   const pageSet = new Set(pages);
 
-  for (const loc of locs) {
+  for (const entry of urlEntries) {
+    const loc = extractAttr(entry, /<loc>([^<]+)<\/loc>/);
+    const lastmod = extractAttr(entry, /<lastmod>([^<]+)<\/lastmod>/);
+    const changefreq = extractAttr(entry, /<changefreq>([^<]+)<\/changefreq>/);
+    const priority = extractAttr(entry, /<priority>([^<]+)<\/priority>/);
+
+    if (!loc) {
+      errors.push('sitemap: url entry missing loc');
+      continue;
+    }
     const file = pagePathFromUrl(loc);
     if (!fs.existsSync(file)) errors.push(`sitemap: ${loc} points to missing ${file}`);
+    if (!lastmod) errors.push(`sitemap: ${loc} missing lastmod`);
+    if (lastmod && !/^\d{4}-\d{2}-\d{2}$/.test(lastmod)) {
+      errors.push(`sitemap: ${loc} has invalid lastmod ${lastmod}`);
+    }
+    if (!changefreq) errors.push(`sitemap: ${loc} missing changefreq`);
+    if (!priority) errors.push(`sitemap: ${loc} missing priority`);
+    if (priority && (Number(priority) < 0 || Number(priority) > 1)) {
+      errors.push(`sitemap: ${loc} priority must be between 0 and 1`);
+    }
+    if (fs.existsSync(file) && lastmod) {
+      const gitDate = gitLastCommitDate(file);
+      if (gitDate && gitDate > lastmod) {
+        errors.push(`sitemap: ${loc} lastmod ${lastmod} is older than latest page commit ${gitDate}`);
+      }
+    }
   }
 
   for (const page of pages) {
@@ -172,6 +198,14 @@ function validateSitemap(pages) {
   }
 
   return { errors, locCount: locs.length };
+}
+
+function gitLastCommitDate(file) {
+  try {
+    return execFileSync('git', ['log', '-1', '--format=%cs', '--', file], { encoding: 'utf8' }).trim();
+  } catch {
+    return '';
+  }
 }
 
 function validateForms(pages) {
