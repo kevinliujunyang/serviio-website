@@ -91,6 +91,41 @@ assert.strictEqual(ambiguousPos.phone_volume_tier, 'medium');
 assert.strictEqual(hasKnownPos('Considering a POS'), false);
 assert.strictEqual(hasKnownPos('I use a local POS'), true);
 
+const localPosFitDemo = scoreLead({
+  ...baseLead,
+  restaurant: 'Boston Wok',
+  restaurant_city: 'Boston',
+  restaurant_state: 'MA',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/service-areas/boston-restaurant-ai-phone-ordering/',
+  pos_system: 'Clover',
+  phone_orders_per_week: '25-75',
+  conversion_offer: 'local_pos_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+});
+assert.strictEqual(localPosFitDemo.lead_priority, 'medium');
+assert.strictEqual(localPosFitDemo.lead_route, 'demo_queue');
+assert.strictEqual(localPosFitDemo.priority_seo_source, 'yes');
+assert.match(localPosFitDemo.lead_reason, /priority SEO source/);
+assert.match(localPosFitDemo.buyer_profile, /offer:local_pos_fit_check/);
+
+const localPosFitReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Philadelphia Dumpling House',
+  restaurant_city: 'Philadelphia',
+  restaurant_state: 'PA',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/service-areas/philadelphia-restaurant-ai-phone-ordering/',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: '76-150',
+  conversion_offer: 'local_pos_fit_check',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+});
+assert.strictEqual(localPosFitReferral.lead_route, 'pos_referral');
+assert.strictEqual(localPosFitReferral.partner_referral_priority, 'hot');
+assert.strictEqual(localPosFitReferral.priority_seo_source, 'yes');
+assert.match(localPosFitReferral.buyer_profile, /partner_referral:hot/);
+
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);

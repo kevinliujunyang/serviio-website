@@ -55,6 +55,7 @@ const POS_QUERY_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|c
 const PHONE_ORDER_PATTERN = /phone|call|answer|ordering|order\s*taker|order\s*taking|takeout|pickup|missed/i;
 const COMMERCIAL_INTENT_PATTERN = /ai|assistant|agent|automation|service|system|integration|pos|ordering|answering|receptionist/i;
 const BUYER_PAGE_PATTERN = /chinese-restaurant|pos|phone-order|phone-answering|ai-phone|restaurant-ai|service-areas/i;
+const LOCAL_SERVICE_AREA_PATTERN = /california|san\s*francisco|los\s*angeles|new\s*york|new\s*jersey|texas|houston|seattle|chicago|boston|philadelphia|pennsylvania|massachusetts|service-area|service\s*area/i;
 
 const FIELD_ALIASES = {
   query: ['query', 'queries', 'search query', 'top queries'],
@@ -262,6 +263,10 @@ function isPhoneOrderIntent(row) {
   return PHONE_ORDER_PATTERN.test(`${row.query} ${row.page} ${row.cluster}`);
 }
 
+function isLocalServiceAreaIntent(row) {
+  return row.cluster === 'Local service-area demand' || LOCAL_SERVICE_AREA_PATTERN.test(`${row.query} ${row.page}`);
+}
+
 function buyerIntentScore(row) {
   let score = 0;
   const reasons = [];
@@ -281,6 +286,10 @@ function buyerIntentScore(row) {
   if (isPhoneOrderIntent(row)) {
     score += 15;
     reasons.push('phone-order');
+  }
+  if (isLocalServiceAreaIntent(row)) {
+    score += 12;
+    reasons.push('local service area');
   }
   if (COMMERCIAL_INTENT_PATTERN.test(row.query)) {
     score += 10;
@@ -317,6 +326,9 @@ function recommendedAction(row) {
   }
   if (row.position > 0 && row.position <= 10 && row.ctr < 2) {
     return 'Rewrite title/meta for clearer Chinese restaurant, POS, and phone-order pain; keep page indexed.';
+  }
+  if (isLocalServiceAreaIntent(row)) {
+    return 'Build city/state relevance with exact-anchor internal links from service-area hubs and one local directory or association backlink.';
   }
   if (row.position > 8 && row.position <= 20) {
     return 'Push to page one with exact-anchor internal links, FAQ copy, and one relevant directory/partner backlink.';

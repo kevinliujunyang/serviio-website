@@ -12,6 +12,7 @@ const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "Chinese restaurant AI phone ordering","https://serviio.ai/chinese-restaurant-ai-phone-ordering/",3,80,3.8%,9.2
 "restaurant tech trends","https://serviio.ai/restaurant-tech-ai-phone-ordering/",0,20,0%,34
 "Square POS phone order AI","https://serviio.ai/pos/square-ai-phone-ordering/",0,18,0%,22
+"Boston restaurant AI assistant","https://serviio.ai/service-areas/boston-restaurant-ai-phone-ordering/",0,12,0%,14
 `;
 
 const rows = parseCsv(csv).slice(1).map((row) => {
@@ -24,6 +25,11 @@ assert.strictEqual(buyerActions[0].query, 'MenuSifu AI phone ordering');
 assert.strictEqual(buyerActions[0].intentScore, 93);
 assert.match(buyerActions[0].intentReasons, /named POS/);
 assert.match(buyerActions[0].action, /Push to page one/);
+const localAction = buyerActions.find((row) => row.query === 'Boston restaurant AI assistant');
+assert(localAction, 'Expected local service-area row in buyer intent actions');
+assert.strictEqual(localAction.intentScore, 60);
+assert.match(localAction.intentReasons, /local service area/);
+assert.match(localAction.action, /city\/state relevance/);
 
 const posActions = buildPosSpecificActions(rows);
 assert.deepStrictEqual(

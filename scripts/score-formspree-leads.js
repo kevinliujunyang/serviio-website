@@ -42,7 +42,7 @@ const OTHER_POS_PATTERN = /(^|\b)(other|another|existing|current|custom|local|le
 const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\b)|\u6682\u65f6\u6ca1\u6709/i;
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
-const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai/i;
+const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai|local-pos|local_pos|local\s+pos|pos-readiness|pos_readiness|partner-referral|partner_referral|organic-listing|organic_listing|community-post|community_post|free-search|free_search/i;
 
 function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource }) {
   if (posReady && highVolume && (chineseIntent || prioritySource)) {
@@ -307,6 +307,7 @@ function scoreLead(record) {
   const sourceText = [
     values.restaurant,
     values.posFocus,
+    values.conversionOffer,
     values.leadSource,
     values.landingPage,
     values.landingPath,
