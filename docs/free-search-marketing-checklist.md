@@ -26,6 +26,12 @@ npm run marketing:prospects
 
 Use the output to find real submission pages and outreach targets, then record the live URL or contact URL back into `docs/free-search-marketing-tracker.csv`.
 
+Use the ready-to-paste listing and outreach copy in:
+
+```text
+docs/free-search-submission-copy.md
+```
+
 Required fields:
 
 | Field | What To Record |
@@ -128,6 +134,8 @@ Serviio helps Chinese restaurants answer phone orders with AI in English and Chi
 ### Chinese Copy
 
 Serviio 是面向美国中餐馆的 AI 电话接单系统，可用中文和英文接听电话、确认外卖和自取订单、处理菜单问题和备注，并评估与 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等 POS 系统的对接流程。
+
+Full submission copy, category suggestions, feature lists, pricing text, and association outreach templates live in `docs/free-search-submission-copy.md`.
 
 ## Weekly Routine
 
