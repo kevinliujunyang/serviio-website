@@ -12,6 +12,7 @@ const REQUIRED_QUALIFICATION_FIELDS = [
   'restaurant_city',
   'restaurant_state',
   'phone_orders_per_week',
+  'main_pain',
   'pos_recommendation_interest',
 ];
 const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
