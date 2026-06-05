@@ -175,47 +175,69 @@ function researchQueries(row) {
   ];
 }
 
-const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
-const readyRows = rows
-  .filter((row) => row.status === 'not_started' && hasTargetUrl(row))
-  .sort(compareRows)
-  .slice(0, READY_LIMIT);
-const researchRows = rows
-  .filter((row) => row.status === 'not_started' && !hasTargetUrl(row))
-  .sort(compareRows)
-  .slice(0, RESEARCH_LIMIT);
-
-console.log('# Serviio Free Search Next Actions');
-console.log('');
-console.log('Use this before manual submission sessions. Complete ready submissions first when time is limited, then research partner/POS targets.');
-console.log('');
-
-console.log('## Ready Submissions');
-for (const row of readyRows) {
-  const opportunity = opportunityScore(row);
-  console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.target}`);
-  console.log(`  Channel: ${row.channel}`);
-  console.log(`  Why: ${opportunity.reasons}`);
-  console.log(`  Submit/contact: ${row.url}`);
-  console.log(`  Landing: ${row.landing_url}`);
-  console.log(`  UTM: ${row.utm_url}`);
-  console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
-  console.log(`  Copy hint: ${packetHint(row)}`);
-  console.log('  After action: set status=submitted, owner, date_submitted, and notes in docs/free-search-marketing-tracker.csv');
+function nextActionRows(rows, { readyLimit = READY_LIMIT, researchLimit = RESEARCH_LIMIT } = {}) {
+  return {
+    readyRows: rows
+      .filter((row) => row.status === 'not_started' && hasTargetUrl(row))
+      .sort(compareRows)
+      .slice(0, readyLimit),
+    researchRows: rows
+      .filter((row) => row.status === 'not_started' && !hasTargetUrl(row))
+      .sort(compareRows)
+      .slice(0, researchLimit),
+  };
 }
 
-console.log('');
-console.log('## Target Research');
-for (const row of researchRows) {
-  const opportunity = opportunityScore(row);
-  console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
-  console.log(`  Why: ${opportunity.reasons}`);
-  console.log(`  Landing: ${row.landing_url}`);
-  console.log(`  UTM: ${row.utm_url}`);
-  console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
-  console.log('  Searches:');
-  for (const query of researchQueries(row)) {
-    console.log(`    - ${query}`);
+function main() {
+  const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
+  const { readyRows, researchRows } = nextActionRows(rows);
+
+  console.log('# Serviio Free Search Next Actions');
+  console.log('');
+  console.log('Use this before manual submission sessions. Complete ready submissions first when time is limited, then research partner/POS targets.');
+  console.log('');
+
+  console.log('## Ready Submissions');
+  for (const row of readyRows) {
+    const opportunity = opportunityScore(row);
+    console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.target}`);
+    console.log(`  Channel: ${row.channel}`);
+    console.log(`  Why: ${opportunity.reasons}`);
+    console.log(`  Submit/contact: ${row.url}`);
+    console.log(`  Landing: ${row.landing_url}`);
+    console.log(`  UTM: ${row.utm_url}`);
+    console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
+    console.log(`  Copy hint: ${packetHint(row)}`);
+    console.log('  After action: set status=submitted, owner, date_submitted, and notes in docs/free-search-marketing-tracker.csv');
   }
-  console.log('  After research: replace blank url with the submission/contact URL, or add notes if rejected/not relevant.');
+
+  console.log('');
+  console.log('## Target Research');
+  for (const row of researchRows) {
+    const opportunity = opportunityScore(row);
+    console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
+    console.log(`  Why: ${opportunity.reasons}`);
+    console.log(`  Landing: ${row.landing_url}`);
+    console.log(`  UTM: ${row.utm_url}`);
+    console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
+    console.log('  Searches:');
+    for (const query of researchQueries(row)) {
+      console.log(`    - ${query}`);
+    }
+    console.log('  After research: replace blank url with the submission/contact URL, or add notes if rejected/not relevant.');
+  }
 }
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  compareRows,
+  hasTargetUrl,
+  nextActionRows,
+  opportunityScore,
+  packetHint,
+  parseCsv,
+  researchQueries,
+};

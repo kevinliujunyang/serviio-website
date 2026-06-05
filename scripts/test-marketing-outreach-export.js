@@ -7,6 +7,12 @@ const {
   parseCsv,
   readySubmissionRows,
 } = require('./print-free-search-submission-packets');
+const {
+  nextActionRows,
+  opportunityScore: nextActionOpportunityScore,
+  packetHint,
+  researchQueries,
+} = require('./print-free-search-next-actions');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -60,5 +66,28 @@ const techDirectoryRow = readyRows.find((row) => row.target === 'Restaurant POS 
 assert.ok(techDirectoryRow);
 assert.strictEqual(opportunityScore(techDirectoryRow).score, 96);
 assert.match(packetFor(techDirectoryRow).longDescription, /takeout-heavy operators, including Chinese restaurants/);
+
+const nextRows = nextActionRows(trackerRows, { readyLimit: 8, researchLimit: 8 });
+assert.strictEqual(nextRows.readyRows.length, 8);
+assert.strictEqual(nextRows.researchRows.length, 1);
+
+const nextTopTargets = nextRows.readyRows.slice(0, 6).map((row) => row.target);
+assert.ok(nextTopTargets.includes('Chinese restaurant POS consultants'));
+assert.ok(nextTopTargets.includes('POS consultants'));
+assert.ok(nextTopTargets.includes('MenuSifu restaurant consultants'));
+assert.ok(nextRows.readyRows.every((row) => nextActionOpportunityScore(row).score >= 92));
+assert.ok(nextRows.readyRows.slice(0, 6).every((row) => /POS|partner\/referral/.test(nextActionOpportunityScore(row).reasons)));
+assert.match(packetHint(menusifuTrackerRow), /POS-Specific Partner Outreach Copy/);
+
+const aiDirectoryNextRow = trackerRows.find((row) => row.target === 'AI Directory');
+assert.ok(aiDirectoryNextRow);
+assert.ok(nextActionOpportunityScore(menusifuTrackerRow).score > nextActionOpportunityScore(aiDirectoryNextRow).score);
+
+const pilotResearch = nextRows.researchRows[0];
+assert.strictEqual(pilotResearch.target, 'Pilot restaurant testimonial');
+assert.deepStrictEqual(researchQueries(pilotResearch), [
+  '"Pilot restaurant testimonial" "submit"',
+  '"Chinese restaurant AI phone ordering testimonial" "directory"',
+]);
 
 console.log('Marketing outreach export tests passed');
