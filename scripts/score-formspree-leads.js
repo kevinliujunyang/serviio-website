@@ -41,6 +41,37 @@ const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendatio
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
 const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai/i;
 
+function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource }) {
+  if (posReady && highVolume && (chineseIntent || prioritySource)) {
+    return {
+      route: 'call_now',
+      nextAction: 'Call within 24 hours; qualify POS integration path and demo timing.',
+    };
+  }
+  if (posReady && (mediumVolume || chineseIntent || prioritySource)) {
+    return {
+      route: 'demo_queue',
+      nextAction: 'Follow up with POS workflow questions and offer an AI phone-order fit check.',
+    };
+  }
+  if (noPos && wantsPosRecommendation) {
+    return {
+      route: 'pos_referral',
+      nextAction: 'Ask whether they want POS recommendations before AI phone ordering.',
+    };
+  }
+  if (noPos) {
+    return {
+      route: 'nurture_no_pos',
+      nextAction: 'Nurture with POS-readiness content; deprioritize immediate AI setup.',
+    };
+  }
+  return {
+    route: 'manual_review',
+    nextAction: 'Review manually; confirm POS, phone-order volume, and restaurant fit.',
+  };
+}
+
 function parseArgs(argv) {
   const args = { input: '', out: '', summaryOnly: false };
 
@@ -262,9 +293,20 @@ function scoreLead(record) {
   } else if (noPos && wantsPosRecommendation) {
     priority = 'nurture';
   }
+  const routing = routeLead({
+    posReady,
+    noPos,
+    wantsPosRecommendation,
+    highVolume,
+    mediumVolume,
+    chineseIntent,
+    prioritySource,
+  });
 
   return {
     lead_priority: priority,
+    lead_route: routing.route,
+    lead_next_action: routing.nextAction,
     lead_score: Math.max(0, Math.min(100, score)),
     lead_reason: reasons.length ? reasons.join('; ') : 'manual review needed',
     restaurant_name: values.restaurant,
@@ -284,8 +326,10 @@ function scoreLead(record) {
 
 function summarize(scoredRows) {
   const counts = { high: 0, medium: 0, nurture: 0, review: 0 };
+  const routeCounts = {};
   scoredRows.forEach((row) => {
     counts[row.lead_priority] = (counts[row.lead_priority] || 0) + 1;
+    routeCounts[row.lead_route] = (routeCounts[row.lead_route] || 0) + 1;
   });
 
   const lines = [
@@ -295,6 +339,9 @@ function summarize(scoredRows) {
     `- Medium priority: ${counts.medium}`,
     `- Nurture/referral: ${counts.nurture}`,
     `- Manual review: ${counts.review}`,
+    `- Call now route: ${routeCounts.call_now || 0}`,
+    `- Demo queue route: ${routeCounts.demo_queue || 0}`,
+    `- POS referral route: ${routeCounts.pos_referral || 0}`,
   ];
 
   const topLeads = scoredRows
@@ -335,6 +382,8 @@ function main() {
 
   const scoreHeaders = [
     'lead_priority',
+    'lead_route',
+    'lead_next_action',
     'lead_score',
     'lead_reason',
     'restaurant_name',

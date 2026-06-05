@@ -156,7 +156,7 @@ For a quick count without writing a scored CSV:
 npm run leads:score -- path/to/formspree-export.csv --summary-only
 ```
 
-Call high-priority leads first. The script writes `lead_priority`, `lead_score`, and `lead_reason` before the original Formspree columns.
+Call high-priority leads first. The script writes `lead_priority`, `lead_route`, `lead_next_action`, `lead_score`, and `lead_reason` before the original Formspree columns.
 
 Score Formspree leads in this order.
 
@@ -177,6 +177,13 @@ Nurture or referral:
 - Wants POS recommendations through `pos_recommendation_interest`
 - Low phone-order volume
 - Not ready for AI phone ordering, but may be useful to POS partners
+
+Routing fields:
+- `call_now`: POS-ready, high-volume, Chinese/POS-intent lead. Call within 24 hours.
+- `demo_queue`: POS-ready lead that should get POS workflow questions and a fit check.
+- `pos_referral`: no-POS lead that explicitly wants POS recommendations.
+- `nurture_no_pos`: no-POS lead without clear POS recommendation interest.
+- `manual_review`: incomplete or ambiguous lead; confirm POS, volume, and fit manually.
 
 ## Follow-Up SLA
 
