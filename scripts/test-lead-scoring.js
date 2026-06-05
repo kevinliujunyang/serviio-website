@@ -26,6 +26,8 @@ assert.strictEqual(highPriority.phone_volume_tier, 'high');
 assert.strictEqual(highPriority.chinese_or_asian_intent, 'yes');
 assert.strictEqual(highPriority.priority_seo_source, 'yes');
 assert.strictEqual(highPriority.us_location_captured, 'yes');
+assert.strictEqual(highPriority.monetization_route, 'serviio_demo');
+assert.strictEqual(highPriority.partner_referral_priority, 'none');
 assert.strictEqual(highPriority.pos_focus, 'MenuSifu');
 assert.match(highPriority.lead_reason, /existing POS/);
 assert.match(highPriority.buyer_profile, /pos_ready/);
@@ -52,7 +54,26 @@ const noPosReferral = scoreLead({
 assert.strictEqual(noPosReferral.lead_priority, 'nurture');
 assert.strictEqual(noPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(noPosReferral.pos_readiness, 'pos_referral_candidate');
+assert.strictEqual(noPosReferral.monetization_route, 'pos_partner_referral');
+assert.strictEqual(noPosReferral.partner_referral_priority, 'hot');
+assert.match(noPosReferral.partner_next_action, /POS partner lead/);
+assert.match(noPosReferral.buyer_profile, /partner_referral:hot/);
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
+
+const warmNoPosReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Small New Cafe',
+  restaurant_city: '',
+  restaurant_state: '',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: 'Under 25',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+});
+assert.strictEqual(warmNoPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(warmNoPosReferral.monetization_route, 'pos_partner_referral');
+assert.strictEqual(warmNoPosReferral.partner_referral_priority, 'warm');
 
 const ambiguousPos = scoreLead({
   ...baseLead,
@@ -68,6 +89,7 @@ assert.strictEqual(hasKnownPos('Considering a POS'), false);
 assert.strictEqual(hasKnownPos('I use a local POS'), true);
 
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
+assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);
 assert.match(summary, /POS referral route: 1/);
 assert.match(summary, /Manual review route: 1/);

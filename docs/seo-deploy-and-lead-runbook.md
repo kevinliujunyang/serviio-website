@@ -135,8 +135,21 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `us_location_captured`
 - `pos_focus`
 - `buyer_profile`
+- `monetization_route`
+- `partner_referral_priority`
+- `partner_next_action`
 
-Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, the POS-specific landing-page focus, and the original `lead_source`.
+Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, partner referral priority, the POS-specific landing-page focus, and the original `lead_source`.
+
+Use `monetization_route` to split follow-up:
+- `serviio_demo`: POS-ready restaurant lead. Keep this in Serviio's demo pipeline first.
+- `pos_partner_referral`: no-POS lead that asked for POS recommendations. Preserve it for POS partner follow-up or referral resale.
+- `unknown`: incomplete POS data. Confirm POS status before routing.
+
+Use `partner_referral_priority` to handle no-POS leads:
+- `hot`: no-POS lead with POS recommendation interest plus useful commercial signals such as US location, medium/high phone volume, Chinese or Asian intent, or a priority SEO source.
+- `warm`: no-POS lead that wants POS recommendations but needs more qualification before a partner handoff.
+- `none`: POS-ready Serviio lead or ambiguous lead without a POS referral path.
 
 Score Formspree leads in this order.
 

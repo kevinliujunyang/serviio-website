@@ -91,6 +91,7 @@ function buildBuyerProfile({
   chineseIntent,
   prioritySource,
   hasUsLocation,
+  partnerReferralPriority,
   values,
 }) {
   const parts = [posReadiness, `${volume}_phone_volume`];
@@ -98,10 +99,52 @@ function buildBuyerProfile({
   if (chineseIntent) parts.push('chinese_or_asian_intent');
   if (prioritySource) parts.push('priority_seo_source');
   if (hasUsLocation) parts.push('us_location_captured');
+  if (partnerReferralPriority !== 'none') parts.push(`partner_referral:${partnerReferralPriority}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
 
   return parts.join(' | ');
+}
+
+function classifyPartnerReferral({
+  posReady,
+  noPos,
+  wantsPosRecommendation,
+  highVolume,
+  mediumVolume,
+  chineseIntent,
+  prioritySource,
+  hasUsLocation,
+}) {
+  if (posReady) {
+    return {
+      monetizationRoute: 'serviio_demo',
+      partnerReferralPriority: 'none',
+      partnerNextAction: 'Keep in Serviio demo pipeline before any partner referral.',
+    };
+  }
+
+  if (!noPos || !wantsPosRecommendation) {
+    return {
+      monetizationRoute: 'unknown',
+      partnerReferralPriority: 'none',
+      partnerNextAction: 'Confirm POS status before routing to Serviio or POS partners.',
+    };
+  }
+
+  if ((highVolume || mediumVolume) && hasUsLocation && (chineseIntent || prioritySource)) {
+    return {
+      monetizationRoute: 'pos_partner_referral',
+      partnerReferralPriority: 'hot',
+      partnerNextAction: 'Package as POS partner lead; confirm budget, timeline, cuisine, and preferred POS category.',
+    };
+  }
+
+  return {
+    monetizationRoute: 'pos_partner_referral',
+    partnerReferralPriority: 'warm',
+    partnerNextAction: 'Nurture for POS recommendation interest; collect timeline and preferred POS requirements.',
+  };
 }
 
 function parseArgs(argv) {
@@ -285,6 +328,16 @@ function scoreLead(record) {
   const prioritySource = PRIORITY_SOURCE_PATTERN.test(sourceText);
   const hasUsLocation = values.city !== '' && values.state !== '';
   const posReadiness = classifyPosReadiness({ posReady, noPos, wantsPosRecommendation });
+  const partnerReferral = classifyPartnerReferral({
+    posReady,
+    noPos,
+    wantsPosRecommendation,
+    highVolume,
+    mediumVolume,
+    chineseIntent,
+    prioritySource,
+    hasUsLocation,
+  });
 
   let score = 0;
   const reasons = [];
@@ -321,6 +374,7 @@ function scoreLead(record) {
     reasons.push('no POS and no POS recommendation interest');
   }
   if (noPos && wantsPosRecommendation) {
+    score += 12;
     reasons.push('no POS but wants POS recommendation');
   }
 
@@ -359,8 +413,12 @@ function scoreLead(record) {
       chineseIntent,
       prioritySource,
       hasUsLocation,
+      partnerReferralPriority: partnerReferral.partnerReferralPriority,
       values,
     }),
+    monetization_route: partnerReferral.monetizationRoute,
+    partner_referral_priority: partnerReferral.partnerReferralPriority,
+    partner_next_action: partnerReferral.partnerNextAction,
     restaurant_name: values.restaurant,
     contact_name: values.name,
     contact_email: values.email,
@@ -380,9 +438,11 @@ function scoreLead(record) {
 function summarize(scoredRows) {
   const counts = { high: 0, medium: 0, nurture: 0, review: 0 };
   const routeCounts = {};
+  const partnerCounts = {};
   scoredRows.forEach((row) => {
     counts[row.lead_priority] = (counts[row.lead_priority] || 0) + 1;
     routeCounts[row.lead_route] = (routeCounts[row.lead_route] || 0) + 1;
+    partnerCounts[row.partner_referral_priority] = (partnerCounts[row.partner_referral_priority] || 0) + 1;
   });
 
   const lines = [
@@ -395,6 +455,8 @@ function summarize(scoredRows) {
     `- Call now route: ${routeCounts.call_now || 0}`,
     `- Demo queue route: ${routeCounts.demo_queue || 0}`,
     `- POS referral route: ${routeCounts.pos_referral || 0}`,
+    `- Hot POS partner referrals: ${partnerCounts.hot || 0}`,
+    `- Warm POS partner referrals: ${partnerCounts.warm || 0}`,
     `- No-POS nurture route: ${routeCounts.nurture_no_pos || 0}`,
     `- Manual review route: ${routeCounts.manual_review || 0}`,
   ];
@@ -447,6 +509,9 @@ function main() {
     'priority_seo_source',
     'us_location_captured',
     'buyer_profile',
+    'monetization_route',
+    'partner_referral_priority',
+    'partner_next_action',
     'restaurant_name',
     'contact_name',
     'contact_email',
