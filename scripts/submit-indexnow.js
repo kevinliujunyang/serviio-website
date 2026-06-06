@@ -21,6 +21,8 @@ const TOP_PRIORITY_PATHS = [
   '/zh/chinese-restaurant-pos-ai-phone-agent/',
   '/chinese-restaurant-phone-order-pos-workflow/',
   '/zh/chinese-restaurant-phone-order-pos-workflow/',
+  '/restaurant-pos-partner-referral/',
+  '/zh/restaurant-pos-partner-referral/',
   '/chinese-restaurant-customer-service-ai/',
   '/zh/chinese-restaurant-customer-service-ai/',
   '/ai-phone-ordering-for-chinese-takeout/',
