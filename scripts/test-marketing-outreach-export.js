@@ -23,6 +23,11 @@ const {
   nextMilestones,
   renderReport: renderAuthorityReport,
 } = require('./audit-seo-authority');
+const {
+  mergeNote,
+  parseArgs: parseMarkArgs,
+  updateTracker,
+} = require('./update-free-search-tracker');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -124,5 +129,34 @@ assert.strictEqual(authority.highFitStartedRows.length, 2);
 assert.match(nextMilestones(authority)[0], /5 live authority links/);
 assert.match(renderAuthorityReport(authorityRows), /Serviio SEO Authority Audit/);
 assert.match(renderAuthorityReport(authorityRows), /Authority score: 26\/100/);
+
+const updateResult = updateTracker(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
+`, {
+  target: 'menusifu',
+  status: 'submitted',
+  owner: 'Serviio',
+  date: '2026-06-06',
+  note: 'Submitted partner request; follow up next week.',
+  appendNote: true,
+});
+assert.strictEqual(updateResult.after.target, 'MenuSifu restaurant consultants');
+assert.strictEqual(updateResult.after.status, 'submitted');
+assert.strictEqual(updateResult.after.owner, 'Serviio');
+assert.strictEqual(updateResult.after.date_submitted, '2026-06-06');
+assert.match(updateResult.after.notes, /2026-06-06: Submitted partner request/);
+assert.match(updateResult.csv, /Use POS-specific partner path\. 2026-06-06: Submitted partner request; follow up next week\./);
+assert.strictEqual(mergeNote('Existing note.', 'New confirmation.', { date: '2026-06-06' }), 'Existing note. 2026-06-06: New confirmation.');
+assert.deepStrictEqual(parseMarkArgs(['--target', 'MenuSifu restaurant consultants', '--status', 'submitted', '--date', '2026-06-06', '--dry-run']), {
+  csvPath: 'docs/free-search-marketing-tracker.csv',
+  owner: 'Serviio',
+  date: '2026-06-06',
+  dryRun: true,
+  appendNote: true,
+  target: 'MenuSifu restaurant consultants',
+  status: 'submitted',
+});
+assert.throws(() => parseMarkArgs(['--target', 'MenuSifu restaurant consultants', '--status', 'done']), /--status must be one of/);
+assert.throws(() => updateTracker(updateResult.csv, { target: 'missing', status: 'submitted', owner: 'Serviio', date: '2026-06-06' }), /No tracker row matched/);
 
 console.log('Marketing outreach export tests passed');

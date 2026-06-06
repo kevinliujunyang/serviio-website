@@ -58,6 +58,32 @@ npm run seo:authority
 
 The authority audit is the progress score for backlinks, profiles, partner referrals, and customer proof. Use it to decide whether the next session should focus on submissions, follow-ups, or getting live proof links.
 
+After a real submission, contact form, email, directory listing, or partner conversation, update the tracker with the evidence:
+
+```bash
+npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --note "Submitted partner request through MenuSifu demo form; follow up in 7 days."
+```
+
+Use `--dry-run` first if the target match is uncertain:
+
+```bash
+npm run marketing:mark -- --target "menusifu" --status submitted --note "Submitted partner request." --dry-run
+```
+
+For live listings or published partner links, record the live status and URL:
+
+```bash
+npm run marketing:mark -- --target "Restaurant POS and automation directories" --status live --url "https://example.com/serviio" --note "Live vendor/resource listing with Serviio link."
+```
+
+Then re-run:
+
+```bash
+npm run seo:authority
+```
+
+Do not mark a row as `submitted` or `live` until the action actually happened. This keeps the authority score useful as a ranking-readiness signal instead of a planning score.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:

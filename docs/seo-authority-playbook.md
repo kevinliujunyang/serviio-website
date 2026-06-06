@@ -78,7 +78,19 @@ This helps other restaurant owners understand whether Serviio is relevant to the
 4. Ask 1 customer or pilot restaurant for a testimonial.
 5. Review Search Console queries and add internal links to pages that are gaining impressions.
 
-Record each submission, listing URL, UTM URL, and follow-up status in `docs/free-search-marketing-checklist.md`.
+Record each submission, listing URL, UTM URL, and follow-up status in `docs/free-search-marketing-tracker.csv`. Use the helper command after each real action:
+
+```bash
+npm run marketing:mark -- --target "POS consultants" --status submitted --note "Sent partner referral note to contact form; check for reply next week."
+```
+
+Use `status=live` only after the listing or backlink is visible, and include the live URL:
+
+```bash
+npm run marketing:mark -- --target "Restaurant POS directory" --status live --url "https://example.com/serviio" --note "Published listing with restaurant AI phone-ordering anchor."
+```
+
+Run `npm run seo:authority` after the tracker update. The score should rise only when rows are submitted, need follow-up, or go live.
 
 Use `/guides/restaurant-ai-phone-ordering-pos-guide/` as the default link for educational submissions, community answers, and directory listings that prefer resource content over a direct sales page.
 

@@ -27,6 +27,7 @@
     "marketing:packets": "node scripts/print-free-search-submission-packets.js",
     "marketing:outreach-csv": "node scripts/export-free-search-outreach-csv.js",
     "marketing:sprint": "node scripts/print-partner-outreach-sprint.js",
+    "marketing:mark": "node scripts/update-free-search-tracker.js",
     "marketing:test": "node scripts/test-marketing-outreach-export.js",
     "marketing:next": "node scripts/print-free-search-next-actions.js",
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
