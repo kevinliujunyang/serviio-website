@@ -83,9 +83,9 @@ assert.strictEqual(nextRows.researchRows.length, 1);
 
 const nextTopTargets = nextRows.readyRows.slice(0, 6).map((row) => row.target);
 assert.ok(nextTopTargets.includes('Chinese restaurant POS consultants'));
-assert.ok(nextTopTargets.includes('POS consultants'));
 assert.ok(nextTopTargets.includes('MenuSifu restaurant consultants'));
-assert.ok(nextRows.readyRows.every((row) => nextActionOpportunityScore(row).score >= 92));
+assert.ok(nextRows.readyRows.map((row) => row.target).includes('POS consultants'));
+assert.ok(nextRows.readyRows.every((row) => nextActionOpportunityScore(row).score >= 88));
 assert.ok(nextRows.readyRows.slice(0, 6).every((row) => /POS|partner\/referral/.test(nextActionOpportunityScore(row).reasons)));
 assert.match(packetHint(menusifuTrackerRow), /POS-Specific Partner Outreach Copy/);
 

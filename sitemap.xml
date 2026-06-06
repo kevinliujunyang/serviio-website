@@ -758,6 +758,24 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://serviio.ai/restaurant-pos-partner-referral/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-pos-partner-referral/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-pos-partner-referral/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/restaurant-pos-partner-referral/"/>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://serviio.ai/zh/restaurant-pos-partner-referral/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-pos-partner-referral/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-pos-partner-referral/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serviio.ai/restaurant-pos-partner-referral/"/>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
     <loc>https://serviio.ai/restaurant-phone-order-automation/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://serviio.ai/restaurant-phone-order-automation/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://serviio.ai/zh/restaurant-phone-order-automation/"/>

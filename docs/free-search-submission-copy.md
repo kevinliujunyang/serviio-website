@@ -139,7 +139,7 @@ We are looking for POS consultants and restaurant technology partners who work w
 If you meet restaurant owners who miss calls during rush hours or still re-enter phone orders manually, could we discuss a referral path? No-POS owners can also be routed toward POS recommendations before AI phone ordering.
 
 Relevant page:
-https://serviio.ai/chinese-restaurant-phone-order-pos-workflow/
+https://serviio.ai/restaurant-pos-partner-referral/
 
 Thanks,
 Serviio
