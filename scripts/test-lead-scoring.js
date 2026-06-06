@@ -1,4 +1,9 @@
 const assert = require('assert');
+const {
+  buildPosPartnerRows,
+  parseArgs: parsePosPartnerExportArgs,
+  toCsv: posPartnerToCsv,
+} = require('./export-pos-partner-leads');
 const { classifyPainSignal, hasKnownPos, scoreLead, summarize } = require('./score-formspree-leads');
 
 const baseLead = {
@@ -277,5 +282,36 @@ assert.match(summary, /Manual review route: 1/);
 const partnerSummary = summarize([partnerInquiry]);
 assert.match(partnerSummary, /Partner pipeline route: 1/);
 assert.match(partnerSummary, /Strategic partner inquiries: 1/);
+
+const posPartnerExportRows = buildPosPartnerRows([
+  highPriority,
+  warmNoPosReferral,
+  noPosReferral,
+  ambiguousPos,
+]);
+assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
+  'New Noodle Shop',
+  'Small New Cafe',
+]);
+assert.strictEqual(posPartnerExportRows[0].pos_partner_lead_type, 'hot_no_pos_restaurant');
+assert.strictEqual(posPartnerExportRows[0].serviio_fit_status, 'deprioritized_until_pos_ready');
+assert.match(posPartnerExportRows[0].handoff_summary, /Restaurant: New Noodle Shop/);
+assert.match(posPartnerExportRows[0].partner_next_action, /Package as POS partner lead/);
+assert.strictEqual(posPartnerExportRows[1].pos_partner_lead_type, 'warm_no_pos_restaurant');
+
+const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
+assert.match(posPartnerCsv, /pos_partner_lead_type,partner_referral_priority,restaurant_name/);
+assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,New Noodle Shop/);
+assert.doesNotMatch(posPartnerCsv, /Golden Dragon Chinese Restaurant/);
+assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--out', 'pos-partner.csv']), {
+  input: 'formspree.csv',
+  out: 'pos-partner.csv',
+  summaryOnly: false,
+});
+assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--summary-only']), {
+  input: 'formspree.csv',
+  out: '',
+  summaryOnly: true,
+});
 
 console.log('Lead scoring tests passed');

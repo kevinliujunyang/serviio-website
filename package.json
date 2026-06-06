@@ -16,6 +16,7 @@
     "indexnow:submit": "node scripts/submit-indexnow.js --submit",
     "indexnow:submit:all": "node scripts/submit-indexnow.js --all --submit",
     "leads:score": "node scripts/score-formspree-leads.js",
+    "leads:pos-partners": "node scripts/export-pos-partner-leads.js",
     "leads:test": "node scripts/test-lead-scoring.js",
     "search:analyze": "node scripts/analyze-search-console.js",
     "search:test": "node scripts/test-search-console-analyzer.js",
