@@ -124,6 +124,14 @@ npm run marketing:outreach-csv -- --out outreach.csv --limit 25
 
 The default export focuses on partner outreach, POS-specific outreach, Chinese/Asian associations, community posts, educational/resource listings, and restaurant technology directories. Use `--all` only when you also want generic directories, business profiles, and webmaster rows.
 
+Export the P0 business profile submission pack for Google Business Profile, Bing Places, and Apple Business Connect:
+
+```bash
+npm run marketing:profiles
+```
+
+Use this before creating or claiming profiles. It includes shared business details, description copy, category candidates, UTM links, and the tracker update command for each profile.
+
 Export the combined weekly GTM queue for off-site SEO execution:
 
 ```bash

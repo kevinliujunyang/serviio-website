@@ -23,6 +23,10 @@ const {
   parseArgs: parseSprintExportArgs,
 } = require('./export-partner-outreach-sprint');
 const {
+  buildBusinessProfilePack,
+  parseArgs: parseBusinessProfileArgs,
+} = require('./export-business-profile-pack');
+const {
   authorityScore,
   nextMilestones,
   renderReport: renderAuthorityReport,
@@ -144,6 +148,22 @@ assert.deepStrictEqual(parseSprintExportArgs(['--out', 'docs/sprint.md', '--limi
   help: false,
 });
 assert.throws(() => parseSprintExportArgs(['--limit', '0']), /--limit must be a positive integer/);
+
+const businessProfilePack = buildBusinessProfilePack(trackerRows, { today: '2026-06-06' });
+assert.match(businessProfilePack, /^# Serviio Business Profile Submission Pack/m);
+assert.match(businessProfilePack, /Google Business Profile/);
+assert.match(businessProfilePack, /Bing Places for Business/);
+assert.match(businessProfilePack, /Apple Business Connect/);
+assert.match(businessProfilePack, /info@serviio\.ai/);
+assert.match(businessProfilePack, /\(408\) 409-9079/);
+assert.match(businessProfilePack, /Service-area business serving restaurant owners in the United States/);
+assert.match(businessProfilePack, /AI phone ordering for restaurants using POS systems/);
+assert.match(businessProfilePack, /npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-06/);
+assert.deepStrictEqual(parseBusinessProfileArgs(['--out', 'docs/profiles.md', '--today', '2026-06-06']), {
+  out: 'docs/profiles.md',
+  today: '2026-06-06',
+  help: false,
+});
 
 const authorityRows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P0,Business profile,Google Business Profile,https://www.google.com/business/,submitted,Serviio,2026-06-06,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Submitted profile.
