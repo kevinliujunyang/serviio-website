@@ -130,6 +130,14 @@ Export Formspree submissions as CSV and score them with:
 npm run leads:score -- path/to/formspree-export.csv --out scored-leads.csv
 ```
 
+To export POS-ready restaurant owners for Serviio demo follow-up:
+
+```bash
+npm run leads:demo-queue -- path/to/formspree-export.csv --out demo-leads.csv
+```
+
+This writes a focused call queue for `call_now` and `demo_queue` leads with existing POS systems. It includes POS system, phone-order volume, pain, buyer profile, and a short call script that keeps the conversation tied to POS workflow and 2% completed-order pricing.
+
 To export only no-POS restaurant owners who asked for POS recommendations:
 
 ```bash
@@ -142,6 +150,7 @@ For a quick count without writing a scored CSV:
 
 ```bash
 npm run leads:score -- path/to/formspree-export.csv --summary-only
+npm run leads:demo-queue -- path/to/formspree-export.csv --summary-only
 npm run leads:pos-partners -- path/to/formspree-export.csv --summary-only
 ```
 

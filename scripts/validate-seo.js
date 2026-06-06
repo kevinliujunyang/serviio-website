@@ -775,6 +775,12 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:score'] !== 'node scripts/score-formspree-leads.js') {
     errors.push('package.json: missing leads:score script');
   }
+  if (packageJson.scripts?.['leads:demo-queue'] !== 'node scripts/export-serviio-demo-leads.js') {
+    errors.push('package.json: missing leads:demo-queue script');
+  }
+  if (!fs.existsSync('scripts/export-serviio-demo-leads.js')) {
+    errors.push('scripts/export-serviio-demo-leads.js: missing Serviio demo queue export');
+  }
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
   }
@@ -794,6 +800,12 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('pos_purchase_timeline_urgency')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing POS purchase timeline urgency workflow');
+  }
+  if (!test.includes('buildDemoQueueRows') || !test.includes('export-serviio-demo-leads')) {
+    errors.push('scripts/test-lead-scoring.js: missing Serviio demo queue export coverage');
+  }
+  if (!runbook.includes('npm run leads:demo-queue')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing Serviio demo queue workflow');
   }
 
   return { errors };

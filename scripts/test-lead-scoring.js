@@ -5,6 +5,11 @@ const {
   toCsv: posPartnerToCsv,
 } = require('./export-pos-partner-leads');
 const {
+  buildDemoQueueRows,
+  parseArgs: parseDemoQueueExportArgs,
+  toCsv: demoQueueToCsv,
+} = require('./export-serviio-demo-leads');
+const {
   classifyPainSignal,
   classifyPosPurchaseTimeline,
   hasKnownPos,
@@ -344,6 +349,41 @@ const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
 assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
 assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,Fast POS Dumpling/);
 assert.doesNotMatch(posPartnerCsv, /Golden Dragon Chinese Restaurant/);
+
+const demoQueueRows = buildDemoQueueRows([
+  highPriority,
+  localPosFitDemo,
+  namedPosOfferDemo,
+  noPosReferral,
+  partnerInquiry,
+  ambiguousPos,
+]);
+assert.deepStrictEqual(demoQueueRows.map((row) => row.restaurant_name), [
+  'Golden Dragon Chinese Restaurant',
+  'Boston Wok',
+  'POS Offer Bistro',
+]);
+assert.strictEqual(demoQueueRows[0].lead_route, 'call_now');
+assert.strictEqual(demoQueueRows[0].demo_priority, 'call_now');
+assert.match(demoQueueRows[0].call_script, /Confirm they still use MenuSifu/);
+assert.match(demoQueueRows[0].call_script, /150\+/);
+assert.match(demoQueueRows[0].call_script, /2% per completed order/);
+assert.strictEqual(demoQueueRows[1].demo_priority, 'demo_queue');
+const demoQueueCsv = demoQueueToCsv(demoQueueRows);
+assert.match(demoQueueCsv, /demo_priority,lead_priority,lead_route,restaurant_name/);
+assert.match(demoQueueCsv, /call_now,high,call_now,Golden Dragon Chinese Restaurant/);
+assert.doesNotMatch(demoQueueCsv, /New Noodle Shop/);
+assert.doesNotMatch(demoQueueCsv, /Restaurant Tech Partner/);
+assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
+  input: 'formspree.csv',
+  out: 'demo-leads.csv',
+  summaryOnly: false,
+});
+assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--summary-only']), {
+  input: 'formspree.csv',
+  out: '',
+  summaryOnly: true,
+});
 assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--out', 'pos-partner.csv']), {
   input: 'formspree.csv',
   out: 'pos-partner.csv',
