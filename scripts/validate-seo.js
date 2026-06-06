@@ -754,6 +754,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (packageJson.scripts?.['search:analyze'] !== 'node scripts/analyze-search-console.js') {
     errors.push('package.json: missing search:analyze script');
   }
+  if (packageJson.scripts?.['search:sample'] !== 'node scripts/analyze-search-console.js docs/sample-search-console-export.csv --out docs/sample-search-console-analysis.md') {
+    errors.push('package.json: missing search:sample script');
+  }
   if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
     errors.push('package.json: missing search:test script');
   }
@@ -771,6 +774,17 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   if (!runbook.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Title/Meta Rewrite Briefs workflow');
+  }
+  for (const file of ['docs/sample-search-console-export.csv', 'docs/sample-search-console-analysis.md']) {
+    if (!fs.existsSync(file)) {
+      errors.push(`${file}: missing Search Console sample workflow file`);
+    }
+  }
+  if (!test.includes('sample-search-console-export.csv') || !test.includes('sample-search-console-analysis.md')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing Search Console sample regression coverage');
+  }
+  if (!scorecard.includes('npm run search:sample') || !scorecard.includes('docs/sample-search-console-export.csv')) {
+    errors.push('docs/google-search-console-scorecard.md: missing Search Console sample workflow');
   }
 
   return { errors };

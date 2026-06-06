@@ -1,8 +1,10 @@
 const assert = require('assert');
+const fs = require('fs');
 const {
   buildBuyerIntentActions,
   buildPosSpecificActions,
   buildTitleMetaRewriteBriefs,
+  buildRecords,
   normalizeRecord,
   parseCsv,
   renderReport,
@@ -67,5 +69,16 @@ assert.match(report, /Buyer-Intent Action Queue/);
 assert.match(report, /POS-Specific Query Opportunities/);
 assert.match(report, /Title\/Meta Rewrite Briefs/);
 assert.match(report, /MenuSifu AI phone ordering/);
+
+const sampleRows = buildRecords(parseCsv(fs.readFileSync('docs/sample-search-console-export.csv', 'utf8'))).map(normalizeRecord);
+const sampleReport = fs.readFileSync('docs/sample-search-console-analysis.md', 'utf8');
+assert.ok(sampleRows.length >= 6);
+assert.ok(buildBuyerIntentActions(sampleRows).some((row) => row.query === 'MenuSifu AI phone ordering'));
+assert.ok(buildPosSpecificActions(sampleRows).some((row) => row.query === 'Square POS phone order AI'));
+assert.ok(buildTitleMetaRewriteBriefs(sampleRows).some((row) => row.query === 'Chinese restaurant phone answering service'));
+assert.match(sampleReport, /Serviio Search Console Export Analysis/);
+assert.match(sampleReport, /Buyer-Intent Action Queue/);
+assert.match(sampleReport, /Title\/Meta Rewrite Briefs/);
+assert.match(sampleReport, /MenuSifu AI phone ordering/);
 
 console.log('Search Console analyzer tests passed');

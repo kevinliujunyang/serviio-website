@@ -718,6 +718,7 @@ if (require.main === module) {
 module.exports = {
   buyerIntentScore,
   buildBuyerIntentActions,
+  buildRecords,
   buildPosSpecificActions,
   buildTitleMetaRewriteBriefs,
   normalizeRecord,

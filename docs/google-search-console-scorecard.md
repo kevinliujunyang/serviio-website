@@ -16,6 +16,14 @@ Analyze a Search Console CSV export with:
 npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
 ```
 
+Preview the analyzer without live Search Console data:
+
+```bash
+npm run search:sample
+```
+
+This regenerates `docs/sample-search-console-analysis.md` from `docs/sample-search-console-export.csv`. The fixture includes named POS, Chinese restaurant, phone-answering, local service-area, and restaurant-tech rows so the buyer-intent, POS-specific, internal-link, and title/meta queues can be reviewed before a live export is available.
+
 Use the report to find page-one wins, position 8-20 opportunities, weak-position internal-link targets, the aggregated internal-link action queue, low-CTR title/meta rewrite candidates, and the `Title/Meta Rewrite Briefs` table.
 
 Start with `Buyer-Intent Action Queue` before generic SEO cleanups. It scores query/page rows for Chinese restaurant, POS, named-POS, phone-order, and commercial intent so the weekly work stays focused on pages most likely to produce qualified restaurant-owner leads.
