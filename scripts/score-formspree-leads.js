@@ -60,6 +60,8 @@ const NAMED_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|c
 const OTHER_POS_PATTERN = /(^|\b)(other|another|existing|current|custom|local|legacy)\s+(pos|point\s*of\s*sale)\b|\b(already\s+have|use|using|on)\s+(a\s+)?(pos|point\s*of\s*sale)\b/i;
 const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\b)|\u6682\u65f6\u6ca1\u6709/i;
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
+const URGENT_POS_TIMELINE_PATTERN = /immediate|right\s*away|asap|within\s*1\s*month|1\s*month|\u9a6c\u4e0a|1\s*\u4e2a\u6708\u5185/i;
+const NEAR_POS_TIMELINE_PATTERN = /1\s*-\s*3\s*months?|1\s*to\s*3\s*months?|3\s*months?|\u0031-\u0033\s*\u4e2a\u6708/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
 const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai|local-pos|local_pos|local\s+pos|pos-readiness|pos_readiness|partner-referral|partner_referral|organic-listing|organic_listing|community-post|community_post|free-search|free_search/i;
 const PARTNER_INQUIRY_PATTERN = /restaurant[_-]pos[_-]partner[_-]referral|\/restaurant-pos-partner-referral\/|pos\s+partner\s+referral|合作推荐/i;
@@ -116,6 +118,19 @@ function classifyPosReadiness({ posReady, noPos, wantsPosRecommendation }) {
   return 'unknown_pos_status';
 }
 
+function classifyPosPurchaseTimeline(value) {
+  const text = String(value || '').trim();
+  if (!text || /not\s*sure|not\s+captured|unknown|\u4e0d\u786e\u5b9a|\u8fd8\u4e0d\u786e\u5b9a/i.test(text)) {
+    return 'unknown';
+  }
+  if (/not\s+applicable|already\s+have\s+a\s+pos|\u5df2\u7ecf\u6709\s*POS/i.test(text)) {
+    return 'not_applicable';
+  }
+  if (URGENT_POS_TIMELINE_PATTERN.test(text)) return 'urgent';
+  if (NEAR_POS_TIMELINE_PATTERN.test(text)) return 'near_term';
+  return 'later';
+}
+
 function yesNo(value) {
   return value ? 'yes' : 'no';
 }
@@ -127,6 +142,7 @@ function buildBuyerProfile({
   prioritySource,
   hasUsLocation,
   partnerReferralPriority,
+  posTimelineUrgency,
   painSignal,
   values,
 }) {
@@ -136,6 +152,7 @@ function buildBuyerProfile({
   if (prioritySource) parts.push('priority_seo_source');
   if (hasUsLocation) parts.push('us_location_captured');
   if (partnerReferralPriority !== 'none') parts.push(`partner_referral:${partnerReferralPriority}`);
+  if (posTimelineUrgency && posTimelineUrgency !== 'not_applicable') parts.push(`pos_timeline_urgency:${posTimelineUrgency}`);
   if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
@@ -156,6 +173,7 @@ function classifyPartnerReferral({
   prioritySource,
   hasUsLocation,
   urgentPain,
+  posTimelineUrgency,
 }) {
   if (partnerInquiry) {
     return {
@@ -181,11 +199,24 @@ function classifyPartnerReferral({
     };
   }
 
-  if ((highVolume || mediumVolume || urgentPain) && hasUsLocation && (chineseIntent || prioritySource)) {
+  const urgentTimeline = posTimelineUrgency === 'urgent';
+  const nearTimeline = posTimelineUrgency === 'near_term';
+
+  if ((highVolume || mediumVolume || urgentPain || urgentTimeline) && hasUsLocation && (chineseIntent || prioritySource)) {
     return {
       monetizationRoute: 'pos_partner_referral',
       partnerReferralPriority: 'hot',
-      partnerNextAction: 'Package as POS partner lead; confirm budget, timeline, cuisine, and preferred POS category.',
+      partnerNextAction: urgentTimeline
+        ? 'Package as POS partner lead; confirm budget, timeline, cuisine, preferred POS category, and immediate buying process.'
+        : 'Package as POS partner lead; confirm budget, timeline, cuisine, and preferred POS category.',
+    };
+  }
+
+  if (nearTimeline && hasUsLocation && (chineseIntent || prioritySource)) {
+    return {
+      monetizationRoute: 'pos_partner_referral',
+      partnerReferralPriority: 'hot',
+      partnerNextAction: 'Package as POS partner lead; confirm 1-3 month buying timeline, budget, cuisine, and preferred POS category.',
     };
   }
 
@@ -223,17 +254,20 @@ function classifyPosPartnerLead({ partnerReferralPriority }) {
   };
 }
 
-function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSignal, volume }) {
+function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSignal, volume, posTimelineUrgency }) {
   if (!['hot', 'warm'].includes(partnerReferralPriority)) return '';
 
   const location = [values.city, values.state].filter(Boolean).join(', ') || 'location unknown';
+  const timeline = values.posPurchaseTimeline
+    ? `${values.posPurchaseTimeline}${posTimelineUrgency && posTimelineUrgency !== 'not_applicable' ? ` (${posTimelineUrgency})` : ''}`
+    : 'not captured';
   const details = [
     `Restaurant: ${values.restaurant || 'unknown restaurant'}`,
     `Location: ${location}`,
     `Current POS: ${values.pos || 'no POS captured'}`,
     `Phone orders/week: ${values.phoneOrders || 'unknown volume'} (${volume})`,
     `POS recommendation interest: ${values.posRecommendationInterest || 'not captured'}`,
-    `POS buying timeline: ${values.posPurchaseTimeline || 'not captured'}`,
+    `POS buying timeline: ${timeline}`,
   ];
 
   if (values.pain) details.push(`Pain: ${values.pain}`);
@@ -434,6 +468,7 @@ function scoreLead(record) {
   const highVolume = volume === 'high';
   const mediumVolume = volume === 'medium';
   const painSignal = classifyPainSignal(values.pain);
+  const posTimelineUrgency = classifyPosPurchaseTimeline(values.posPurchaseTimeline);
   const urgentPain = painSignal
     .split('+')
     .some((signal) => URGENT_PAIN_SIGNALS.has(signal));
@@ -453,6 +488,7 @@ function scoreLead(record) {
     prioritySource,
     hasUsLocation,
     urgentPain,
+    posTimelineUrgency,
   });
   const posPartnerLead = classifyPosPartnerLead({
     partnerReferralPriority: partnerReferral.partnerReferralPriority,
@@ -468,6 +504,7 @@ function scoreLead(record) {
     partnerReferralPriority: partnerReferral.partnerReferralPriority,
     painSignal,
     volume,
+    posTimelineUrgency,
   });
 
   let score = 0;
@@ -511,6 +548,13 @@ function scoreLead(record) {
   if (noPos && wantsPosRecommendation) {
     score += 12;
     reasons.push('no POS but wants POS recommendation');
+  }
+  if (noPos && wantsPosRecommendation && posTimelineUrgency === 'urgent') {
+    score += 10;
+    reasons.push('urgent POS purchase timeline');
+  } else if (noPos && wantsPosRecommendation && posTimelineUrgency === 'near_term') {
+    score += 5;
+    reasons.push('near-term POS purchase timeline');
   }
   if (urgentPain) {
     score += 12;
@@ -563,6 +607,7 @@ function scoreLead(record) {
       prioritySource,
       hasUsLocation,
       partnerReferralPriority: partnerReferral.partnerReferralPriority,
+      posTimelineUrgency,
       painSignal,
       values,
     }),
@@ -586,6 +631,7 @@ function scoreLead(record) {
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
     pos_purchase_timeline: values.posPurchaseTimeline,
+    pos_purchase_timeline_urgency: posTimelineUrgency,
     lead_source: values.leadSource,
     landing_path: values.landingPath || values.currentPath,
     ...record,
@@ -695,6 +741,7 @@ function main() {
     'conversion_offer',
     'pos_recommendation_interest',
     'pos_purchase_timeline',
+    'pos_purchase_timeline_urgency',
     'lead_source',
     'landing_path',
   ];
@@ -717,6 +764,7 @@ if (require.main === module) {
 module.exports = {
   classifyPhoneVolume,
   classifyPainSignal,
+  classifyPosPurchaseTimeline,
   hasKnownPos,
   parseCsv,
   scoreLead,

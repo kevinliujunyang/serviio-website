@@ -778,7 +778,7 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
   }
-  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal']) {
+  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal', 'pos_purchase_timeline_urgency', 'classifyPosPurchaseTimeline']) {
     if (!scorer.includes(snippet)) {
       errors.push(`scripts/score-formspree-leads.js: missing ${snippet}`);
     }
@@ -788,6 +788,12 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('pain_signal') || !runbook.includes('urgent_pain_signal')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing lead pain signal workflow');
+  }
+  if (!test.includes('urgentTimelineNoPosReferral') || !test.includes('classifyPosPurchaseTimeline')) {
+    errors.push('scripts/test-lead-scoring.js: missing POS purchase timeline urgency regression coverage');
+  }
+  if (!runbook.includes('pos_purchase_timeline_urgency')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing POS purchase timeline urgency workflow');
   }
 
   return { errors };

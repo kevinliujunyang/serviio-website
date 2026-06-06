@@ -4,7 +4,13 @@ const {
   parseArgs: parsePosPartnerExportArgs,
   toCsv: posPartnerToCsv,
 } = require('./export-pos-partner-leads');
-const { classifyPainSignal, hasKnownPos, scoreLead, summarize } = require('./score-formspree-leads');
+const {
+  classifyPainSignal,
+  classifyPosPurchaseTimeline,
+  hasKnownPos,
+  scoreLead,
+  summarize,
+} = require('./score-formspree-leads');
 
 const baseLead = {
   restaurant: 'Golden Dragon Chinese Restaurant',
@@ -75,6 +81,7 @@ assert.match(noPosReferral.pos_partner_lead_package, /76-150/);
 assert.match(noPosReferral.pos_partner_lead_package, /Yes, I want POS recommendations/);
 assert.match(noPosReferral.pos_partner_lead_package, /Within 1 month/);
 assert.strictEqual(noPosReferral.pos_purchase_timeline, 'Within 1 month');
+assert.strictEqual(noPosReferral.pos_purchase_timeline_urgency, 'urgent');
 assert.match(noPosReferral.buyer_profile, /partner_referral:hot/);
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
 
@@ -96,6 +103,30 @@ assert.strictEqual(warmNoPosReferral.partner_referral_priority, 'warm');
 assert.strictEqual(warmNoPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
 assert.strictEqual(warmNoPosReferral.pos_partner_lead_type, 'warm_no_pos_restaurant');
 assert.strictEqual(warmNoPosReferral.pos_purchase_timeline, 'Not sure yet');
+assert.strictEqual(warmNoPosReferral.pos_purchase_timeline_urgency, 'unknown');
+
+const urgentTimelineNoPosReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Fast POS Dumpling',
+  restaurant_city: 'Fremont',
+  restaurant_state: 'CA',
+  lead_source: 'general_contact',
+  landing_page: 'https://serviio.ai/',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: 'Under 25',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_purchase_timeline: 'Immediately',
+});
+assert.strictEqual(urgentTimelineNoPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(urgentTimelineNoPosReferral.partner_referral_priority, 'hot');
+assert.strictEqual(urgentTimelineNoPosReferral.pos_purchase_timeline_urgency, 'urgent');
+assert.match(urgentTimelineNoPosReferral.partner_next_action, /timeline/);
+assert.match(urgentTimelineNoPosReferral.lead_reason, /urgent POS purchase timeline/);
+assert.match(urgentTimelineNoPosReferral.buyer_profile, /pos_timeline_urgency:urgent/);
+assert.match(urgentTimelineNoPosReferral.pos_partner_lead_package, /POS buying timeline: Immediately \(urgent\)/);
+assert.strictEqual(classifyPosPurchaseTimeline('Within 1 month'), 'urgent');
+assert.strictEqual(classifyPosPurchaseTimeline('1-3 months'), 'near_term');
+assert.strictEqual(classifyPosPurchaseTimeline('Not sure yet'), 'unknown');
 
 const ambiguousPos = scoreLead({
   ...baseLead,
@@ -293,21 +324,25 @@ const posPartnerExportRows = buildPosPartnerRows([
   highPriority,
   warmNoPosReferral,
   noPosReferral,
+  urgentTimelineNoPosReferral,
   ambiguousPos,
 ]);
 assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
   'New Noodle Shop',
+  'Fast POS Dumpling',
   'Small New Cafe',
 ]);
 assert.strictEqual(posPartnerExportRows[0].pos_partner_lead_type, 'hot_no_pos_restaurant');
 assert.strictEqual(posPartnerExportRows[0].serviio_fit_status, 'deprioritized_until_pos_ready');
+assert.strictEqual(posPartnerExportRows[0].pos_purchase_timeline_urgency, 'urgent');
 assert.match(posPartnerExportRows[0].handoff_summary, /Restaurant: New Noodle Shop/);
 assert.match(posPartnerExportRows[0].partner_next_action, /Package as POS partner lead/);
-assert.strictEqual(posPartnerExportRows[1].pos_partner_lead_type, 'warm_no_pos_restaurant');
+assert.strictEqual(posPartnerExportRows[2].pos_partner_lead_type, 'warm_no_pos_restaurant');
+assert.strictEqual(posPartnerExportRows[1].pos_purchase_timeline_urgency, 'urgent');
 
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
-assert.match(posPartnerCsv, /pos_partner_lead_type,partner_referral_priority,restaurant_name/);
-assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,New Noodle Shop/);
+assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,Fast POS Dumpling/);
 assert.doesNotMatch(posPartnerCsv, /Golden Dragon Chinese Restaurant/);
 assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--out', 'pos-partner.csv']), {
   input: 'formspree.csv',

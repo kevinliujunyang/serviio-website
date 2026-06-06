@@ -176,8 +176,9 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `pos_partner_lead_package`
 - `serviio_fit_status`
 - `pos_purchase_timeline`
+- `pos_purchase_timeline_urgency`
 
-Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, partner referral priority, urgent pain signals, the POS-specific landing-page focus, conversion offer such as `pos_readiness_checklist`, and the original `lead_source`.
+Use `buyer_profile` as the quick outreach summary. It combines POS readiness, phone-order volume tier, Chinese or Asian restaurant intent, priority SEO source, location capture, partner referral priority, POS purchase timeline urgency, urgent pain signals, the POS-specific landing-page focus, conversion offer such as `pos_readiness_checklist`, and the original `lead_source`.
 
 Use `pain_signal` and `urgent_pain_signal` to spot owners with immediate operational pain. Urgent pain includes missed calls, rush-hour call overload, manual POS re-entry, or after-hours calls. These leads can outrank similar-volume leads because the business problem is clearer.
 
@@ -202,6 +203,7 @@ Use the POS partner packaging fields when a restaurant owner does not have a POS
 - `pos_partner_lead_package`: copy this summary into partner follow-up. It includes restaurant name, location, POS status, phone-order volume, POS recommendation interest, pain, lead source, and landing page.
 - `serviio_fit_status=deprioritized_until_pos_ready`: do not push immediate AI phone ordering until the restaurant chooses or implements a POS.
 - `pos_purchase_timeline`: use this to prioritize POS partner handoff. `Immediately` and `Within 1 month` are stronger resale/referral signals than `Not sure yet`.
+- `pos_purchase_timeline_urgency`: normalized timeline bucket. `urgent` means immediate or within 1 month, `near_term` means roughly 1-3 months, `unknown` means the owner is unsure, and `not_applicable` means the restaurant already has a POS. Treat urgent no-POS leads as stronger POS partner handoff candidates, especially when location and Chinese/POS-intent are present.
 
 Score Formspree leads in this order.
 
