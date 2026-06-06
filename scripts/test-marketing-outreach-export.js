@@ -319,6 +319,7 @@ assert.match(gtmQueueRows[2].message_or_query, /"Pilot restaurant testimonial" "
 const gtmCsv = gtmQueueToCsv(gtmQueueRows);
 assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target/);
 assert.match(gtmCsv, /follow_up,90,P1,Partner outreach,POS consultants/);
+assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
 assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
   out: 'gtm.csv',
@@ -328,6 +329,7 @@ assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm
   followUpLimit: 1,
   help: false,
 });
+assert.strictEqual(parseGtmQueueArgs([]).out, 'docs/free-search-gtm-queue.csv');
 assert.throws(() => parseGtmQueueArgs(['--ready-limit', '0']), /--ready-limit must be a positive integer/);
 
 console.log('Marketing outreach export tests passed');

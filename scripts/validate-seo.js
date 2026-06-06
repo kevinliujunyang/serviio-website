@@ -675,6 +675,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:submission-log'] !== 'node scripts/export-authority-submission-log.js') {
     errors.push('package.json: missing marketing:submission-log script');
   }
+  if (packageJson.scripts?.['marketing:gtm-queue:export'] !== 'node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv') {
+    errors.push('package.json: missing marketing:gtm-queue:export script');
+  }
   if (!fs.existsSync('scripts/print-free-search-next-actions.js')) {
     errors.push('scripts/print-free-search-next-actions.js: missing free search next-action brief');
   }
@@ -689,6 +692,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-authority-submission-log.js')) {
     errors.push('scripts/export-authority-submission-log.js: missing authority submission log export');
+  }
+  if (!fs.existsSync('docs/free-search-gtm-queue.csv')) {
+    errors.push('docs/free-search-gtm-queue.csv: missing exported GTM execution queue');
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
@@ -706,6 +712,9 @@ function validateFreeSearchTracker() {
   if (!checklist.includes('npm run marketing:submission-log')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-log workflow');
   }
+  if (!checklist.includes('npm run marketing:gtm-queue:export') || !checklist.includes('docs/free-search-gtm-queue.csv')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing checked-in GTM queue workflow');
+  }
   if (!checklist.includes('npm run indexnow:submit:all')) {
     errors.push('docs/free-search-marketing-checklist.md: missing full-site IndexNow workflow');
   }
@@ -717,6 +726,12 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('owner`, `date_submitted`') || !checklist.includes('date_live')) {
     errors.push('docs/free-search-marketing-checklist.md: missing authority evidence requirements');
+  }
+  if (fs.existsSync('docs/free-search-gtm-queue.csv')) {
+    const gtmQueue = fs.readFileSync('docs/free-search-gtm-queue.csv', 'utf8');
+    if (!gtmQueue.includes('tracker_command') || !gtmQueue.includes('--date ')) {
+      errors.push('docs/free-search-gtm-queue.csv: missing dated tracker commands');
+    }
   }
 
   return { errors };

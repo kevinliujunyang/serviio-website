@@ -158,6 +158,14 @@ npm run marketing:gtm-queue -- --out free-search-gtm-queue.csv
 
 Use this before a focused submission block. The queue combines due follow-ups, ready submissions, and research-needed targets in one CSV. Work top to bottom, then record each result with `npm run marketing:mark`.
 
+Regenerate the checked-in execution queue for the current week:
+
+```bash
+npm run marketing:gtm-queue:export
+```
+
+This writes `docs/free-search-gtm-queue.csv` with the next authority actions, explicit tracker commands, and the date needed for evidence-qualified authority scoring.
+
 Use the ready-to-paste listing and outreach copy in:
 
 ```text
