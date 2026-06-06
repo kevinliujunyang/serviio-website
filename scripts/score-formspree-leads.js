@@ -35,6 +35,14 @@ const FIELD_ALIASES = {
     'interested_in_pos',
     'interested in pos',
   ],
+  posPurchaseTimeline: [
+    'pos_purchase_timeline',
+    'pos purchase timeline',
+    'pos_timeline',
+    'pos timeline',
+    'purchase_timeline',
+    'purchase timeline',
+  ],
   leadSource: ['lead_source', 'lead source'],
   landingPage: ['landing_page', 'landing page'],
   landingPath: ['landing_path', 'landing path'],
@@ -131,6 +139,7 @@ function buildBuyerProfile({
   if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
+  if (values.posPurchaseTimeline) parts.push(`pos_timeline:${values.posPurchaseTimeline}`);
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
 
   return parts.join(' | ');
@@ -224,6 +233,7 @@ function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSigna
     `Current POS: ${values.pos || 'no POS captured'}`,
     `Phone orders/week: ${values.phoneOrders || 'unknown volume'} (${volume})`,
     `POS recommendation interest: ${values.posRecommendationInterest || 'not captured'}`,
+    `POS buying timeline: ${values.posPurchaseTimeline || 'not captured'}`,
   ];
 
   if (values.pain) details.push(`Pain: ${values.pain}`);
@@ -575,6 +585,7 @@ function scoreLead(record) {
     main_pain: values.pain,
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
+    pos_purchase_timeline: values.posPurchaseTimeline,
     lead_source: values.leadSource,
     landing_path: values.landingPath || values.currentPath,
     ...record,
@@ -683,6 +694,7 @@ function main() {
     'main_pain',
     'conversion_offer',
     'pos_recommendation_interest',
+    'pos_purchase_timeline',
     'lead_source',
     'landing_path',
   ];

@@ -58,6 +58,7 @@ const noPosReferral = scoreLead({
   pos_system: 'No POS yet',
   phone_orders_per_week: '76-150',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_purchase_timeline: 'Within 1 month',
 });
 assert.strictEqual(noPosReferral.lead_priority, 'nurture');
 assert.strictEqual(noPosReferral.lead_route, 'pos_referral');
@@ -72,6 +73,8 @@ assert.match(noPosReferral.pos_partner_lead_package, /New Noodle Shop/);
 assert.match(noPosReferral.pos_partner_lead_package, /San Jose, CA/);
 assert.match(noPosReferral.pos_partner_lead_package, /76-150/);
 assert.match(noPosReferral.pos_partner_lead_package, /Yes, I want POS recommendations/);
+assert.match(noPosReferral.pos_partner_lead_package, /Within 1 month/);
+assert.strictEqual(noPosReferral.pos_purchase_timeline, 'Within 1 month');
 assert.match(noPosReferral.buyer_profile, /partner_referral:hot/);
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
 
@@ -85,12 +88,14 @@ const warmNoPosReferral = scoreLead({
   pos_system: 'No POS yet',
   phone_orders_per_week: 'Under 25',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_purchase_timeline: 'Not sure yet',
 });
 assert.strictEqual(warmNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(warmNoPosReferral.monetization_route, 'pos_partner_referral');
 assert.strictEqual(warmNoPosReferral.partner_referral_priority, 'warm');
 assert.strictEqual(warmNoPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
 assert.strictEqual(warmNoPosReferral.pos_partner_lead_type, 'warm_no_pos_restaurant');
+assert.strictEqual(warmNoPosReferral.pos_purchase_timeline, 'Not sure yet');
 
 const ambiguousPos = scoreLead({
   ...baseLead,
@@ -151,6 +156,7 @@ const homepagePosFitDemo = scoreLead({
   phone_orders_per_week: '76-150',
   conversion_offer: 'homepage_pos_fit_check',
   pos_recommendation_interest: 'Not applicable, I already have a POS',
+  pos_purchase_timeline: 'Not applicable, I already have a POS',
 });
 assert.strictEqual(homepagePosFitDemo.lead_priority, 'high');
 assert.strictEqual(homepagePosFitDemo.lead_route, 'call_now');

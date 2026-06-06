@@ -2,7 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_ORIGIN = 'https://serviio.ai';
-const REQUIRED_MARKER = 'name="main_pain"';
+const REQUIRED_MARKERS = [
+  'name="main_pain"',
+  'name="pos_purchase_timeline"',
+];
 
 const baseUrl = process.argv[2] || SITE_ORIGIN;
 
@@ -30,7 +33,7 @@ function leadFormPaths() {
   return walkHtmlPages()
     .filter((page) => {
       const html = fs.readFileSync(page, 'utf8');
-      return html.includes('<form') && html.includes(REQUIRED_MARKER);
+      return html.includes('<form') && REQUIRED_MARKERS.every((marker) => html.includes(marker));
     })
     .map(pagePath);
 }
@@ -41,15 +44,16 @@ async function main() {
   const origin = baseUrl.replace(/\/$/, '');
 
   if (paths.length === 0) {
-    console.error(`No local lead-form pages found with ${REQUIRED_MARKER}`);
+    console.error(`No local lead-form pages found with ${REQUIRED_MARKERS.join(', ')}`);
     process.exit(1);
   }
 
   for (const pathname of paths) {
     const response = await fetch(origin + pathname);
     const text = await response.text();
-    if (response.status !== 200 || !text.includes(REQUIRED_MARKER)) {
-      failures.push(`${pathname}: ${response.status}, main_pain=${text.includes(REQUIRED_MARKER)}`);
+    const missingMarkers = REQUIRED_MARKERS.filter((marker) => !text.includes(marker));
+    if (response.status !== 200 || missingMarkers.length > 0) {
+      failures.push(`${pathname}: ${response.status}, missing=${missingMarkers.join('|') || 'none'}`);
     }
   }
 

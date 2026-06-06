@@ -14,6 +14,7 @@ const REQUIRED_QUALIFICATION_FIELDS = [
   'phone_orders_per_week',
   'main_pain',
   'pos_recommendation_interest',
+  'pos_purchase_timeline',
 ];
 const REQUIRED_CORE_LEAD_FIELDS = ['restaurant', 'name', 'phone', 'email'];
 const POS_QUALIFICATION_FIELDS = ['pos_system', 'pos_status'];
