@@ -70,7 +70,11 @@ assert.match(csv, /AI phone ordering add-on for MenuSifu restaurants/);
 
 const trackerRows = parseCsv(fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'));
 const readyRows = readySubmissionRows(trackerRows);
-assert.strictEqual(readyRows.length, 49);
+assert.strictEqual(readyRows.length, 50);
+const customerProofReadyRow = readyRows.find((row) => row.target === 'Pilot restaurant testimonial');
+assert.ok(customerProofReadyRow);
+assert.strictEqual(customerProofReadyRow.channel, 'Customer proof');
+assert.strictEqual(customerProofReadyRow.url, 'https://serviio.ai/customer-proof-request/');
 
 const [topRow] = readyRows;
 assert.strictEqual(topRow.channel, 'Partner outreach');
@@ -98,7 +102,7 @@ assert.match(packetFor(techDirectoryRow).longDescription, /takeout-heavy operato
 
 const nextRows = nextActionRows(trackerRows, { readyLimit: 8, researchLimit: 8 });
 assert.strictEqual(nextRows.readyRows.length, 8);
-assert.strictEqual(nextRows.researchRows.length, 1);
+assert.strictEqual(nextRows.researchRows.length, 0);
 
 const nextTopTargets = nextRows.readyRows.slice(0, 6).map((row) => row.target);
 assert.ok(nextTopTargets.includes('Chinese restaurant POS consultants'));
@@ -112,9 +116,7 @@ const aiDirectoryNextRow = trackerRows.find((row) => row.target === 'AI Director
 assert.ok(aiDirectoryNextRow);
 assert.ok(nextActionOpportunityScore(menusifuTrackerRow).score > nextActionOpportunityScore(aiDirectoryNextRow).score);
 
-const pilotResearch = nextRows.researchRows[0];
-assert.strictEqual(pilotResearch.target, 'Pilot restaurant testimonial');
-assert.deepStrictEqual(researchQueries(pilotResearch), [
+assert.deepStrictEqual(researchQueries(customerProofReadyRow), [
   '"Pilot restaurant testimonial" "submit"',
   '"Chinese restaurant AI phone ordering testimonial" "directory"',
 ]);

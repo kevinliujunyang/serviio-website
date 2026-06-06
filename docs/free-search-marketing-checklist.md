@@ -66,6 +66,14 @@ npm run seo:authority
 
 The authority audit is the progress score for backlinks, profiles, partner referrals, and customer proof. Use it to decide whether the next session should focus on submissions, follow-ups, or getting live proof links.
 
+For the customer-proof milestone, send early pilots or customers to:
+
+```text
+https://serviio.ai/customer-proof-request/
+```
+
+This page collects restaurant city, restaurant type, POS system, phone-order volume, phone-order pain, quote text, and permission to publish or keep the proof internal.
+
 After a real submission, contact form, email, directory listing, or partner conversation, update the tracker with the evidence:
 
 ```bash

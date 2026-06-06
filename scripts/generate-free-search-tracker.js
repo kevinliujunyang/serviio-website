@@ -607,13 +607,13 @@ const rows = [
     priority: 'P2',
     channel: 'Customer proof',
     target: 'Pilot restaurant testimonial',
-    url: '',
+    url: 'https://serviio.ai/customer-proof-request/',
     status: 'not_started',
-    landingPath: '/chinese-restaurant-ai-phone-ordering/',
+    landingPath: '/customer-proof-request/',
     source: 'customer_testimonial',
     medium: 'customer_proof',
     anchor: 'Chinese restaurant AI phone ordering testimonial',
-    notes: 'Ask for quote including city, restaurant type, POS, and phone-order pain.',
+    notes: 'Use the customer proof request page to collect quote, city, restaurant type, POS, phone-order pain, and permission.',
   },
 ];
 

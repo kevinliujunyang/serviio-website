@@ -27,6 +27,7 @@ const ALLOWED_CONVERSION_OFFERS = new Set([
   'pos_integration_fit_check',
   'pos_recommendation_fit_check',
   'pos_readiness_checklist',
+  'customer_proof_request',
 ]);
 const INDEXNOW_KEY = '13f7c37452042c38a20123e6f2db6946';
 const REQUIRED_ORGANIZATION_TOPICS = [
@@ -765,6 +766,45 @@ function validateLeadScoringWorkflow() {
   return { errors };
 }
 
+function validateCustomerProofWorkflow() {
+  const errors = [];
+  const page = 'customer-proof-request/index.html';
+  const tracker = fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8');
+  const generator = fs.readFileSync('scripts/generate-free-search-tracker.js', 'utf8');
+
+  if (!fs.existsSync(page)) {
+    errors.push(`${page}: missing customer proof request page`);
+    return { errors };
+  }
+
+  const html = fs.readFileSync(page, 'utf8');
+  const requiredSnippets = [
+    'Customer proof',
+    'name="proof_permission"',
+    'name="quote"',
+    'name="pos_system"',
+    'name="phone_orders_per_week"',
+    'name="main_pain"',
+    'name="conversion_offer" value="customer_proof_request"',
+    '/assets/js/form-attribution.js',
+  ];
+
+  for (const snippet of requiredSnippets) {
+    if (!html.includes(snippet)) {
+      errors.push(`${page}: missing ${snippet}`);
+    }
+  }
+
+  for (const content of [tracker, generator]) {
+    if (!content.includes('Pilot restaurant testimonial') || !content.includes('https://serviio.ai/customer-proof-request/')) {
+      errors.push('customer proof tracker: missing customer proof request URL');
+      break;
+    }
+  }
+
+  return { errors };
+}
+
 function validateServiceAreaGeneration(pages) {
   const errors = [];
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -835,6 +875,7 @@ const freeSearchTracker = validateFreeSearchTracker();
 const keywordCoverageTooling = validateKeywordCoverageTooling();
 const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
 const leadScoringWorkflow = validateLeadScoringWorkflow();
+const customerProofWorkflow = validateCustomerProofWorkflow();
 const serviceAreaGeneration = validateServiceAreaGeneration(pages);
 const errors = [
   ...metadata.errors,
@@ -855,6 +896,7 @@ const errors = [
   ...keywordCoverageTooling.errors,
   ...searchConsoleAnalyzerWorkflow.errors,
   ...leadScoringWorkflow.errors,
+  ...customerProofWorkflow.errors,
   ...serviceAreaGeneration.errors,
 ];
 
@@ -886,6 +928,7 @@ console.log([
   'keyword coverage tooling validated',
   'Search Console analyzer workflow validated',
   'lead scoring workflow validated',
+  'customer proof workflow validated',
   `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
   'service-area generator lead fields validated',
   'IndexNow setup validated',
