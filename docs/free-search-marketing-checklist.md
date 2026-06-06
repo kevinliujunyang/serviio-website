@@ -50,6 +50,14 @@ npm run marketing:sprint
 
 This defaults to the highest-scoring partner, POS-specific, restaurant technology, association, and chamber rows. It prints contact URLs, UTM URLs, customized first messages, follow-up copy, and the tracker update instruction for each action.
 
+Export the same partner/POS sprint to a working Markdown file before a manual outreach block:
+
+```bash
+npm run marketing:sprint:export
+```
+
+This writes `docs/partner-outreach-sprint.md` by default. Use it as the working sheet while submitting forms or sending partner emails, then run the included `npm run marketing:mark` command after each real action.
+
 Check the off-site authority score after each outreach session:
 
 ```bash

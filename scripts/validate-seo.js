@@ -660,12 +660,21 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:next'] !== 'node scripts/print-free-search-next-actions.js') {
     errors.push('package.json: missing marketing:next script');
   }
+  if (packageJson.scripts?.['marketing:sprint:export'] !== 'node scripts/export-partner-outreach-sprint.js') {
+    errors.push('package.json: missing marketing:sprint:export script');
+  }
   if (!fs.existsSync('scripts/print-free-search-next-actions.js')) {
     errors.push('scripts/print-free-search-next-actions.js: missing free search next-action brief');
+  }
+  if (!fs.existsSync('scripts/export-partner-outreach-sprint.js')) {
+    errors.push('scripts/export-partner-outreach-sprint.js: missing partner outreach sprint export');
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:next workflow');
+  }
+  if (!checklist.includes('npm run marketing:sprint:export')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing marketing:sprint:export workflow');
   }
   if (!checklist.includes('npm run indexnow:submit:all')) {
     errors.push('docs/free-search-marketing-checklist.md: missing full-site IndexNow workflow');

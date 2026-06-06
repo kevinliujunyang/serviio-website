@@ -19,6 +19,10 @@ const {
   sprintRows,
 } = require('./print-partner-outreach-sprint');
 const {
+  buildPartnerSprintMarkdown,
+  parseArgs: parseSprintExportArgs,
+} = require('./export-partner-outreach-sprint');
+const {
   authorityScore,
   nextMilestones,
   renderReport: renderAuthorityReport,
@@ -124,6 +128,20 @@ assert.ok(sprint.every((row) => nextActionOpportunityScore(row).score >= 88));
 assert.deepStrictEqual(parseSprintArgs(['--limit', '3']), { limit: 3, help: false });
 assert.deepStrictEqual(parseSprintArgs(['--help']), { limit: 8, help: true });
 assert.throws(() => parseSprintArgs(['--limit', '0']), /positive integer/);
+
+const sprintMarkdown = buildPartnerSprintMarkdown(trackerRows, { limit: 5, today: '2026-06-06' });
+assert.match(sprintMarkdown, /^# Serviio Partner Outreach Sprint/m);
+assert.match(sprintMarkdown, /Chinese restaurant POS consultants/);
+assert.match(sprintMarkdown, /MenuSifu restaurant consultants/);
+assert.match(sprintMarkdown, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-06/);
+assert.match(sprintMarkdown, /Authority score is still blocked until submitted rows become live links, profiles, partner replies, or documented customer proof/);
+assert.deepStrictEqual(parseSprintExportArgs(['--out', 'docs/sprint.md', '--limit', '5', '--today', '2026-06-06']), {
+  out: 'docs/sprint.md',
+  limit: 5,
+  today: '2026-06-06',
+  help: false,
+});
+assert.throws(() => parseSprintExportArgs(['--limit', '0']), /--limit must be a positive integer/);
 
 const authorityRows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P0,Business profile,Google Business Profile,https://www.google.com/business/,submitted,Serviio,2026-06-06,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Submitted profile.

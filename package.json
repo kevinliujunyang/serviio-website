@@ -29,6 +29,7 @@
     "marketing:outreach-csv": "node scripts/export-free-search-outreach-csv.js",
     "marketing:gtm-queue": "node scripts/export-free-search-gtm-queue.js",
     "marketing:sprint": "node scripts/print-partner-outreach-sprint.js",
+    "marketing:sprint:export": "node scripts/export-partner-outreach-sprint.js",
     "marketing:mark": "node scripts/update-free-search-tracker.js",
     "marketing:follow-ups": "node scripts/print-free-search-follow-ups.js",
     "marketing:test": "node scripts/test-marketing-outreach-export.js",
