@@ -8,6 +8,7 @@
     "validate:seo": "node scripts/validate-seo.js",
     "smoke:http": "node scripts/http-smoke.js",
     "smoke:prod": "node scripts/http-smoke.js https://serviio.ai",
+    "smoke:prod:forms": "node scripts/form-marker-smoke.js https://serviio.ai",
     "sitemap:sync": "node scripts/sync-sitemap-lastmod.js",
     "indexing:urls": "node scripts/print-indexing-urls.js",
     "indexnow:payload": "node scripts/submit-indexnow.js",

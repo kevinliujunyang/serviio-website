@@ -89,9 +89,9 @@ After Cloudflare deploys:
    ```bash
    npm run smoke:prod
    ```
-3. For sitewide lead-form changes, confirm a representative production page contains the new field before requesting recrawl:
+3. For sitewide lead-form changes, confirm production lead-form pages contain the new field before requesting recrawl:
    ```bash
-   curl -s https://serviio.ai/ | rg 'name="main_pain"'
+   npm run smoke:prod:forms
    ```
 4. Confirm the IndexNow key file returns HTTP 200:
    ```bash
