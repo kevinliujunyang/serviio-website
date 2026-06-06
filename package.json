@@ -28,6 +28,7 @@
     "marketing:packets": "node scripts/print-free-search-submission-packets.js",
     "marketing:outreach-csv": "node scripts/export-free-search-outreach-csv.js",
     "marketing:profiles": "node scripts/export-business-profile-pack.js",
+    "marketing:directories": "node scripts/export-directory-submission-pack.js",
     "marketing:gtm-queue": "node scripts/export-free-search-gtm-queue.js",
     "marketing:sprint": "node scripts/print-partner-outreach-sprint.js",
     "marketing:sprint:export": "node scripts/export-partner-outreach-sprint.js",

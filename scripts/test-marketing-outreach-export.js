@@ -27,6 +27,11 @@ const {
   parseArgs: parseBusinessProfileArgs,
 } = require('./export-business-profile-pack');
 const {
+  buildDirectorySubmissionPack,
+  directoryRows,
+  parseArgs: parseDirectoryPackArgs,
+} = require('./export-directory-submission-pack');
+const {
   authorityScore,
   nextMilestones,
   renderReport: renderAuthorityReport,
@@ -103,6 +108,31 @@ const techDirectoryRow = readyRows.find((row) => row.target === 'Restaurant POS 
 assert.ok(techDirectoryRow);
 assert.strictEqual(opportunityScore(techDirectoryRow).score, 96);
 assert.match(packetFor(techDirectoryRow).longDescription, /takeout-heavy operators, including Chinese restaurants/);
+
+const directoryPackRows = directoryRows(trackerRows, { limit: 15 });
+assert.strictEqual(directoryPackRows.length, 15);
+assert.ok(directoryPackRows.every((row) => [
+  'AI directory',
+  'Startup directory',
+  'Restaurant technology directory',
+  'Educational resource listing',
+].includes(row.channel)));
+assert.strictEqual(directoryPackRows[0].target, 'Restaurant POS and automation directories');
+
+const directoryPack = buildDirectorySubmissionPack(trackerRows, { today: '2026-06-06', limit: 15 });
+assert.match(directoryPack, /^# Serviio Directory Submission Pack/m);
+assert.match(directoryPack, /Submit\/contact at least 15 authority targets/);
+assert.match(directoryPack, /AI tool directories/);
+assert.match(directoryPack, /Restaurant POS and automation directories/);
+assert.match(directoryPack, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway/);
+assert.match(directoryPack, /npm run marketing:mark -- --target "Restaurant POS and automation directories" --status submitted --date 2026-06-06/);
+assert.deepStrictEqual(parseDirectoryPackArgs(['--out', 'docs/directories.md', '--limit', '12', '--today', '2026-06-06']), {
+  out: 'docs/directories.md',
+  limit: 12,
+  today: '2026-06-06',
+  help: false,
+});
+assert.throws(() => parseDirectoryPackArgs(['--limit', '0']), /--limit must be a positive integer/);
 
 const nextRows = nextActionRows(trackerRows, { readyLimit: 8, researchLimit: 8 });
 assert.strictEqual(nextRows.readyRows.length, 8);

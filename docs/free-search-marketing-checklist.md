@@ -132,6 +132,14 @@ npm run marketing:profiles
 
 Use this before creating or claiming profiles. It includes shared business details, description copy, category candidates, UTM links, and the tracker update command for each profile.
 
+Export the free directory submission pack for the next authority-building block:
+
+```bash
+npm run marketing:directories
+```
+
+This writes `docs/directory-submission-pack.md` by default. It focuses on AI tool directories, startup directories, restaurant technology directories, and educational/resource listings with known submission URLs. Work through the top 15, then run each included `npm run marketing:mark` command only after the real submission or contact has happened.
+
 Export the combined weekly GTM queue for off-site SEO execution:
 
 ```bash
