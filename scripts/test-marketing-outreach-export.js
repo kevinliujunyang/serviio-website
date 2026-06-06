@@ -18,6 +18,11 @@ const {
   parseArgs: parseSprintArgs,
   sprintRows,
 } = require('./print-partner-outreach-sprint');
+const {
+  authorityScore,
+  nextMilestones,
+  renderReport: renderAuthorityReport,
+} = require('./audit-seo-authority');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -104,5 +109,20 @@ assert.ok(sprint.every((row) => nextActionOpportunityScore(row).score >= 88));
 assert.deepStrictEqual(parseSprintArgs(['--limit', '3']), { limit: 3, help: false });
 assert.deepStrictEqual(parseSprintArgs(['--help']), { limit: 8, help: true });
 assert.throws(() => parseSprintArgs(['--limit', '0']), /positive integer/);
+
+const authorityRows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+P0,Business profile,Google Business Profile,https://www.google.com/business/,submitted,Serviio,2026-06-06,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Submitted profile.
+P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio,2026-06-06,,https://serviio.ai/guides/chinese-restaurant-pos-comparison/,https://serviio.ai/guides/chinese-restaurant-pos-comparison/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Chinese restaurant POS comparison,Need follow-up.
+P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-06,2026-06-07,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live listing.
+P2,Customer proof,Pilot restaurant testimonial,https://proof.example.com,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
+`);
+const authority = authorityScore(authorityRows);
+assert.strictEqual(authority.score, 26);
+assert.strictEqual(authority.submittedRows.length, 2);
+assert.strictEqual(authority.liveRows.length, 1);
+assert.strictEqual(authority.highFitStartedRows.length, 2);
+assert.match(nextMilestones(authority)[0], /5 live authority links/);
+assert.match(renderAuthorityReport(authorityRows), /Serviio SEO Authority Audit/);
+assert.match(renderAuthorityReport(authorityRows), /Authority score: 26\/100/);
 
 console.log('Marketing outreach export tests passed');

@@ -50,6 +50,14 @@ npm run marketing:sprint
 
 This defaults to the highest-scoring partner, POS-specific, restaurant technology, association, and chamber rows. It prints contact URLs, UTM URLs, customized first messages, follow-up copy, and the tracker update instruction for each action.
 
+Check the off-site authority score after each outreach session:
+
+```bash
+npm run seo:authority
+```
+
+The authority audit is the progress score for backlinks, profiles, partner referrals, and customer proof. Use it to decide whether the next session should focus on submissions, follow-ups, or getting live proof links.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:

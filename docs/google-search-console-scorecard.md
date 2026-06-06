@@ -32,6 +32,14 @@ npm run seo:coverage
 
 Use missing exact phrases as internal-link, FAQ, title/meta, or body-copy candidates before creating another landing page.
 
+Audit whether off-site authority is strong enough to support first-page movement with:
+
+```bash
+npm run seo:authority
+```
+
+Use the authority audit to track submitted listings, live backlinks/profiles, high-fit partner/POS outreach, business profiles, and customer proof. This is the main score to watch after on-page validation passes, because first-page Google movement usually needs external trust signals in addition to crawlable keyword coverage.
+
 | Metric | Source | Target |
 | --- | --- | --- |
 | Indexed sitemap URLs | Search Console Pages report | 90%+ of submitted URLs indexed |
@@ -42,6 +50,9 @@ Use missing exact phrases as internal-link, FAQ, title/meta, or body-copy candid
 | Page-one target queries | Search Console query export | Increase count of queries with position 1-10 |
 | Qualified form leads | Formspree plus attribution fields | Increase leads from priority pages |
 | High-priority lead rate | Lead scoring rubric | More POS-ready Chinese restaurant owners |
+| Live authority links/profiles | Free search tracker plus authority audit | 5+ first, then 15+ |
+| High-fit partner/POS outreach started | Free search tracker plus authority audit | 8+ active opportunities |
+| Customer proof assets | Free search tracker plus authority audit | 1+ pilot proof, then repeat monthly |
 
 ## Weekly Action Queue
 

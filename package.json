@@ -20,6 +20,7 @@
     "search:analyze": "node scripts/analyze-search-console.js",
     "search:test": "node scripts/test-search-console-analyzer.js",
     "seo:coverage": "node scripts/audit-keyword-coverage.js",
+    "seo:authority": "node scripts/audit-seo-authority.js",
     "marketing:tracker": "node scripts/generate-free-search-tracker.js",
     "marketing:prospects": "node scripts/print-free-search-prospect-queries.js",
     "marketing:summary": "node scripts/summarize-free-search-tracker.js",
