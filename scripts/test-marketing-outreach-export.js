@@ -33,6 +33,11 @@ const {
   parseArgs: parseFollowUpArgs,
   renderFollowUpReport,
 } = require('./print-free-search-follow-ups');
+const {
+  buildGtmQueueRows,
+  parseArgs: parseGtmQueueArgs,
+  toCsv: gtmQueueToCsv,
+} = require('./export-free-search-gtm-queue');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -190,5 +195,33 @@ assert.deepStrictEqual(parseFollowUpArgs(['--today', '2026-06-10', '--days', '5'
   limit: 3,
 });
 assert.throws(() => parseFollowUpArgs(['--days', '0']), /--days must be a positive integer/);
+
+const gtmQueueRows = buildGtmQueueRows(parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio,2026-06-05,,https://serviio.ai/restaurant-pos-partner-referral/,https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Restaurant POS partner referral,Needs reply.
+P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
+P2,Customer proof,Pilot restaurant testimonial,,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
+P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
+`), { today: '2026-06-10', followUpLimit: 5, readyLimit: 5, researchLimit: 5 });
+assert.deepStrictEqual(gtmQueueRows.map((row) => `${row.action_type}:${row.target}`), [
+  'follow_up:POS consultants',
+  'submit_or_contact:MenuSifu restaurant consultants',
+  'research_target:Pilot restaurant testimonial',
+]);
+assert.match(gtmQueueRows[0].next_step, /Follow up/);
+assert.match(gtmQueueRows[1].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
+assert.match(gtmQueueRows[2].message_or_query, /"Pilot restaurant testimonial" "submit"/);
+const gtmCsv = gtmQueueToCsv(gtmQueueRows);
+assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target/);
+assert.match(gtmCsv, /follow_up,90,P1,Partner outreach,POS consultants/);
+assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
+assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
+  out: 'gtm.csv',
+  today: '2026-06-10',
+  readyLimit: 3,
+  researchLimit: 2,
+  followUpLimit: 1,
+  help: false,
+});
+assert.throws(() => parseGtmQueueArgs(['--ready-limit', '0']), /--ready-limit must be a positive integer/);
 
 console.log('Marketing outreach export tests passed');

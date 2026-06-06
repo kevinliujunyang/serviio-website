@@ -100,6 +100,14 @@ npm run marketing:follow-ups
 
 Follow-ups matter because a submitted partner form does not create ranking authority until it becomes a live listing, backlink, referral relationship, or documented rejection. Use the printed `marketing:mark` command to keep each row current after the second touch.
 
+For the actual weekly execution block, export the combined GTM queue:
+
+```bash
+npm run marketing:gtm-queue -- --out free-search-gtm-queue.csv
+```
+
+This queue puts due follow-ups first, then ready submissions, then research targets. Use it as the working sheet for backlink, partner, resource-listing, and customer-proof actions.
+
 Use `/guides/restaurant-ai-phone-ordering-pos-guide/` as the default link for educational submissions, community answers, and directory listings that prefer resource content over a direct sales page.
 
 Use `/guides/chinese-restaurant-pos-comparison/` for POS consultant outreach, restaurant technology resource pages, and conversations with no-POS owners who need a POS recommendation path before AI phone ordering.

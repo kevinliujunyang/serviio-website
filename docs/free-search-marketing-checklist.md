@@ -108,6 +108,14 @@ npm run marketing:outreach-csv -- --out outreach.csv --limit 25
 
 The default export focuses on partner outreach, POS-specific outreach, Chinese/Asian associations, community posts, educational/resource listings, and restaurant technology directories. Use `--all` only when you also want generic directories, business profiles, and webmaster rows.
 
+Export the combined weekly GTM queue for off-site SEO execution:
+
+```bash
+npm run marketing:gtm-queue -- --out free-search-gtm-queue.csv
+```
+
+Use this before a focused submission block. The queue combines due follow-ups, ready submissions, and research-needed targets in one CSV. Work top to bottom, then record each result with `npm run marketing:mark`.
+
 Use the ready-to-paste listing and outreach copy in:
 
 ```text
