@@ -174,6 +174,29 @@ assert.strictEqual(posRecommendationOfferReferral.partner_referral_priority, 'ho
 assert.strictEqual(posRecommendationOfferReferral.priority_seo_source, 'yes');
 assert.match(posRecommendationOfferReferral.buyer_profile, /offer:pos_recommendation_fit_check/);
 
+const partnerInquiry = scoreLead({
+  ...baseLead,
+  restaurant: 'Restaurant Tech Partner',
+  restaurant_city: 'New York',
+  restaurant_state: 'NY',
+  lead_source: 'restaurant_pos_partner_referral',
+  landing_page: 'https://serviio.ai/restaurant-pos-partner-referral/',
+  pos_system: 'Multiple POS systems',
+  phone_orders_per_week: '76-150',
+  main_pain: 'Our restaurant clients miss calls during rush and need less manual POS entry.',
+  conversion_offer: 'pos_recommendation_fit_check',
+  pos_recommendation_interest: 'Yes, route no-POS leads for POS recommendations',
+});
+assert.strictEqual(partnerInquiry.lead_priority, 'medium');
+assert.strictEqual(partnerInquiry.lead_route, 'partner_pipeline');
+assert.strictEqual(partnerInquiry.partner_inquiry, 'yes');
+assert.strictEqual(partnerInquiry.monetization_route, 'partner_relationship');
+assert.strictEqual(partnerInquiry.partner_referral_priority, 'strategic');
+assert.match(partnerInquiry.lead_next_action, /partner\/referral opportunity/);
+assert.match(partnerInquiry.partner_next_action, /referral economics/);
+assert.match(partnerInquiry.lead_reason, /partner\/referral inquiry/);
+assert.match(partnerInquiry.buyer_profile, /partner_referral:strategic/);
+
 const posIntegrationOfferDemo = scoreLead({
   ...baseLead,
   restaurant: 'Integration Test Kitchen',
@@ -238,5 +261,9 @@ assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);
 assert.match(summary, /POS referral route: 1/);
 assert.match(summary, /Manual review route: 1/);
+
+const partnerSummary = summarize([partnerInquiry]);
+assert.match(partnerSummary, /Partner pipeline route: 1/);
+assert.match(partnerSummary, /Strategic partner inquiries: 1/);
 
 console.log('Lead scoring tests passed');

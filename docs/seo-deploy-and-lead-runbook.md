@@ -154,6 +154,7 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `urgent_pain_signal`
 - `chinese_or_asian_intent`
 - `priority_seo_source`
+- `partner_inquiry`
 - `us_location_captured`
 - `pos_focus`
 - `conversion_offer`
@@ -166,14 +167,18 @@ Use `buyer_profile` as the quick outreach summary. It combines POS readiness, ph
 
 Use `pain_signal` and `urgent_pain_signal` to spot owners with immediate operational pain. Urgent pain includes missed calls, rush-hour call overload, manual POS re-entry, or after-hours calls. These leads can outrank similar-volume leads because the business problem is clearer.
 
+Use `partner_inquiry` to separate POS consultants, restaurant technology partners, website agencies, and referral partners from ordinary restaurant-owner leads. Partner-page submissions should go to partnership follow-up first, not the restaurant demo queue.
+
 Use `monetization_route` to split follow-up:
 - `serviio_demo`: POS-ready restaurant lead. Keep this in Serviio's demo pipeline first.
 - `pos_partner_referral`: no-POS lead that asked for POS recommendations. Preserve it for POS partner follow-up or referral resale.
+- `partner_relationship`: partner, consultant, agency, or referral-channel lead. Qualify channel fit, POS focus, geography, and referral process.
 - `unknown`: incomplete POS data. Confirm POS status before routing.
 
 Use `partner_referral_priority` to handle no-POS leads:
 - `hot`: no-POS lead with POS recommendation interest plus useful commercial signals such as US location, medium/high phone volume, Chinese or Asian intent, or a priority SEO source.
 - `warm`: no-POS lead that wants POS recommendations but needs more qualification before a partner handoff.
+- `strategic`: partner/referral-channel inquiry from the POS partner referral page.
 - `none`: POS-ready Serviio lead or ambiguous lead without a POS referral path.
 
 Score Formspree leads in this order.
@@ -200,6 +205,7 @@ Routing fields:
 - `call_now`: POS-ready, high-volume, Chinese/POS-intent lead. Call within 24 hours.
 - `demo_queue`: POS-ready lead that should get POS workflow questions and a fit check.
 - `pos_referral`: no-POS lead that explicitly wants POS recommendations.
+- `partner_pipeline`: POS consultant, restaurant technology partner, website agency, or referral-channel inquiry.
 - `nurture_no_pos`: no-POS lead without clear POS recommendation interest.
 - `manual_review`: incomplete or ambiguous lead; confirm POS, volume, and fit manually.
 

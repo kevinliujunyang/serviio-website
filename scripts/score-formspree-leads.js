@@ -54,6 +54,7 @@ const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
 const PRIORITY_SOURCE_PATTERN = /chinese|asian|pos|automation|phone-order|phone_order|ai-phone|service-area|service_area|restaurant-ai|local-pos|local_pos|local\s+pos|pos-readiness|pos_readiness|partner-referral|partner_referral|organic-listing|organic_listing|community-post|community_post|free-search|free_search/i;
+const PARTNER_INQUIRY_PATTERN = /restaurant[_-]pos[_-]partner[_-]referral|\/restaurant-pos-partner-referral\/|pos\s+partner\s+referral|合作推荐/i;
 const PAIN_PATTERNS = [
   ['missed_calls', /missed\s*call|miss\s+calls|busy\s*signal|hang\s*up|can't\s+answer|cannot\s+answer|ring\s+through|lost\s+call|漏接|忙线/i],
   ['rush_hour', /rush|lunch|dinner|peak|busy\s+hour|高峰|午餐|晚餐/i],
@@ -63,7 +64,13 @@ const PAIN_PATTERNS = [
 ];
 const URGENT_PAIN_SIGNALS = new Set(['missed_calls', 'rush_hour', 'manual_entry', 'after_hours']);
 
-function routeLead({ posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource, urgentPain }) {
+function routeLead({ partnerInquiry, posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource, urgentPain }) {
+  if (partnerInquiry) {
+    return {
+      route: 'partner_pipeline',
+      nextAction: 'Follow up as a partner/referral opportunity; confirm channel fit, POS focus, geography, and referral process.',
+    };
+  }
   if (posReady && (highVolume || urgentPain) && (chineseIntent || prioritySource)) {
     return {
       route: 'call_now',
@@ -130,6 +137,7 @@ function buildBuyerProfile({
 }
 
 function classifyPartnerReferral({
+  partnerInquiry,
   posReady,
   noPos,
   wantsPosRecommendation,
@@ -140,6 +148,14 @@ function classifyPartnerReferral({
   hasUsLocation,
   urgentPain,
 }) {
+  if (partnerInquiry) {
+    return {
+      monetizationRoute: 'partner_relationship',
+      partnerReferralPriority: 'strategic',
+      partnerNextAction: 'Qualify partner channel, referral economics, target POS systems, and expected restaurant lead flow.',
+    };
+  }
+
   if (posReady) {
     return {
       monetizationRoute: 'serviio_demo',
@@ -366,9 +382,11 @@ function scoreLead(record) {
     .some((signal) => URGENT_PAIN_SIGNALS.has(signal));
   const chineseIntent = CHINESE_INTENT_PATTERN.test(sourceText);
   const prioritySource = PRIORITY_SOURCE_PATTERN.test(sourceText);
+  const partnerInquiry = PARTNER_INQUIRY_PATTERN.test(sourceText);
   const hasUsLocation = values.city !== '' && values.state !== '';
   const posReadiness = classifyPosReadiness({ posReady, noPos, wantsPosRecommendation });
   const partnerReferral = classifyPartnerReferral({
+    partnerInquiry,
     posReady,
     noPos,
     wantsPosRecommendation,
@@ -402,6 +420,10 @@ function scoreLead(record) {
     score += 10;
     reasons.push('priority SEO source/page');
   }
+  if (partnerInquiry) {
+    score += 20;
+    reasons.push('partner/referral inquiry');
+  }
   if (hasUsLocation) {
     score += 5;
     reasons.push('city/state captured');
@@ -431,10 +453,13 @@ function scoreLead(record) {
     priority = 'high';
   } else if (posReady && (mediumVolume || prioritySource || chineseIntent)) {
     priority = 'medium';
+  } else if (partnerInquiry) {
+    priority = 'medium';
   } else if (noPos && wantsPosRecommendation) {
     priority = 'nurture';
   }
   const routing = routeLead({
+    partnerInquiry,
     posReady,
     noPos,
     wantsPosRecommendation,
@@ -457,6 +482,7 @@ function scoreLead(record) {
     urgent_pain_signal: yesNo(urgentPain),
     chinese_or_asian_intent: yesNo(chineseIntent),
     priority_seo_source: yesNo(prioritySource),
+    partner_inquiry: yesNo(partnerInquiry),
     us_location_captured: yesNo(hasUsLocation),
     buyer_profile: buildBuyerProfile({
       posReadiness,
@@ -508,9 +534,11 @@ function summarize(scoredRows) {
     `- Manual review: ${counts.review}`,
     `- Call now route: ${routeCounts.call_now || 0}`,
     `- Demo queue route: ${routeCounts.demo_queue || 0}`,
+    `- Partner pipeline route: ${routeCounts.partner_pipeline || 0}`,
     `- POS referral route: ${routeCounts.pos_referral || 0}`,
     `- Hot POS partner referrals: ${partnerCounts.hot || 0}`,
     `- Warm POS partner referrals: ${partnerCounts.warm || 0}`,
+    `- Strategic partner inquiries: ${partnerCounts.strategic || 0}`,
     `- No-POS nurture route: ${routeCounts.nurture_no_pos || 0}`,
     `- Manual review route: ${routeCounts.manual_review || 0}`,
   ];
@@ -563,6 +591,7 @@ function main() {
     'urgent_pain_signal',
     'chinese_or_asian_intent',
     'priority_seo_source',
+    'partner_inquiry',
     'us_location_captured',
     'buyer_profile',
     'monetization_route',
