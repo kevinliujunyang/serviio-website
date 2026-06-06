@@ -801,6 +801,32 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!scorecard.includes('npm run search:sample') || !scorecard.includes('docs/sample-search-console-export.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing Search Console sample workflow');
   }
+  const snippetExpectations = [
+    {
+      file: 'pos/menusifu-ai-phone-ordering/index.html',
+      title: 'MenuSifu AI Phone Ordering for Restaurants - Serviio',
+      description: 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
+    },
+    {
+      file: 'pos/chowbus-ai-phone-ordering/index.html',
+      title: 'Chowbus AI Phone Ordering for Restaurants - Serviio',
+      description: 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
+    },
+    {
+      file: 'chinese-restaurant-phone-answering-service/index.html',
+      title: 'Chinese Restaurant Phone Answering Service - Serviio',
+      description: 'AI phone ordering for Chinese restaurants. Serviio answers calls, captures takeout orders, supports bilingual callers, and checks POS readiness.',
+    },
+  ];
+  for (const expectation of snippetExpectations) {
+    const html = fs.readFileSync(expectation.file, 'utf8');
+    if (!html.includes(`<title>${expectation.title}</title>`)) {
+      errors.push(`${expectation.file}: missing Search Console rewrite title`);
+    }
+    if (!html.includes(`name="description" content="${expectation.description}"`)) {
+      errors.push(`${expectation.file}: missing Search Console rewrite description`);
+    }
+  }
 
   return { errors };
 }
