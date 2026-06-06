@@ -134,6 +134,15 @@ function relatedLinks(links) {
     .join('');
 }
 
+const POS_PURCHASE_TIMELINE_EN = '<div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">If you need POS recommendations, when are you planning to choose a POS?</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">Select timeline</option><option>Immediately</option><option>Within 1 month</option><option>1-3 months</option><option>3-6 months</option><option>Not sure yet</option><option>Not applicable, I already have a POS</option></select></div>';
+const POS_PURCHASE_TIMELINE_ZH = '<div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">如果需要 POS 推荐，计划什么时候选择 POS？</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">选择时间</option><option>马上</option><option>1 个月内</option><option>1-3 个月</option><option>3-6 个月</option><option>还不确定</option><option>不适用，已经有 POS</option></select></div>';
+
+function addPosPurchaseTimeline(html, language) {
+  const field = language === 'zh' ? POS_PURCHASE_TIMELINE_ZH : POS_PURCHASE_TIMELINE_EN;
+  if (html.includes('name="pos_purchase_timeline"')) return html;
+  return html.replace('<button type="submit"', `${field}<button type="submit"`);
+}
+
 function enPage(city) {
   const url = `${SITE_ORIGIN}/service-areas/${city.slug}/`;
   const zhUrl = `${SITE_ORIGIN}/zh/service-areas/${city.slug}/`;
@@ -312,8 +321,8 @@ function updateIndexingScript() {
 }
 
 for (const city of cities) {
-  writeFile(`service-areas/${city.slug}/index.html`, enPage(city));
-  writeFile(`zh/service-areas/${city.slug}/index.html`, zhPage(city));
+  writeFile(`service-areas/${city.slug}/index.html`, addPosPurchaseTimeline(enPage(city), 'en'));
+  writeFile(`zh/service-areas/${city.slug}/index.html`, addPosPurchaseTimeline(zhPage(city), 'zh'));
 }
 updateSitemap();
 updateInternalLinks();

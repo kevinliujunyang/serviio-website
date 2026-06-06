@@ -779,6 +779,19 @@ function validateServiceAreaGeneration(pages) {
     if (!fs.existsSync(file)) errors.push(`${file}: missing service-area generation script`);
   }
 
+  for (const file of [
+    'scripts/generate-service-area-city-pages.js',
+    'scripts/generate-service-area-state-pages.js',
+  ]) {
+    if (!fs.existsSync(file)) continue;
+    const script = fs.readFileSync(file, 'utf8');
+    for (const field of REQUIRED_QUALIFICATION_FIELDS) {
+      if (!script.includes(`name="${field}"`)) {
+        errors.push(`${file}: service-area generator form missing ${field}`);
+      }
+    }
+  }
+
   const serviceAreaLeadPages = pages.filter((file) => {
     if (!file.startsWith('service-areas/') && !file.startsWith('zh/service-areas/')) return false;
     return fs.readFileSync(file, 'utf8').includes('formspree.io');
@@ -865,6 +878,7 @@ console.log([
   'Search Console analyzer workflow validated',
   'lead scoring workflow validated',
   `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
+  'service-area generator lead fields validated',
   'IndexNow setup validated',
   'robots.txt validated',
 ].join('\n'));
