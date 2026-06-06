@@ -92,6 +92,14 @@ npm run marketing:mark -- --target "Restaurant POS directory" --status live --ur
 
 Run `npm run seo:authority` after the tracker update. The score should rise only when rows are submitted, need follow-up, or go live.
 
+Before starting new outreach, check whether already-submitted rows need a second touch:
+
+```bash
+npm run marketing:follow-ups
+```
+
+Follow-ups matter because a submitted partner form does not create ranking authority until it becomes a live listing, backlink, referral relationship, or documented rejection. Use the printed `marketing:mark` command to keep each row current after the second touch.
+
 Use `/guides/restaurant-ai-phone-ordering-pos-guide/` as the default link for educational submissions, community answers, and directory listings that prefer resource content over a direct sales page.
 
 Use `/guides/chinese-restaurant-pos-comparison/` for POS consultant outreach, restaurant technology resource pages, and conversations with no-POS owners who need a POS recommendation path before AI phone ordering.

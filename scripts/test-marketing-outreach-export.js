@@ -28,6 +28,11 @@ const {
   parseArgs: parseMarkArgs,
   updateTracker,
 } = require('./update-free-search-tracker');
+const {
+  followUpRows,
+  parseArgs: parseFollowUpArgs,
+  renderFollowUpReport,
+} = require('./print-free-search-follow-ups');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -158,5 +163,32 @@ assert.deepStrictEqual(parseMarkArgs(['--target', 'MenuSifu restaurant consultan
 });
 assert.throws(() => parseMarkArgs(['--target', 'MenuSifu restaurant consultants', '--status', 'done']), /--status must be one of/);
 assert.throws(() => updateTracker(updateResult.csv, { target: 'missing', status: 'submitted', owner: 'Serviio', date: '2026-06-06' }), /No tracker row matched/);
+
+const followUpTrackerRows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,submitted,Serviio,2026-06-01,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Submitted partner request.
+P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio,2026-06-05,,https://serviio.ai/restaurant-pos-partner-referral/,https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Restaurant POS partner referral,Needs reply.
+P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
+P1,AI directory,AI Directory,https://ai.example.com,submitted,Serviio,2026-06-07,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Submitted recently.
+P0,Webmaster tool,IndexNow priority URL batch,https://api.indexnow.org/indexnow,submitted,Serviio,2026-06-01,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=indexnow&utm_medium=indexing&utm_campaign=free_search_marketing,Priority Chinese restaurant and POS URL submission,Submitted recrawl.
+`);
+const dueFollowUps = followUpRows(followUpTrackerRows, { today: '2026-06-10', days: 7 });
+assert.deepStrictEqual(dueFollowUps.map((row) => row.target), [
+  'POS consultants',
+  'MenuSifu restaurant consultants',
+]);
+assert.strictEqual(dueFollowUps[0].days_waiting, 5);
+assert.strictEqual(dueFollowUps[0].due_date, '2026-06-05');
+assert.strictEqual(dueFollowUps[1].days_waiting, 9);
+assert.strictEqual(dueFollowUps[1].due_date, '2026-06-08');
+assert.match(renderFollowUpReport(dueFollowUps), /# Serviio Free Search Follow-Up Queue/);
+assert.match(renderFollowUpReport(dueFollowUps), /npm run marketing:mark -- --target "POS consultants" --status "follow-up needed"/);
+assert.match(renderFollowUpReport(dueFollowUps), /https:\/\/serviio.ai\/restaurant-pos-partner-referral\//);
+assert.deepStrictEqual(parseFollowUpArgs(['--today', '2026-06-10', '--days', '5', '--limit', '3']), {
+  csvPath: 'docs/free-search-marketing-tracker.csv',
+  today: '2026-06-10',
+  days: 5,
+  limit: 3,
+});
+assert.throws(() => parseFollowUpArgs(['--days', '0']), /--days must be a positive integer/);
 
 console.log('Marketing outreach export tests passed');

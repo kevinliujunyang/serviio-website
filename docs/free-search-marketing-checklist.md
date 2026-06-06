@@ -84,6 +84,14 @@ npm run seo:authority
 
 Do not mark a row as `submitted` or `live` until the action actually happened. This keeps the authority score useful as a ranking-readiness signal instead of a planning score.
 
+Print the follow-up queue for submitted partner/listing rows that have not gone live yet:
+
+```bash
+npm run marketing:follow-ups
+```
+
+Use this after each outreach session and at least weekly. The queue prioritizes rows already marked `follow-up needed`, then submitted rows that are at least seven days old. After a follow-up message, run `marketing:mark` again with a fresh note. If the listing becomes visible, switch the row to `status=live` and record the live URL.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:
