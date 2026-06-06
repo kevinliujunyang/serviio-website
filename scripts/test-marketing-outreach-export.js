@@ -13,6 +13,11 @@ const {
   packetHint,
   researchQueries,
 } = require('./print-free-search-next-actions');
+const {
+  isSprintRow,
+  parseArgs: parseSprintArgs,
+  sprintRows,
+} = require('./print-partner-outreach-sprint');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -89,5 +94,15 @@ assert.deepStrictEqual(researchQueries(pilotResearch), [
   '"Pilot restaurant testimonial" "submit"',
   '"Chinese restaurant AI phone ordering testimonial" "directory"',
 ]);
+
+const sprint = sprintRows(trackerRows, { limit: 8 });
+assert.strictEqual(sprint.length, 8);
+assert.strictEqual(sprint[0].channel, 'Partner outreach');
+assert.ok(sprint.some((row) => row.target === 'MenuSifu restaurant consultants'));
+assert.ok(sprint.every(isSprintRow));
+assert.ok(sprint.every((row) => nextActionOpportunityScore(row).score >= 88));
+assert.deepStrictEqual(parseSprintArgs(['--limit', '3']), { limit: 3, help: false });
+assert.deepStrictEqual(parseSprintArgs(['--help']), { limit: 8, help: true });
+assert.throws(() => parseSprintArgs(['--limit', '0']), /positive integer/);
 
 console.log('Marketing outreach export tests passed');

@@ -42,6 +42,14 @@ npm run marketing:next
 
 Use `Ready Submissions` first when time is limited. Use `Target Research` for the highest-score partner, POS consultant, and restaurant-technology rows that still need a real target URL.
 
+Print the partner/POS outreach sprint when the goal is backlinks plus qualified restaurant-owner leads:
+
+```bash
+npm run marketing:sprint
+```
+
+This defaults to the highest-scoring partner, POS-specific, restaurant technology, association, and chamber rows. It prints contact URLs, UTM URLs, customized first messages, follow-up copy, and the tracker update instruction for each action.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:
