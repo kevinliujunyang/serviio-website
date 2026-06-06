@@ -59,7 +59,14 @@ assert.strictEqual(noPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(noPosReferral.pos_readiness, 'pos_referral_candidate');
 assert.strictEqual(noPosReferral.monetization_route, 'pos_partner_referral');
 assert.strictEqual(noPosReferral.partner_referral_priority, 'hot');
+assert.strictEqual(noPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
+assert.strictEqual(noPosReferral.pos_partner_lead_type, 'hot_no_pos_restaurant');
+assert.strictEqual(noPosReferral.serviio_fit_status, 'deprioritized_until_pos_ready');
 assert.match(noPosReferral.partner_next_action, /POS partner lead/);
+assert.match(noPosReferral.pos_partner_lead_package, /New Noodle Shop/);
+assert.match(noPosReferral.pos_partner_lead_package, /San Jose, CA/);
+assert.match(noPosReferral.pos_partner_lead_package, /76-150/);
+assert.match(noPosReferral.pos_partner_lead_package, /Yes, I want POS recommendations/);
 assert.match(noPosReferral.buyer_profile, /partner_referral:hot/);
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
 
@@ -77,6 +84,8 @@ const warmNoPosReferral = scoreLead({
 assert.strictEqual(warmNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(warmNoPosReferral.monetization_route, 'pos_partner_referral');
 assert.strictEqual(warmNoPosReferral.partner_referral_priority, 'warm');
+assert.strictEqual(warmNoPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
+assert.strictEqual(warmNoPosReferral.pos_partner_lead_type, 'warm_no_pos_restaurant');
 
 const ambiguousPos = scoreLead({
   ...baseLead,
@@ -141,6 +150,8 @@ const homepagePosFitDemo = scoreLead({
 assert.strictEqual(homepagePosFitDemo.lead_priority, 'high');
 assert.strictEqual(homepagePosFitDemo.lead_route, 'call_now');
 assert.strictEqual(homepagePosFitDemo.priority_seo_source, 'yes');
+assert.strictEqual(homepagePosFitDemo.pos_partner_lead_status, 'not_partner_referral');
+assert.strictEqual(homepagePosFitDemo.serviio_fit_status, 'serviio_demo_fit');
 assert.match(homepagePosFitDemo.buyer_profile, /offer:homepage_pos_fit_check/);
 assert.match(homepagePosFitDemo.lead_reason, /priority SEO source/);
 
@@ -257,6 +268,7 @@ assert.strictEqual(classifyPainSignal('General question'), 'other');
 assert.strictEqual(classifyPainSignal(''), 'unknown');
 
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
+assert.match(summary, /Qualified POS partner leads: 1/);
 assert.match(summary, /Hot POS partner referrals: 1/);
 assert.match(summary, /High priority: 2/);
 assert.match(summary, /POS referral route: 1/);

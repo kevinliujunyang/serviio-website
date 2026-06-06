@@ -187,6 +187,53 @@ function classifyPartnerReferral({
   };
 }
 
+function classifyServiioFitStatus({ partnerInquiry, posReady, noPos, wantsPosRecommendation }) {
+  if (partnerInquiry) return 'partner_relationship';
+  if (posReady) return 'serviio_demo_fit';
+  if (noPos && wantsPosRecommendation) return 'deprioritized_until_pos_ready';
+  if (noPos) return 'nurture_until_pos_ready';
+  return 'unknown_needs_pos_qualification';
+}
+
+function classifyPosPartnerLead({ partnerReferralPriority }) {
+  if (partnerReferralPriority === 'hot') {
+    return {
+      status: 'qualified_for_pos_partner',
+      type: 'hot_no_pos_restaurant',
+    };
+  }
+  if (partnerReferralPriority === 'warm') {
+    return {
+      status: 'qualified_for_pos_partner',
+      type: 'warm_no_pos_restaurant',
+    };
+  }
+  return {
+    status: 'not_partner_referral',
+    type: 'none',
+  };
+}
+
+function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSignal, volume }) {
+  if (!['hot', 'warm'].includes(partnerReferralPriority)) return '';
+
+  const location = [values.city, values.state].filter(Boolean).join(', ') || 'location unknown';
+  const details = [
+    `Restaurant: ${values.restaurant || 'unknown restaurant'}`,
+    `Location: ${location}`,
+    `Current POS: ${values.pos || 'no POS captured'}`,
+    `Phone orders/week: ${values.phoneOrders || 'unknown volume'} (${volume})`,
+    `POS recommendation interest: ${values.posRecommendationInterest || 'not captured'}`,
+  ];
+
+  if (values.pain) details.push(`Pain: ${values.pain}`);
+  if (painSignal !== 'unknown') details.push(`Pain signals: ${painSignal}`);
+  if (values.leadSource) details.push(`Lead source: ${values.leadSource}`);
+  if (values.landingPage || values.currentPage) details.push(`Landing page: ${values.landingPage || values.currentPage}`);
+
+  return details.join(' | ');
+}
+
 function parseArgs(argv) {
   const args = { input: '', out: '', summaryOnly: false };
 
@@ -397,6 +444,21 @@ function scoreLead(record) {
     hasUsLocation,
     urgentPain,
   });
+  const posPartnerLead = classifyPosPartnerLead({
+    partnerReferralPriority: partnerReferral.partnerReferralPriority,
+  });
+  const serviioFitStatus = classifyServiioFitStatus({
+    partnerInquiry,
+    posReady,
+    noPos,
+    wantsPosRecommendation,
+  });
+  const posPartnerLeadPackage = buildPosPartnerLeadPackage({
+    values,
+    partnerReferralPriority: partnerReferral.partnerReferralPriority,
+    painSignal,
+    volume,
+  });
 
   let score = 0;
   const reasons = [];
@@ -497,6 +559,10 @@ function scoreLead(record) {
     monetization_route: partnerReferral.monetizationRoute,
     partner_referral_priority: partnerReferral.partnerReferralPriority,
     partner_next_action: partnerReferral.partnerNextAction,
+    pos_partner_lead_status: posPartnerLead.status,
+    pos_partner_lead_type: posPartnerLead.type,
+    pos_partner_lead_package: posPartnerLeadPackage,
+    serviio_fit_status: serviioFitStatus,
     restaurant_name: values.restaurant,
     contact_name: values.name,
     contact_email: values.email,
@@ -519,6 +585,9 @@ function summarize(scoredRows) {
   const counts = { high: 0, medium: 0, nurture: 0, review: 0 };
   const routeCounts = {};
   const partnerCounts = {};
+  const qualifiedPosPartnerLeads = scoredRows
+    .filter((row) => row.pos_partner_lead_status === 'qualified_for_pos_partner')
+    .length;
   scoredRows.forEach((row) => {
     counts[row.lead_priority] = (counts[row.lead_priority] || 0) + 1;
     routeCounts[row.lead_route] = (routeCounts[row.lead_route] || 0) + 1;
@@ -536,6 +605,7 @@ function summarize(scoredRows) {
     `- Demo queue route: ${routeCounts.demo_queue || 0}`,
     `- Partner pipeline route: ${routeCounts.partner_pipeline || 0}`,
     `- POS referral route: ${routeCounts.pos_referral || 0}`,
+    `- Qualified POS partner leads: ${qualifiedPosPartnerLeads}`,
     `- Hot POS partner referrals: ${partnerCounts.hot || 0}`,
     `- Warm POS partner referrals: ${partnerCounts.warm || 0}`,
     `- Strategic partner inquiries: ${partnerCounts.strategic || 0}`,
@@ -597,6 +667,10 @@ function main() {
     'monetization_route',
     'partner_referral_priority',
     'partner_next_action',
+    'pos_partner_lead_status',
+    'pos_partner_lead_type',
+    'pos_partner_lead_package',
+    'serviio_fit_status',
     'restaurant_name',
     'contact_name',
     'contact_email',
