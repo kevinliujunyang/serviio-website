@@ -778,6 +778,15 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:demo-queue'] !== 'node scripts/export-serviio-demo-leads.js') {
     errors.push('package.json: missing leads:demo-queue script');
   }
+  if (packageJson.scripts?.['leads:sample:score'] !== 'node scripts/score-formspree-leads.js docs/sample-formspree-leads.csv --out docs/sample-scored-leads.csv') {
+    errors.push('package.json: missing leads:sample:score script');
+  }
+  if (packageJson.scripts?.['leads:sample:demo'] !== 'node scripts/export-serviio-demo-leads.js docs/sample-formspree-leads.csv --out docs/sample-demo-leads.csv') {
+    errors.push('package.json: missing leads:sample:demo script');
+  }
+  if (packageJson.scripts?.['leads:sample:pos-partners'] !== 'node scripts/export-pos-partner-leads.js docs/sample-formspree-leads.csv --out docs/sample-pos-partner-leads.csv') {
+    errors.push('package.json: missing leads:sample:pos-partners script');
+  }
   if (!fs.existsSync('scripts/export-serviio-demo-leads.js')) {
     errors.push('scripts/export-serviio-demo-leads.js: missing Serviio demo queue export');
   }
@@ -806,6 +815,19 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('npm run leads:demo-queue')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Serviio demo queue workflow');
+  }
+  for (const file of [
+    'docs/sample-formspree-leads.csv',
+    'docs/sample-scored-leads.csv',
+    'docs/sample-demo-leads.csv',
+    'docs/sample-pos-partner-leads.csv',
+  ]) {
+    if (!fs.existsSync(file)) {
+      errors.push(`${file}: missing lead scoring sample workflow file`);
+    }
+  }
+  if (!runbook.includes('npm run leads:sample:score') || !runbook.includes('docs/sample-formspree-leads.csv')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing lead scoring sample workflow');
   }
 
   return { errors };

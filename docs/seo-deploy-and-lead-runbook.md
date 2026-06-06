@@ -160,6 +160,16 @@ Before processing a new export format, run the scorer regression check:
 npm run leads:test
 ```
 
+To preview the complete routing workflow without real Formspree data, regenerate the sample outputs:
+
+```bash
+npm run leads:sample:score
+npm run leads:sample:demo
+npm run leads:sample:pos-partners
+```
+
+The fixture at `docs/sample-formspree-leads.csv` includes POS-ready demo leads, no-POS POS-referral leads, and a partner/referral inquiry. The generated sample CSVs make it easy to verify that the split is working before processing live leads.
+
 Call high-priority leads first. The script writes routing, fit, and contact columns before the original Formspree columns:
 - `lead_priority`
 - `lead_route`

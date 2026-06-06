@@ -1,4 +1,5 @@
 const assert = require('assert');
+const fs = require('fs');
 const {
   buildPosPartnerRows,
   parseArgs: parsePosPartnerExportArgs,
@@ -11,11 +12,21 @@ const {
 } = require('./export-serviio-demo-leads');
 const {
   classifyPainSignal,
+  classifyPhoneVolume,
   classifyPosPurchaseTimeline,
+  parseCsv,
   hasKnownPos,
   scoreLead,
   summarize,
 } = require('./score-formspree-leads');
+
+function recordsFromCsv(text) {
+  const rows = parseCsv(text);
+  const headers = rows[0].map((header) => header.trim());
+  return rows.slice(1).map((row) => Object.fromEntries(
+    headers.map((header, index) => [header, row[index] || '']),
+  ));
+}
 
 const baseLead = {
   restaurant: 'Golden Dragon Chinese Restaurant',
@@ -145,6 +156,9 @@ assert.strictEqual(ambiguousPos.pos_readiness, 'unknown_pos_status');
 assert.strictEqual(ambiguousPos.phone_volume_tier, 'medium');
 assert.strictEqual(hasKnownPos('Considering a POS'), false);
 assert.strictEqual(hasKnownPos('I use a local POS'), true);
+assert.strictEqual(classifyPhoneVolume('Under 25'), 'low');
+assert.strictEqual(classifyPhoneVolume('Less than 25'), 'low');
+assert.strictEqual(classifyPhoneVolume('25-75'), 'medium');
 
 const localPosFitDemo = scoreLead({
   ...baseLead,
@@ -394,5 +408,22 @@ assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--summary-on
   out: '',
   summaryOnly: true,
 });
+
+const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
+const sampleScoredRows = sampleLeadRecords.map(scoreLead);
+assert.strictEqual(sampleScoredRows.length, 5);
+assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.restaurant_name), [
+  'Golden Dragon Chinese Restaurant',
+  'Boston Wok',
+]);
+assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.restaurant_name), [
+  'New Noodle Shop',
+  'Fast POS Dumpling',
+]);
+assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
+assert.match(summarize(sampleScoredRows), /Serviio demo|Lead scoring summary/);
+assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
+assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('call_script'));
+assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes('handoff_summary'));
 
 console.log('Lead scoring tests passed');

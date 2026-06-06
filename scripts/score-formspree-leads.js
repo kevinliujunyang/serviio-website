@@ -410,6 +410,9 @@ function classifyPhoneVolume(value) {
   const numbers = text.match(/\d+/g)?.map(Number) || [];
   const maxNumber = Math.max(0, ...numbers);
 
+  if (/under\s*25|less\s*than\s*25|fewer\s*than\s*25|below\s*25|0\s*-\s*24|low/i.test(text)) {
+    return 'low';
+  }
   if (/150\+|151|150\s*or\s*more|150\s*plus/i.test(text) || maxNumber >= 150) {
     return 'high';
   }
@@ -419,7 +422,7 @@ function classifyPhoneVolume(value) {
   if (/25\s*-\s*75|26\s*-\s*75|50/i.test(text) || maxNumber >= 25) {
     return 'medium';
   }
-  if (/under\s*25|less\s*than\s*25|0\s*-\s*24|low/i.test(text) || (maxNumber > 0 && maxNumber < 25)) {
+  if (maxNumber > 0 && maxNumber < 25) {
     return 'low';
   }
   return 'unknown';
