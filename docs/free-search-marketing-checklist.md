@@ -140,6 +140,14 @@ npm run marketing:directories
 
 This writes `docs/directory-submission-pack.md` by default. It focuses on AI tool directories, startup directories, restaurant technology directories, and educational/resource listings with known submission URLs. Work through the top 15, then run each included `npm run marketing:mark` command only after the real submission or contact has happened.
 
+Export a CSV submission log before working through authority targets:
+
+```bash
+npm run marketing:submission-log
+```
+
+This writes `docs/authority-submission-log.csv` by default. Use it as the working sheet for the top 15 authority actions. Fill in `evidence_url`, `account_or_login`, `confirmation_note`, `submitted_date`, and `follow_up_date` while submitting forms or sending partner messages. Then run the included tracker command only after the external action is complete.
+
 Export the combined weekly GTM queue for off-site SEO execution:
 
 ```bash

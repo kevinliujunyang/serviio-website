@@ -32,6 +32,11 @@ const {
   parseArgs: parseDirectoryPackArgs,
 } = require('./export-directory-submission-pack');
 const {
+  buildAuthoritySubmissionLogRows,
+  parseArgs: parseAuthoritySubmissionLogArgs,
+  toCsv: authoritySubmissionLogToCsv,
+} = require('./export-authority-submission-log');
+const {
   authorityScore,
   nextMilestones,
   renderReport: renderAuthorityReport,
@@ -133,6 +138,26 @@ assert.deepStrictEqual(parseDirectoryPackArgs(['--out', 'docs/directories.md', '
   help: false,
 });
 assert.throws(() => parseDirectoryPackArgs(['--limit', '0']), /--limit must be a positive integer/);
+
+const authoritySubmissionRows = buildAuthoritySubmissionLogRows(trackerRows, { limit: 15, today: '2026-06-06' });
+assert.strictEqual(authoritySubmissionRows.length, 15);
+assert.strictEqual(authoritySubmissionRows[0].target, 'Chinese restaurant POS consultants');
+assert.strictEqual(authoritySubmissionRows[0].opportunity_score, 100);
+assert.strictEqual(authoritySubmissionRows[0].action_status, '');
+assert.strictEqual(authoritySubmissionRows[0].evidence_url, '');
+assert.match(authoritySubmissionRows[0].tracker_command, /npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-06/);
+assert.match(authoritySubmissionRows[0].message_or_listing_copy, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway/);
+const authoritySubmissionCsv = authoritySubmissionLogToCsv(authoritySubmissionRows);
+assert.match(authoritySubmissionCsv, /action_status,priority,channel,target,opportunity_score/);
+assert.match(authoritySubmissionCsv, /evidence_url,account_or_login,confirmation_note,submitted_date,follow_up_date,tracker_command/);
+assert.match(authoritySubmissionCsv, /Chinese restaurant POS consultants/);
+assert.deepStrictEqual(parseAuthoritySubmissionLogArgs(['--out', 'docs/log.csv', '--limit', '9', '--today', '2026-06-06']), {
+  out: 'docs/log.csv',
+  limit: 9,
+  today: '2026-06-06',
+  help: false,
+});
+assert.throws(() => parseAuthoritySubmissionLogArgs(['--limit', '0']), /--limit must be a positive integer/);
 
 const nextRows = nextActionRows(trackerRows, { readyLimit: 8, researchLimit: 8 });
 assert.strictEqual(nextRows.readyRows.length, 8);

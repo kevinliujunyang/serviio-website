@@ -670,6 +670,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:directories'] !== 'node scripts/export-directory-submission-pack.js') {
     errors.push('package.json: missing marketing:directories script');
   }
+  if (packageJson.scripts?.['marketing:submission-log'] !== 'node scripts/export-authority-submission-log.js') {
+    errors.push('package.json: missing marketing:submission-log script');
+  }
   if (!fs.existsSync('scripts/print-free-search-next-actions.js')) {
     errors.push('scripts/print-free-search-next-actions.js: missing free search next-action brief');
   }
@@ -681,6 +684,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-directory-submission-pack.js')) {
     errors.push('scripts/export-directory-submission-pack.js: missing directory submission pack export');
+  }
+  if (!fs.existsSync('scripts/export-authority-submission-log.js')) {
+    errors.push('scripts/export-authority-submission-log.js: missing authority submission log export');
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
@@ -694,6 +700,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:directories')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:directories workflow');
+  }
+  if (!checklist.includes('npm run marketing:submission-log')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-log workflow');
   }
   if (!checklist.includes('npm run indexnow:submit:all')) {
     errors.push('docs/free-search-marketing-checklist.md: missing full-site IndexNow workflow');
