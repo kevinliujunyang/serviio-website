@@ -637,6 +637,8 @@ function validateFreeSearchTracker() {
   const errors = [];
   const tracker = fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8');
   const generator = fs.readFileSync('scripts/generate-free-search-tracker.js', 'utf8');
+  const authorityAudit = fs.readFileSync('scripts/audit-seo-authority.js', 'utf8');
+  const marketingTest = fs.readFileSync('scripts/test-marketing-outreach-export.js', 'utf8');
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
   for (const content of [tracker, generator]) {
@@ -706,6 +708,15 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run indexnow:submit:all')) {
     errors.push('docs/free-search-marketing-checklist.md: missing full-site IndexNow workflow');
+  }
+  if (!authorityAudit.includes('evidenceIssues') || !authorityAudit.includes('isSubmittedWithEvidence') || !authorityAudit.includes('isLiveWithEvidence')) {
+    errors.push('scripts/audit-seo-authority.js: missing evidence-qualified authority scoring');
+  }
+  if (!marketingTest.includes('Unverified AI Directory') || !marketingTest.includes('Evidence Issues')) {
+    errors.push('scripts/test-marketing-outreach-export.js: missing authority evidence regression coverage');
+  }
+  if (!checklist.includes('owner`, `date_submitted`') || !checklist.includes('date_live')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing authority evidence requirements');
   }
 
   return { errors };

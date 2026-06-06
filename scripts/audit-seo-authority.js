@@ -41,13 +41,68 @@ function isLive(row) {
   return row.status === 'live' || Boolean(row.date_live);
 }
 
+function hasHttpUrl(value) {
+  return /^https?:\/\//.test(String(value || ''));
+}
+
+function submittedEvidenceIssues(row) {
+  const issues = [];
+  if (!row.owner) issues.push('missing owner');
+  if (!row.date_submitted) issues.push('missing date_submitted');
+  if (!row.notes) issues.push('missing evidence note');
+  return issues;
+}
+
+function liveEvidenceIssues(row) {
+  const issues = submittedEvidenceIssues(row);
+  if (!row.date_live) issues.push('missing date_live');
+  if (!hasHttpUrl(row.url)) issues.push('missing live URL');
+  return issues;
+}
+
+function rowEvidenceIssues(row) {
+  if (!isAuthorityRow(row)) return [];
+  if (isLive(row)) return liveEvidenceIssues(row);
+  if (row.status === 'submitted' || row.status === 'follow-up needed') return submittedEvidenceIssues(row);
+  return [];
+}
+
+function isSubmittedWithEvidence(row) {
+  return (row.status === 'submitted' || row.status === 'follow-up needed') &&
+    submittedEvidenceIssues(row).length === 0;
+}
+
+function isLiveWithEvidence(row) {
+  return isLive(row) && liveEvidenceIssues(row).length === 0;
+}
+
+function isStartedWithEvidence(row) {
+  if (!isStarted(row)) return false;
+  if (isLive(row)) return isLiveWithEvidence(row);
+  if (row.status === 'submitted' || row.status === 'follow-up needed') return isSubmittedWithEvidence(row);
+  return rowEvidenceIssues(row).length === 0;
+}
+
+function evidenceIssues(rows) {
+  return rows
+    .filter(isAuthorityRow)
+    .map((row) => ({
+      row,
+      target: row.target,
+      status: row.status,
+      issues: rowEvidenceIssues(row),
+    }))
+    .filter((issue) => issue.issues.length > 0);
+}
+
 function authorityScore(rows) {
   const authorityRows = rows.filter(isAuthorityRow);
-  const submittedRows = authorityRows.filter((row) => row.status === 'submitted' || row.status === 'follow-up needed');
-  const liveRows = authorityRows.filter(isLive);
-  const highFitStartedRows = authorityRows.filter((row) => HIGH_FIT_CHANNELS.has(row.channel) && isStarted(row));
-  const customerProofRows = authorityRows.filter((row) => row.channel === 'Customer proof' && isStarted(row));
-  const businessProfileRows = authorityRows.filter((row) => row.channel === 'Business profile' && isStarted(row));
+  const submittedRows = authorityRows.filter(isSubmittedWithEvidence);
+  const liveRows = authorityRows.filter(isLiveWithEvidence);
+  const highFitStartedRows = authorityRows.filter((row) => HIGH_FIT_CHANNELS.has(row.channel) && isStartedWithEvidence(row));
+  const customerProofRows = authorityRows.filter((row) => row.channel === 'Customer proof' && isStartedWithEvidence(row));
+  const businessProfileRows = authorityRows.filter((row) => row.channel === 'Business profile' && isStartedWithEvidence(row));
+  const evidenceIssueRows = evidenceIssues(rows);
 
   let score = 0;
   score += Math.min(30, liveRows.length * 6);
@@ -64,6 +119,7 @@ function authorityScore(rows) {
     highFitStartedRows,
     customerProofRows,
     businessProfileRows,
+    evidenceIssueRows,
   };
 }
 
@@ -122,6 +178,13 @@ function renderReport(rows) {
     lines.push(`  UTM: ${row.utm_url}`);
   }
 
+  if (summary.evidenceIssueRows.length > 0) {
+    lines.push('', '## Evidence Issues');
+    for (const issue of summary.evidenceIssueRows) {
+      lines.push(`- ${issue.status || 'unknown'} ${issue.target}: ${issue.issues.join(', ')}`);
+    }
+  }
+
   return `${lines.join('\n')}\n`;
 }
 
@@ -136,6 +199,7 @@ if (require.main === module) {
 
 module.exports = {
   authorityScore,
+  evidenceIssues,
   isAuthorityRow,
   nextMilestones,
   renderReport,

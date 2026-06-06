@@ -80,6 +80,8 @@ After a real submission, contact form, email, directory listing, or partner conv
 npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --note "Submitted partner request through MenuSifu demo form; follow up in 7 days."
 ```
 
+For `submitted` or `follow-up needed` rows, the authority audit only counts the row when `owner`, `date_submitted`, and a concrete evidence note are present. For `live` rows, it also requires `date_live` and a live listing/profile URL in the `url` field.
+
 Use `--dry-run` first if the target match is uncertain:
 
 ```bash
