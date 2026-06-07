@@ -28,6 +28,7 @@ const HEADERS = [
   'account_or_login',
   'confirmation_note',
   'submitted_date',
+  'live_date',
   'follow_up_date',
   'tracker_command',
 ];
@@ -93,7 +94,7 @@ function messageOrListingCopy(packet) {
     packet.shortDescription ? `Short description: ${packet.shortDescription}` : '',
     packet.longDescription,
     packet.followUp ? `Follow-up: ${packet.followUp}` : '',
-  ].filter(Boolean).join('\n\n');
+  ].filter(Boolean).join(' | ').replace(/\s+/g, ' ').trim();
 }
 
 function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
@@ -118,6 +119,7 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       account_or_login: '',
       confirmation_note: '',
       submitted_date: '',
+      live_date: '',
       follow_up_date: '',
       tracker_command: trackerCommand(row, today),
     };

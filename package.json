@@ -35,6 +35,7 @@
     "marketing:profiles": "node scripts/export-business-profile-pack.js",
     "marketing:directories": "node scripts/export-directory-submission-pack.js",
     "marketing:submission-log": "node scripts/export-authority-submission-log.js",
+    "marketing:submission-sync": "node scripts/sync-authority-submission-log.js",
     "marketing:gtm-queue": "node scripts/export-free-search-gtm-queue.js",
     "marketing:gtm-queue:export": "node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv",
     "marketing:sprint": "node scripts/print-partner-outreach-sprint.js",

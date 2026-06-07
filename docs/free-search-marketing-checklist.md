@@ -150,6 +150,20 @@ npm run marketing:submission-log
 
 This writes `docs/authority-submission-log.csv` by default. Use it as the working sheet for the top 15 authority actions. Fill in `evidence_url`, `account_or_login`, `confirmation_note`, `submitted_date`, and `follow_up_date` while submitting forms or sending partner messages. Then run the included tracker command only after the external action is complete.
 
+After filling the submission log, preview which rows can be safely synced back into the tracker:
+
+```bash
+npm run marketing:submission-sync
+```
+
+Rows only sync when `action_status` is filled and the required evidence fields are present. Use `action_status=submitted`, `follow-up needed`, `live`, or `rejected`. Live rows must include `evidence_url` and `live_date`.
+
+When the dry run looks correct, apply the evidence-qualified updates:
+
+```bash
+npm run marketing:submission-sync -- --apply
+```
+
 Export the combined weekly GTM queue for off-site SEO execution:
 
 ```bash

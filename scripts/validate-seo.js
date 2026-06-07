@@ -676,6 +676,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:submission-log'] !== 'node scripts/export-authority-submission-log.js') {
     errors.push('package.json: missing marketing:submission-log script');
   }
+  if (packageJson.scripts?.['marketing:submission-sync'] !== 'node scripts/sync-authority-submission-log.js') {
+    errors.push('package.json: missing marketing:submission-sync script');
+  }
   if (packageJson.scripts?.['marketing:gtm-queue:export'] !== 'node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv') {
     errors.push('package.json: missing marketing:gtm-queue:export script');
   }
@@ -693,6 +696,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-authority-submission-log.js')) {
     errors.push('scripts/export-authority-submission-log.js: missing authority submission log export');
+  }
+  if (!fs.existsSync('scripts/sync-authority-submission-log.js')) {
+    errors.push('scripts/sync-authority-submission-log.js: missing authority submission log sync');
   }
   if (!fs.existsSync('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-gtm-queue.csv: missing exported GTM execution queue');
@@ -712,6 +718,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:submission-log')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-log workflow');
+  }
+  if (!checklist.includes('npm run marketing:submission-sync') || !checklist.includes('action_status=submitted')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-sync workflow');
   }
   if (!checklist.includes('npm run marketing:gtm-queue:export') || !checklist.includes('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing checked-in GTM queue workflow');
