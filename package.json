@@ -10,6 +10,7 @@
     "smoke:prod": "node scripts/http-smoke.js https://serviio.ai",
     "smoke:prod:forms": "node scripts/form-marker-smoke.js https://serviio.ai",
     "smoke:prod:anchors": "node scripts/deploy-anchor-smoke.js https://serviio.ai",
+    "smoke:forms:test": "node scripts/test-form-marker-smoke.js",
     "sitemap:sync": "node scripts/sync-sitemap-lastmod.js",
     "indexing:urls": "node scripts/print-indexing-urls.js",
     "indexnow:payload": "node scripts/submit-indexnow.js",

@@ -2,12 +2,21 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_ORIGIN = 'https://serviio.ai';
-const REQUIRED_MARKERS = [
+const requiredMarkers = [
+  'name="restaurant_city"',
+  'name="restaurant_state"',
+  'name="pos_system"',
+  'name="phone_orders_per_week"',
   'name="main_pain"',
+  'name="pos_recommendation_interest"',
   'name="pos_purchase_timeline"',
 ];
 
 const baseUrl = process.argv[2] || SITE_ORIGIN;
+
+function resolveBaseUrl(value = SITE_ORIGIN) {
+  return value.replace(/\/$/, '');
+}
 
 function walkHtmlPages(dir = '.') {
   const pages = [];
@@ -33,27 +42,33 @@ function leadFormPaths() {
   return walkHtmlPages()
     .filter((page) => {
       const html = fs.readFileSync(page, 'utf8');
-      return html.includes('<form') && REQUIRED_MARKERS.every((marker) => html.includes(marker));
+      return html.includes('<form') && requiredMarkers.every((marker) => html.includes(marker));
     })
     .map(pagePath);
+}
+
+function buildMarkerFailures(html, markers = requiredMarkers) {
+  return markers
+    .filter((marker) => !html.includes(marker))
+    .map((marker) => `missing ${marker}`);
 }
 
 async function main() {
   const paths = leadFormPaths();
   const failures = [];
-  const origin = baseUrl.replace(/\/$/, '');
+  const origin = resolveBaseUrl(baseUrl);
 
   if (paths.length === 0) {
-    console.error(`No local lead-form pages found with ${REQUIRED_MARKERS.join(', ')}`);
+    console.error(`No local lead-form pages found with ${requiredMarkers.join(', ')}`);
     process.exit(1);
   }
 
   for (const pathname of paths) {
     const response = await fetch(origin + pathname);
     const text = await response.text();
-    const missingMarkers = REQUIRED_MARKERS.filter((marker) => !text.includes(marker));
-    if (response.status !== 200 || missingMarkers.length > 0) {
-      failures.push(`${pathname}: ${response.status}, missing=${missingMarkers.join('|') || 'none'}`);
+    const markerFailures = buildMarkerFailures(text);
+    if (response.status !== 200 || markerFailures.length > 0) {
+      failures.push(`${pathname}: ${response.status}, ${markerFailures.join(', ') || 'markers ok'}`);
     }
   }
 
@@ -65,7 +80,16 @@ async function main() {
   console.log(`Lead-form marker smoke passed for ${paths.length} pages at ${origin}`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  buildMarkerFailures,
+  leadFormPaths,
+  requiredMarkers,
+  resolveBaseUrl,
+};
