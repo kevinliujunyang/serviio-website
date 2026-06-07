@@ -37,6 +37,12 @@ function todayIso() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function addDaysIso(date, days) {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  parsed.setUTCDate(parsed.getUTCDate() + days);
+  return parsed.toISOString().slice(0, 10);
+}
+
 function parsePositiveInteger(name, value) {
   const parsed = Number(value);
   if (!Number.isInteger(parsed) || parsed < 1) {
@@ -82,8 +88,8 @@ function quoteShell(text) {
   return `"${String(text).replace(/"/g, '\\"')}"`;
 }
 
-function trackerCommand(row, today) {
-  return `npm run marketing:mark -- --target ${quoteShell(row.target)} --status submitted --date ${today} --note "Submitted/contacted; add confirmation URL, account used, and follow-up date from authority submission log."`;
+function trackerCommand(row, today, followUpDate) {
+  return `npm run marketing:mark -- --target ${quoteShell(row.target)} --status submitted --date ${today} --note "Submitted/contacted; add confirmation URL and account used. Follow up: ${followUpDate}."`;
 }
 
 function messageOrListingCopy(packet) {
@@ -98,6 +104,7 @@ function messageOrListingCopy(packet) {
 }
 
 function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
+  const followUpDate = addDaysIso(today, 7);
   return readySubmissionRows(rows).slice(0, limit).map((row) => {
     const packet = packetFor(row);
     const score = opportunityScore(row);
@@ -120,8 +127,8 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       confirmation_note: '',
       submitted_date: '',
       live_date: '',
-      follow_up_date: '',
-      tracker_command: trackerCommand(row, today),
+      follow_up_date: followUpDate,
+      tracker_command: trackerCommand(row, today, followUpDate),
     };
   });
 }
@@ -160,6 +167,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  addDaysIso,
   buildAuthoritySubmissionLogRows,
   parseArgs,
   toCsv,
