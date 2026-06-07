@@ -26,6 +26,7 @@
     "leads:test": "node scripts/test-lead-scoring.js",
     "search:analyze": "node scripts/analyze-search-console.js",
     "search:sample": "node scripts/analyze-search-console.js docs/sample-search-console-export.csv --out docs/sample-search-console-analysis.md",
+    "search:watchlist": "node scripts/export-first-page-ranking-watchlist.js",
     "search:test": "node scripts/test-search-console-analyzer.js",
     "seo:coverage": "node scripts/audit-keyword-coverage.js",
     "seo:authority": "node scripts/audit-seo-authority.js",

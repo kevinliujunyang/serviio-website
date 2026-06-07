@@ -9,6 +9,14 @@ const {
   parseCsv,
   renderReport,
 } = require('./analyze-search-console');
+const {
+  buildWatchlistRows,
+  clusterFor: rankingWatchlistClusterFor,
+  extractPriorityQueries,
+  parseArgs: parseRankingWatchlistArgs,
+  targetPageFor: rankingWatchlistTargetPageFor,
+  toCsv: rankingWatchlistToCsv,
+} = require('./export-first-page-ranking-watchlist');
 
 const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "MenuSifu AI phone ordering","https://serviio.ai/pos/menusifu-ai-phone-ordering/",1,42,1.2%,12.4
@@ -80,5 +88,27 @@ assert.match(sampleReport, /Serviio Search Console Export Analysis/);
 assert.match(sampleReport, /Buyer-Intent Action Queue/);
 assert.match(sampleReport, /Title\/Meta Rewrite Briefs/);
 assert.match(sampleReport, /MenuSifu AI phone ordering/);
+
+const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'utf8');
+const priorityQueries = extractPriorityQueries(scorecard);
+assert.ok(priorityQueries.length >= 100);
+assert.ok(priorityQueries.includes('MenuSifu POS AI phone agent'));
+assert.strictEqual(rankingWatchlistClusterFor('MenuSifu POS AI phone agent'), 'Named POS');
+assert.strictEqual(rankingWatchlistClusterFor('boston chinese restaurant ai phone ordering'), 'Local service area');
+assert.strictEqual(rankingWatchlistTargetPageFor('MenuSifu POS AI phone agent'), '/pos/menusifu-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('39 Miles POS AI phone agent'), '/pos/39-miles-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('boston chinese restaurant ai phone ordering'), '/service-areas/boston-restaurant-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('restaurant without POS'), '/best-pos-for-chinese-restaurant-phone-orders/');
+const watchlistRows = buildWatchlistRows(priorityQueries);
+assert.strictEqual(watchlistRows.length, priorityQueries.length);
+assert.ok(watchlistRows.some((row) => row.query === 'MenuSifu POS AI phone agent' && row.authority_target === 'MenuSifu restaurant consultants'));
+assert.ok(watchlistRows.every((row) => row.target_position === '1-10'));
+const watchlistCsv = rankingWatchlistToCsv(watchlistRows);
+assert.match(watchlistCsv, /priority,cluster,query,target_page,target_url,target_position,current_position/);
+assert.match(watchlistCsv, /needs_search_console_data/);
+assert.deepStrictEqual(parseRankingWatchlistArgs(['--out', 'docs/watchlist.csv']), {
+  out: 'docs/watchlist.csv',
+  help: false,
+});
 
 console.log('Search Console analyzer tests passed');

@@ -803,8 +803,14 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (packageJson.scripts?.['search:sample'] !== 'node scripts/analyze-search-console.js docs/sample-search-console-export.csv --out docs/sample-search-console-analysis.md') {
     errors.push('package.json: missing search:sample script');
   }
+  if (packageJson.scripts?.['search:watchlist'] !== 'node scripts/export-first-page-ranking-watchlist.js') {
+    errors.push('package.json: missing search:watchlist script');
+  }
   if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
     errors.push('package.json: missing search:test script');
+  }
+  if (!fs.existsSync('scripts/export-first-page-ranking-watchlist.js')) {
+    errors.push('scripts/export-first-page-ranking-watchlist.js: missing first-page ranking watchlist export');
   }
   if (!analyzer.includes('buildTitleMetaRewriteBriefs')) {
     errors.push('scripts/analyze-search-console.js: missing title/meta rewrite brief builder');
@@ -815,13 +821,19 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!test.includes('buildTitleMetaRewriteBriefs') || !test.includes('page-one low CTR')) {
     errors.push('scripts/test-search-console-analyzer.js: missing title/meta rewrite brief regression coverage');
   }
+  if (!test.includes('buildWatchlistRows') || !test.includes('MenuSifu POS AI phone agent')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing first-page watchlist regression coverage');
+  }
+  if (!scorecard.includes('npm run search:watchlist') || !scorecard.includes('docs/first-page-ranking-watchlist.csv')) {
+    errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist workflow');
+  }
   if (!scorecard.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/google-search-console-scorecard.md: missing Title/Meta Rewrite Briefs workflow');
   }
   if (!runbook.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Title/Meta Rewrite Briefs workflow');
   }
-  for (const file of ['docs/sample-search-console-export.csv', 'docs/sample-search-console-analysis.md']) {
+  for (const file of ['docs/sample-search-console-export.csv', 'docs/sample-search-console-analysis.md', 'docs/first-page-ranking-watchlist.csv']) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing Search Console sample workflow file`);
     }
@@ -831,6 +843,15 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   if (!scorecard.includes('npm run search:sample') || !scorecard.includes('docs/sample-search-console-export.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing Search Console sample workflow');
+  }
+  if (fs.existsSync('docs/first-page-ranking-watchlist.csv')) {
+    const watchlist = fs.readFileSync('docs/first-page-ranking-watchlist.csv', 'utf8');
+    if (!watchlist.includes('target_position,current_position') || !watchlist.includes('MenuSifu POS AI phone agent')) {
+      errors.push('docs/first-page-ranking-watchlist.csv: missing target/current position tracking');
+    }
+    if (!watchlist.includes('MenuSifu restaurant consultants') || !watchlist.includes('needs_search_console_data')) {
+      errors.push('docs/first-page-ranking-watchlist.csv: missing authority target or status fields');
+    }
   }
   const snippetExpectations = [
     {

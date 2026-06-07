@@ -16,6 +16,14 @@ Analyze a Search Console CSV export with:
 npm run search:analyze -- path/to/search-console-export.csv --out search-console-analysis.md
 ```
 
+Regenerate the first-page ranking watchlist before the weekly review:
+
+```bash
+npm run search:watchlist
+```
+
+This writes `docs/first-page-ranking-watchlist.csv` from the priority queries below. Fill in current Search Console position, clicks, impressions, CTR, and last checked date each week. The watchlist maps every target query to the intended landing page and authority target, so "first page" remains measurable instead of becoming a vague SEO task.
+
 Preview the analyzer without live Search Console data:
 
 ```bash
