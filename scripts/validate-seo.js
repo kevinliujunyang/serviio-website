@@ -499,8 +499,8 @@ function validateHomepageAuthorityHubLinks() {
   const html = fs.readFileSync('index.html', 'utf8');
   const requiredAnchors = [
     { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles POS AI phone agent' },
-    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu POS AI phone agent' },
-    { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chinese restaurant Chowbus phone orders' },
+    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu AI phone ordering' },
+    { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chowbus POS AI phone agent' },
     { href: '/pos/mealkeyway-ai-phone-ordering/', text: 'Mealkeyway POS AI phone agent' },
     { href: '/pos/square-ai-phone-ordering/', text: 'AI phone agent Square POS' },
     { href: '/pos/toast-ai-phone-ordering/', text: 'AI phone agent Toast POS' },
@@ -510,6 +510,7 @@ function validateHomepageAuthorityHubLinks() {
     { href: '/chinese-restaurant-phone-answering-service/', text: 'Chinese restaurant phone answering service' },
     { href: '/restaurant-tech-ai-phone-ordering/', text: 'Restaurant tech AI phone ordering' },
     { href: '/restaurant-call-answering-ai/', text: 'Restaurant call answering AI' },
+    { href: '/restaurant-phone-order-automation/', text: 'Restaurant phone order automation' },
     { href: '/restaurant-pos-phone-order-integration/', text: 'Restaurant POS phone order integration' },
   ];
 
