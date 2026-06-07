@@ -806,11 +806,20 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (packageJson.scripts?.['search:watchlist'] !== 'node scripts/export-first-page-ranking-watchlist.js') {
     errors.push('package.json: missing search:watchlist script');
   }
+  if (packageJson.scripts?.['search:watchlist:update'] !== 'node scripts/update-first-page-ranking-watchlist.js') {
+    errors.push('package.json: missing search:watchlist:update script');
+  }
+  if (packageJson.scripts?.['search:watchlist:sample'] !== 'node scripts/update-first-page-ranking-watchlist.js docs/sample-search-console-export.csv --out docs/sample-first-page-ranking-watchlist-updated.csv --checked 2026-06-07') {
+    errors.push('package.json: missing search:watchlist:sample script');
+  }
   if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
     errors.push('package.json: missing search:test script');
   }
   if (!fs.existsSync('scripts/export-first-page-ranking-watchlist.js')) {
     errors.push('scripts/export-first-page-ranking-watchlist.js: missing first-page ranking watchlist export');
+  }
+  if (!fs.existsSync('scripts/update-first-page-ranking-watchlist.js')) {
+    errors.push('scripts/update-first-page-ranking-watchlist.js: missing first-page ranking watchlist update');
   }
   if (!analyzer.includes('buildTitleMetaRewriteBriefs')) {
     errors.push('scripts/analyze-search-console.js: missing title/meta rewrite brief builder');
@@ -824,8 +833,14 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!test.includes('buildWatchlistRows') || !test.includes('MenuSifu POS AI phone agent')) {
     errors.push('scripts/test-search-console-analyzer.js: missing first-page watchlist regression coverage');
   }
+  if (!test.includes('updateWatchlistRows') || !test.includes('near_page_one')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing first-page watchlist update regression coverage');
+  }
   if (!scorecard.includes('npm run search:watchlist') || !scorecard.includes('docs/first-page-ranking-watchlist.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist workflow');
+  }
+  if (!scorecard.includes('npm run search:watchlist:update') || !scorecard.includes('docs/sample-first-page-ranking-watchlist-updated.csv')) {
+    errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist update workflow');
   }
   if (!scorecard.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/google-search-console-scorecard.md: missing Title/Meta Rewrite Briefs workflow');
@@ -833,7 +848,12 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!runbook.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Title/Meta Rewrite Briefs workflow');
   }
-  for (const file of ['docs/sample-search-console-export.csv', 'docs/sample-search-console-analysis.md', 'docs/first-page-ranking-watchlist.csv']) {
+  for (const file of [
+    'docs/sample-search-console-export.csv',
+    'docs/sample-search-console-analysis.md',
+    'docs/first-page-ranking-watchlist.csv',
+    'docs/sample-first-page-ranking-watchlist-updated.csv',
+  ]) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing Search Console sample workflow file`);
     }
@@ -851,6 +871,15 @@ function validateSearchConsoleAnalyzerWorkflow() {
     }
     if (!watchlist.includes('MenuSifu restaurant consultants') || !watchlist.includes('needs_search_console_data')) {
       errors.push('docs/first-page-ranking-watchlist.csv: missing authority target or status fields');
+    }
+  }
+  if (fs.existsSync('docs/sample-first-page-ranking-watchlist-updated.csv')) {
+    const updatedWatchlist = fs.readFileSync('docs/sample-first-page-ranking-watchlist-updated.csv', 'utf8');
+    if (!updatedWatchlist.includes('near_page_one') || !updatedWatchlist.includes('page_one')) {
+      errors.push('docs/sample-first-page-ranking-watchlist-updated.csv: missing sample ranking statuses');
+    }
+    if (!updatedWatchlist.includes('2026-06-07')) {
+      errors.push('docs/sample-first-page-ranking-watchlist-updated.csv: missing checked date');
     }
   }
   const snippetExpectations = [

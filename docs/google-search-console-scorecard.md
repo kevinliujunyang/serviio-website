@@ -24,6 +24,20 @@ npm run search:watchlist
 
 This writes `docs/first-page-ranking-watchlist.csv` from the priority queries below. Fill in current Search Console position, clicks, impressions, CTR, and last checked date each week. The watchlist maps every target query to the intended landing page and authority target, so "first page" remains measurable instead of becoming a vague SEO task.
 
+After exporting fresh query/page data from Search Console, update the watchlist with:
+
+```bash
+npm run search:watchlist:update -- path/to/search-console-export.csv --checked YYYY-MM-DD
+```
+
+Preview the update workflow with sample data:
+
+```bash
+npm run search:watchlist:sample
+```
+
+This writes `docs/sample-first-page-ranking-watchlist-updated.csv` and marks rows as `page_one`, `near_page_one`, `needs_authority_or_relevance`, `ranking_on_other_page`, or `no_search_console_data`.
+
 Preview the analyzer without live Search Console data:
 
 ```bash

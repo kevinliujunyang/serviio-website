@@ -17,6 +17,11 @@ const {
   targetPageFor: rankingWatchlistTargetPageFor,
   toCsv: rankingWatchlistToCsv,
 } = require('./export-first-page-ranking-watchlist');
+const {
+  parseArgs: parseRankingWatchlistUpdateArgs,
+  renderSummary: renderRankingWatchlistUpdateSummary,
+  updateWatchlistRows,
+} = require('./update-first-page-ranking-watchlist');
 
 const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "MenuSifu AI phone ordering","https://serviio.ai/pos/menusifu-ai-phone-ordering/",1,42,1.2%,12.4
@@ -110,5 +115,31 @@ assert.deepStrictEqual(parseRankingWatchlistArgs(['--out', 'docs/watchlist.csv']
   out: 'docs/watchlist.csv',
   help: false,
 });
+
+const updatedWatchlistRows = updateWatchlistRows(watchlistRows, sampleRows, { checked: '2026-06-07' });
+const menusifuWatchRow = updatedWatchlistRows.find((row) => row.query === 'menusifu ai phone ordering');
+assert.ok(menusifuWatchRow);
+assert.strictEqual(menusifuWatchRow.current_position, '12.4');
+assert.strictEqual(menusifuWatchRow.current_clicks, '1');
+assert.strictEqual(menusifuWatchRow.current_impressions, '42');
+assert.strictEqual(menusifuWatchRow.current_ctr, '2.4%');
+assert.strictEqual(menusifuWatchRow.status, 'near_page_one');
+assert.strictEqual(menusifuWatchRow.last_checked, '2026-06-07');
+const chineseAiWatchRow = updatedWatchlistRows.find((row) => row.query === 'chinese restaurant ai phone ordering');
+assert.strictEqual(chineseAiWatchRow.status, 'page_one');
+const noDataWatchRow = updatedWatchlistRows.find((row) => row.query === 'MenuSifu POS AI phone agent');
+assert.strictEqual(noDataWatchRow.status, 'no_search_console_data');
+assert.match(renderRankingWatchlistUpdateSummary(updatedWatchlistRows), /Page-one rows:/);
+assert.deepStrictEqual(parseRankingWatchlistUpdateArgs(['gsc.csv', '--watchlist', 'watch.csv', '--out', 'updated.csv', '--checked', '2026-06-07']), {
+  input: 'gsc.csv',
+  watchlist: 'watch.csv',
+  out: 'updated.csv',
+  checked: '2026-06-07',
+  help: false,
+});
+assert.throws(() => parseRankingWatchlistUpdateArgs(['gsc.csv', '--checked', '06-07-2026']), /--checked must use YYYY-MM-DD/);
+const sampleUpdatedWatchlist = fs.readFileSync('docs/sample-first-page-ranking-watchlist-updated.csv', 'utf8');
+assert.match(sampleUpdatedWatchlist, /near_page_one/);
+assert.match(sampleUpdatedWatchlist, /page_one/);
 
 console.log('Search Console analyzer tests passed');

@@ -27,6 +27,8 @@
     "search:analyze": "node scripts/analyze-search-console.js",
     "search:sample": "node scripts/analyze-search-console.js docs/sample-search-console-export.csv --out docs/sample-search-console-analysis.md",
     "search:watchlist": "node scripts/export-first-page-ranking-watchlist.js",
+    "search:watchlist:update": "node scripts/update-first-page-ranking-watchlist.js",
+    "search:watchlist:sample": "node scripts/update-first-page-ranking-watchlist.js docs/sample-search-console-export.csv --out docs/sample-first-page-ranking-watchlist-updated.csv --checked 2026-06-07",
     "search:test": "node scripts/test-search-console-analyzer.js",
     "seo:coverage": "node scripts/audit-keyword-coverage.js",
     "seo:authority": "node scripts/audit-seo-authority.js",
