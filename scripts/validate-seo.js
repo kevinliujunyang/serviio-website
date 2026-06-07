@@ -875,6 +875,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:demo-queue'] !== 'node scripts/export-serviio-demo-leads.js') {
     errors.push('package.json: missing leads:demo-queue script');
   }
+  if (packageJson.scripts?.['leads:customer-proof'] !== 'node scripts/export-customer-proof-followups.js') {
+    errors.push('package.json: missing leads:customer-proof script');
+  }
   if (packageJson.scripts?.['leads:sample:score'] !== 'node scripts/score-formspree-leads.js docs/sample-formspree-leads.csv --out docs/sample-scored-leads.csv') {
     errors.push('package.json: missing leads:sample:score script');
   }
@@ -884,8 +887,14 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:sample:pos-partners'] !== 'node scripts/export-pos-partner-leads.js docs/sample-formspree-leads.csv --out docs/sample-pos-partner-leads.csv') {
     errors.push('package.json: missing leads:sample:pos-partners script');
   }
+  if (packageJson.scripts?.['leads:sample:customer-proof'] !== 'node scripts/export-customer-proof-followups.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-followups.csv') {
+    errors.push('package.json: missing leads:sample:customer-proof script');
+  }
   if (!fs.existsSync('scripts/export-serviio-demo-leads.js')) {
     errors.push('scripts/export-serviio-demo-leads.js: missing Serviio demo queue export');
+  }
+  if (!fs.existsSync('scripts/export-customer-proof-followups.js')) {
+    errors.push('scripts/export-customer-proof-followups.js: missing customer proof follow-up export');
   }
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
@@ -910,14 +919,21 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('buildDemoQueueRows') || !test.includes('export-serviio-demo-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing Serviio demo queue export coverage');
   }
+  if (!test.includes('buildCustomerProofRows') || !test.includes('export-customer-proof-followups')) {
+    errors.push('scripts/test-lead-scoring.js: missing customer proof follow-up export coverage');
+  }
   if (!runbook.includes('npm run leads:demo-queue')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Serviio demo queue workflow');
+  }
+  if (!runbook.includes('npm run leads:customer-proof') || !runbook.includes('authority_tracker_target=Pilot restaurant testimonial')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof lead workflow');
   }
   for (const file of [
     'docs/sample-formspree-leads.csv',
     'docs/sample-scored-leads.csv',
     'docs/sample-demo-leads.csv',
     'docs/sample-pos-partner-leads.csv',
+    'docs/sample-customer-proof-followups.csv',
   ]) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing lead scoring sample workflow file`);

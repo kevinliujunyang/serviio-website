@@ -146,12 +146,21 @@ npm run leads:pos-partners -- path/to/formspree-export.csv --out pos-partner-lea
 
 This writes a smaller partner-handoff CSV with contact fields, POS recommendation interest, phone-order volume, pain, `partner_next_action`, and `handoff_summary`. Use it for POS partner conversations or referral resale. Do not mix this file into the immediate Serviio demo queue because these restaurants are marked `serviio_fit_status=deprioritized_until_pos_ready`.
 
+To export POS-ready demo leads that should later be asked for customer proof:
+
+```bash
+npm run leads:customer-proof -- path/to/formspree-export.csv --out customer-proof-followups.csv
+```
+
+This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `authority_tracker_target=Pilot restaurant testimonial`, and `authority_tracker_note` so customer proof can become evidence in the authority tracker.
+
 For a quick count without writing a scored CSV:
 
 ```bash
 npm run leads:score -- path/to/formspree-export.csv --summary-only
 npm run leads:demo-queue -- path/to/formspree-export.csv --summary-only
 npm run leads:pos-partners -- path/to/formspree-export.csv --summary-only
+npm run leads:customer-proof -- path/to/formspree-export.csv --summary-only
 ```
 
 Before processing a new export format, run the scorer regression check:
@@ -166,9 +175,10 @@ To preview the complete routing workflow without real Formspree data, regenerate
 npm run leads:sample:score
 npm run leads:sample:demo
 npm run leads:sample:pos-partners
+npm run leads:sample:customer-proof
 ```
 
-The fixture at `docs/sample-formspree-leads.csv` includes POS-ready demo leads, no-POS POS-referral leads, and a partner/referral inquiry. The generated sample CSVs make it easy to verify that the split is working before processing live leads.
+The fixture at `docs/sample-formspree-leads.csv` includes POS-ready demo leads, no-POS POS-referral leads, and a partner/referral inquiry. The generated sample CSVs make it easy to verify that the split is working before processing live leads, including customer-proof follow-ups for POS-ready demo leads.
 
 Call high-priority leads first. The script writes routing, fit, and contact columns before the original Formspree columns:
 - `lead_priority`
@@ -202,6 +212,8 @@ Use `buyer_profile` as the quick outreach summary. It combines POS readiness, ph
 Use `pain_signal` and `urgent_pain_signal` to spot owners with immediate operational pain. Urgent pain includes missed calls, rush-hour call overload, manual POS re-entry, or after-hours calls. These leads can outrank similar-volume leads because the business problem is clearer.
 
 Use `partner_inquiry` to separate POS consultants, restaurant technology partners, website agencies, and referral partners from ordinary restaurant-owner leads. Partner-page submissions should go to partnership follow-up first, not the restaurant demo queue.
+
+Use the customer proof follow-up export after a lead has a real demo, pilot, or successful setup. Do not count proof as authority until the customer submits permission or a testimonial. Once proof is usable, update the `Pilot restaurant testimonial` row in `docs/free-search-marketing-tracker.csv` with `status=submitted` or `status=live`, the evidence note, and the live proof URL if one exists.
 
 Use `monetization_route` to split follow-up:
 - `serviio_demo`: POS-ready restaurant lead. Keep this in Serviio's demo pipeline first.

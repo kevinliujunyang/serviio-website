@@ -11,6 +11,11 @@ const {
   toCsv: demoQueueToCsv,
 } = require('./export-serviio-demo-leads');
 const {
+  buildCustomerProofRows,
+  parseArgs: parseCustomerProofExportArgs,
+  toCsv: customerProofToCsv,
+} = require('./export-customer-proof-followups');
+const {
   classifyPainSignal,
   classifyPhoneVolume,
   classifyPosPurchaseTimeline,
@@ -388,6 +393,32 @@ assert.match(demoQueueCsv, /demo_priority,lead_priority,lead_route,restaurant_na
 assert.match(demoQueueCsv, /call_now,high,call_now,Golden Dragon Chinese Restaurant/);
 assert.doesNotMatch(demoQueueCsv, /New Noodle Shop/);
 assert.doesNotMatch(demoQueueCsv, /Restaurant Tech Partner/);
+
+const customerProofRows = buildCustomerProofRows([
+  highPriority,
+  localPosFitDemo,
+  namedPosOfferDemo,
+  noPosReferral,
+  partnerInquiry,
+  ambiguousPos,
+]);
+assert.deepStrictEqual(customerProofRows.map((row) => row.restaurant_name), [
+  'Golden Dragon Chinese Restaurant',
+  'Boston Wok',
+  'POS Offer Bistro',
+]);
+assert.strictEqual(customerProofRows[0].proof_priority, 'P0');
+assert.strictEqual(customerProofRows[1].proof_priority, 'P1');
+assert.strictEqual(customerProofRows[0].proof_request_url, 'https://serviio.ai/customer-proof-request/');
+assert.strictEqual(customerProofRows[0].authority_tracker_target, 'Pilot restaurant testimonial');
+assert.match(customerProofRows[0].proof_angle, /San Jose, CA/);
+assert.match(customerProofRows[0].proof_angle, /MenuSifu/);
+assert.match(customerProofRows[0].suggested_message, /customer-proof-request/);
+assert.match(customerProofRows[0].authority_tracker_note, /Golden Dragon Chinese Restaurant/);
+const customerProofCsv = customerProofToCsv(customerProofRows);
+assert.match(customerProofCsv, /proof_priority,restaurant_name,restaurant_city/);
+assert.match(customerProofCsv, /Pilot restaurant testimonial/);
+assert.doesNotMatch(customerProofCsv, /New Noodle Shop/);
 assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
   input: 'formspree.csv',
   out: 'demo-leads.csv',
@@ -408,6 +439,16 @@ assert.deepStrictEqual(parsePosPartnerExportArgs(['formspree.csv', '--summary-on
   out: '',
   summaryOnly: true,
 });
+assert.deepStrictEqual(parseCustomerProofExportArgs(['formspree.csv', '--out', 'proof.csv']), {
+  input: 'formspree.csv',
+  out: 'proof.csv',
+  summaryOnly: false,
+});
+assert.deepStrictEqual(parseCustomerProofExportArgs(['formspree.csv', '--summary-only']), {
+  input: 'formspree.csv',
+  out: '',
+  summaryOnly: true,
+});
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
@@ -420,10 +461,15 @@ assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.re
   'New Noodle Shop',
   'Fast POS Dumpling',
 ]);
+assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row.restaurant_name), [
+  'Golden Dragon Chinese Restaurant',
+  'Boston Wok',
+]);
 assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
 assert.match(summarize(sampleScoredRows), /Serviio demo|Lead scoring summary/);
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
 assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('call_script'));
 assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes('handoff_summary'));
+assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('proof_request_url'));
 
 console.log('Lead scoring tests passed');
