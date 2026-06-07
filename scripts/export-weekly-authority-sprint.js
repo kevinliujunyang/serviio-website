@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { authorityScore, nextMilestones } = require('./audit-seo-authority');
 const { buildGtmQueueRows } = require('./export-free-search-gtm-queue');
-const { opportunityScore, parseCsv } = require('./print-free-search-submission-packets');
+const { opportunityScore, packetFor, parseCsv } = require('./print-free-search-submission-packets');
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/weekly-authority-sprint.md';
@@ -67,6 +67,27 @@ function gap(current, target) {
   return Math.max(0, target - current);
 }
 
+function addDaysIso(date, days) {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  parsed.setUTCDate(parsed.getUTCDate() + days);
+  return parsed.toISOString().slice(0, 10);
+}
+
+function quoteShell(text) {
+  return `"${String(text).replace(/"/g, '\\"')}"`;
+}
+
+function trackerCommand(row, today, followUpDate) {
+  return `npm run marketing:mark -- --target ${quoteShell(row.target)} --status submitted --date ${today} --note "Submitted/contacted; add confirmation URL and account used. Follow up: ${followUpDate}."`;
+}
+
+function trackerRowFromQueueRow(row) {
+  return {
+    ...row,
+    url: row.contact_url || row.url,
+  };
+}
+
 function actionRows(rows, args) {
   return buildGtmQueueRows(rows, {
     today: args.today,
@@ -93,6 +114,47 @@ function renderActionTable(rows) {
   return lines;
 }
 
+function renderSubmissionPayloads(rows, today) {
+  const followUpDate = addDaysIso(today, 7);
+  const lines = [
+    '## Submission Payloads',
+    '',
+    'Use these payloads during the manual submission block. Keep `action_status` blank until the external action is actually submitted or published.',
+    '',
+  ];
+
+  rows.forEach((row, index) => {
+    const trackerRow = trackerRowFromQueueRow(row);
+    const packet = packetFor(trackerRow);
+    const score = row.opportunity_score || opportunityScore(row).score;
+    lines.push(
+      `### ${index + 1}. ${row.target}`,
+      '',
+      `- Score: ${score}/100`,
+      `- Channel: ${row.channel}`,
+      `- Contact URL: ${trackerRow.url}`,
+      `- Clean URL: ${row.landing_url}`,
+      `- UTM URL: ${row.utm_url}`,
+      `- Anchor/listing phrase: ${row.anchor_or_listing_phrase}`,
+      `- Subject: ${packet.subject || packet.title}`,
+      `- Follow-up date: ${followUpDate}`,
+      '',
+      'Copy:',
+      '',
+      packet.longDescription,
+      ''
+    );
+
+    if (packet.followUp) {
+      lines.push('Follow-up copy:', '', packet.followUp, '');
+    }
+
+    lines.push('Tracker command after real submission:', '', '```bash', trackerCommand(row, today, followUpDate), '```', '');
+  });
+
+  return lines;
+}
+
 function buildWeeklyAuthoritySprint(rows, args = {}) {
   const options = {
     today: todayIso(),
@@ -106,6 +168,7 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
   const submittedGap = gap(summary.submittedRows.length, options.submissionTarget);
   const liveGap = gap(summary.liveRows.length, options.liveTarget);
   const highFitGap = gap(summary.highFitStartedRows.length, options.highFitTarget);
+  const executionRows = queueRows.slice(0, options.submissionTarget);
 
   const lines = [
     '# Serviio Weekly Authority Sprint',
@@ -136,7 +199,9 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
     '',
     '## Execution Queue',
     '',
-    ...renderActionTable(queueRows.slice(0, options.submissionTarget)),
+    ...renderActionTable(executionRows),
+    '',
+    ...renderSubmissionPayloads(executionRows.filter((row) => row.action_type === 'submit_or_contact'), options.today),
     '',
     '## Evidence Rules',
     '',
