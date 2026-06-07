@@ -365,19 +365,23 @@ const submissionLogActions = buildSubmissionLogSyncActions(parseCsv(`action_stat
 submitted,P1,POS-specific outreach,MenuSifu restaurant consultants,100,,https://forms.menusifu.com/pages/demo-request,https://serviio.ai/pos/menusifu-ai-phone-ordering/,,,,,,,info@serviio.ai,Submitted MenuSifu partner form.,2026-06-06,,2026-06-13,
 live,P1,Restaurant technology directory,Restaurant POS directory,96,,https://directory.example.com,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,,,,,,https://directory.example.com/serviio,info@serviio.ai,Live vendor listing.,2026-06-06,2026-06-07,,
 submitted,P1,AI directory,Incomplete Directory,80,,https://ai.example.com,https://serviio.ai/restaurant-ai-phone-order-taker/,,,,,,,,,,,
+submitted,P1,AI directory,Missing Follow Up,80,,https://ai.example.com,https://serviio.ai/restaurant-ai-phone-order-taker/,,,,,,,info@serviio.ai,Submitted directory form.,2026-06-06,,,
 `), { today: '2026-06-10' });
-assert.strictEqual(submissionLogActions.length, 3);
-assert.deepStrictEqual(submissionLogActions.map((action) => action.issues.length), [0, 0, 2]);
+assert.strictEqual(submissionLogActions.length, 4);
+assert.deepStrictEqual(submissionLogActions.map((action) => action.issues.length), [0, 0, 3, 1]);
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Valid Updates/);
-assert.match(renderSubmissionSyncReport(submissionLogActions), /Incomplete Directory: missing submitted_date, missing confirmation evidence/);
+assert.match(renderSubmissionSyncReport(submissionLogActions), /Incomplete Directory: missing submitted_date, missing confirmation evidence, missing follow_up_date/);
+assert.match(renderSubmissionSyncReport(submissionLogActions), /Missing Follow Up: missing follow_up_date/);
 const syncedTracker = applySubmissionLogActions(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,not_started,,,,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Need listing.
 P1,AI directory,Incomplete Directory,https://ai.example.com,not_started,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Need submission.
+P1,AI directory,Missing Follow Up,https://ai.example.com,not_started,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Need submission.
 `, submissionLogActions);
 assert.match(syncedTracker, /MenuSifu restaurant consultants,https:\/\/forms\.menusifu\.com\/pages\/demo-request,submitted,Serviio,2026-06-06/);
 assert.match(syncedTracker, /Restaurant POS directory,https:\/\/directory\.example\.com\/serviio,live,Serviio,2026-06-06,2026-06-07/);
 assert.match(syncedTracker, /Incomplete Directory,https:\/\/ai\.example\.com,not_started/);
+assert.match(syncedTracker, /Missing Follow Up,https:\/\/ai\.example\.com,not_started/);
 assert.deepStrictEqual(parseSubmissionSyncArgs(['--apply', '--today', '2026-06-10', '--log', 'log.csv', '--tracker', 'tracker.csv', '--out', 'out.csv']), {
   log: 'log.csv',
   tracker: 'tracker.csv',

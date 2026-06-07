@@ -69,6 +69,10 @@ function rowIssues(row) {
     }
   }
 
+  if (['submitted', 'follow-up needed'].includes(status) && !row.follow_up_date) {
+    issues.push('missing follow_up_date');
+  }
+
   if (status === 'live') {
     if (!row.live_date) issues.push('missing live_date');
     if (!hasHttpUrl(row.evidence_url)) issues.push('missing evidence_url for live URL');
