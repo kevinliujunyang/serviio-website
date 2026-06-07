@@ -679,6 +679,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:submission-sync'] !== 'node scripts/sync-authority-submission-log.js') {
     errors.push('package.json: missing marketing:submission-sync script');
   }
+  if (packageJson.scripts?.['marketing:authority-sprint'] !== 'node scripts/export-weekly-authority-sprint.js') {
+    errors.push('package.json: missing marketing:authority-sprint script');
+  }
   if (packageJson.scripts?.['marketing:gtm-queue:export'] !== 'node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv') {
     errors.push('package.json: missing marketing:gtm-queue:export script');
   }
@@ -700,8 +703,14 @@ function validateFreeSearchTracker() {
   if (!fs.existsSync('scripts/sync-authority-submission-log.js')) {
     errors.push('scripts/sync-authority-submission-log.js: missing authority submission log sync');
   }
+  if (!fs.existsSync('scripts/export-weekly-authority-sprint.js')) {
+    errors.push('scripts/export-weekly-authority-sprint.js: missing weekly authority sprint export');
+  }
   if (!fs.existsSync('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-gtm-queue.csv: missing exported GTM execution queue');
+  }
+  if (!fs.existsSync('docs/weekly-authority-sprint.md')) {
+    errors.push('docs/weekly-authority-sprint.md: missing weekly authority sprint scorecard');
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
@@ -722,6 +731,9 @@ function validateFreeSearchTracker() {
   if (!checklist.includes('npm run marketing:submission-sync') || !checklist.includes('action_status=submitted')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-sync workflow');
   }
+  if (!checklist.includes('npm run marketing:authority-sprint') || !checklist.includes('docs/weekly-authority-sprint.md')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing weekly authority sprint workflow');
+  }
   if (!checklist.includes('npm run marketing:gtm-queue:export') || !checklist.includes('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing checked-in GTM queue workflow');
   }
@@ -741,6 +753,15 @@ function validateFreeSearchTracker() {
     const gtmQueue = fs.readFileSync('docs/free-search-gtm-queue.csv', 'utf8');
     if (!gtmQueue.includes('tracker_command') || !gtmQueue.includes('--date ')) {
       errors.push('docs/free-search-gtm-queue.csv: missing dated tracker commands');
+    }
+  }
+  if (fs.existsSync('docs/weekly-authority-sprint.md')) {
+    const authoritySprint = fs.readFileSync('docs/weekly-authority-sprint.md', 'utf8');
+    if (!authoritySprint.includes('Authority score:') || !authoritySprint.includes('Evidence-qualified submitted or follow-up rows: 0/15')) {
+      errors.push('docs/weekly-authority-sprint.md: missing authority score or submission target');
+    }
+    if (!authoritySprint.includes('## Execution Queue') || !authoritySprint.includes('Evidence needed')) {
+      errors.push('docs/weekly-authority-sprint.md: missing execution queue evidence requirements');
     }
   }
 

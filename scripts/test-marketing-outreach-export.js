@@ -58,6 +58,10 @@ const {
   toCsv: gtmQueueToCsv,
 } = require('./export-free-search-gtm-queue');
 const {
+  buildWeeklyAuthoritySprint,
+  parseArgs: parseWeeklyAuthoritySprintArgs,
+} = require('./export-weekly-authority-sprint');
+const {
   applyActions: applySubmissionLogActions,
   buildSyncActions: buildSubmissionLogSyncActions,
   parseArgs: parseSubmissionSyncArgs,
@@ -337,6 +341,25 @@ assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm
 });
 assert.strictEqual(parseGtmQueueArgs([]).out, 'docs/free-search-gtm-queue.csv');
 assert.throws(() => parseGtmQueueArgs(['--ready-limit', '0']), /--ready-limit must be a positive integer/);
+
+const weeklyAuthoritySprint = buildWeeklyAuthoritySprint(trackerRows, { today: '2026-06-10', submissionTarget: 15, liveTarget: 5, highFitTarget: 8 });
+assert.match(weeklyAuthoritySprint, /^# Serviio Weekly Authority Sprint/m);
+assert.match(weeklyAuthoritySprint, /Authority score: 0\/100/);
+assert.match(weeklyAuthoritySprint, /15 more evidence-qualified submissions or partner contacts/);
+assert.match(weeklyAuthoritySprint, /5 live listings, backlinks, business profiles, or published resource links/);
+assert.match(weeklyAuthoritySprint, /High-fit partner\/POS\/association rows started: 0\/8/);
+assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channel \| Evidence needed \|/);
+assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
+assert.match(weeklyAuthoritySprint, /npm run marketing:submission-sync/);
+assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
+  out: 'docs/sprint.md',
+  today: '2026-06-10',
+  submissionTarget: 12,
+  liveTarget: 4,
+  highFitTarget: 6,
+  help: false,
+});
+assert.throws(() => parseWeeklyAuthoritySprintArgs(['--live-target', '0']), /--live-target must be a positive integer/);
 
 const submissionLogActions = buildSubmissionLogSyncActions(parseCsv(`action_status,priority,channel,target,opportunity_score,opportunity_reasons,submission_url,clean_url,utm_url,anchor_or_listing_phrase,title_or_subject,tagline,message_or_listing_copy,evidence_url,account_or_login,confirmation_note,submitted_date,live_date,follow_up_date,tracker_command
 submitted,P1,POS-specific outreach,MenuSifu restaurant consultants,100,,https://forms.menusifu.com/pages/demo-request,https://serviio.ai/pos/menusifu-ai-phone-ordering/,,,,,,,info@serviio.ai,Submitted MenuSifu partner form.,2026-06-06,,2026-06-13,

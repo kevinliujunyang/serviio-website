@@ -66,6 +66,14 @@ npm run seo:authority
 
 The authority audit is the progress score for backlinks, profiles, partner referrals, and customer proof. Use it to decide whether the next session should focus on submissions, follow-ups, or getting live proof links.
 
+Generate the weekly authority sprint scorecard before each manual outreach block:
+
+```bash
+npm run marketing:authority-sprint
+```
+
+This writes `docs/weekly-authority-sprint.md` with the current authority score, the exact gap to 15 submitted/contacted authority targets, 5 live authority links or profiles, 8 high-fit POS/partner starts, and the evidence fields needed after each external action.
+
 For the customer-proof milestone, send early pilots or customers to:
 
 ```text
