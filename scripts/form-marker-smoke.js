@@ -2,15 +2,16 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_ORIGIN = 'https://serviio.ai';
-const requiredMarkers = [
-  'name="restaurant_city"',
-  'name="restaurant_state"',
-  'name="pos_system"',
-  'name="phone_orders_per_week"',
-  'name="main_pain"',
-  'name="pos_recommendation_interest"',
-  'name="pos_purchase_timeline"',
+const requiredMarkerGroups = [
+  ['name="restaurant_city"'],
+  ['name="restaurant_state"'],
+  ['name="pos_system"', 'name="pos_status"'],
+  ['name="phone_orders_per_week"'],
+  ['name="main_pain"'],
+  ['name="pos_recommendation_interest"'],
+  ['name="pos_purchase_timeline"'],
 ];
+const requiredMarkers = requiredMarkerGroups.flat();
 
 const baseUrl = process.argv[2] || SITE_ORIGIN;
 
@@ -42,15 +43,15 @@ function leadFormPaths() {
   return walkHtmlPages()
     .filter((page) => {
       const html = fs.readFileSync(page, 'utf8');
-      return html.includes('<form') && requiredMarkers.every((marker) => html.includes(marker));
+      return html.includes('<form') && buildMarkerFailures(html).length === 0;
     })
     .map(pagePath);
 }
 
-function buildMarkerFailures(html, markers = requiredMarkers) {
-  return markers
-    .filter((marker) => !html.includes(marker))
-    .map((marker) => `missing ${marker}`);
+function buildMarkerFailures(html, markerGroups = requiredMarkerGroups) {
+  return markerGroups
+    .filter((markers) => !markers.some((marker) => html.includes(marker)))
+    .map((markers) => `missing ${markers.join(' or ')}`);
 }
 
 async function main() {
@@ -59,7 +60,7 @@ async function main() {
   const origin = resolveBaseUrl(baseUrl);
 
   if (paths.length === 0) {
-    console.error(`No local lead-form pages found with ${requiredMarkers.join(', ')}`);
+    console.error(`No local lead-form pages found with ${requiredMarkerGroups.map((group) => group.join(' or ')).join(', ')}`);
     process.exit(1);
   }
 
@@ -90,6 +91,7 @@ if (require.main === module) {
 module.exports = {
   buildMarkerFailures,
   leadFormPaths,
+  requiredMarkerGroups,
   requiredMarkers,
   resolveBaseUrl,
 };
