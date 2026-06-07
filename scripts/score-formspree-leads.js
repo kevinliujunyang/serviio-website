@@ -410,10 +410,10 @@ function classifyPhoneVolume(value) {
   const numbers = text.match(/\d+/g)?.map(Number) || [];
   const maxNumber = Math.max(0, ...numbers);
 
-  if (/under\s*25|less\s*than\s*25|fewer\s*than\s*25|below\s*25|0\s*-\s*24|low/i.test(text)) {
+  if (/under\s*25|less\s*than\s*25|fewer\s*than\s*25|below\s*25|0\s*-\s*24|low|少于\s*25|低于\s*25|不到\s*25/i.test(text)) {
     return 'low';
   }
-  if (/150\+|151|150\s*or\s*more|150\s*plus/i.test(text) || maxNumber >= 150) {
+  if (/150\+|151|150\s*or\s*more|150\s*plus|150\s*单?\s*以上|超过\s*150/i.test(text) || maxNumber >= 150) {
     return 'high';
   }
   if (/76\s*-\s*150|76\+|100/i.test(text) || maxNumber >= 76) {

@@ -163,7 +163,11 @@ assert.strictEqual(hasKnownPos('Considering a POS'), false);
 assert.strictEqual(hasKnownPos('I use a local POS'), true);
 assert.strictEqual(classifyPhoneVolume('Under 25'), 'low');
 assert.strictEqual(classifyPhoneVolume('Less than 25'), 'low');
+assert.strictEqual(classifyPhoneVolume('少于 25 单'), 'low');
 assert.strictEqual(classifyPhoneVolume('25-75'), 'medium');
+assert.strictEqual(classifyPhoneVolume('25-75 单'), 'medium');
+assert.strictEqual(classifyPhoneVolume('76-150 单'), 'high');
+assert.strictEqual(classifyPhoneVolume('150 单以上'), 'high');
 
 const localPosFitDemo = scoreLead({
   ...baseLead,
