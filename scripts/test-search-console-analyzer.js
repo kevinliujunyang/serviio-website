@@ -22,6 +22,12 @@ const {
   renderSummary: renderRankingWatchlistUpdateSummary,
   updateWatchlistRows,
 } = require('./update-first-page-ranking-watchlist');
+const {
+  actionType: rankingActionType,
+  buildRankingActions,
+  parseArgs: parseRankingActionArgs,
+  renderRankingActionQueue,
+} = require('./export-ranking-action-queue');
 
 const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "MenuSifu AI phone ordering","https://serviio.ai/pos/menusifu-ai-phone-ordering/",1,42,1.2%,12.4
@@ -141,5 +147,24 @@ assert.throws(() => parseRankingWatchlistUpdateArgs(['gsc.csv', '--checked', '06
 const sampleUpdatedWatchlist = fs.readFileSync('docs/sample-first-page-ranking-watchlist-updated.csv', 'utf8');
 assert.match(sampleUpdatedWatchlist, /near_page_one/);
 assert.match(sampleUpdatedWatchlist, /page_one/);
+const sampleUpdatedWatchlistRows = buildRecords(parseCsv(sampleUpdatedWatchlist));
+const rankingActions = buildRankingActions(sampleUpdatedWatchlistRows, { limit: 8 });
+assert.strictEqual(rankingActions[0].action_type, 'push_to_page_one');
+assert.match(rankingActions[0].query, /menusifu ai phone ordering|restaurant phone order automation/i);
+assert.ok(rankingActions.some((row) => row.action_type === 'ctr_rewrite' && row.query === 'chinese restaurant phone answering service'));
+assert.ok(rankingActions.some((row) => row.action_type === 'indexing_or_data_check' && row.priority === 'P0'));
+assert.strictEqual(rankingActionType({ status: 'needs_authority_or_relevance' }), 'authority_and_relevance');
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5 }), /Serviio Ranking Action Queue/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5 }), /push_to_page_one/);
+assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5']), {
+  watchlist: 'watch.csv',
+  out: 'actions.md',
+  limit: 5,
+  help: false,
+});
+assert.throws(() => parseRankingActionArgs(['--limit', '0']), /--limit must be a positive integer/);
+const sampleRankingActionQueue = fs.readFileSync('docs/sample-ranking-action-queue.md', 'utf8');
+assert.match(sampleRankingActionQueue, /Serviio Ranking Action Queue/);
+assert.match(sampleRankingActionQueue, /push_to_page_one/);
 
 console.log('Search Console analyzer tests passed');

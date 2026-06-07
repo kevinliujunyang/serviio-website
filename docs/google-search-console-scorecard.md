@@ -38,6 +38,20 @@ npm run search:watchlist:sample
 
 This writes `docs/sample-first-page-ranking-watchlist-updated.csv` and marks rows as `page_one`, `near_page_one`, `needs_authority_or_relevance`, `ranking_on_other_page`, or `no_search_console_data`.
 
+Convert the updated watchlist into a weekly action queue:
+
+```bash
+npm run search:ranking-actions -- --watchlist docs/first-page-ranking-watchlist.csv --out ranking-action-queue.md
+```
+
+Preview the action queue with sample data:
+
+```bash
+npm run search:ranking-actions:sample
+```
+
+This writes `docs/sample-ranking-action-queue.md` and prioritizes `push_to_page_one`, `ctr_rewrite`, `authority_and_relevance`, `align_target_page`, and `indexing_or_data_check` work. Use this queue before creating new SEO pages so the highest-leverage existing ranking opportunities get worked first.
+
 Preview the analyzer without live Search Console data:
 
 ```bash

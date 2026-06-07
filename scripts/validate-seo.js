@@ -812,6 +812,12 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (packageJson.scripts?.['search:watchlist:sample'] !== 'node scripts/update-first-page-ranking-watchlist.js docs/sample-search-console-export.csv --out docs/sample-first-page-ranking-watchlist-updated.csv --checked 2026-06-07') {
     errors.push('package.json: missing search:watchlist:sample script');
   }
+  if (packageJson.scripts?.['search:ranking-actions'] !== 'node scripts/export-ranking-action-queue.js') {
+    errors.push('package.json: missing search:ranking-actions script');
+  }
+  if (packageJson.scripts?.['search:ranking-actions:sample'] !== 'node scripts/export-ranking-action-queue.js --watchlist docs/sample-first-page-ranking-watchlist-updated.csv --out docs/sample-ranking-action-queue.md') {
+    errors.push('package.json: missing search:ranking-actions:sample script');
+  }
   if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
     errors.push('package.json: missing search:test script');
   }
@@ -820,6 +826,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   if (!fs.existsSync('scripts/update-first-page-ranking-watchlist.js')) {
     errors.push('scripts/update-first-page-ranking-watchlist.js: missing first-page ranking watchlist update');
+  }
+  if (!fs.existsSync('scripts/export-ranking-action-queue.js')) {
+    errors.push('scripts/export-ranking-action-queue.js: missing ranking action queue export');
   }
   if (!analyzer.includes('buildTitleMetaRewriteBriefs')) {
     errors.push('scripts/analyze-search-console.js: missing title/meta rewrite brief builder');
@@ -836,11 +845,17 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!test.includes('updateWatchlistRows') || !test.includes('near_page_one')) {
     errors.push('scripts/test-search-console-analyzer.js: missing first-page watchlist update regression coverage');
   }
+  if (!test.includes('buildRankingActions') || !test.includes('push_to_page_one')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing ranking action queue regression coverage');
+  }
   if (!scorecard.includes('npm run search:watchlist') || !scorecard.includes('docs/first-page-ranking-watchlist.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist workflow');
   }
   if (!scorecard.includes('npm run search:watchlist:update') || !scorecard.includes('docs/sample-first-page-ranking-watchlist-updated.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist update workflow');
+  }
+  if (!scorecard.includes('npm run search:ranking-actions') || !scorecard.includes('docs/sample-ranking-action-queue.md')) {
+    errors.push('docs/google-search-console-scorecard.md: missing ranking action queue workflow');
   }
   if (!scorecard.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/google-search-console-scorecard.md: missing Title/Meta Rewrite Briefs workflow');
@@ -853,6 +868,7 @@ function validateSearchConsoleAnalyzerWorkflow() {
     'docs/sample-search-console-analysis.md',
     'docs/first-page-ranking-watchlist.csv',
     'docs/sample-first-page-ranking-watchlist-updated.csv',
+    'docs/sample-ranking-action-queue.md',
   ]) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing Search Console sample workflow file`);
@@ -880,6 +896,15 @@ function validateSearchConsoleAnalyzerWorkflow() {
     }
     if (!updatedWatchlist.includes('2026-06-07')) {
       errors.push('docs/sample-first-page-ranking-watchlist-updated.csv: missing checked date');
+    }
+  }
+  if (fs.existsSync('docs/sample-ranking-action-queue.md')) {
+    const rankingQueue = fs.readFileSync('docs/sample-ranking-action-queue.md', 'utf8');
+    if (!rankingQueue.includes('Serviio Ranking Action Queue') || !rankingQueue.includes('push_to_page_one')) {
+      errors.push('docs/sample-ranking-action-queue.md: missing ranking action queue rows');
+    }
+    if (!rankingQueue.includes('MenuSifu restaurant consultants')) {
+      errors.push('docs/sample-ranking-action-queue.md: missing authority-targeted action');
     }
   }
   const snippetExpectations = [
