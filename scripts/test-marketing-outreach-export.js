@@ -67,6 +67,9 @@ const {
   parseArgs: parseSubmissionSyncArgs,
   renderReport: renderSubmissionSyncReport,
 } = require('./sync-authority-submission-log');
+const {
+  parseArgs: parseTrackerGeneratorArgs,
+} = require('./generate-free-search-tracker');
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -391,5 +394,14 @@ assert.deepStrictEqual(parseSubmissionSyncArgs(['--apply', '--today', '2026-06-1
   help: false,
 });
 assert.strictEqual(parseSubmissionSyncArgs([]).log, 'docs/authority-submission-log.csv');
+assert.deepStrictEqual(parseTrackerGeneratorArgs(['--out', '/tmp/tracker.csv']), {
+  out: '/tmp/tracker.csv',
+  help: false,
+});
+assert.deepStrictEqual(parseTrackerGeneratorArgs([]), {
+  out: 'docs/free-search-marketing-tracker.csv',
+  help: false,
+});
+assert.throws(() => parseTrackerGeneratorArgs(['--bad']), /Unexpected argument/);
 
 console.log('Marketing outreach export tests passed');

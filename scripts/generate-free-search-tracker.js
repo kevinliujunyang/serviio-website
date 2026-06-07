@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const DEFAULT_OUT = 'docs/free-search-marketing-tracker.csv';
+
 const rows = [
   {
     priority: 'P0',
@@ -652,23 +654,64 @@ function csvEscape(value) {
   return stringValue;
 }
 
-const csv = [
-  headers.join(','),
-  ...rows.map((row) => [
-    row.priority,
-    row.channel,
-    row.target,
-    row.url,
-    row.status,
-    row.owner,
-    row.dateSubmitted,
-    row.dateLive,
-    absoluteUrl(row.landingPath),
-    utmUrl(row),
-    row.anchor,
-    row.notes,
-  ].map(csvEscape).join(',')),
-].join('\n');
+function parseArgs(argv) {
+  const args = {
+    out: DEFAULT_OUT,
+    help: false,
+  };
 
-fs.writeFileSync('docs/free-search-marketing-tracker.csv', `${csv}\n`);
-console.log(`Wrote ${rows.length} rows to docs/free-search-marketing-tracker.csv`);
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (arg === '--help' || arg === '-h') {
+      args.help = true;
+    } else if (arg === '--out') {
+      args.out = argv[index + 1] || DEFAULT_OUT;
+      index += 1;
+    } else {
+      throw new Error(`Unexpected argument: ${arg}`);
+    }
+  }
+
+  return args;
+}
+
+function buildCsv() {
+  return [
+    headers.join(','),
+    ...rows.map((row) => [
+      row.priority,
+      row.channel,
+      row.target,
+      row.url,
+      row.status,
+      row.owner,
+      row.dateSubmitted,
+      row.dateLive,
+      absoluteUrl(row.landingPath),
+      utmUrl(row),
+      row.anchor,
+      row.notes,
+    ].map(csvEscape).join(',')),
+  ].join('\n');
+}
+
+function main() {
+  const args = parseArgs(process.argv.slice(2));
+  if (args.help) {
+    console.log('Usage: node scripts/generate-free-search-tracker.js [--out docs/free-search-marketing-tracker.csv]');
+    return;
+  }
+
+  fs.writeFileSync(args.out, `${buildCsv()}\n`);
+  console.log(`Wrote ${rows.length} rows to ${args.out}`);
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  buildCsv,
+  parseArgs,
+  rows,
+};
