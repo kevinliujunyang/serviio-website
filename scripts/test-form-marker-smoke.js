@@ -1,4 +1,5 @@
 const assert = require('assert');
+const fs = require('fs');
 const {
   buildMarkerFailures,
   requiredMarkerGroups,
@@ -42,5 +43,16 @@ assert.ok(requiredMarkers.includes('name="phone_orders_per_week"'));
 assert.ok(requiredMarkers.includes('name="pos_recommendation_interest"'));
 assert.strictEqual(resolveBaseUrl('https://serviio.ai/'), 'https://serviio.ai');
 assert.strictEqual(resolveBaseUrl(), 'https://serviio.ai');
+
+const attributionScript = fs.readFileSync('assets/js/form-attribution.js', 'utf8');
+for (const snippet of [
+  'pos_readiness_signal',
+  'lead_route_hint',
+  'monetization_route_hint',
+  'pos_referral_candidate',
+  'serviio_demo',
+]) {
+  assert.ok(attributionScript.includes(snippet), `form-attribution.js missing ${snippet}`);
+}
 
 console.log('Form marker smoke tests passed');

@@ -590,6 +590,11 @@ function validateAttributionScript() {
     'utm_campaign',
     'gclid',
     'msclkid',
+    'pos_readiness_signal',
+    'lead_route_hint',
+    'monetization_route_hint',
+    'pos_referral_candidate',
+    'serviio_demo',
   ];
   for (const snippet of requiredSnippets) {
     if (!js.includes(snippet)) errors.push(`${file}: missing ${snippet}`);

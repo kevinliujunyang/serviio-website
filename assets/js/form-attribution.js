@@ -80,9 +80,53 @@
     if (!field.value) field.value = value;
   }
 
+  function fieldValue(form, name) {
+    var field = form.querySelector('[name="' + name + '"]');
+    return field ? String(field.value || field.getAttribute('value') || '').trim() : '';
+  }
+
+  function classifyPosReadiness(posSystem, posRecommendationInterest) {
+    var pos = String(posSystem || '').toLowerCase();
+    var recommendation = String(posRecommendationInterest || '').toLowerCase();
+    var noPos = /no pos|none|without pos|暂时没有|没有 pos/.test(pos);
+    var wantsPos = /yes|recommend|希望|需要/.test(recommendation);
+
+    if (noPos && wantsPos) return 'pos_referral_candidate';
+    if (noPos) return 'no_pos_nurture';
+    if (pos) return 'pos_ready';
+    return 'unknown_pos_status';
+  }
+
+  function leadRouteHint(posReadiness) {
+    if (posReadiness === 'pos_ready') return 'serviio_demo';
+    if (posReadiness === 'pos_referral_candidate') return 'pos_partner_referral';
+    if (posReadiness === 'no_pos_nurture') return 'nurture_no_pos';
+    return 'manual_review';
+  }
+
+  function monetizationRouteHint(posReadiness) {
+    if (posReadiness === 'pos_ready') return 'serviio_demo';
+    if (posReadiness === 'pos_referral_candidate') return 'pos_partner_referral';
+    return 'unknown';
+  }
+
+  function enrichPosReadiness(form) {
+    var posSystem = fieldValue(form, 'pos_system') || fieldValue(form, 'pos_status');
+    var posRecommendationInterest = fieldValue(form, 'pos_recommendation_interest');
+    var posReadiness = classifyPosReadiness(posSystem, posRecommendationInterest);
+
+    ensureHiddenField(form, 'pos_readiness_signal', posReadiness);
+    ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness));
+    ensureHiddenField(form, 'monetization_route_hint', monetizationRouteHint(posReadiness));
+  }
+
   document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
     Object.keys(attributionFields).forEach(function (name) {
       ensureHiddenField(form, name, attributionFields[name]);
+    });
+    enrichPosReadiness(form);
+    form.addEventListener('submit', function () {
+      enrichPosReadiness(form);
     });
   });
 })();
