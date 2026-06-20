@@ -32,21 +32,21 @@ Goal: move Serviio from technically SEO-ready to ranking-authority-ready for Chi
 
 | # | Action | Score | Target | Channel | Evidence needed |
 | --- | --- | ---: | --- | --- | --- |
-| 1 | submit_or_contact | 100 | Chinese restaurant POS consultants | Partner outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 2 | submit_or_contact | 100 | 39 Miles restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 3 | submit_or_contact | 100 | Chowbus restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 4 | submit_or_contact | 100 | Mealkeyway restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 5 | submit_or_contact | 100 | MenuSifu restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 6 | submit_or_contact | 96 | Restaurant POS and automation directories | Restaurant technology directory | Confirmation note, account/login, submitted date, and follow-up date |
-| 7 | submit_or_contact | 92 | Bing Webmaster Tools sitemap | Webmaster tool | Confirmation note, account/login, submitted date, and follow-up date |
-| 8 | submit_or_contact | 88 | POS consultants | Partner outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 9 | submit_or_contact | 88 | Restaurant website agencies | Partner outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 10 | submit_or_contact | 88 | Clover restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 11 | submit_or_contact | 88 | Square restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 12 | submit_or_contact | 88 | Toast restaurant consultants | POS-specific outreach | Confirmation note, account/login, submitted date, and follow-up date |
-| 13 | submit_or_contact | 84 | AI phone-order directories | AI directory | Confirmation note, account/login, submitted date, and follow-up date |
-| 14 | submit_or_contact | 84 | The Next AI | AI directory | Confirmation note, account/login, submitted date, and follow-up date |
-| 15 | submit_or_contact | 84 | US-China Restaurant Alliance | Chinese business association | Confirmation note, account/login, submitted date, and follow-up date |
+| 1 | submit_or_contact | 100 | Chinese restaurant POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 2 | submit_or_contact | 100 | 39 Miles restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 3 | submit_or_contact | 100 | Chowbus restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 4 | submit_or_contact | 100 | Mealkeyway restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 5 | submit_or_contact | 100 | MenuSifu restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 6 | submit_or_contact | 96 | Restaurant POS and automation directories | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
+| 7 | submit_or_contact | 92 | Bing Webmaster Tools sitemap | Webmaster tool | Confirmation URL, live link, reply, screenshot, or sent-message URL. |
+| 8 | submit_or_contact | 88 | POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 9 | submit_or_contact | 88 | Restaurant website agencies | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 10 | submit_or_contact | 88 | Clover restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 11 | submit_or_contact | 88 | Square restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 12 | submit_or_contact | 88 | Toast restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 13 | submit_or_contact | 84 | AI phone-order directories | AI directory | Submission confirmation URL or live directory listing URL. |
+| 14 | submit_or_contact | 84 | The Next AI | AI directory | Submission confirmation URL or live directory listing URL. |
+| 15 | submit_or_contact | 84 | US-China Restaurant Alliance | Chinese business association | Moderator reply, approved post URL, event/resource listing URL, or sent-message URL. |
 
 ## Submission Payloads
 
@@ -60,6 +60,7 @@ Use these payloads during the manual submission block. Keep `action_status` blan
 - Clean URL: https://serviio.ai/restaurant-pos-partner-referral/
 - UTM URL: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS partner referral
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: Referral path for restaurants missing phone orders
 - Follow-up date: 2026-06-27
 
@@ -93,6 +94,7 @@ npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status
 - Clean URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: 39 Miles AI phone ordering for Chinese restaurants
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for 39 Miles restaurants
 - Follow-up date: 2026-06-27
 
@@ -137,6 +139,7 @@ npm run marketing:mark -- --target "39 Miles restaurant consultants" --status su
 - Clean URL: https://serviio.ai/pos/chowbus-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=chowbus_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chowbus POS AI phone agent
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Chowbus restaurants
 - Follow-up date: 2026-06-27
 
@@ -181,6 +184,7 @@ npm run marketing:mark -- --target "Chowbus restaurant consultants" --status sub
 - Clean URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=mealkeyway_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Mealkeyway phone order integration
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Mealkeyway restaurants
 - Follow-up date: 2026-06-27
 
@@ -225,6 +229,7 @@ npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status 
 - Clean URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: MenuSifu AI phone ordering
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for MenuSifu restaurants
 - Follow-up date: 2026-06-27
 
@@ -269,6 +274,7 @@ npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status su
 - Clean URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/
 - UTM URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=restaurant_pos_ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS AI phone agent
+- Evidence needed: Submission confirmation URL or live directory listing URL.
 - Subject: Serviio - AI Phone Ordering for POS-Ready Restaurants
 - Follow-up date: 2026-06-27
 
@@ -290,6 +296,7 @@ npm run marketing:mark -- --target "Restaurant POS and automation directories" -
 - Clean URL: https://serviio.ai/sitemap.xml
 - UTM URL: https://serviio.ai/sitemap.xml?utm_source=bing_webmaster_tools&utm_medium=indexing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Submit sitemap
+- Evidence needed: Confirmation URL, live link, reply, screenshot, or sent-message URL.
 - Subject: Bing Webmaster Tools sitemap
 - Follow-up date: 2026-06-27
 
@@ -311,6 +318,7 @@ npm run marketing:mark -- --target "Bing Webmaster Tools sitemap" --status submi
 - Clean URL: https://serviio.ai/restaurant-pos-partner-referral/
 - UTM URL: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Restaurant POS partner referral
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: Referral path for restaurants missing phone orders
 - Follow-up date: 2026-06-27
 
@@ -344,6 +352,7 @@ npm run marketing:mark -- --target "POS consultants" --status submitted --date 2
 - Clean URL: https://serviio.ai/restaurant-phone-order-automation/
 - UTM URL: https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_website_agency&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Restaurant phone order automation
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone-ordering add-on for restaurant website clients
 - Follow-up date: 2026-06-27
 
@@ -377,6 +386,7 @@ npm run marketing:mark -- --target "Restaurant website agencies" --status submit
 - Clean URL: https://serviio.ai/pos/clover-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Clover POS phone order AI
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Clover restaurants
 - Follow-up date: 2026-06-27
 
@@ -421,6 +431,7 @@ npm run marketing:mark -- --target "Clover restaurant consultants" --status subm
 - Clean URL: https://serviio.ai/pos/square-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Square POS phone order AI
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Square restaurants
 - Follow-up date: 2026-06-27
 
@@ -465,6 +476,7 @@ npm run marketing:mark -- --target "Square restaurant consultants" --status subm
 - Clean URL: https://serviio.ai/pos/toast-ai-phone-ordering/
 - UTM URL: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Toast POS phone order AI
+- Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Toast restaurants
 - Follow-up date: 2026-06-27
 
@@ -509,6 +521,7 @@ npm run marketing:mark -- --target "Toast restaurant consultants" --status submi
 - Clean URL: https://serviio.ai/chinese-restaurant-ai-order-taker/
 - UTM URL: https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant AI order taker
+- Evidence needed: Submission confirmation URL or live directory listing URL.
 - Subject: Serviio
 - Follow-up date: 2026-06-27
 
@@ -534,6 +547,7 @@ npm run marketing:mark -- --target "AI phone-order directories" --status submitt
 - Clean URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/
 - UTM URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS AI phone agent
+- Evidence needed: Submission confirmation URL or live directory listing URL.
 - Subject: Serviio
 - Follow-up date: 2026-06-27
 
@@ -559,6 +573,7 @@ npm run marketing:mark -- --target "The Next AI" --status submitted --date 2026-
 - Clean URL: https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/
 - UTM URL: https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: 中餐馆 AI 电话接单
+- Evidence needed: Moderator reply, approved post URL, event/resource listing URL, or sent-message URL.
 - Subject: Serviio - AI phone ordering for Chinese restaurants
 - Follow-up date: 2026-06-27
 

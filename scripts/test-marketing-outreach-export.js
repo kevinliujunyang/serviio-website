@@ -375,9 +375,11 @@ assert.match(weeklyAuthoritySprint, /15 more evidence-qualified submissions or p
 assert.match(weeklyAuthoritySprint, /5 live listings, backlinks, business profiles, or published resource links/);
 assert.match(weeklyAuthoritySprint, /High-fit partner\/POS\/association rows started: 0\/8/);
 assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channel \| Evidence needed \|/);
+assert.match(weeklyAuthoritySprint, /Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
 assert.match(weeklyAuthoritySprint, /## Submission Payloads/);
 assert.match(weeklyAuthoritySprint, /Contact URL: https:\/\/forms\.menusifu\.com\/pages\/demo-request/);
+assert.match(weeklyAuthoritySprint, /Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /UTM URL: https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=menusifu_pos_consultant/);
 assert.match(weeklyAuthoritySprint, /Subject: AI phone ordering add-on for MenuSifu restaurants/);
 assert.match(weeklyAuthoritySprint, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);

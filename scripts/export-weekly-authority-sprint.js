@@ -105,9 +105,9 @@ function renderActionTable(rows) {
 
   rows.forEach((row, index) => {
     const score = row.opportunity_score || opportunityScore(row).score;
-    const evidence = row.action_type === 'follow_up'
+    const evidence = row.evidence_needed || (row.action_type === 'follow_up'
       ? 'Reply, live URL, rejection note, or next follow-up date'
-      : 'Confirmation note, account/login, submitted date, and follow-up date';
+      : 'Confirmation note, account/login, submitted date, and follow-up date');
     lines.push(`| ${index + 1} | ${row.action_type} | ${score} | ${row.target} | ${row.channel} | ${evidence} |`);
   });
 
@@ -136,6 +136,7 @@ function renderSubmissionPayloads(rows, today) {
       `- Clean URL: ${row.landing_url}`,
       `- UTM URL: ${row.utm_url}`,
       `- Anchor/listing phrase: ${row.anchor_or_listing_phrase}`,
+      `- Evidence needed: ${row.evidence_needed || 'Confirmation note, account/login, submitted date, and follow-up date'}`,
       `- Subject: ${packet.subject || packet.title}`,
       `- Follow-up date: ${followUpDate}`,
       '',
