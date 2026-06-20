@@ -416,6 +416,10 @@ assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
 assert.strictEqual(posPartnerExportRows[0].pos_partner_lead_type, 'hot_no_pos_restaurant');
 assert.match(posPartnerExportRows[0].recommended_pos_partner_targets, /39 Miles/);
 assert.match(posPartnerExportRows[0].recommended_pos_partner_targets, /MenuSifu/);
+assert.match(posPartnerExportRows[0].pos_partner_pitch, /New Noodle Shop/);
+assert.match(posPartnerExportRows[0].pos_partner_pitch, /San Jose, CA/);
+assert.match(posPartnerExportRows[0].pos_partner_pitch, /76-150 weekly phone orders/);
+assert.match(posPartnerExportRows[0].pos_partner_pitch, /39 Miles \| MenuSifu/);
 assert.strictEqual(posPartnerExportRows[0].serviio_fit_status, 'deprioritized_until_pos_ready');
 assert.strictEqual(posPartnerExportRows[0].pos_purchase_timeline_urgency, 'urgent');
 assert.match(posPartnerExportRows[0].handoff_summary, /Restaurant: New Noodle Shop/);
@@ -429,6 +433,7 @@ assert.strictEqual(posPartnerExportRows[2].pos_purchase_timeline_urgency, 'urgen
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
 assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
 assert.match(posPartnerCsv, /recommended_pos_partner_targets/);
+assert.match(posPartnerCsv, /pos_partner_pitch/);
 assert.match(posPartnerCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
 assert.match(posPartnerCsv, /Calculator Noodle Shop/);
 assert.match(posPartnerCsv, /\$493/);

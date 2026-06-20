@@ -144,7 +144,7 @@ To export only no-POS restaurant owners who asked for POS recommendations:
 npm run leads:pos-partners -- path/to/formspree-export.csv --out pos-partner-leads.csv
 ```
 
-This writes a smaller partner-handoff CSV with contact fields, POS recommendation interest, phone-order volume, pain, `partner_next_action`, and `handoff_summary`. Use it for POS partner conversations or referral resale. Do not mix this file into the immediate Serviio demo queue because these restaurants are marked `serviio_fit_status=deprioritized_until_pos_ready`.
+This writes a smaller partner-handoff CSV with contact fields, POS recommendation interest, phone-order volume, pain, `recommended_pos_partner_targets`, `partner_next_action`, `pos_partner_pitch`, and `handoff_summary`. Use it for POS partner conversations or referral resale. Do not mix this file into the immediate Serviio demo queue because these restaurants are marked `serviio_fit_status=deprioritized_until_pos_ready`.
 
 To export POS-ready demo leads that should later be asked for customer proof:
 
@@ -216,6 +216,8 @@ Call high-priority leads first. The script writes routing, fit, and contact colu
 - `partner_next_action`
 - `pos_partner_lead_status`
 - `pos_partner_lead_type`
+- `recommended_pos_partner_targets`
+- `pos_partner_pitch`
 - `pos_partner_lead_package`
 - `serviio_fit_status`
 - `pos_purchase_timeline`

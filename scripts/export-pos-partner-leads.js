@@ -35,6 +35,7 @@ const HANDOFF_HEADERS = [
   'estimated_serviio_fee',
   'serviio_fit_status',
   'partner_next_action',
+  'pos_partner_pitch',
   'handoff_summary',
 ];
 
@@ -102,6 +103,22 @@ function appendCalculatorContext(summary, row) {
   ].join(' | ');
 }
 
+function buildPartnerPitch(row) {
+  const restaurant = row.restaurant_name || 'A restaurant lead';
+  const location = [row.restaurant_city, row.restaurant_state].filter(Boolean).join(', ') || 'location unknown';
+  const timeline = row.pos_purchase_timeline || 'timeline not captured';
+  const targets = row.recommended_pos_partner_targets || 'restaurant POS partners';
+  const volume = row.phone_orders_per_week || 'unknown';
+  const pain = row.main_pain || 'needs POS recommendations before AI phone ordering';
+  return [
+    `${restaurant} in ${location} is a no-POS restaurant lead asking for POS recommendations.`,
+    `They report ${volume} weekly phone orders and ${pain}.`,
+    `Buying timeline: ${timeline}.`,
+    `Recommended partner targets: ${targets}.`,
+    'Keep Serviio deprioritized until the POS path is chosen, then re-qualify AI phone ordering.',
+  ].join(' ');
+}
+
 function buildPosPartnerRows(scoredRows) {
   return scoredRows
     .filter((row) => row.pos_partner_lead_status === 'qualified_for_pos_partner')
@@ -137,6 +154,7 @@ function buildPosPartnerRows(scoredRows) {
       estimated_serviio_fee: row.estimated_serviio_fee,
       serviio_fit_status: row.serviio_fit_status,
       partner_next_action: row.partner_next_action,
+      pos_partner_pitch: buildPartnerPitch(row),
       handoff_summary: appendCalculatorContext(row.pos_partner_lead_package, row),
     }));
 }
@@ -180,6 +198,7 @@ if (require.main === module) {
 
 module.exports = {
   buildPosPartnerRows,
+  buildPartnerPitch,
   parseArgs,
   toCsv,
 };
