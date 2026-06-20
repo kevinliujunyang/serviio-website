@@ -48,6 +48,7 @@ Goal: move Serviio from technically SEO-ready to ranking-authority-ready for Chi
 | 14 | submit_or_contact | 84 | US-China Restaurant Alliance | Chinese business association | Moderator reply, approved post URL, event/resource listing URL, or sent-message URL. |
 | 15 | submit_or_contact | 84 | AI phone-order directories | AI directory | Submission confirmation URL or live directory listing URL. |
 | 16 | submit_or_contact | 84 | The Next AI | AI directory | Submission confirmation URL or live directory listing URL. |
+| 17 | submit_or_contact | 60 | Pilot restaurant testimonial | Customer proof | Published testimonial/case-study URL or written customer approval note. |
 
 ## Daily Authority Checklist
 
@@ -71,6 +72,7 @@ Work top to bottom during each manual authority block. Leave tracker rows unchan
 | 14 | US-China Restaurant Alliance | P1 | Chinese business association | https://u-cra.com/application/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "US-China Restaurant Alliance" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
 | 15 | AI phone-order directories | P1 | AI directory | https://agentstide.com/ | https://serviio.ai/chinese-restaurant-ai-order-taker/ | https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "AI phone-order directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
 | 16 | The Next AI | P1 | AI directory | https://www.thenextai.com/submit-ai-tool/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "The Next AI" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 17 | Pilot restaurant testimonial | P2 | Customer proof | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Pilot restaurant testimonial" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
 
 ## Submission Payloads
 
@@ -823,6 +825,54 @@ Tracker command after real submission:
 
 ```bash
 npm run marketing:mark -- --target "The Next AI" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
+```
+
+### 16. Pilot restaurant testimonial
+
+- Score: 60/100
+- Channel: Customer proof
+- Contact URL: https://serviio.ai/customer-proof-request/
+- Clean URL: https://serviio.ai/customer-proof-request/
+- UTM URL: https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing
+- Anchor/listing phrase: Chinese restaurant AI phone ordering testimonial
+- Evidence needed: Published testimonial/case-study URL or written customer approval note.
+- Subject: Customer proof request for restaurant AI phone ordering
+- Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Chinese restaurant AI phone ordering testimonial
+- Website: https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/customer-proof-request/
+- Title or subject: Customer proof request for restaurant AI phone ordering
+- Tagline: Customer proof for POS-ready restaurant phone ordering.
+- Short description: Request a testimonial or proof note from a POS-ready restaurant after a demo, pilot, or successful setup.
+- Categories: Customer proof, Restaurant AI phone ordering, Chinese restaurant testimonial, POS workflow
+- Features: testimonial request; city and restaurant type capture; POS system capture; phone-order pain capture; publish or anonymize permission
+- Pricing: Free proof request for Serviio demo, pilot, or customer follow-up.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
+Copy:
+
+Hi [Name],
+
+Thank you for trying Serviio for restaurant phone ordering. If the pilot or demo was useful, could you share a short proof note we can use for restaurant-owner trust and follow-up conversations?
+
+The most helpful version mentions your city, restaurant type, POS system, weekly phone-order volume, and the main phone-order pain: missed calls, bilingual calls, manual POS entry, after-hours calls, or menu questions.
+
+You can choose whether the proof can be published, anonymized, or kept internal for sales conversations.
+
+Proof form:
+https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Pilot restaurant testimonial" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
 

@@ -332,6 +332,26 @@ function webmasterPacket(row) {
   };
 }
 
+function customerProofPacket(row) {
+  return {
+    subject: 'Customer proof request for restaurant AI phone ordering',
+    title: row.anchor_or_listing_phrase || 'Chinese restaurant AI phone ordering testimonial',
+    tagline: 'Customer proof for POS-ready restaurant phone ordering.',
+    shortDescription: 'Request a testimonial or proof note from a POS-ready restaurant after a demo, pilot, or successful setup.',
+    longDescription: [
+      'Hi [Name],',
+      'Thank you for trying Serviio for restaurant phone ordering. If the pilot or demo was useful, could you share a short proof note we can use for restaurant-owner trust and follow-up conversations?',
+      'The most helpful version mentions your city, restaurant type, POS system, weekly phone-order volume, and the main phone-order pain: missed calls, bilingual calls, manual POS entry, after-hours calls, or menu questions.',
+      'You can choose whether the proof can be published, anonymized, or kept internal for sales conversations.',
+      `Proof form:\n${row.utm_url || row.landing_url}`,
+      'Thanks,\nServiio',
+    ].join('\n\n'),
+    categories: 'Customer proof, Restaurant AI phone ordering, Chinese restaurant testimonial, POS workflow',
+    features: 'testimonial request; city and restaurant type capture; POS system capture; phone-order pain capture; publish or anonymize permission',
+    pricing: 'Free proof request for Serviio demo, pilot, or customer follow-up.',
+  };
+}
+
 function packetFor(row) {
   if (row.channel === 'AI directory' || row.channel === 'Startup directory') return aiDirectoryPacket(row);
   if (row.channel === 'Business profile') return businessProfilePacket(row);
@@ -342,6 +362,7 @@ function packetFor(row) {
   if (row.channel === 'Partner outreach') return posConsultantPacket(row);
   if (row.channel === 'Community post') return communityPacket(row);
   if (row.channel === 'Webmaster tool') return webmasterPacket(row);
+  if (row.channel === 'Customer proof') return customerProofPacket(row);
   return {
     title: row.anchor_or_listing_phrase,
     tagline: 'AI phone ordering and POS-ready workflow resource.',

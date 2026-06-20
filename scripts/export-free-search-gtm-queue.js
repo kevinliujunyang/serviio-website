@@ -193,6 +193,14 @@ function pendingBusinessProfileRows(rows) {
   );
 }
 
+function pendingCustomerProofRows(rows) {
+  return rows.filter((row) =>
+    row.status === 'not_started' &&
+    /customer proof/i.test(row.channel) &&
+    row.url
+  );
+}
+
 function buildGtmQueueRows(rows, {
   today = todayIso(),
   followUpLimit = DEFAULT_FOLLOW_UP_LIMIT,
@@ -212,10 +220,16 @@ function buildGtmQueueRows(rows, {
   const businessProfileRows = missingBusinessProfile
     ? [readyQueueRow(withToday(missingBusinessProfile, today))]
     : [];
+  const missingCustomerProof = pendingCustomerProofRows(rows)
+    .find((row) => !queuedTargets.has(row.target));
+  const customerProofRows = missingCustomerProof
+    ? [readyQueueRow(withToday(missingCustomerProof, today))]
+    : [];
   return [
     ...followUps,
     ...readyRows,
     ...businessProfileRows,
+    ...customerProofRows,
     ...nextRows.researchRows.map((row) => researchQueueRow(withToday(row, today))),
   ];
 }

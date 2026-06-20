@@ -416,6 +416,7 @@ const defaultGtmQueueRows = buildGtmQueueRows(trackerRows, { today: '2026-06-10'
 assert.ok(!defaultGtmQueueRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'US-China Restaurant Alliance'));
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Google Business Profile'));
+assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Pilot restaurant testimonial' && row.action_type === 'submit_or_contact'));
 assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
   out: 'gtm.csv',
   today: '2026-06-10',
@@ -436,6 +437,10 @@ assert.match(weeklyAuthoritySprint, /High-fit partner\/POS\/association rows sta
 assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channel \| Evidence needed \|/);
 assert.match(weeklyAuthoritySprint, /Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
+assert.match(weeklyAuthoritySprint, /Pilot restaurant testimonial/);
+assert.match(weeklyAuthoritySprint, /\| 16 \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
+assert.match(weeklyAuthoritySprint, /Customer proof request for restaurant AI phone ordering/);
+assert.match(weeklyAuthoritySprint, /You can choose whether the proof can be published, anonymized, or kept internal for sales conversations\./);
 assert.match(weeklyAuthoritySprint, /## Daily Authority Checklist/);
 assert.match(weeklyAuthoritySprint, /\| 1 \| Chinese restaurant POS consultants \| P1 \| Partner outreach \| https:\/\/www\.m988\.com\/ \| https:\/\/serviio\.ai\/restaurant-pos-partner-referral\/ \|/);
 assert.match(weeklyAuthoritySprint, /Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-17\./);
@@ -462,7 +467,9 @@ assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| optimize_live_l
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /npm run marketing:mark -- --target "Product Hunt Serviio listing" --status "live" --date 2026-06-20/);
 assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /Product Hunt Serviio listing" --status submitted/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 16 \| submit_or_contact \| 84 \| The Next AI \| AI directory \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 17 \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 15\. The Next AI/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 16\. Pilot restaurant testimonial/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
   today: '2026-06-10',

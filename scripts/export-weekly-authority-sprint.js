@@ -132,8 +132,9 @@ function actionRows(rows, args) {
 
 function executionRowsForSprint(rows, submissionTarget) {
   const requiredRows = rows.filter((row) => row.action_type !== 'submit_or_contact' && row.action_type !== 'research_target');
+  const customerProofRows = rows.filter((row) => row.action_type === 'submit_or_contact' && /customer proof/i.test(row.channel));
   const submissionRows = rows
-    .filter((row) => row.action_type === 'submit_or_contact')
+    .filter((row) => row.action_type === 'submit_or_contact' && !/customer proof/i.test(row.channel))
     .slice(0, submissionTarget);
   const researchRows = rows
     .filter((row) => row.action_type === 'research_target')
@@ -141,6 +142,7 @@ function executionRowsForSprint(rows, submissionTarget) {
   return [
     ...requiredRows,
     ...submissionRows,
+    ...customerProofRows,
     ...researchRows,
   ];
 }
