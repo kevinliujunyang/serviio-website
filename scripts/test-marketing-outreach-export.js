@@ -285,6 +285,7 @@ assert.match(renderAuthorityReport(authorityRows), /Serviio SEO Authority Audit/
 assert.match(renderAuthorityReport(authorityRows), /Authority score: 26\/100/);
 assert.match(renderAuthorityReport(authorityRows), /Evidence Issues/);
 assert.match(renderAuthorityReport(authorityRows), /Unverified AI Directory/);
+assert.match(renderAuthorityReport(trackerRows), /Business profile - Google Business Profile/);
 
 const updateResult = updateTracker(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.

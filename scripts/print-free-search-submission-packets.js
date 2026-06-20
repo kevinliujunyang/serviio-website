@@ -109,6 +109,10 @@ function opportunityScore(row) {
     score += 12;
     reasons.push('high-fit channel');
   }
+  if (/business profile/i.test(row.channel)) {
+    score += 12;
+    reasons.push('business profile authority');
+  }
   if (/existing|claim|verify|claimed profile|live listing/i.test(text)) {
     reasons.push('existing citation');
   }
