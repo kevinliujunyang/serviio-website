@@ -18,6 +18,7 @@ const {
 const {
   classifyPainSignal,
   classifyPhoneVolume,
+  classifyLeadAcquisitionChannel,
   classifyPosPurchaseTimeline,
   parseCsv,
   hasKnownPos,
@@ -251,6 +252,22 @@ assert.strictEqual(homepagePosFitDemo.serviio_fit_status, 'serviio_demo_fit');
 assert.match(homepagePosFitDemo.buyer_profile, /offer:homepage_pos_fit_check/);
 assert.match(homepagePosFitDemo.lead_reason, /priority SEO source/);
 
+const businessProfileLead = scoreLead({
+  ...baseLead,
+  restaurant: 'Business Profile Wok',
+  lead_source: 'homepage',
+  landing_page: 'https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  pos_system: 'Toast',
+  phone_orders_per_week: '25-75',
+  conversion_offer: 'homepage_pos_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+  utm_source: 'google_business_profile',
+  utm_medium: 'organic_listing',
+});
+assert.strictEqual(businessProfileLead.lead_acquisition_channel, 'business_profile');
+assert.strictEqual(businessProfileLead.priority_seo_source, 'yes');
+assert.strictEqual(businessProfileLead.lead_route, 'demo_queue');
+
 const namedPosOfferDemo = scoreLead({
   ...baseLead,
   restaurant: 'POS Offer Bistro',
@@ -383,10 +400,14 @@ const calculatorDemoLead = scoreLead({
 });
 assert.strictEqual(calculatorDemoLead.lead_route, 'call_now');
 assert.strictEqual(calculatorDemoLead.estimated_recoverable_revenue, '$493');
+assert.strictEqual(calculatorDemoLead.lead_acquisition_channel, 'calculator');
 
 assert.strictEqual(classifyPainSignal('Need Mandarin and Cantonese call handling'), 'bilingual_calls');
 assert.strictEqual(classifyPainSignal('General question'), 'other');
 assert.strictEqual(classifyPainSignal(''), 'unknown');
+assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'business_profile_post', utmMedium: 'organic_listing' }), 'business_profile');
+assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'product_hunt', utmMedium: 'organic_listing' }), 'directory_or_listing');
+assert.strictEqual(classifyLeadAcquisitionChannel({ utmMedium: 'partner_referral' }), 'partner_referral');
 
 const summary = summarize([highPriority, otherPosLead, noPosReferral, ambiguousPos]);
 assert.match(summary, /Qualified POS partner leads: 1/);
@@ -432,6 +453,7 @@ assert.strictEqual(posPartnerExportRows[2].pos_purchase_timeline_urgency, 'urgen
 
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
 assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /lead_acquisition_channel/);
 assert.match(posPartnerCsv, /recommended_pos_partner_targets/);
 assert.match(posPartnerCsv, /pos_partner_pitch/);
 assert.match(posPartnerCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
@@ -465,6 +487,7 @@ assert.strictEqual(demoQueueRows[1].demo_priority, 'call_now');
 assert.strictEqual(demoQueueRows[2].demo_priority, 'demo_queue');
 const demoQueueCsv = demoQueueToCsv(demoQueueRows);
 assert.match(demoQueueCsv, /demo_priority,lead_priority,lead_route,restaurant_name/);
+assert.match(demoQueueCsv, /lead_acquisition_channel/);
 assert.match(demoQueueCsv, /call_now,high,call_now,Golden Dragon Chinese Restaurant/);
 assert.match(demoQueueCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
 assert.match(demoQueueCsv, /Calculator Wok/);
@@ -496,6 +519,7 @@ assert.match(customerProofRows[0].suggested_message, /customer-proof-request/);
 assert.match(customerProofRows[0].authority_tracker_note, /Golden Dragon Chinese Restaurant/);
 const customerProofCsv = customerProofToCsv(customerProofRows);
 assert.match(customerProofCsv, /proof_priority,restaurant_name,restaurant_city/);
+assert.match(customerProofCsv, /lead_acquisition_channel/);
 assert.match(customerProofCsv, /Pilot restaurant testimonial/);
 assert.doesNotMatch(customerProofCsv, /New Noodle Shop/);
 assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
@@ -547,8 +571,12 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
 assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
 assert.match(summarize(sampleScoredRows), /Serviio demo|Lead scoring summary/);
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
+assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('call_script'));
+assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes('handoff_summary'));
+assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('proof_request_url'));
+assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('lead_acquisition_channel'));
 
 console.log('Lead scoring tests passed');

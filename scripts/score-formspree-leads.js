@@ -162,6 +162,32 @@ function buildBuyerProfile({
   return parts.join(' | ');
 }
 
+function classifyLeadAcquisitionChannel(values) {
+  const sourceText = [
+    values.leadSource,
+    values.landingPage,
+    values.landingPath,
+    values.currentPage,
+    values.currentPath,
+    values.firstUtmSource,
+    values.firstUtmMedium,
+    values.firstUtmCampaign,
+    values.utmSource,
+    values.utmMedium,
+    values.utmCampaign,
+  ].join(' ');
+
+  if (/business[_\s-]?profile|google_business_profile|bing_places|apple_business_connect/i.test(sourceText)) return 'business_profile';
+  if (/partner[_\s-]?referral|pos[_\s-]?consultant|restaurant[_\s-]?website[_\s-]?agency/i.test(sourceText)) return 'partner_referral';
+  if (/customer[_\s-]?proof|testimonial/i.test(sourceText)) return 'customer_proof';
+  if (/missed[_\s-]?call[_\s-]?revenue[_\s-]?calculator|restaurant-missed-call-revenue-calculator/i.test(sourceText)) return 'calculator';
+  if (/directory|organic[_\s-]?listing|product_hunt|startup/i.test(sourceText)) return 'directory_or_listing';
+  if (/community[_\s-]?post|wechat|reddit|meetup|chamber|association/i.test(sourceText)) return 'community_or_association';
+  if (/search_console|indexing|indexnow|webmaster/i.test(sourceText)) return 'indexing_or_webmaster';
+  if (/service[_\s-]?area|service-areas|chinese|pos|restaurant-ai|ai-phone|phone-order/i.test(sourceText)) return 'seo_landing_page';
+  return 'direct_or_unknown';
+}
+
 function classifyPartnerReferral({
   partnerInquiry,
   posReady,
@@ -536,6 +562,7 @@ function scoreLead(record) {
     volume,
     posTimelineUrgency,
   });
+  const leadAcquisitionChannel = classifyLeadAcquisitionChannel(values);
 
   let score = 0;
   const reasons = [];
@@ -644,6 +671,7 @@ function scoreLead(record) {
     monetization_route: partnerReferral.monetizationRoute,
     partner_referral_priority: partnerReferral.partnerReferralPriority,
     partner_next_action: partnerReferral.partnerNextAction,
+    lead_acquisition_channel: leadAcquisitionChannel,
     pos_partner_lead_status: posPartnerLead.status,
     pos_partner_lead_type: posPartnerLead.type,
     recommended_pos_partner_targets: recommendedTargets,
@@ -755,6 +783,7 @@ function main() {
     'monetization_route',
     'partner_referral_priority',
     'partner_next_action',
+    'lead_acquisition_channel',
     'pos_partner_lead_status',
     'pos_partner_lead_type',
     'recommended_pos_partner_targets',
@@ -797,6 +826,7 @@ module.exports = {
   classifyPhoneVolume,
   classifyPainSignal,
   classifyPosPurchaseTimeline,
+  classifyLeadAcquisitionChannel,
   hasKnownPos,
   parseCsv,
   scoreLead,
