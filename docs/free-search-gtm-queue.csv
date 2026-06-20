@@ -105,3 +105,44 @@ https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultan
 
 Thanks,
 Serviio","Use POS-Specific Partner Outreach Copy and swap in the POS name plus the tracker UTM URL. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""Clover restaurant consultants"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""",Verified Clover setup/support contact path; use for restaurants with Clover and missed phone orders.
+submit_or_contact,88,P1,POS-specific outreach,Square restaurant consultants,not_started,https://squarepos.consulting/,https://serviio.ai/pos/square-ai-phone-ordering/,https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Square POS phone order AI,"Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.",AI phone ordering add-on for Square restaurants,"Hi [Name],
+
+Serviio helps restaurants answer phone calls with AI, capture structured takeout order details, and evaluate how confirmed orders can move into the restaurant POS or kitchen workflow.
+
+We are especially focused on Chinese restaurants and takeout-heavy operators already using Square. These restaurants often still receive high phone volume during lunch and dinner rush, even when online ordering is available.
+
+Would you be open to a short partner/referral conversation? We can route POS-ready restaurants to an AI phone-ordering demo, and no-POS restaurants can be qualified separately for POS recommendations before they are a fit for Serviio.
+
+Relevant page:
+https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio","Use POS-Specific Partner Outreach Copy and swap in the POS name plus the tracker UTM URL. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""Square restaurant consultants"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""",Verified Square POS consulting target; use for restaurants with Square and high phone-order volume.
+submit_or_contact,88,P1,POS-specific outreach,Toast restaurant consultants,not_started,https://bearheartconsulting.com/hospitality-technology-services/toast-pos-system-implementation/,https://serviio.ai/pos/toast-ai-phone-ordering/,https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Toast POS phone order AI,"Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.",AI phone ordering add-on for Toast restaurants,"Hi [Name],
+
+Serviio helps restaurants answer phone calls with AI, capture structured takeout order details, and evaluate how confirmed orders can move into the restaurant POS or kitchen workflow.
+
+We are especially focused on Chinese restaurants and takeout-heavy operators already using Toast. These restaurants often still receive high phone volume during lunch and dinner rush, even when online ordering is available.
+
+Would you be open to a short partner/referral conversation? We can route POS-ready restaurants to an AI phone-ordering demo, and no-POS restaurants can be qualified separately for POS recommendations before they are a fit for Serviio.
+
+Relevant page:
+https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio","Use POS-Specific Partner Outreach Copy and swap in the POS name plus the tracker UTM URL. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""Toast restaurant consultants"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""",Verified Toast POS implementation consulting target; use for restaurants that need AI phone answering connected to Toast workflows.
+submit_or_contact,84,P1,Chinese business association,US-China Restaurant Alliance,not_started,https://u-cra.com/application/,https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing,中餐馆 AI 电话接单,"Moderator reply, approved post URL, event/resource listing URL, or sent-message URL.",Serviio - AI phone ordering for Chinese restaurants,"您好 [Name]，
+
+Serviio 是面向美国中餐馆的 AI 电话接单系统，可以用中文和英文接听电话、确认外卖和自取订单、处理菜单问题和备注，并评估与餐厅 POS 或厨房流程的对接方式。
+
+我们重点服务已经使用 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 或其他 POS 系统的中餐馆。如果贵会有会员资源、供应商推荐或餐饮科技资源页面，想请问是否可以考虑收录 Serviio，或安排一次简单介绍。","Use the Chinese Association Outreach Copy and include both English and Chinese landing URLs. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""US-China Restaurant Alliance"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""","Evaluate membership, vendor listing, or partner outreach; use Chinese copy and record any fee before submitting."
+submit_or_contact,84,P1,Startup directory,Product Hunt Serviio listing,not_started,https://www.producthunt.com/products/serviio,https://serviio.ai/,https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,"Product Hunt claimed profile, updated listing screenshot, or owner/account confirmation URL.",Serviio,"Serviio is an AI voice agent for restaurants that answers phone calls, captures order details, asks clarifying questions, and routes confirmed orders toward the restaurant POS or kitchen workflow.
+
+It is especially relevant for Chinese restaurants and takeout-heavy restaurants that receive calls during lunch, dinner, weekends, and holidays. Serviio can handle English and Chinese callers, confirm modifiers such as spice level and substitutions, collect pickup time and customer contact details, and reduce missed-call pressure on staff.
+
+Serviio prioritizes restaurants using POS systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS with a practical integration path.","Use the closest copy block in docs/free-search-submission-copy.md. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""Product Hunt Serviio listing"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""","Review and claim or verify the existing Product Hunt page before treating it as authority evidence; update the listing with restaurant AI phone ordering, Chinese restaurant, and POS integration positioning if account access is available."
+submit_or_contact,84,P1,AI directory,AI phone-order directories,not_started,https://agentstide.com/,https://serviio.ai/chinese-restaurant-ai-order-taker/,https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant AI order taker,Submission confirmation URL or live directory listing URL.,Serviio,"Serviio is an AI voice agent for restaurants that answers phone calls, captures order details, asks clarifying questions, and routes confirmed orders toward the restaurant POS or kitchen workflow.
+
+It is especially relevant for Chinese restaurants and takeout-heavy restaurants that receive calls during lunch, dinner, weekends, and holidays. Serviio can handle English and Chinese callers, confirm modifiers such as spice level and substitutions, collect pickup time and customer contact details, and reduce missed-call pressure on staff.
+
+Serviio prioritizes restaurants using POS systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS with a practical integration path.","Use the AI Directory Form Pack and choose voice AI, AI agent, automation, restaurant technology, or customer service AI. After action, mark submitted with confirmation details.","npm run marketing:mark -- --target ""AI phone-order directories"" --status ""submitted"" --date 2026-06-20 --note ""Submitted/contacted; add confirmation or next follow-up detail.""",Verified AI agent directory with submit-agent path and voice-agent category fit; emphasize bilingual restaurant phone orders and POS-ready handoff.

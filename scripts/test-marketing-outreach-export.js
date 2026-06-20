@@ -358,6 +358,9 @@ assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target,stat
 assert.match(gtmCsv, /follow_up,90,P1,Partner outreach,POS consultants/);
 assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
+const defaultGtmQueueRows = buildGtmQueueRows(trackerRows, { today: '2026-06-10' });
+assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Product Hunt Serviio listing'));
+assert.ok(defaultGtmQueueRows.some((row) => row.target === 'US-China Restaurant Alliance'));
 assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
   out: 'gtm.csv',
   today: '2026-06-10',

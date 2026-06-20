@@ -17,7 +17,7 @@ const {
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/free-search-gtm-queue.csv';
-const DEFAULT_READY_LIMIT = 10;
+const DEFAULT_READY_LIMIT = 15;
 const DEFAULT_RESEARCH_LIMIT = 5;
 const DEFAULT_FOLLOW_UP_LIMIT = 10;
 const HEADERS = [
