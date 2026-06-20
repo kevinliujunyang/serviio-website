@@ -106,6 +106,29 @@ assert.strictEqual(noPosReferral.pos_purchase_timeline_urgency, 'urgent');
 assert.match(noPosReferral.buyer_profile, /partner_referral:hot/);
 assert.doesNotMatch(noPosReferral.lead_reason, /existing POS/);
 
+const calculatorNoPosReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Calculator Noodle Shop',
+  lead_source: 'restaurant_missed_call_revenue_calculator',
+  landing_page: 'https://serviio.ai/restaurant-missed-call-revenue-calculator/',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: '76-150',
+  main_pain: 'Missed calls during rush',
+  conversion_offer: 'ai_phone_order_fit_check',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_purchase_timeline: 'Within 1 month',
+  calculator_missed_calls_per_week: '40',
+  calculator_order_rate_percent: '55',
+  calculator_average_order_value: '32',
+  calculator_recovery_rate_percent: '70',
+  estimated_lost_orders: '22',
+  estimated_lost_revenue: '$704',
+  estimated_recoverable_revenue: '$493',
+  estimated_serviio_fee: '$10',
+});
+assert.strictEqual(calculatorNoPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(calculatorNoPosReferral.partner_referral_priority, 'hot');
+
 const warmNoPosReferral = scoreLead({
   ...baseLead,
   restaurant: 'Small New Cafe',
@@ -375,11 +398,13 @@ const posPartnerExportRows = buildPosPartnerRows([
   highPriority,
   warmNoPosReferral,
   noPosReferral,
+  calculatorNoPosReferral,
   urgentTimelineNoPosReferral,
   ambiguousPos,
 ]);
 assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
   'New Noodle Shop',
+  'Calculator Noodle Shop',
   'Fast POS Dumpling',
   'Small New Cafe',
 ]);
@@ -388,11 +413,18 @@ assert.strictEqual(posPartnerExportRows[0].serviio_fit_status, 'deprioritized_un
 assert.strictEqual(posPartnerExportRows[0].pos_purchase_timeline_urgency, 'urgent');
 assert.match(posPartnerExportRows[0].handoff_summary, /Restaurant: New Noodle Shop/);
 assert.match(posPartnerExportRows[0].partner_next_action, /Package as POS partner lead/);
-assert.strictEqual(posPartnerExportRows[2].pos_partner_lead_type, 'warm_no_pos_restaurant');
-assert.strictEqual(posPartnerExportRows[1].pos_purchase_timeline_urgency, 'urgent');
+const calculatorPosPartnerRow = posPartnerExportRows.find((row) => row.restaurant_name === 'Calculator Noodle Shop');
+assert.ok(calculatorPosPartnerRow);
+assert.strictEqual(calculatorPosPartnerRow.estimated_recoverable_revenue, '$493');
+assert.strictEqual(posPartnerExportRows[3].pos_partner_lead_type, 'warm_no_pos_restaurant');
+assert.strictEqual(posPartnerExportRows[2].pos_purchase_timeline_urgency, 'urgent');
 
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
 assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
+assert.match(posPartnerCsv, /Calculator Noodle Shop/);
+assert.match(posPartnerCsv, /\$493/);
+assert.match(posPartnerCsv, /\$10/);
 assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,Fast POS Dumpling/);
 assert.doesNotMatch(posPartnerCsv, /Golden Dragon Chinese Restaurant/);
 

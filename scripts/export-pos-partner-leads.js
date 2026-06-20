@@ -24,6 +24,14 @@ const HANDOFF_HEADERS = [
   'pos_purchase_timeline_urgency',
   'lead_source',
   'landing_path',
+  'calculator_missed_calls_per_week',
+  'calculator_order_rate_percent',
+  'calculator_average_order_value',
+  'calculator_recovery_rate_percent',
+  'estimated_lost_orders',
+  'estimated_lost_revenue',
+  'estimated_recoverable_revenue',
+  'estimated_serviio_fee',
   'serviio_fit_status',
   'partner_next_action',
   'handoff_summary',
@@ -81,6 +89,18 @@ function priorityRank(priority) {
   return { hot: 0, warm: 1 }[priority] ?? 9;
 }
 
+function appendCalculatorContext(summary, row) {
+  if (!row.estimated_recoverable_revenue) return summary;
+  return [
+    summary,
+    `Calculator missed calls/week: ${row.calculator_missed_calls_per_week || 'unknown'}`,
+    `Calculator lost orders/week: ${row.estimated_lost_orders || 'unknown'}`,
+    `Calculator lost revenue: ${row.estimated_lost_revenue || 'unknown'}`,
+    `Calculator recoverable revenue: ${row.estimated_recoverable_revenue}`,
+    `Estimated Serviio fee: ${row.estimated_serviio_fee || 'unknown'}`,
+  ].join(' | ');
+}
+
 function buildPosPartnerRows(scoredRows) {
   return scoredRows
     .filter((row) => row.pos_partner_lead_status === 'qualified_for_pos_partner')
@@ -105,9 +125,17 @@ function buildPosPartnerRows(scoredRows) {
       pos_purchase_timeline_urgency: row.pos_purchase_timeline_urgency,
       lead_source: row.lead_source,
       landing_path: row.landing_path,
+      calculator_missed_calls_per_week: row.calculator_missed_calls_per_week,
+      calculator_order_rate_percent: row.calculator_order_rate_percent,
+      calculator_average_order_value: row.calculator_average_order_value,
+      calculator_recovery_rate_percent: row.calculator_recovery_rate_percent,
+      estimated_lost_orders: row.estimated_lost_orders,
+      estimated_lost_revenue: row.estimated_lost_revenue,
+      estimated_recoverable_revenue: row.estimated_recoverable_revenue,
+      estimated_serviio_fee: row.estimated_serviio_fee,
       serviio_fit_status: row.serviio_fit_status,
       partner_next_action: row.partner_next_action,
-      handoff_summary: row.pos_partner_lead_package,
+      handoff_summary: appendCalculatorContext(row.pos_partner_lead_package, row),
     }));
 }
 
