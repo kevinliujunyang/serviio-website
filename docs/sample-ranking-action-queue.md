@@ -1,13 +1,13 @@
 # Serviio Ranking Action Queue
 
-Source rows: 108
+Source rows: 113
 Actions shown: 25
 Tracker command date: 2026-06-20
 
 ## Status Counts
 - near_page_one: 3
 - needs_authority_or_relevance: 1
-- no_search_console_data: 102
+- no_search_console_data: 107
 - page_one: 2
 
 ## Actions
@@ -52,6 +52,17 @@ Tracker command date: 2026-06-20
 | 56/100 | 39 Miles restaurant consultants | indexing_or_data_check | 39 miles ai phone ordering; 39 Miles phone order integration; 39 Miles POS AI phone agent; Chinese restaurant 39 Miles phone orders | /pos/39-miles-ai-phone-ordering/ | npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-20 --note "Ranking support for \"39 miles ai phone ordering\", \"39 Miles phone order integration\", \"39 Miles POS AI phone agent\", \"Chinese restaurant 39 Miles phone orders\"; one submission should support these grouped ranking actions." |
 | 56/100 | Mealkeyway restaurant consultants | indexing_or_data_check | mealkeyway ai phone ordering; Mealkeyway phone order integration; Mealkeyway POS AI phone agent; Chinese restaurant Mealkeyway phone orders | /pos/mealkeyway-ai-phone-ordering/ | npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status submitted --date 2026-06-20 --note "Ranking support for \"mealkeyway ai phone ordering\", \"Mealkeyway phone order integration\", \"Mealkeyway POS AI phone agent\", \"Chinese restaurant Mealkeyway phone orders\"; one submission should support these grouped ranking actions." |
 | 56/100 | Toast restaurant consultants | indexing_or_data_check | toast ai phone ordering for restaurants; Toast restaurant phone order integration | /pos/toast-ai-phone-ordering/ | npm run marketing:mark -- --target "Toast restaurant consultants" --status submitted --date 2026-06-20 --note "Ranking support for \"toast ai phone ordering for restaurants\", \"Toast restaurant phone order integration\"; one submission should support these grouped ranking actions." |
+
+## First-Hour Authority Coverage
+
+These first-hour authority targets support the highest-intent ranking actions before broader directory work.
+
+| Authority target | Score | Supporting queries | Target pages |
+| --- | ---: | --- | --- |
+| MenuSifu restaurant consultants | 83/100 | menusifu ai phone ordering; MenuSifu phone order integration; MenuSifu POS AI phone agent; Chinese restaurant MenuSifu phone orders | /pos/menusifu-ai-phone-ordering/ |
+| 39 Miles restaurant consultants | 56/100 | 39 miles ai phone ordering; 39 Miles phone order integration; 39 Miles POS AI phone agent; Chinese restaurant 39 Miles phone orders | /pos/39-miles-ai-phone-ordering/ |
+
+Run `npm run marketing:submission-log:first-hour` and `npm run marketing:submission-preflight:first-hour` before syncing tracker updates.
 
 ## Usage
 

@@ -48,6 +48,17 @@ Tracker command date: 2026-06-20
 | 56/100 | Square restaurant consultants | indexing_or_data_check | square ai phone ordering for restaurants; Square restaurant phone order integration; Square POS phone order AI; AI phone agent Square POS; Chinese restaurant Square phone orders | /pos/square-ai-phone-ordering/ | npm run marketing:mark -- --target "Square restaurant consultants" --status submitted --date 2026-06-20 --note "Ranking support for \"square ai phone ordering for restaurants\", \"Square restaurant phone order integration\", \"Square POS phone order AI\", \"AI phone agent Square POS\", \"Chinese restaurant Square phone orders\"; one submission should support these grouped ranking actions." |
 | 56/100 | Toast restaurant consultants | indexing_or_data_check | toast ai phone ordering for restaurants; Toast restaurant phone order integration; Toast POS phone order AI; AI phone agent Toast POS | /pos/toast-ai-phone-ordering/ | npm run marketing:mark -- --target "Toast restaurant consultants" --status submitted --date 2026-06-20 --note "Ranking support for \"toast ai phone ordering for restaurants\", \"Toast restaurant phone order integration\", \"Toast POS phone order AI\", \"AI phone agent Toast POS\"; one submission should support these grouped ranking actions." |
 
+## First-Hour Authority Coverage
+
+These first-hour authority targets support the highest-intent ranking actions before broader directory work.
+
+| Authority target | Score | Supporting queries | Target pages |
+| --- | ---: | --- | --- |
+| 39 Miles restaurant consultants | 56/100 | 39 miles ai phone ordering; 39 Miles phone order integration; 39 Miles POS AI phone agent; Chinese restaurant 39 Miles phone orders | /pos/39-miles-ai-phone-ordering/ |
+| MenuSifu restaurant consultants | 56/100 | menusifu ai phone ordering; MenuSifu phone order integration; MenuSifu POS AI phone agent; Chinese restaurant MenuSifu phone orders | /pos/menusifu-ai-phone-ordering/ |
+
+Run `npm run marketing:submission-log:first-hour` and `npm run marketing:submission-preflight:first-hour` before syncing tracker updates.
+
 ## Usage
 
 - Work `push_to_page_one` and `ctr_rewrite` rows first because they are closest to first-page traffic.

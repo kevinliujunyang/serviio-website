@@ -188,6 +188,20 @@ function buildAuthoritySubmissionBatches(actions, today = todayIso()) {
     .sort((a, b) => b.max_score - a.max_score || a.authority_target.localeCompare(b.authority_target));
 }
 
+function firstHourTargets() {
+  return new Set([
+    'Google Business Profile',
+    'MenuSifu restaurant consultants',
+    '39 Miles restaurant consultants',
+    'Pilot restaurant testimonial',
+  ]);
+}
+
+function firstHourAuthorityCoverageRows(authorityBatches) {
+  const targets = firstHourTargets();
+  return authorityBatches.filter((row) => targets.has(row.authority_target));
+}
+
 function renderTable(rows) {
   if (rows.length === 0) return '_No ranking actions available._';
   const lines = [
@@ -196,6 +210,18 @@ function renderTable(rows) {
   ];
   for (const row of rows) {
     lines.push(`| ${row.action_score}/100 | ${row.action_type} | ${row.query} | ${row.target_page} | ${row.current_position || '-'} | ${row.current_ctr || '-'} | ${row.recommended_action} | ${row.suggested_source_hubs || '-'} | ${row.authority_target || '-'} | ${row.authority_tracker_command || '-'} |`);
+  }
+  return lines.join('\n');
+}
+
+function renderFirstHourCoverageTable(rows) {
+  if (rows.length === 0) return '_No first-hour authority targets appear in this ranking action queue._';
+  const lines = [
+    '| Authority target | Score | Supporting queries | Target pages |',
+    '| --- | ---: | --- | --- |',
+  ];
+  for (const row of rows) {
+    lines.push(`| ${row.authority_target} | ${row.max_score}/100 | ${row.supporting_queries} | ${row.target_pages} |`);
   }
   return lines.join('\n');
 }
@@ -217,6 +243,7 @@ function renderRankingActionQueue(rows, options = {}) {
   const today = options.today || todayIso();
   const actions = buildRankingActions(rows, { limit, today });
   const authorityBatches = buildAuthoritySubmissionBatches(actions, today);
+  const firstHourCoverageRows = firstHourAuthorityCoverageRows(authorityBatches);
   const statusCounts = rows.reduce((counts, row) => {
     counts[row.status] = (counts[row.status] || 0) + 1;
     return counts;
@@ -238,6 +265,14 @@ function renderRankingActionQueue(rows, options = {}) {
     '## Authority Submission Batches',
     '',
     renderAuthorityBatchTable(authorityBatches),
+    '',
+    '## First-Hour Authority Coverage',
+    '',
+    'These first-hour authority targets support the highest-intent ranking actions before broader directory work.',
+    '',
+    renderFirstHourCoverageTable(firstHourCoverageRows),
+    '',
+    'Run `npm run marketing:submission-log:first-hour` and `npm run marketing:submission-preflight:first-hour` before syncing tracker updates.',
     '',
     '## Usage',
     '',
@@ -274,6 +309,7 @@ module.exports = {
   authorityTrackerCommand,
   buildAuthoritySubmissionBatches,
   buildRankingActions,
+  firstHourAuthorityCoverageRows,
   parseArgs,
   recommendedAction,
   renderRankingActionQueue,

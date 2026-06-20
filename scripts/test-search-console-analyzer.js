@@ -178,6 +178,10 @@ assert.match(groupedRankingReport, /## Authority Submission Batches/);
 assert.match(groupedRankingReport, /MenuSifu restaurant consultants/);
 assert.match(groupedRankingReport, /\| 83\/100 \| MenuSifu restaurant consultants \| push_to_page_one \| menusifu ai phone ordering \|/i);
 assert.match(groupedRankingReport, /one submission should support these grouped ranking actions/i);
+assert.match(groupedRankingReport, /## First-Hour Authority Coverage/);
+assert.match(groupedRankingReport, /These first-hour authority targets support the highest-intent ranking actions before broader directory work\./);
+assert.match(groupedRankingReport, /\| MenuSifu restaurant consultants \| 83\/100 \| menusifu ai phone ordering \| \/pos\/menusifu-ai-phone-ordering\/ \|/i);
+assert.match(groupedRankingReport, /Run `npm run marketing:submission-log:first-hour` and `npm run marketing:submission-preflight:first-hour` before syncing tracker updates\./);
 assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5', '--today', '2026-06-07']), {
   watchlist: 'watch.csv',
   out: 'actions.md',
