@@ -171,6 +171,18 @@ function validateMetadata(pages) {
 function validateSitemap(pages) {
   const errors = [];
   const xml = fs.readFileSync('sitemap.xml', 'utf8');
+  const closingUrlsetIndex = xml.indexOf('</urlset>');
+  if (closingUrlsetIndex === -1) {
+    errors.push('sitemap: missing closing urlset tag');
+  } else {
+    const trailingContent = xml.slice(closingUrlsetIndex + '</urlset>'.length).trim();
+    if (trailingContent) {
+      errors.push('sitemap: trailing content after closing urlset');
+    }
+    if (xml.indexOf('</urlset>', closingUrlsetIndex + 1) !== -1) {
+      errors.push('sitemap: multiple closing urlset tags');
+    }
+  }
   const urlEntries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   const pageSet = new Set(pages);
@@ -1173,84 +1185,102 @@ function validateServiceAreaGeneration(pages) {
   return { errors, serviceAreaLeadPageCount: serviceAreaLeadPages.length };
 }
 
-const pages = walkHtmlPages();
-const metadata = validateMetadata(pages);
-const sitemap = validateSitemap(pages);
-const forms = validateForms(pages);
-const links = validateInternalLinks(pages);
-const robots = validateRobots();
-const indexNow = validateIndexNowSetup();
-const organizationAuthority = validateOrganizationAuthority();
-const homepageSoftwareApplication = validateHomepageSoftwareApplication();
-const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
-const homepageAuthorityHubLinks = validateHomepageAuthorityHubLinks();
-const homepageConversionOffers = validateHomepageConversionOffers();
-const posFocusFields = validatePosFocusFields(pages);
-const attribution = validateAttributionScript();
-const searchConsoleCoverage = validateSearchConsoleCoverage();
-const freeSearchTracker = validateFreeSearchTracker();
-const keywordCoverageTooling = validateKeywordCoverageTooling();
-const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
-const leadScoringWorkflow = validateLeadScoringWorkflow();
-const customerProofWorkflow = validateCustomerProofWorkflow();
-const revenueCalculatorLeadCapture = validateRevenueCalculatorLeadCapture();
-const serviceAreaGeneration = validateServiceAreaGeneration(pages);
-const errors = [
-  ...metadata.errors,
-  ...sitemap.errors,
-  ...forms.errors,
-  ...links.errors,
-  ...robots.errors,
-  ...indexNow.errors,
-  ...organizationAuthority.errors,
-  ...homepageSoftwareApplication.errors,
-  ...homepagePriorityNavLinks.errors,
-  ...homepageAuthorityHubLinks.errors,
-  ...homepageConversionOffers.errors,
-  ...posFocusFields.errors,
-  ...attribution.errors,
-  ...searchConsoleCoverage.errors,
-  ...freeSearchTracker.errors,
-  ...keywordCoverageTooling.errors,
-  ...searchConsoleAnalyzerWorkflow.errors,
-  ...leadScoringWorkflow.errors,
-  ...customerProofWorkflow.errors,
-  ...revenueCalculatorLeadCapture.errors,
-  ...serviceAreaGeneration.errors,
-];
+function runValidation() {
+  const pages = walkHtmlPages();
+  const metadata = validateMetadata(pages);
+  const sitemap = validateSitemap(pages);
+  const forms = validateForms(pages);
+  const links = validateInternalLinks(pages);
+  const robots = validateRobots();
+  const indexNow = validateIndexNowSetup();
+  const organizationAuthority = validateOrganizationAuthority();
+  const homepageSoftwareApplication = validateHomepageSoftwareApplication();
+  const homepagePriorityNavLinks = validateHomepagePriorityNavLinks();
+  const homepageAuthorityHubLinks = validateHomepageAuthorityHubLinks();
+  const homepageConversionOffers = validateHomepageConversionOffers();
+  const posFocusFields = validatePosFocusFields(pages);
+  const attribution = validateAttributionScript();
+  const searchConsoleCoverage = validateSearchConsoleCoverage();
+  const freeSearchTracker = validateFreeSearchTracker();
+  const keywordCoverageTooling = validateKeywordCoverageTooling();
+  const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
+  const leadScoringWorkflow = validateLeadScoringWorkflow();
+  const customerProofWorkflow = validateCustomerProofWorkflow();
+  const revenueCalculatorLeadCapture = validateRevenueCalculatorLeadCapture();
+  const serviceAreaGeneration = validateServiceAreaGeneration(pages);
+  const errors = [
+    ...metadata.errors,
+    ...sitemap.errors,
+    ...forms.errors,
+    ...links.errors,
+    ...robots.errors,
+    ...indexNow.errors,
+    ...organizationAuthority.errors,
+    ...homepageSoftwareApplication.errors,
+    ...homepagePriorityNavLinks.errors,
+    ...homepageAuthorityHubLinks.errors,
+    ...homepageConversionOffers.errors,
+    ...posFocusFields.errors,
+    ...attribution.errors,
+    ...searchConsoleCoverage.errors,
+    ...freeSearchTracker.errors,
+    ...keywordCoverageTooling.errors,
+    ...searchConsoleAnalyzerWorkflow.errors,
+    ...leadScoringWorkflow.errors,
+    ...customerProofWorkflow.errors,
+    ...revenueCalculatorLeadCapture.errors,
+    ...serviceAreaGeneration.errors,
+  ];
 
-if (errors.length > 0) {
-  console.error(errors.join('\n'));
-  process.exit(1);
+  return {
+    errors,
+    report: [
+      `${pages.length} crawlable pages`,
+      `${metadata.jsonLdBlocks} JSON-LD blocks valid`,
+      `${metadata.alternateLinks} hreflang alternates valid`,
+      `${sitemap.locCount} sitemap URLs`,
+      `${forms.formCount} lead forms validated`,
+      'core lead contact fields validated',
+      `${forms.formCount} conversion offers validated`,
+      'required lead qualification fields validated',
+      'POS qualification validated',
+      'internal links validated',
+      `${organizationAuthority.homepageCount} Organization authority schemas validated`,
+      `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
+      `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
+      `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
+      `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
+      `${posFocusFields.posPageCount} POS focus fields validated`,
+      'form attribution validated',
+      `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
+      'free search tracker validated',
+      'keyword coverage tooling validated',
+      'Search Console analyzer workflow validated',
+      'lead scoring workflow validated',
+      'customer proof workflow validated',
+      'revenue calculator lead capture validated',
+      `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
+      'service-area generator lead fields validated',
+      'IndexNow setup validated',
+      'robots.txt validated',
+    ],
+  };
 }
 
-console.log([
-  `${pages.length} crawlable pages`,
-  `${metadata.jsonLdBlocks} JSON-LD blocks valid`,
-  `${metadata.alternateLinks} hreflang alternates valid`,
-  `${sitemap.locCount} sitemap URLs`,
-  `${forms.formCount} lead forms validated`,
-  'core lead contact fields validated',
-  `${forms.formCount} conversion offers validated`,
-  'required lead qualification fields validated',
-  'POS qualification validated',
-  'internal links validated',
-  `${organizationAuthority.homepageCount} Organization authority schemas validated`,
-  `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
-  `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
-  `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
-  `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
-  `${posFocusFields.posPageCount} POS focus fields validated`,
-  'form attribution validated',
-  `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
-  'free search tracker validated',
-  'keyword coverage tooling validated',
-  'Search Console analyzer workflow validated',
-  'lead scoring workflow validated',
-  'customer proof workflow validated',
-  'revenue calculator lead capture validated',
-  `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
-  'service-area generator lead fields validated',
-  'IndexNow setup validated',
-  'robots.txt validated',
-].join('\n'));
+function main() {
+  const { errors, report } = runValidation();
+  if (errors.length > 0) {
+    console.error(errors.join('\n'));
+    process.exit(1);
+  }
+  console.log(report.join('\n'));
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  runValidation,
+  validateSitemap,
+};

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
     "validate:seo": "node scripts/validate-seo.js",
+    "validate:seo:test": "node scripts/test-validate-seo.js",
     "smoke:http": "node scripts/http-smoke.js",
     "smoke:prod": "node scripts/http-smoke.js https://serviio.ai",
     "smoke:prod:forms": "node scripts/form-marker-smoke.js https://serviio.ai",
