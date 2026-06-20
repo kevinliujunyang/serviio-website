@@ -522,6 +522,7 @@ function validateHomepageAuthorityHubLinks() {
     { href: '/pos/clover-ai-phone-ordering/', text: 'AI phone agent Clover POS' },
     { href: '/takeout-pos-system/', text: 'POS system for takeout restaurant' },
     { href: '/chinese-takeout-pos-system/', text: 'Chinese takeout order POS' },
+    { href: '/guides/connect-phone-orders-to-pos/', text: 'Connect phone orders to POS' },
     { href: '/chinese-restaurant-phone-answering-service/', text: 'Chinese restaurant phone answering service' },
     { href: '/restaurant-tech-ai-phone-ordering/', text: 'Restaurant tech AI phone ordering' },
     { href: '/restaurant-call-answering-ai/', text: 'Restaurant call answering AI' },
