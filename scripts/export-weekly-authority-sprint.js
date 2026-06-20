@@ -78,7 +78,15 @@ function quoteShell(text) {
 }
 
 function trackerCommand(row, today, followUpDate) {
+  if (row.tracker_command) return row.tracker_command;
   return `npm run marketing:mark -- --target ${quoteShell(row.target)} --status submitted --date ${today} --note "Submitted/contacted; add confirmation URL and account used. Follow up: ${followUpDate}."`;
+}
+
+function proofFields(row, followUpDate) {
+  if (row.action_type === 'optimize_live_listing') {
+    return 'Record updated listing screenshot, account/owner confirmation, and the live URL that changed.';
+  }
+  return `Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date ${followUpDate}.`;
 }
 
 function trackerRowFromQueueRow(row) {
@@ -126,7 +134,7 @@ function renderDailyAuthorityChecklist(rows, today) {
   ];
 
   rows.forEach((row, index) => {
-    lines.push(`| ${index + 1} | ${row.target} | ${row.priority} | ${row.channel} | ${row.contact_url || row.url || '-'} | ${row.landing_url || '-'} | ${row.utm_url || '-'} | ${trackerCommand(row, today, followUpDate)} | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date ${followUpDate}. |`);
+    lines.push(`| ${index + 1} | ${row.target} | ${row.priority} | ${row.channel} | ${row.contact_url || row.url || '-'} | ${row.landing_url || '-'} | ${row.utm_url || '-'} | ${trackerCommand(row, today, followUpDate)} | ${proofFields(row, followUpDate)} |`);
   });
 
   return lines;

@@ -141,6 +141,17 @@ function withToday(row, today) {
 }
 
 function followUpQueueRow(row) {
+  if (row.follow_up_reason === 'live listing optimization') {
+    return {
+      action_type: 'optimize_live_listing',
+      ...commonFields(row),
+      subject: `Optimize live listing: ${row.anchor_or_listing_phrase}`,
+      message_or_query: `Claim or update ${row.channel} listing. Live URL: ${row.url}`,
+      next_step: 'Claim or update the live listing, improve restaurant AI phone ordering/POS copy, then record owner/account confirmation or updated screenshot.',
+      tracker_command: trackerCommand(row, 'live', 'Claimed or updated live listing; recorded proof or owner/account confirmation.'),
+    };
+  }
+
   return {
     action_type: 'follow_up',
     ...commonFields(row),

@@ -336,6 +336,7 @@ assert.throws(() => updateTracker(updateResult.csv, { target: 'missing', status:
 const followUpTrackerRows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,submitted,Serviio,2026-06-01,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Submitted partner request.
 P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio,2026-06-05,,https://serviio.ai/restaurant-pos-partner-referral/,https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Restaurant POS partner referral,Needs reply.
+P1,Startup directory,Product Hunt Serviio listing,https://www.producthunt.com/products/serviio,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/,https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Existing Product Hunt product page verified live. Claim/update access still pending.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
 P1,AI directory,AI Directory,https://ai.example.com,submitted,Serviio,2026-06-07,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Submitted recently.
 P0,Webmaster tool,IndexNow priority URL batch,https://api.indexnow.org/indexnow,submitted,Serviio,2026-06-01,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=indexnow&utm_medium=indexing&utm_campaign=free_search_marketing,Priority Chinese restaurant and POS URL submission,Submitted recrawl.
@@ -343,14 +344,19 @@ P0,Webmaster tool,IndexNow priority URL batch,https://api.indexnow.org/indexnow,
 const dueFollowUps = followUpRows(followUpTrackerRows, { today: '2026-06-10', days: 7 });
 assert.deepStrictEqual(dueFollowUps.map((row) => row.target), [
   'POS consultants',
+  'Product Hunt Serviio listing',
   'MenuSifu restaurant consultants',
 ]);
 assert.strictEqual(dueFollowUps[0].days_waiting, 5);
 assert.strictEqual(dueFollowUps[0].due_date, '2026-06-05');
-assert.strictEqual(dueFollowUps[1].days_waiting, 9);
-assert.strictEqual(dueFollowUps[1].due_date, '2026-06-08');
+assert.strictEqual(dueFollowUps[1].days_waiting, 7);
+assert.strictEqual(dueFollowUps[1].due_date, '2026-06-03');
+assert.strictEqual(dueFollowUps[1].follow_up_reason, 'live listing optimization');
+assert.strictEqual(dueFollowUps[2].days_waiting, 9);
+assert.strictEqual(dueFollowUps[2].due_date, '2026-06-08');
 assert.match(renderFollowUpReport(dueFollowUps), /# Serviio Free Search Follow-Up Queue/);
 assert.match(renderFollowUpReport(dueFollowUps), /npm run marketing:mark -- --target "POS consultants" --status "follow-up needed"/);
+assert.match(renderFollowUpReport(dueFollowUps), /Claim or update the live listing/);
 assert.match(renderFollowUpReport(dueFollowUps), /https:\/\/serviio.ai\/restaurant-pos-partner-referral\//);
 assert.deepStrictEqual(parseFollowUpArgs(['--today', '2026-06-10', '--days', '5', '--limit', '3']), {
   csvPath: 'docs/free-search-marketing-tracker.csv',
@@ -362,6 +368,7 @@ assert.throws(() => parseFollowUpArgs(['--days', '0']), /--days must be a positi
 
 const gtmQueueRows = buildGtmQueueRows(parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio,2026-06-05,,https://serviio.ai/restaurant-pos-partner-referral/,https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,Restaurant POS partner referral,Needs reply.
+P1,Startup directory,Product Hunt Serviio listing,https://www.producthunt.com/products/serviio,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/,https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Existing Product Hunt product page verified live. Claim/update access still pending.
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
 P2,Customer proof,Pilot restaurant testimonial,,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
@@ -369,6 +376,7 @@ P0,Business profile,Google Business Profile,https://www.google.com/business/,not
 `), { today: '2026-06-10', followUpLimit: 5, readyLimit: 5, researchLimit: 5 });
 assert.deepStrictEqual(gtmQueueRows.map((row) => `${row.action_type}:${row.target}`), [
   'follow_up:POS consultants',
+  'optimize_live_listing:Product Hunt Serviio listing',
   'submit_or_contact:MenuSifu restaurant consultants',
   'submit_or_contact:Google Business Profile',
   'research_target:Pilot restaurant testimonial',
@@ -377,18 +385,21 @@ assert.match(gtmQueueRows[0].next_step, /Follow up/);
 assert.match(gtmQueueRows[0].evidence_needed, /Partner reply/);
 assert.strictEqual(gtmQueueRows[0].lead_priority, 'P1 partner/referral lead source');
 assert.strictEqual(gtmQueueRows[0].lead_route, 'Partner can refer POS-ready restaurants; keep no-POS owners as POS partner referral prospects.');
-assert.match(gtmQueueRows[1].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
-assert.match(gtmQueueRows[1].evidence_needed, /submitted form confirmation/);
-assert.strictEqual(gtmQueueRows[1].lead_priority, 'P0 POS-ready Chinese restaurant lead source');
-assert.match(gtmQueueRows[1].lead_route, /MenuSifu/);
-assert.strictEqual(gtmQueueRows[2].lead_priority, 'P0 inbound restaurant-owner lead source');
-assert.match(gtmQueueRows[2].lead_route, /Ask every inbound owner which POS system they use/);
-assert.match(gtmQueueRows[3].message_or_query, /"Pilot restaurant testimonial" "submit"/);
-assert.match(gtmQueueRows[3].evidence_needed, /Published testimonial/);
-assert.strictEqual(gtmQueueRows[3].lead_priority, 'P2 proof asset for conversion');
+assert.match(gtmQueueRows[1].next_step, /Claim or update the live listing/);
+assert.match(gtmQueueRows[1].tracker_command, /--status "live"/);
+assert.match(gtmQueueRows[2].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
+assert.match(gtmQueueRows[2].evidence_needed, /submitted form confirmation/);
+assert.strictEqual(gtmQueueRows[2].lead_priority, 'P0 POS-ready Chinese restaurant lead source');
+assert.match(gtmQueueRows[2].lead_route, /MenuSifu/);
+assert.strictEqual(gtmQueueRows[3].lead_priority, 'P0 inbound restaurant-owner lead source');
+assert.match(gtmQueueRows[3].lead_route, /Ask every inbound owner which POS system they use/);
+assert.match(gtmQueueRows[4].message_or_query, /"Pilot restaurant testimonial" "submit"/);
+assert.match(gtmQueueRows[4].evidence_needed, /Published testimonial/);
+assert.strictEqual(gtmQueueRows[4].lead_priority, 'P2 proof asset for conversion');
 const gtmCsv = gtmQueueToCsv(gtmQueueRows);
 assert.match(gtmCsv, /action_type,opportunity_score,lead_priority,lead_route,primary_kpi,priority,channel,target,status,contact_url/);
 assert.match(gtmCsv, /follow_up,90,P1 partner\/referral lead source,Partner can refer POS-ready restaurants/);
+assert.match(gtmCsv, /optimize_live_listing,34,P1 authority and discovery lead source/);
 assert.match(gtmCsv, /P1,Partner outreach,POS consultants/);
 assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
@@ -419,7 +430,7 @@ assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
 assert.match(weeklyAuthoritySprint, /## Daily Authority Checklist/);
 assert.match(weeklyAuthoritySprint, /\| 1 \| Chinese restaurant POS consultants \| P1 \| Partner outreach \| https:\/\/www\.m988\.com\/ \| https:\/\/serviio\.ai\/restaurant-pos-partner-referral\/ \|/);
 assert.match(weeklyAuthoritySprint, /Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-17\./);
-assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-10/);
+assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status "submitted" --date 2026-06-10/);
 assert.match(weeklyAuthoritySprint, /## Submission Payloads/);
 assert.match(weeklyAuthoritySprint, /Contact URL: https:\/\/forms\.menusifu\.com\/pages\/demo-request/);
 assert.match(weeklyAuthoritySprint, /Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
@@ -427,8 +438,12 @@ assert.match(weeklyAuthoritySprint, /UTM URL: https:\/\/serviio\.ai\/pos\/menusi
 assert.match(weeklyAuthoritySprint, /Subject: AI phone ordering add-on for MenuSifu restaurants/);
 assert.match(weeklyAuthoritySprint, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
 assert.match(weeklyAuthoritySprint, /Follow-up date: 2026-06-17/);
-assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-10/);
+assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-10/);
 assert.match(weeklyAuthoritySprint, /npm run marketing:submission-sync/);
+const weeklyAuthoritySprintWithLiveOptimization = buildWeeklyAuthoritySprint(trackerRows, { today: '2026-06-20', submissionTarget: 15, liveTarget: 5, highFitTarget: 8 });
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| optimize_live_listing \| 66 \| Product Hunt Serviio listing \| Startup directory \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /npm run marketing:mark -- --target "Product Hunt Serviio listing" --status "live" --date 2026-06-20/);
+assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /Product Hunt Serviio listing" --status submitted/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
   today: '2026-06-10',

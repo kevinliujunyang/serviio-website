@@ -18,6 +18,7 @@ const FOLLOW_UP_CHANNELS = new Set([
   'Restaurant technology directory',
   'Startup directory',
 ]);
+const LIVE_OPTIMIZATION_PATTERN = /\bclaim(?:ed|ing)?\b.*\bpending\b|\bupdate(?:d|ing)?\b.*\bpending\b|\bclaim\/update access still pending\b/i;
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -71,21 +72,46 @@ function daysBetween(startText, endText) {
   return Math.floor((end - start) / 86400000);
 }
 
+function needsLiveOptimization(row) {
+  return row.status === 'live' &&
+    row.date_live &&
+    FOLLOW_UP_CHANNELS.has(row.channel) &&
+    LIVE_OPTIMIZATION_PATTERN.test(row.notes || '');
+}
+
+function submittedFollowUpRow(row, today, days) {
+  const followUpDelay = row.status === 'follow-up needed' ? 0 : days;
+  const dueDate = addDays(row.date_submitted, followUpDelay);
+  return {
+    ...row,
+    follow_up_reason: row.status === 'follow-up needed' ? 'manual follow-up' : 'submitted listing follow-up',
+    due_date: dueDate,
+    days_waiting: daysBetween(row.date_submitted, today),
+    overdue_days: Math.max(0, daysBetween(dueDate, today)),
+  };
+}
+
+function liveOptimizationRow(row, today) {
+  return {
+    ...row,
+    follow_up_reason: 'live listing optimization',
+    due_date: row.date_live,
+    days_waiting: daysBetween(row.date_live, today),
+    overdue_days: Math.max(0, daysBetween(row.date_live, today)),
+  };
+}
+
 function followUpRows(rows, { today = todayIso(), days = DEFAULT_DAYS, limit } = {}) {
   const dueRows = rows
-    .filter((row) => ACTIVE_STATUSES.has(row.status))
     .filter((row) => FOLLOW_UP_CHANNELS.has(row.channel))
-    .filter((row) => row.date_submitted && !row.date_live)
     .map((row) => {
-      const followUpDelay = row.status === 'follow-up needed' ? 0 : days;
-      const dueDate = addDays(row.date_submitted, followUpDelay);
-      return {
-        ...row,
-        due_date: dueDate,
-        days_waiting: daysBetween(row.date_submitted, today),
-        overdue_days: Math.max(0, daysBetween(dueDate, today)),
-      };
+      if (ACTIVE_STATUSES.has(row.status) && row.date_submitted && !row.date_live) {
+        return submittedFollowUpRow(row, today, days);
+      }
+      if (needsLiveOptimization(row)) return liveOptimizationRow(row, today);
+      return null;
     })
+    .filter(Boolean)
     .filter((row) => row.due_date <= today)
     .sort((a, b) => {
       const statusDiff = Number(b.status === 'follow-up needed') - Number(a.status === 'follow-up needed');
@@ -124,11 +150,17 @@ function renderFollowUpReport(rows) {
     lines.push(`Submitted: ${row.date_submitted}`);
     lines.push(`Due: ${row.due_date}`);
     lines.push(`Days waiting: ${row.days_waiting}`);
+    lines.push(`Reason: ${row.follow_up_reason}`);
     lines.push(`Contact URL: ${row.url}`);
     lines.push(`Landing URL: ${row.landing_url}`);
     lines.push(`UTM URL: ${row.utm_url}`);
     lines.push(`Anchor/listing phrase: ${row.anchor_or_listing_phrase}`);
-    lines.push(`Next tracker command: npm run marketing:mark -- --target ${quoteShell(row.target)} --status "follow-up needed" --note "Followed up; waiting for reply or live listing."`);
+    if (row.follow_up_reason === 'live listing optimization') {
+      lines.push('Next step: Claim or update the live listing, strengthen restaurant AI phone ordering and POS integration copy, then record proof.');
+      lines.push(`Next tracker command: npm run marketing:mark -- --target ${quoteShell(row.target)} --status "live" --note "Claimed or updated live listing; recorded proof or owner/account confirmation."`);
+    } else {
+      lines.push(`Next tracker command: npm run marketing:mark -- --target ${quoteShell(row.target)} --status "follow-up needed" --note "Followed up; waiting for reply or live listing."`);
+    }
     lines.push('');
   }
 
@@ -152,6 +184,7 @@ if (require.main === module) {
 
 module.exports = {
   followUpRows,
+  needsLiveOptimization,
   parseArgs,
   renderFollowUpReport,
 };
