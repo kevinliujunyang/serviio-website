@@ -298,6 +298,7 @@ P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-06,2026-06-07,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live listing.
 P1,AI directory,Unverified AI Directory,https://ai.example.com,submitted,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,
 P1,Startup directory,Unverified Live Listing,https://startup.example.com,live,Serviio,2026-06-06,,https://serviio.ai/,https://serviio.ai/?utm_source=startup&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Live but missing date.
+P0,Webmaster tool,IndexNow priority URL batch,https://api.indexnow.org/indexnow,submitted,Serviio,2026-06-06,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=indexnow&utm_medium=indexing&utm_campaign=free_search_marketing,Priority Chinese restaurant and POS URL submission,HTTP 200.
 P2,Customer proof,Pilot restaurant testimonial,https://proof.example.com,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
 `);
 const authority = authorityScore(authorityRows);
@@ -305,6 +306,7 @@ assert.strictEqual(authority.score, 26);
 assert.strictEqual(authority.submittedRows.length, 2);
 assert.strictEqual(authority.liveRows.length, 1);
 assert.strictEqual(authority.highFitStartedRows.length, 2);
+assert.strictEqual(authority.indexingRows.length, 1);
 assert.deepStrictEqual(evidenceIssues(authorityRows).map((issue) => issue.target), [
   'Unverified AI Directory',
   'Unverified Live Listing',
@@ -314,9 +316,11 @@ assert.match(evidenceIssues(authorityRows)[1].issues.join(' '), /date_live/);
 assert.match(nextMilestones(authority)[0], /5 live authority links/);
 assert.match(renderAuthorityReport(authorityRows), /Serviio SEO Authority Audit/);
 assert.match(renderAuthorityReport(authorityRows), /Authority score: 26\/100/);
+assert.match(renderAuthorityReport(authorityRows), /Indexing support rows: 1/);
 assert.match(renderAuthorityReport(authorityRows), /Evidence Issues/);
 assert.match(renderAuthorityReport(authorityRows), /Unverified AI Directory/);
 assert.match(renderAuthorityReport(trackerRows), /Business profile - Google Business Profile/);
+assert.match(renderAuthorityReport(trackerRows), /Indexing support rows: 1/);
 assert.match(renderAuthorityReport(trackerRows), /Live Authority Optimizations/);
 assert.match(renderAuthorityReport(trackerRows), /Product Hunt Serviio listing/);
 assert.match(renderAuthorityReport(trackerRows), /Claim or update live listing and record proof/);

@@ -104,6 +104,7 @@ function evidenceIssues(rows) {
 
 function authorityScore(rows) {
   const authorityRows = rows.filter(isAuthorityRow);
+  const indexingRows = rows.filter((row) => row.channel === 'Webmaster tool' && isStartedWithEvidence(row));
   const submittedRows = authorityRows.filter(isSubmittedWithEvidence);
   const liveRows = authorityRows.filter(isLiveWithEvidence);
   const highFitStartedRows = authorityRows.filter((row) => HIGH_FIT_CHANNELS.has(row.channel) && isStartedWithEvidence(row));
@@ -121,6 +122,7 @@ function authorityScore(rows) {
   return {
     score,
     authorityRows,
+    indexingRows,
     submittedRows,
     liveRows,
     highFitStartedRows,
@@ -167,6 +169,7 @@ function renderReport(rows) {
     `High-fit partner/POS/association rows started: ${summary.highFitStartedRows.length}`,
     `Business profiles started: ${summary.businessProfileRows.length}`,
     `Customer proof rows started: ${summary.customerProofRows.length}`,
+    `Indexing support rows: ${summary.indexingRows.length}`,
     '',
     '## Status Counts',
   ];
