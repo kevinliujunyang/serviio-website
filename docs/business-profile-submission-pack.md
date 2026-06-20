@@ -17,6 +17,22 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Service focus: Chinese restaurants and takeout-heavy restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS.
 - Priority service areas: New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, Philadelphia, and other US restaurant markets with Chinese takeout density.
 
+## Profile asset checklist
+
+- Logo: https://serviio.ai/assets/logo.svg
+- Social/cover image: https://serviio.ai/assets/og-image.png
+- Website: https://serviio.ai/
+- Phone: (408) 409-9079
+- Email: info@serviio.ai
+- Keep NAP consistent across every profile before recording authority evidence.
+
+## Platform setup checklist
+
+- Google Business Profile: use clean homepage if UTM is rejected; add service-area business details, phone, website, logo, service categories, products, Q&A, and one update post.
+- Bing Places for Business: mirror Google NAP and service details; import from Google only after Google fields are accurate, then verify website, category, and service-area text.
+- Apple Business Connect: add action link to POS fit check; upload logo/cover image, service-area description, website, phone, and a showcase pointing to a POS or Chinese restaurant fit page.
+- Do not mark submitted or live until profile evidence is captured: account/login used, screenshot or dashboard confirmation, submitted date, and live URL when available.
+
 ## Profile services to add
 
 - POS-integrated AI phone ordering

@@ -311,6 +311,14 @@ assert.match(businessProfilePack, /Service-area business serving restaurant owne
 assert.match(businessProfilePack, /AI phone ordering for restaurants using POS systems/);
 assert.match(businessProfilePack, /Priority service areas/);
 assert.match(businessProfilePack, /New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, Philadelphia/);
+assert.match(businessProfilePack, /Profile asset checklist/);
+assert.match(businessProfilePack, /https:\/\/serviio\.ai\/assets\/logo\.svg/);
+assert.match(businessProfilePack, /https:\/\/serviio\.ai\/assets\/og-image\.png/);
+assert.match(businessProfilePack, /Platform setup checklist/);
+assert.match(businessProfilePack, /Google Business Profile: use clean homepage if UTM is rejected/);
+assert.match(businessProfilePack, /Bing Places for Business: mirror Google NAP and service details/);
+assert.match(businessProfilePack, /Apple Business Connect: add action link to POS fit check/);
+assert.match(businessProfilePack, /Do not mark submitted or live until profile evidence is captured/);
 assert.match(businessProfilePack, /Profile services to add/);
 assert.match(businessProfilePack, /POS-integrated AI phone ordering/);
 assert.match(businessProfilePack, /Chinese restaurant AI phone answering/);
