@@ -1,5 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
+const vm = require('vm');
 const {
   buildMarkerFailures,
   requiredMarkerGroups,
@@ -54,5 +55,79 @@ for (const snippet of [
 ]) {
   assert.ok(attributionScript.includes(snippet), `form-attribution.js missing ${snippet}`);
 }
+
+function createField(name, value = '') {
+  return {
+    name,
+    value,
+    type: '',
+    getAttribute(attribute) {
+      return attribute === 'value' ? this.value : '';
+    },
+  };
+}
+
+function createForm() {
+  const fields = [
+    createField('pos_system', ''),
+    createField('pos_recommendation_interest', ''),
+  ];
+  const listeners = {};
+  return {
+    fields,
+    appendChild(field) {
+      fields.push(field);
+    },
+    addEventListener(name, handler) {
+      listeners[name] = handler;
+    },
+    querySelector(selector) {
+      const nameMatch = selector.match(/name="([^"]+)"/) || selector.match(/\[name="([^"]+)"\]/);
+      if (!nameMatch) return null;
+      return fields.find((field) => field.name === nameMatch[1]) || null;
+    },
+    submit() {
+      listeners.submit();
+    },
+  };
+}
+
+const form = createForm();
+const context = {
+  URLSearchParams,
+  Date,
+  String,
+  Boolean,
+  Object,
+  window: {
+    location: {
+      href: 'https://serviio.ai/restaurant-pos-integration-checklist/',
+      pathname: '/restaurant-pos-integration-checklist/',
+      search: '',
+    },
+    sessionStorage: {
+      getItem() { return null; },
+      setItem() {},
+    },
+  },
+  document: {
+    referrer: '',
+    createElement() {
+      return createField('');
+    },
+    querySelectorAll(selector) {
+      return selector === 'form[action*="formspree.io"]' ? [form] : [];
+    },
+  },
+};
+
+vm.runInNewContext(attributionScript, context);
+assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'unknown_pos_status');
+form.querySelector('[name="pos_system"]').value = 'Toast';
+form.querySelector('[name="pos_recommendation_interest"]').value = 'Not applicable, I already have a POS';
+form.submit();
+assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'pos_ready');
+assert.strictEqual(form.querySelector('input[name="lead_route_hint"]').value, 'serviio_demo');
+assert.strictEqual(form.querySelector('input[name="monetization_route_hint"]').value, 'serviio_demo');
 
 console.log('Form marker smoke tests passed');

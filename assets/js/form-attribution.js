@@ -69,7 +69,7 @@
 
   var attributionFields = Object.assign({}, firstTouch, currentAttribution, sessionAttribution);
 
-  function ensureHiddenField(form, name, value) {
+  function ensureHiddenField(form, name, value, overwrite) {
     var field = form.querySelector('input[name="' + name + '"]');
     if (!field) {
       field = document.createElement('input');
@@ -77,7 +77,7 @@
       field.name = name;
       form.appendChild(field);
     }
-    if (!field.value) field.value = value;
+    if (overwrite || !field.value) field.value = value;
   }
 
   function fieldValue(form, name) {
@@ -115,9 +115,9 @@
     var posRecommendationInterest = fieldValue(form, 'pos_recommendation_interest');
     var posReadiness = classifyPosReadiness(posSystem, posRecommendationInterest);
 
-    ensureHiddenField(form, 'pos_readiness_signal', posReadiness);
-    ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness));
-    ensureHiddenField(form, 'monetization_route_hint', monetizationRouteHint(posReadiness));
+    ensureHiddenField(form, 'pos_readiness_signal', posReadiness, true);
+    ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness), true);
+    ensureHiddenField(form, 'monetization_route_hint', monetizationRouteHint(posReadiness), true);
   }
 
   document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
