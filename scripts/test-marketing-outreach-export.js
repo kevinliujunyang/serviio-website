@@ -358,26 +358,37 @@ P1,Partner outreach,POS consultants,https://example.com,follow-up needed,Serviio
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
 P2,Customer proof,Pilot restaurant testimonial,,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
+P0,Business profile,Google Business Profile,https://www.google.com/business/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Profile setup.
 `), { today: '2026-06-10', followUpLimit: 5, readyLimit: 5, researchLimit: 5 });
 assert.deepStrictEqual(gtmQueueRows.map((row) => `${row.action_type}:${row.target}`), [
   'follow_up:POS consultants',
   'submit_or_contact:MenuSifu restaurant consultants',
+  'submit_or_contact:Google Business Profile',
   'research_target:Pilot restaurant testimonial',
 ]);
 assert.match(gtmQueueRows[0].next_step, /Follow up/);
 assert.match(gtmQueueRows[0].evidence_needed, /Partner reply/);
+assert.strictEqual(gtmQueueRows[0].lead_priority, 'P1 partner/referral lead source');
+assert.strictEqual(gtmQueueRows[0].lead_route, 'Partner can refer POS-ready restaurants; keep no-POS owners as POS partner referral prospects.');
 assert.match(gtmQueueRows[1].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
 assert.match(gtmQueueRows[1].evidence_needed, /submitted form confirmation/);
-assert.match(gtmQueueRows[2].message_or_query, /"Pilot restaurant testimonial" "submit"/);
-assert.match(gtmQueueRows[2].evidence_needed, /Published testimonial/);
+assert.strictEqual(gtmQueueRows[1].lead_priority, 'P0 POS-ready Chinese restaurant lead source');
+assert.match(gtmQueueRows[1].lead_route, /MenuSifu/);
+assert.strictEqual(gtmQueueRows[2].lead_priority, 'P0 inbound restaurant-owner lead source');
+assert.match(gtmQueueRows[2].lead_route, /Ask every inbound owner which POS system they use/);
+assert.match(gtmQueueRows[3].message_or_query, /"Pilot restaurant testimonial" "submit"/);
+assert.match(gtmQueueRows[3].evidence_needed, /Published testimonial/);
+assert.strictEqual(gtmQueueRows[3].lead_priority, 'P2 proof asset for conversion');
 const gtmCsv = gtmQueueToCsv(gtmQueueRows);
-assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target,status,contact_url,landing_url,utm_url,anchor_or_listing_phrase,evidence_needed/);
-assert.match(gtmCsv, /follow_up,90,P1,Partner outreach,POS consultants/);
+assert.match(gtmCsv, /action_type,opportunity_score,lead_priority,lead_route,primary_kpi,priority,channel,target,status,contact_url/);
+assert.match(gtmCsv, /follow_up,90,P1 partner\/referral lead source,Partner can refer POS-ready restaurants/);
+assert.match(gtmCsv, /P1,Partner outreach,POS consultants/);
 assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
 const defaultGtmQueueRows = buildGtmQueueRows(trackerRows, { today: '2026-06-10' });
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'US-China Restaurant Alliance'));
+assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Google Business Profile'));
 assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
   out: 'gtm.csv',
   today: '2026-06-10',
