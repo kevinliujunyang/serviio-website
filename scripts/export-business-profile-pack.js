@@ -71,6 +71,29 @@ const LEAD_QUESTIONS = [
   'Do you want a demo for AI phone ordering, or do you need help choosing a POS first?',
 ];
 
+const PROFILE_QA = [
+  {
+    question: 'Does Serviio work with restaurant POS systems?',
+    answer: 'Yes. Serviio qualifies POS-ready phone-order workflows for restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and related POS systems.',
+  },
+  {
+    question: 'Is Serviio built for Chinese restaurants?',
+    answer: 'Yes. Chinese restaurants are a priority fit because they often have high phone-order volume, English, Mandarin, Cantonese, or bilingual caller needs, and clear takeout workflows.',
+  },
+  {
+    question: 'How much does Serviio cost?',
+    answer: 'Serviio charges 2% per completed order, with no monthly fee and no setup cost.',
+  },
+  {
+    question: 'What if my restaurant does not have a POS yet?',
+    answer: 'Restaurants with an existing POS are prioritized for AI phone ordering. No-POS restaurants are kept as lower-priority POS recommendation leads for follow-up.',
+  },
+  {
+    question: 'What languages can Serviio answer in?',
+    answer: 'Serviio supports English and Chinese phone-order workflows, including Mandarin and Cantonese qualification during the fit check.',
+  },
+];
+
 const PROFILE_POSTS = [
   {
     title: 'AI phone ordering for POS-ready restaurants',
@@ -173,6 +196,16 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
       `- Description: ${product.description}`,
       '- Price: No monthly fee; 2% per completed order',
       `- URL: ${product.url}`,
+      '',
+    ]),
+    '## Profile Q&A answers',
+    '',
+    'Use these for Google Business Profile questions, Bing profile details, Apple showcases, or public directory FAQs when the platform supports Q&A content.',
+    '',
+    ...PROFILE_QA.flatMap((item, index) => [
+      `### ${index + 1}. ${item.question}`,
+      '',
+      item.answer,
       '',
     ]),
     '## Lead qualification questions',

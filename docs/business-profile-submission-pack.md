@@ -71,6 +71,30 @@ Use these as Google Business Profile products, Apple showcases, or service items
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
 
+## Profile Q&A answers
+
+Use these for Google Business Profile questions, Bing profile details, Apple showcases, or public directory FAQs when the platform supports Q&A content.
+
+### 1. Does Serviio work with restaurant POS systems?
+
+Yes. Serviio qualifies POS-ready phone-order workflows for restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and related POS systems.
+
+### 2. Is Serviio built for Chinese restaurants?
+
+Yes. Chinese restaurants are a priority fit because they often have high phone-order volume, English, Mandarin, Cantonese, or bilingual caller needs, and clear takeout workflows.
+
+### 3. How much does Serviio cost?
+
+Serviio charges 2% per completed order, with no monthly fee and no setup cost.
+
+### 4. What if my restaurant does not have a POS yet?
+
+Restaurants with an existing POS are prioritized for AI phone ordering. No-POS restaurants are kept as lower-priority POS recommendation leads for follow-up.
+
+### 5. What languages can Serviio answer in?
+
+Serviio supports English and Chinese phone-order workflows, including Mandarin and Cantonese qualification during the fit check.
+
 ## Lead qualification questions
 
 - Which POS system do you use today: 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another system?
