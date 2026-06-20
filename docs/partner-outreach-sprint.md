@@ -33,6 +33,18 @@ https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workf
 Thanks,
 Serviio
 
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
+
 Tracker update command:
 
 ```bash
@@ -75,6 +87,18 @@ If there is a better person for partner or integration conversations, could you 
 
 Thanks,
 Serviio
+
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
 
 Tracker update command:
 
@@ -119,6 +143,18 @@ If there is a better person for partner or integration conversations, could you 
 Thanks,
 Serviio
 
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
+
 Tracker update command:
 
 ```bash
@@ -161,6 +197,18 @@ If there is a better person for partner or integration conversations, could you 
 
 Thanks,
 Serviio
+
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
 
 Tracker update command:
 
@@ -205,6 +253,18 @@ If there is a better person for partner or integration conversations, could you 
 Thanks,
 Serviio
 
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
+
 Tracker update command:
 
 ```bash
@@ -224,6 +284,18 @@ npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status su
 Message:
 
 Serviio helps restaurants capture phone orders with AI and evaluate how confirmed orders can flow into the restaurant POS or kitchen workflow. It is built for takeout-heavy operators, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
 
 Tracker update command:
 
@@ -257,6 +329,18 @@ https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&ut
 Thanks,
 Serviio
 
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
+
 Tracker update command:
 
 ```bash
@@ -288,6 +372,18 @@ https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_webs
 
 Thanks,
 Serviio
+
+Evidence capture:
+
+- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink
+- Account or login: email, CRM user, directory account, or social profile used to submit
+- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested
+- Submitted date: 2026-06-20
+- Follow-up date: 2026-06-27
+
+Authority submission log fields:
+
+- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date
 
 Tracker update command:
 

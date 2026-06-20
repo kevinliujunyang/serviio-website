@@ -253,6 +253,13 @@ assert.match(sprintMarkdown, /Chinese restaurant POS consultants/);
 assert.match(sprintMarkdown, /MenuSifu restaurant consultants/);
 assert.match(sprintMarkdown, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-06/);
 assert.match(sprintMarkdown, /Authority score is still blocked until submitted rows become live links, profiles, partner replies, or documented customer proof/);
+assert.match(sprintMarkdown, /Evidence capture:/);
+assert.match(sprintMarkdown, /Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink/);
+assert.match(sprintMarkdown, /Account or login: email, CRM user, directory account, or social profile used to submit/);
+assert.match(sprintMarkdown, /Submitted date: 2026-06-06/);
+assert.match(sprintMarkdown, /Follow-up date: 2026-06-13/);
+assert.match(sprintMarkdown, /Authority submission log fields:/);
+assert.match(sprintMarkdown, /evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date/);
 assert.deepStrictEqual(parseSprintExportArgs(['--out', 'docs/sprint.md', '--limit', '5', '--today', '2026-06-06']), {
   out: 'docs/sprint.md',
   limit: 5,

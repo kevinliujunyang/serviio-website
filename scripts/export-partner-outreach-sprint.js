@@ -14,6 +14,12 @@ function todayIso() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function addDaysIso(date, days) {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  parsed.setUTCDate(parsed.getUTCDate() + days);
+  return parsed.toISOString().slice(0, 10);
+}
+
 function parseArgs(argv) {
   const args = {
     out: DEFAULT_OUT,
@@ -49,6 +55,23 @@ function parseArgs(argv) {
 
 function trackerCommand(row, today) {
   return `npm run marketing:mark -- --target "${row.target}" --status submitted --date ${today} --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."`;
+}
+
+function evidenceCaptureLines(today) {
+  return [
+    'Evidence capture:',
+    '',
+    '- Evidence URL: submitted form confirmation, sent-message URL, partner reply, referral-page URL, or live backlink',
+    '- Account or login: email, CRM user, directory account, or social profile used to submit',
+    '- Confirmation note: what was submitted, who received it, and whether a partner/referral path was requested',
+    `- Submitted date: ${today}`,
+    `- Follow-up date: ${addDaysIso(today, 7)}`,
+    '',
+    'Authority submission log fields:',
+    '',
+    '- evidence_url, account_or_login, confirmation_note, submitted_date, follow_up_date',
+    '',
+  ];
 }
 
 function buildPartnerSprintMarkdown(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
@@ -89,6 +112,7 @@ function buildPartnerSprintMarkdown(rows, { limit = DEFAULT_LIMIT, today = today
       lines.push('Follow-up:', '', packet.followUp, '');
     }
 
+    lines.push(...evidenceCaptureLines(today));
     lines.push('Tracker update command:', '', '```bash', trackerCommand(row, today), '```', '');
   }
 
@@ -114,6 +138,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  addDaysIso,
   buildPartnerSprintMarkdown,
+  evidenceCaptureLines,
   parseArgs,
 };
