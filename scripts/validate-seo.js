@@ -593,6 +593,8 @@ function validateAttributionScript() {
     'pos_readiness_signal',
     'lead_route_hint',
     'monetization_route_hint',
+    'lead_acquisition_channel',
+    'directory_or_listing',
     'pos_referral_candidate',
     'serviio_demo',
   ];

@@ -54,6 +54,7 @@ const FIELD_ALIASES = {
   utmSource: ['utm_source', 'utm source'],
   utmMedium: ['utm_medium', 'utm medium'],
   utmCampaign: ['utm_campaign', 'utm campaign'],
+  leadAcquisitionChannel: ['lead_acquisition_channel', 'lead acquisition channel'],
 };
 
 const NAMED_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway/i;
@@ -73,6 +74,17 @@ const PAIN_PATTERNS = [
   ['after_hours', /after\s*hours|closed|night|late|24\/7|voicemail|下班|关门/i],
 ];
 const URGENT_PAIN_SIGNALS = new Set(['missed_calls', 'rush_hour', 'manual_entry', 'after_hours']);
+const LEAD_ACQUISITION_CHANNELS = new Set([
+  'business_profile',
+  'partner_referral',
+  'customer_proof',
+  'calculator',
+  'directory_or_listing',
+  'community_or_association',
+  'indexing_or_webmaster',
+  'seo_landing_page',
+  'direct_or_unknown',
+]);
 
 function routeLead({ partnerInquiry, posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource, urgentPain }) {
   if (partnerInquiry) {
@@ -163,6 +175,10 @@ function buildBuyerProfile({
 }
 
 function classifyLeadAcquisitionChannel(values) {
+  if (LEAD_ACQUISITION_CHANNELS.has(values.leadAcquisitionChannel)) {
+    return values.leadAcquisitionChannel;
+  }
+
   const sourceText = [
     values.leadSource,
     values.landingPage,

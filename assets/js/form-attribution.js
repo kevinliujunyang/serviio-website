@@ -110,6 +110,35 @@
     return 'unknown';
   }
 
+  function classifyLeadAcquisitionChannel(form) {
+    var sourceText = [
+      fieldValue(form, 'lead_source'),
+      fieldValue(form, 'conversion_offer'),
+      attributionFields.landing_page,
+      attributionFields.landing_path,
+      attributionFields.current_page,
+      attributionFields.current_path,
+      attributionFields.first_utm_source,
+      attributionFields.first_utm_medium,
+      attributionFields.first_utm_campaign,
+      attributionFields.utm_source,
+      attributionFields.utm_medium,
+      attributionFields.utm_campaign,
+      attributionFields.referrer,
+      attributionFields.first_referrer,
+    ].join(' ');
+
+    if (/business[_\s-]?profile|google_business_profile|bing_places|apple_business_connect/i.test(sourceText)) return 'business_profile';
+    if (/partner[_\s-]?referral|pos[_\s-]?consultant|restaurant[_\s-]?website[_\s-]?agency/i.test(sourceText)) return 'partner_referral';
+    if (/customer[_\s-]?proof|testimonial/i.test(sourceText)) return 'customer_proof';
+    if (/missed[_\s-]?call[_\s-]?revenue[_\s-]?calculator|restaurant-missed-call-revenue-calculator/i.test(sourceText)) return 'calculator';
+    if (/directory|organic[_\s-]?listing|product_hunt|startup/i.test(sourceText)) return 'directory_or_listing';
+    if (/community[_\s-]?post|wechat|reddit|meetup|chamber|association/i.test(sourceText)) return 'community_or_association';
+    if (/search_console|indexing|indexnow|webmaster/i.test(sourceText)) return 'indexing_or_webmaster';
+    if (/service[_\s-]?area|service-areas|chinese|pos|restaurant-ai|ai-phone|phone-order/i.test(sourceText)) return 'seo_landing_page';
+    return 'direct_or_unknown';
+  }
+
   function enrichPosReadiness(form) {
     var posSystem = fieldValue(form, 'pos_system') || fieldValue(form, 'pos_status');
     var posRecommendationInterest = fieldValue(form, 'pos_recommendation_interest');
@@ -118,6 +147,7 @@
     ensureHiddenField(form, 'pos_readiness_signal', posReadiness, true);
     ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness), true);
     ensureHiddenField(form, 'monetization_route_hint', monetizationRouteHint(posReadiness), true);
+    ensureHiddenField(form, 'lead_acquisition_channel', classifyLeadAcquisitionChannel(form), true);
   }
 
   document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {

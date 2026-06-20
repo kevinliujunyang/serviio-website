@@ -50,6 +50,8 @@ for (const snippet of [
   'pos_readiness_signal',
   'lead_route_hint',
   'monetization_route_hint',
+  'lead_acquisition_channel',
+  'directory_or_listing',
   'pos_referral_candidate',
   'serviio_demo',
 ]) {
@@ -93,6 +95,7 @@ function createForm() {
 }
 
 const form = createForm();
+form.fields.push(createField('lead_source', 'homepage'));
 const context = {
   URLSearchParams,
   Date,
@@ -101,9 +104,9 @@ const context = {
   Object,
   window: {
     location: {
-      href: 'https://serviio.ai/restaurant-pos-integration-checklist/',
-      pathname: '/restaurant-pos-integration-checklist/',
-      search: '',
+      href: 'https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+      pathname: '/',
+      search: '?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
     },
     sessionStorage: {
       getItem() { return null; },
@@ -123,11 +126,13 @@ const context = {
 
 vm.runInNewContext(attributionScript, context);
 assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'unknown_pos_status');
+assert.strictEqual(form.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
 form.querySelector('[name="pos_system"]').value = 'Toast';
 form.querySelector('[name="pos_recommendation_interest"]').value = 'Not applicable, I already have a POS';
 form.submit();
 assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'pos_ready');
 assert.strictEqual(form.querySelector('input[name="lead_route_hint"]').value, 'serviio_demo');
 assert.strictEqual(form.querySelector('input[name="monetization_route_hint"]').value, 'serviio_demo');
+assert.strictEqual(form.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
 
 console.log('Form marker smoke tests passed');

@@ -268,6 +268,16 @@ assert.strictEqual(businessProfileLead.lead_acquisition_channel, 'business_profi
 assert.strictEqual(businessProfileLead.priority_seo_source, 'yes');
 assert.strictEqual(businessProfileLead.lead_route, 'demo_queue');
 
+const submittedChannelLead = scoreLead({
+  ...baseLead,
+  restaurant: 'Product Hunt Wok',
+  landing_page: 'https://serviio.ai/',
+  pos_system: 'Toast',
+  phone_orders_per_week: '25-75',
+  lead_acquisition_channel: 'directory_or_listing',
+});
+assert.strictEqual(submittedChannelLead.lead_acquisition_channel, 'directory_or_listing');
+
 const namedPosOfferDemo = scoreLead({
   ...baseLead,
   restaurant: 'POS Offer Bistro',
