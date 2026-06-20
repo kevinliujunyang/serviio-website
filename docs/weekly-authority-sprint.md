@@ -28,6 +28,19 @@ Goal: move Serviio from technically SEO-ready to ranking-authority-ready for Chi
 - Create or claim Google Business Profile, Bing Places, and Apple Business Connect if eligible.
 - Secure 1 customer proof or pilot testimonial mentioning city, restaurant type, POS, and phone-order pain.
 
+## First 60 Minutes Authority Block
+
+Start here before generic directory submissions; these actions can create profile authority, POS-ready referral paths, or customer proof.
+
+| # | Target | Channel | Score | Evidence needed |
+| --- | --- | --- | ---: | --- |
+| 1 | Google Business Profile | Business profile | 92 | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 2 | MenuSifu restaurant consultants | POS-specific outreach | 100 | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 3 | 39 Miles restaurant consultants | POS-specific outreach | 100 | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 4 | Pilot restaurant testimonial | Customer proof | 60 | Published testimonial/case-study URL or written customer approval note. |
+
+After the block, update `docs/authority-submission-log.csv`, run `npm run marketing:submission-sync`, then rerun `npm run seo:authority`.
+
 ## Execution Queue
 
 | # | Action | Score | Target | Channel | Evidence needed |

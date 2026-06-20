@@ -191,6 +191,48 @@ function renderIndexingSupportQueue(rows) {
   return lines;
 }
 
+function firstMatchingRow(rows, predicate, usedTargets) {
+  return rows.find((row) => !usedTargets.has(row.target) && predicate(row));
+}
+
+function renderFirstHourAuthorityBlock(rows) {
+  const usedTargets = new Set();
+  const priorityRows = [];
+  const addRow = (row) => {
+    if (row) {
+      usedTargets.add(row.target);
+      priorityRows.push(row);
+    }
+  };
+
+  addRow(firstMatchingRow(rows, (row) => /business profile/i.test(row.channel) && /google/i.test(row.target), usedTargets));
+  addRow(firstMatchingRow(rows, (row) => /pos-specific outreach/i.test(row.channel) && /menusifu/i.test(row.target), usedTargets));
+  addRow(firstMatchingRow(rows, (row) => /pos-specific outreach/i.test(row.channel) && /39 miles/i.test(row.target), usedTargets));
+  addRow(firstMatchingRow(rows, (row) => /customer proof/i.test(row.channel), usedTargets));
+
+  const lines = [
+    '## First 60 Minutes Authority Block',
+    '',
+    'Start here before generic directory submissions; these actions can create profile authority, POS-ready referral paths, or customer proof.',
+    '',
+    '| # | Target | Channel | Score | Evidence needed |',
+    '| --- | --- | --- | ---: | --- |',
+  ];
+
+  priorityRows.forEach((row, index) => {
+    const score = row.opportunity_score || opportunityScore(row).score;
+    const evidence = row.evidence_needed || 'Confirmation note, account/login, submitted date, and follow-up date';
+    lines.push(`| ${index + 1} | ${row.target} | ${row.channel} | ${score} | ${evidence} |`);
+  });
+
+  lines.push(
+    '',
+    'After the block, update `docs/authority-submission-log.csv`, run `npm run marketing:submission-sync`, then rerun `npm run seo:authority`.',
+  );
+
+  return lines;
+}
+
 function renderDailyAuthorityChecklist(rows, today) {
   const followUpDate = addDaysIso(today, 7);
   const lines = [
@@ -295,6 +337,8 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
     '## Milestone Gaps',
     '',
     ...nextMilestones(summary).map((milestone) => `- ${milestone}`),
+    '',
+    ...renderFirstHourAuthorityBlock(executionRows),
     '',
     '## Execution Queue',
     '',
