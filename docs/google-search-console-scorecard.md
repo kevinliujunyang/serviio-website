@@ -187,6 +187,8 @@ Track these as exact query groups in Search Console exports:
 - restaurant call automation
 - restaurant phone call AI
 - restaurant missed call recovery
+- restaurant missed call revenue calculator
+- restaurant phone order revenue loss calculator
 - 39 miles ai phone ordering
 - 39 Miles phone order integration
 - 39 Miles POS AI phone agent
