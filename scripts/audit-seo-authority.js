@@ -28,6 +28,7 @@ const HIGH_FIT_CHANNELS = new Set([
   'POS-specific outreach',
   'Restaurant technology directory',
 ]);
+const LIVE_OPTIMIZATION_PATTERN = /\bclaim(?:ed|ing)?\b.*\bpending\b|\bupdate(?:d|ing)?\b.*\bpending\b|\bclaim\/update access still pending\b/i;
 
 function isAuthorityRow(row) {
   return AUTHORITY_CHANNELS.has(row.channel);
@@ -81,6 +82,12 @@ function isStartedWithEvidence(row) {
   if (isLive(row)) return isLiveWithEvidence(row);
   if (row.status === 'submitted' || row.status === 'follow-up needed') return isSubmittedWithEvidence(row);
   return rowEvidenceIssues(row).length === 0;
+}
+
+function needsLiveOptimization(row) {
+  return isAuthorityRow(row) &&
+    isLiveWithEvidence(row) &&
+    LIVE_OPTIMIZATION_PATTERN.test(row.notes || '');
 }
 
 function evidenceIssues(rows) {
@@ -146,6 +153,9 @@ function renderReport(rows) {
   const nextRows = readySubmissionRows(rows)
     .filter(isAuthorityRow)
     .slice(0, 10);
+  const liveOptimizationRows = rows
+    .filter(needsLiveOptimization)
+    .sort((a, b) => opportunityScore(b).score - opportunityScore(a).score);
 
   const lines = [
     '# Serviio SEO Authority Audit',
@@ -178,6 +188,17 @@ function renderReport(rows) {
     lines.push(`  UTM: ${row.utm_url}`);
   }
 
+  if (liveOptimizationRows.length) {
+    lines.push('', '## Live Authority Optimizations');
+    for (const row of liveOptimizationRows) {
+      const opportunity = opportunityScore(row);
+      lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
+      lines.push(`  URL: ${row.url}`);
+      lines.push(`  UTM: ${row.utm_url}`);
+      lines.push('  Action: Claim or update live listing and record proof.');
+    }
+  }
+
   if (summary.evidenceIssueRows.length > 0) {
     lines.push('', '## Evidence Issues');
     for (const issue of summary.evidenceIssueRows) {
@@ -201,6 +222,7 @@ module.exports = {
   authorityScore,
   evidenceIssues,
   isAuthorityRow,
+  needsLiveOptimization,
   nextMilestones,
   renderReport,
   statusCounts,
