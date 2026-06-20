@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { parseCsv } = require('./print-free-search-submission-packets');
+const { authorityScore } = require('./audit-seo-authority');
 const { updateTracker } = require('./update-free-search-tracker');
 
 const DEFAULT_LOG = 'docs/authority-submission-log.csv';
@@ -118,7 +119,22 @@ function buildSyncActions(logRows, { today = todayIso() } = {}) {
     });
 }
 
-function renderReport(actions, { apply = false } = {}) {
+function authorityProjectionLines(actions, trackerText) {
+  if (!trackerText) return [];
+  const currentRows = parseCsv(trackerText);
+  const projectedRows = parseCsv(applyActions(trackerText, actions));
+  const currentScore = authorityScore(currentRows).score;
+  const projectedScore = authorityScore(projectedRows).score;
+  const delta = projectedScore - currentScore;
+  const signedDelta = delta >= 0 ? `+${delta}` : String(delta);
+  return [
+    `Current authority score: ${currentScore}/100`,
+    `Projected authority score after valid updates: ${projectedScore}/100`,
+    `Authority score delta: ${signedDelta}`,
+  ];
+}
+
+function renderReport(actions, { apply = false, trackerText = '' } = {}) {
   const valid = actions.filter((action) => action.issues.length === 0);
   const invalid = actions.filter((action) => action.issues.length > 0);
   const lines = [
@@ -129,6 +145,10 @@ function renderReport(actions, { apply = false } = {}) {
     `Valid updates: ${valid.length}`,
     `Rows with issues: ${invalid.length}`,
   ];
+  const projection = authorityProjectionLines(actions, trackerText);
+  if (projection.length > 0) {
+    lines.push('', '## Authority Score Projection', ...projection);
+  }
 
   if (valid.length > 0) {
     lines.push('', '## Valid Updates');
@@ -165,10 +185,11 @@ function main() {
 
   const logRows = parseCsv(fs.readFileSync(args.log, 'utf8'));
   const actions = buildSyncActions(logRows, { today: args.today });
-  process.stdout.write(renderReport(actions, { apply: args.apply }));
+  const trackerText = fs.readFileSync(args.tracker, 'utf8');
+  process.stdout.write(renderReport(actions, { apply: args.apply, trackerText }));
 
   if (args.apply) {
-    const nextTracker = applyActions(fs.readFileSync(args.tracker, 'utf8'), actions);
+    const nextTracker = applyActions(trackerText, actions);
     fs.writeFileSync(path.resolve(args.out), nextTracker);
   }
 }
@@ -181,6 +202,7 @@ module.exports = {
   applyActions,
   buildSyncActions,
   evidenceNote,
+  authorityProjectionLines,
   parseArgs,
   renderReport,
   rowIssues,

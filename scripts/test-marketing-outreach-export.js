@@ -451,12 +451,17 @@ assert.deepStrictEqual(submissionLogActions.map((action) => action.issues.length
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Valid Updates/);
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Incomplete Directory: missing submitted_date, missing confirmation evidence, missing follow_up_date/);
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Missing Follow Up: missing follow_up_date/);
-const syncedTracker = applySubmissionLogActions(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+const submissionSyncTracker = `priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,not_started,,,,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Need listing.
 P1,AI directory,Incomplete Directory,https://ai.example.com,not_started,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Need submission.
 P1,AI directory,Missing Follow Up,https://ai.example.com,not_started,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Need submission.
-`, submissionLogActions);
+`;
+const submissionSyncReport = renderSubmissionSyncReport(submissionLogActions, { trackerText: submissionSyncTracker });
+assert.match(submissionSyncReport, /Current authority score: 0\/100/);
+assert.match(submissionSyncReport, /Projected authority score after valid updates: 19\/100/);
+assert.match(submissionSyncReport, /Authority score delta: \+19/);
+const syncedTracker = applySubmissionLogActions(submissionSyncTracker, submissionLogActions);
 assert.match(syncedTracker, /MenuSifu restaurant consultants,https:\/\/forms\.menusifu\.com\/pages\/demo-request,submitted,Serviio,2026-06-06/);
 assert.match(syncedTracker, /Restaurant POS directory,https:\/\/directory\.example\.com\/serviio,live,Serviio,2026-06-06,2026-06-07/);
 assert.match(syncedTracker, /Incomplete Directory,https:\/\/ai\.example\.com,not_started/);
