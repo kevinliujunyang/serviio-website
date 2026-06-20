@@ -86,6 +86,18 @@ const LEAD_ACQUISITION_CHANNELS = new Set([
   'direct_or_unknown',
 ]);
 
+function pagePathFromUrl(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  if (text.startsWith('/')) return text;
+
+  try {
+    return new URL(text, 'https://serviio.ai').pathname;
+  } catch {
+    return '';
+  }
+}
+
 function routeLead({ partnerInquiry, posReady, noPos, wantsPosRecommendation, highVolume, mediumVolume, chineseIntent, prioritySource, urgentPain }) {
   if (partnerInquiry) {
     return {
@@ -708,7 +720,7 @@ function scoreLead(record) {
     pos_purchase_timeline: values.posPurchaseTimeline,
     pos_purchase_timeline_urgency: posTimelineUrgency,
     lead_source: values.leadSource,
-    landing_path: values.landingPath || values.currentPath,
+    landing_path: values.landingPath || values.currentPath || pagePathFromUrl(values.landingPage || values.currentPage),
     ...record,
   };
 }

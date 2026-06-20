@@ -202,7 +202,7 @@ const localPosFitDemo = scoreLead({
   restaurant_city: 'Boston',
   restaurant_state: 'MA',
   lead_source: 'general_contact',
-  landing_page: 'https://serviio.ai/service-areas/boston-restaurant-ai-phone-ordering/',
+  landing_page: 'https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/',
   pos_system: 'Clover',
   phone_orders_per_week: '25-75',
   conversion_offer: 'local_pos_fit_check',
@@ -211,6 +211,7 @@ const localPosFitDemo = scoreLead({
 assert.strictEqual(localPosFitDemo.lead_priority, 'medium');
 assert.strictEqual(localPosFitDemo.lead_route, 'demo_queue');
 assert.strictEqual(localPosFitDemo.priority_seo_source, 'yes');
+assert.strictEqual(localPosFitDemo.landing_path, '/service-areas/boston-chinese-restaurant-ai-phone-ordering/');
 assert.match(localPosFitDemo.lead_reason, /priority SEO source/);
 assert.match(localPosFitDemo.buyer_profile, /offer:local_pos_fit_check/);
 
@@ -220,7 +221,7 @@ const localPosFitReferral = scoreLead({
   restaurant_city: 'Philadelphia',
   restaurant_state: 'PA',
   lead_source: 'general_contact',
-  landing_page: 'https://serviio.ai/service-areas/philadelphia-restaurant-ai-phone-ordering/',
+  landing_page: 'https://serviio.ai/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/',
   pos_system: 'No POS yet',
   phone_orders_per_week: '76-150',
   conversion_offer: 'local_pos_fit_check',
@@ -229,6 +230,7 @@ const localPosFitReferral = scoreLead({
 assert.strictEqual(localPosFitReferral.lead_route, 'pos_referral');
 assert.strictEqual(localPosFitReferral.partner_referral_priority, 'hot');
 assert.strictEqual(localPosFitReferral.priority_seo_source, 'yes');
+assert.strictEqual(localPosFitReferral.landing_path, '/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/');
 assert.match(localPosFitReferral.buyer_profile, /partner_referral:hot/);
 
 const homepagePosFitDemo = scoreLead({
