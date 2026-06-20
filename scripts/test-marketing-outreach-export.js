@@ -275,6 +275,13 @@ assert.match(businessProfilePack, /New York City, Los Angeles, San Francisco Bay
 assert.match(businessProfilePack, /Profile services to add/);
 assert.match(businessProfilePack, /POS-integrated AI phone ordering/);
 assert.match(businessProfilePack, /Chinese restaurant AI phone answering/);
+assert.match(businessProfilePack, /Profile products to add/);
+assert.match(businessProfilePack, /39 Miles AI phone ordering/);
+assert.match(businessProfilePack, /https:\/\/serviio\.ai\/pos\/39-miles-ai-phone-ordering\/\?utm_source=business_profile_product/);
+assert.match(businessProfilePack, /MenuSifu AI phone ordering/);
+assert.match(businessProfilePack, /https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=business_profile_product/);
+assert.match(businessProfilePack, /Chowbus AI phone ordering/);
+assert.match(businessProfilePack, /No monthly fee; 2% per completed order/);
 assert.match(businessProfilePack, /Lead qualification questions/);
 assert.match(businessProfilePack, /Which POS system do you use today/);
 assert.match(businessProfilePack, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway/);

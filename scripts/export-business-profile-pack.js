@@ -25,6 +25,44 @@ const PROFILE_SERVICES = [
   'Takeout call automation for POS-ready restaurants',
 ];
 
+const PROFILE_PRODUCTS = [
+  {
+    name: '39 Miles AI phone ordering',
+    description: 'AI phone ordering workflow for Chinese restaurants using 39 Miles POS.',
+    url: 'https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'Square AI phone ordering',
+    description: 'AI phone ordering workflow for restaurants using Square POS.',
+    url: 'https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'Toast AI phone ordering',
+    description: 'AI phone ordering workflow for restaurants using Toast POS.',
+    url: 'https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'Clover AI phone ordering',
+    description: 'AI phone ordering workflow for restaurants using Clover POS.',
+    url: 'https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'MenuSifu AI phone ordering',
+    description: 'AI phone ordering workflow for Chinese restaurants using MenuSifu POS.',
+    url: 'https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'Chowbus AI phone ordering',
+    description: 'AI phone ordering workflow for restaurants using Chowbus.',
+    url: 'https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    name: 'Mealkeyway AI phone ordering',
+    description: 'AI phone ordering workflow for restaurants using Mealkeyway.',
+    url: 'https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+];
+
 const LEAD_QUESTIONS = [
   'Which POS system do you use today: 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another system?',
   'How many phone orders do you receive during lunch and dinner rush?',
@@ -125,6 +163,18 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
     '',
     ...PROFILE_SERVICES.map((service) => `- ${service}`),
     '',
+    '## Profile products to add',
+    '',
+    'Use these as Google Business Profile products, Apple showcases, or service items when the platform supports product/service cards.',
+    '',
+    ...PROFILE_PRODUCTS.flatMap((product, index) => [
+      `### ${index + 1}. ${product.name}`,
+      '',
+      `- Description: ${product.description}`,
+      '- Price: No monthly fee; 2% per completed order',
+      `- URL: ${product.url}`,
+      '',
+    ]),
     '## Lead qualification questions',
     '',
     ...LEAD_QUESTIONS.map((question) => `- ${question}`),

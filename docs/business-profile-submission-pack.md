@@ -25,6 +25,52 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Mandarin and English phone ordering support
 - Takeout call automation for POS-ready restaurants
 
+## Profile products to add
+
+Use these as Google Business Profile products, Apple showcases, or service items when the platform supports product/service cards.
+
+### 1. 39 Miles AI phone ordering
+
+- Description: AI phone ordering workflow for Chinese restaurants using 39 Miles POS.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 2. Square AI phone ordering
+
+- Description: AI phone ordering workflow for restaurants using Square POS.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 3. Toast AI phone ordering
+
+- Description: AI phone ordering workflow for restaurants using Toast POS.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 4. Clover AI phone ordering
+
+- Description: AI phone ordering workflow for restaurants using Clover POS.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 5. MenuSifu AI phone ordering
+
+- Description: AI phone ordering workflow for Chinese restaurants using MenuSifu POS.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 6. Chowbus AI phone ordering
+
+- Description: AI phone ordering workflow for restaurants using Chowbus.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 7. Mealkeyway AI phone ordering
+
+- Description: AI phone ordering workflow for restaurants using Mealkeyway.
+- Price: No monthly fee; 2% per completed order
+- URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
 ## Lead qualification questions
 
 - Which POS system do you use today: 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another system?
