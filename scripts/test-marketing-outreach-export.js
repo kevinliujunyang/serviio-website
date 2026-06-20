@@ -98,7 +98,16 @@ assert.match(csv, /AI phone ordering add-on for MenuSifu restaurants/);
 
 const trackerRows = parseCsv(fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'));
 const readyRows = readySubmissionRows(trackerRows);
-assert.strictEqual(readyRows.length, 50);
+assert.strictEqual(readyRows.length, 51);
+const indexNowRow = trackerRows.find((row) => row.target === 'IndexNow priority URL batch');
+assert.ok(indexNowRow);
+assert.match(indexNowRow.notes, /restaurant-missed-call-revenue-calculator/);
+assert.match(indexNowRow.notes, /2026-06-20 priority 43-URL IndexNow batch/);
+const productHuntRow = readyRows.find((row) => row.target === 'Product Hunt Serviio listing');
+assert.ok(productHuntRow);
+assert.strictEqual(productHuntRow.channel, 'Startup directory');
+assert.strictEqual(productHuntRow.url, 'https://www.producthunt.com/products/serviio');
+assert.match(productHuntRow.notes, /claim or verify the existing Product Hunt page/);
 const customerProofReadyRow = readyRows.find((row) => row.target === 'Pilot restaurant testimonial');
 assert.ok(customerProofReadyRow);
 assert.strictEqual(customerProofReadyRow.channel, 'Customer proof');

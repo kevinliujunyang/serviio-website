@@ -1,6 +1,6 @@
 # Serviio Weekly Authority Sprint
 
-Generated: 2026-06-07
+Generated: 2026-06-20
 
 Goal: move Serviio from technically SEO-ready to ranking-authority-ready for Chinese restaurant AI phone ordering and POS-integrated phone-order searches.
 
@@ -61,7 +61,7 @@ Use these payloads during the manual submission block. Keep `action_status` blan
 - UTM URL: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS partner referral
 - Subject: Referral path for restaurants missing phone orders
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -82,7 +82,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 2. 39 Miles restaurant consultants
@@ -94,7 +94,7 @@ npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status
 - UTM URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: 39 Miles AI phone ordering for Chinese restaurants
 - Subject: AI phone ordering add-on for 39 Miles restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -126,7 +126,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 3. Chowbus restaurant consultants
@@ -138,7 +138,7 @@ npm run marketing:mark -- --target "39 Miles restaurant consultants" --status su
 - UTM URL: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=chowbus_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chowbus POS AI phone agent
 - Subject: AI phone ordering add-on for Chowbus restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -170,7 +170,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Chowbus restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Chowbus restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 4. Mealkeyway restaurant consultants
@@ -182,7 +182,7 @@ npm run marketing:mark -- --target "Chowbus restaurant consultants" --status sub
 - UTM URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=mealkeyway_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Mealkeyway phone order integration
 - Subject: AI phone ordering add-on for Mealkeyway restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -214,7 +214,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 5. MenuSifu restaurant consultants
@@ -226,7 +226,7 @@ npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status 
 - UTM URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: MenuSifu AI phone ordering
 - Subject: AI phone ordering add-on for MenuSifu restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -258,7 +258,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 6. Restaurant POS and automation directories
@@ -270,7 +270,7 @@ npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status su
 - UTM URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=restaurant_pos_ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS AI phone agent
 - Subject: Serviio - AI Phone Ordering for POS-Ready Restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -279,7 +279,7 @@ Serviio helps restaurants capture phone orders with AI and evaluate how confirme
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Restaurant POS and automation directories" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Restaurant POS and automation directories" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 7. Bing Webmaster Tools sitemap
@@ -291,7 +291,7 @@ npm run marketing:mark -- --target "Restaurant POS and automation directories" -
 - UTM URL: https://serviio.ai/sitemap.xml?utm_source=bing_webmaster_tools&utm_medium=indexing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Submit sitemap
 - Subject: Bing Webmaster Tools sitemap
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -300,7 +300,7 @@ Run npm run indexing:urls, submit the sitemap, then inspect URLs under Top Prior
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Bing Webmaster Tools sitemap" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Bing Webmaster Tools sitemap" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 8. POS consultants
@@ -312,7 +312,7 @@ npm run marketing:mark -- --target "Bing Webmaster Tools sitemap" --status submi
 - UTM URL: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Restaurant POS partner referral
 - Subject: Referral path for restaurants missing phone orders
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -333,7 +333,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "POS consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "POS consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 9. Restaurant website agencies
@@ -345,7 +345,7 @@ npm run marketing:mark -- --target "POS consultants" --status submitted --date 2
 - UTM URL: https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_website_agency&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Restaurant phone order automation
 - Subject: AI phone-ordering add-on for restaurant website clients
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -366,7 +366,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Restaurant website agencies" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Restaurant website agencies" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 10. Clover restaurant consultants
@@ -378,7 +378,7 @@ npm run marketing:mark -- --target "Restaurant website agencies" --status submit
 - UTM URL: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Clover POS phone order AI
 - Subject: AI phone ordering add-on for Clover restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -410,7 +410,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Clover restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Clover restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 11. Square restaurant consultants
@@ -422,7 +422,7 @@ npm run marketing:mark -- --target "Clover restaurant consultants" --status subm
 - UTM URL: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Square POS phone order AI
 - Subject: AI phone ordering add-on for Square restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -454,7 +454,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Square restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Square restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 12. Toast restaurant consultants
@@ -466,7 +466,7 @@ npm run marketing:mark -- --target "Square restaurant consultants" --status subm
 - UTM URL: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Toast POS phone order AI
 - Subject: AI phone ordering add-on for Toast restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -498,7 +498,7 @@ Serviio
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "Toast restaurant consultants" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "Toast restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 13. AI phone-order directories
@@ -510,7 +510,7 @@ npm run marketing:mark -- --target "Toast restaurant consultants" --status submi
 - UTM URL: https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant AI order taker
 - Subject: Serviio
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -523,7 +523,7 @@ Serviio prioritizes restaurants using POS systems such as 39 Miles, Square, Toas
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "AI phone-order directories" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "AI phone-order directories" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 14. The Next AI
@@ -535,7 +535,7 @@ npm run marketing:mark -- --target "AI phone-order directories" --status submitt
 - UTM URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing
 - Anchor/listing phrase: Chinese restaurant POS AI phone agent
 - Subject: Serviio
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -548,7 +548,7 @@ Serviio prioritizes restaurants using POS systems such as 39 Miles, Square, Toas
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "The Next AI" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "The Next AI" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 ### 15. US-China Restaurant Alliance
@@ -560,7 +560,7 @@ npm run marketing:mark -- --target "The Next AI" --status submitted --date 2026-
 - UTM URL: https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing
 - Anchor/listing phrase: 中餐馆 AI 电话接单
 - Subject: Serviio - AI phone ordering for Chinese restaurants
-- Follow-up date: 2026-06-14
+- Follow-up date: 2026-06-27
 
 Copy:
 
@@ -573,7 +573,7 @@ Serviio 是面向美国中餐馆的 AI 电话接单系统，可以用中文和�
 Tracker command after real submission:
 
 ```bash
-npm run marketing:mark -- --target "US-China Restaurant Alliance" --status submitted --date 2026-06-07 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-14."
+npm run marketing:mark -- --target "US-China Restaurant Alliance" --status submitted --date 2026-06-20 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-27."
 ```
 
 

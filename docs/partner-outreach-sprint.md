@@ -1,6 +1,6 @@
 # Serviio Partner Outreach Sprint
 
-Generated: 2026-06-06
+Generated: 2026-06-20
 
 Goal: create backlinks, referral paths, and POS-ready Chinese restaurant leads from the highest-score off-site opportunities.
 Authority score is still blocked until submitted rows become live links, profiles, partner replies, or documented customer proof.
@@ -36,7 +36,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 2. 39 Miles restaurant consultants
@@ -79,7 +79,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 3. Chowbus restaurant consultants
@@ -122,7 +122,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "Chowbus restaurant consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "Chowbus restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 4. Mealkeyway restaurant consultants
@@ -165,7 +165,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 5. MenuSifu restaurant consultants
@@ -208,7 +208,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 6. Restaurant POS and automation directories
@@ -228,7 +228,7 @@ Serviio helps restaurants capture phone orders with AI and evaluate how confirme
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "Restaurant POS and automation directories" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "Restaurant POS and automation directories" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 7. POS consultants
@@ -260,7 +260,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "POS consultants" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "POS consultants" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 ## 8. Restaurant website agencies
@@ -292,7 +292,7 @@ Serviio
 Tracker update command:
 
 ```bash
-npm run marketing:mark -- --target "Restaurant website agencies" --status submitted --date 2026-06-06 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
+npm run marketing:mark -- --target "Restaurant website agencies" --status submitted --date 2026-06-20 --note "Submitted outreach/contact form; follow up in 7 days or record live link/reply."
 ```
 
 Generated 8 sprint actions from docs/free-search-marketing-tracker.csv.
