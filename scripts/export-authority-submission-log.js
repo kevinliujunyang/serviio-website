@@ -131,7 +131,7 @@ function submissionType(row) {
 function nextStep(row) {
   const type = submissionType(row);
   if (row.target === 'Product Hunt Serviio listing') {
-    return 'Claim or verify the Product Hunt page, then update the listing copy and website link if account access is available.';
+    return 'Claim or verify the Product Hunt page, update the restaurant AI phone ordering and POS integration positioning if access is available, then record an updated listing screenshot or owner/account confirmation URL.';
   }
   if (type === 'directory_listing') {
     return 'Submit the listing using the provided title, tagline, landing URL, and restaurant AI phone ordering copy.';

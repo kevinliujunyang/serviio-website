@@ -181,6 +181,7 @@ const productHuntSubmissionRow = allAuthoritySubmissionRows.find((row) => row.ta
 assert.ok(productHuntSubmissionRow);
 assert.strictEqual(productHuntSubmissionRow.submission_type, 'startup_directory');
 assert.match(productHuntSubmissionRow.next_step, /Claim or verify the Product Hunt page/);
+assert.match(productHuntSubmissionRow.next_step, /updated listing screenshot/);
 assert.match(productHuntSubmissionRow.evidence_needed, /claimed profile/);
 const authoritySubmissionCsv = authoritySubmissionLogToCsv(authoritySubmissionRows);
 assert.match(authoritySubmissionCsv, /action_status,priority,channel,target,submission_type,next_step,evidence_needed,opportunity_score/);
