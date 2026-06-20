@@ -89,6 +89,7 @@ function targetPageFor(query) {
   const text = String(query || '').toLowerCase();
   const namedPos = posName(query);
   if (namedPos) return `/pos/${posSlug(namedPos)}-ai-phone-ordering/`;
+  if (/revenue.*calculator|revenue loss calculator|missed call.*calculator/.test(text)) return '/restaurant-missed-call-revenue-calculator/';
   if (/boston/.test(text)) return '/service-areas/boston-restaurant-ai-phone-ordering/';
   if (/philadelphia/.test(text)) return '/service-areas/philadelphia-restaurant-ai-phone-ordering/';
   if (/massachusetts/.test(text)) return '/service-areas/massachusetts-restaurant-ai-phone-ordering/';

@@ -108,6 +108,8 @@ assert.strictEqual(rankingWatchlistClusterFor('MenuSifu POS AI phone agent'), 'N
 assert.strictEqual(rankingWatchlistClusterFor('boston chinese restaurant ai phone ordering'), 'Local service area');
 assert.strictEqual(rankingWatchlistTargetPageFor('MenuSifu POS AI phone agent'), '/pos/menusifu-ai-phone-ordering/');
 assert.strictEqual(rankingWatchlistTargetPageFor('39 Miles POS AI phone agent'), '/pos/39-miles-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('restaurant missed call revenue calculator'), '/restaurant-missed-call-revenue-calculator/');
+assert.strictEqual(rankingWatchlistTargetPageFor('restaurant phone order revenue loss calculator'), '/restaurant-missed-call-revenue-calculator/');
 assert.strictEqual(rankingWatchlistTargetPageFor('boston chinese restaurant ai phone ordering'), '/service-areas/boston-restaurant-ai-phone-ordering/');
 assert.strictEqual(rankingWatchlistTargetPageFor('restaurant without POS'), '/best-pos-for-chinese-restaurant-phone-orders/');
 const watchlistRows = buildWatchlistRows(priorityQueries);
