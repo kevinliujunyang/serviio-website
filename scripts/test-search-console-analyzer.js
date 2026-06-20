@@ -153,6 +153,7 @@ const sampleUpdatedWatchlistRows = buildRecords(parseCsv(sampleUpdatedWatchlist)
 const rankingActions = buildRankingActions(sampleUpdatedWatchlistRows, { limit: 8, today: '2026-06-07' });
 assert.strictEqual(rankingActions[0].action_type, 'push_to_page_one');
 assert.match(rankingActions[0].query, /menusifu ai phone ordering|restaurant phone order automation/i);
+assert.match(rankingActions[0].suggested_source_hubs, /\/restaurant-pos-phone-order-integration\//);
 assert.match(rankingActions[0].authority_tracker_command, /npm run marketing:mark -- --target/);
 assert.match(rankingActions[0].authority_tracker_command, /--date 2026-06-07/);
 assert.ok(rankingActions.some((row) => row.action_type === 'ctr_rewrite' && row.query === 'chinese restaurant phone answering service'));
@@ -161,6 +162,8 @@ assert.strictEqual(rankingActionType({ status: 'needs_authority_or_relevance' })
 assert.strictEqual(rankingActionType({ status: 'needs_search_console_data' }), 'indexing_or_data_check');
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Serviio Ranking Action Queue/);
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /push_to_page_one/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Suggested source hubs/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /\/guides\/connect-phone-orders-to-pos\//);
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Authority tracker command/);
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /--date 2026-06-07/);
 assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5', '--today', '2026-06-07']), {

@@ -4,6 +4,15 @@ const { buildRecords, parseCsv } = require('./analyze-search-console');
 
 const DEFAULT_WATCHLIST = 'docs/first-page-ranking-watchlist.csv';
 const DEFAULT_OUT = 'docs/ranking-action-queue.md';
+const SOURCE_HUBS = {
+  named_pos: '/, /restaurant-pos-phone-order-integration/, /guides/connect-phone-orders-to-pos/, /site-map/',
+  pos: '/, /restaurant-pos-phone-order-integration/, /guides/connect-phone-orders-to-pos/, /site-map/',
+  chinese: '/, /chinese-restaurant-ai-phone-ordering/, /chinese-restaurant-pos-integration/, /site-map/',
+  phone_order: '/, /restaurant-ai-phone-order-taker/, /restaurant-phone-order-automation/, /site-map/',
+  phone_answering: '/, /restaurant-phone-answering-service/, /chinese-restaurant-phone-answering-service/, /site-map/',
+  local: '/service-areas/, /, /site-map/',
+  default: '/, /site-map/',
+};
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -100,6 +109,17 @@ function recommendedAction(row) {
   return 'Monitor weekly position, clicks, and CTR.';
 }
 
+function suggestedSourceHubs(row) {
+  const text = `${row.query} ${row.target_page} ${row.cluster || ''}`;
+  if (/39\s*miles|menusifu|menu\s*sifu|chowbus|mealkeyway|square|toast|clover/i.test(text)) return SOURCE_HUBS.named_pos;
+  if (/pos|point\s*of\s*sale/i.test(text)) return SOURCE_HUBS.pos;
+  if (/chinese|中餐|mandarin|cantonese/i.test(text)) return SOURCE_HUBS.chinese;
+  if (/phone\s*order|order\s*taker|order\s*taking|ordering|takeout/i.test(text)) return SOURCE_HUBS.phone_order;
+  if (/answering|answer\s*phone|receptionist|missed\s*call/i.test(text)) return SOURCE_HUBS.phone_answering;
+  if (/service-area|service\s*area|california|new\s*york|new\s*jersey|texas|houston|seattle|chicago|boston|philadelphia/i.test(text)) return SOURCE_HUBS.local;
+  return SOURCE_HUBS.default;
+}
+
 function quoteShell(text) {
   return `"${String(text || '').replace(/"/g, '\\"')}"`;
 }
@@ -117,6 +137,7 @@ function buildRankingActions(rows, { limit = 25, today = todayIso() } = {}) {
       action_type: actionType(row),
       action_score: actionScore(row),
       recommended_action: recommendedAction(row),
+      suggested_source_hubs: suggestedSourceHubs(row),
     }))
     .map((row) => ({
       ...row,
@@ -135,11 +156,11 @@ function buildRankingActions(rows, { limit = 25, today = todayIso() } = {}) {
 function renderTable(rows) {
   if (rows.length === 0) return '_No ranking actions available._';
   const lines = [
-    '| Score | Type | Query | Target page | Position | CTR | Action | Authority target | Authority tracker command |',
-    '| ---: | --- | --- | --- | ---: | ---: | --- | --- | --- |',
+    '| Score | Type | Query | Target page | Position | CTR | Action | Suggested source hubs | Authority target | Authority tracker command |',
+    '| ---: | --- | --- | --- | ---: | ---: | --- | --- | --- | --- |',
   ];
   for (const row of rows) {
-    lines.push(`| ${row.action_score}/100 | ${row.action_type} | ${row.query} | ${row.target_page} | ${row.current_position || '-'} | ${row.current_ctr || '-'} | ${row.recommended_action} | ${row.authority_target || '-'} | ${row.authority_tracker_command || '-'} |`);
+    lines.push(`| ${row.action_score}/100 | ${row.action_type} | ${row.query} | ${row.target_page} | ${row.current_position || '-'} | ${row.current_ctr || '-'} | ${row.recommended_action} | ${row.suggested_source_hubs || '-'} | ${row.authority_target || '-'} | ${row.authority_tracker_command || '-'} |`);
   }
   return lines.join('\n');
 }
@@ -202,4 +223,5 @@ module.exports = {
   parseArgs,
   recommendedAction,
   renderRankingActionQueue,
+  suggestedSourceHubs,
 };
