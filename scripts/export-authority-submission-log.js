@@ -15,6 +15,9 @@ const HEADERS = [
   'priority',
   'channel',
   'target',
+  'submission_type',
+  'next_step',
+  'evidence_needed',
   'opportunity_score',
   'opportunity_reasons',
   'submission_url',
@@ -103,6 +106,74 @@ function messageOrListingCopy(packet) {
   ].filter(Boolean).join(' | ').replace(/\s+/g, ' ').trim();
 }
 
+function submissionType(row) {
+  if (row.target === 'Product Hunt Serviio listing') {
+    return 'startup_directory';
+  }
+  if (/business profile/i.test(row.channel)) {
+    return 'business_profile';
+  }
+  if (/directory|listing/i.test(row.channel)) {
+    return 'directory_listing';
+  }
+  if (/customer proof/i.test(row.channel)) {
+    return 'customer_proof';
+  }
+  if (/association|chamber|community/i.test(row.channel)) {
+    return 'association_contact';
+  }
+  if (/partner|POS|consultant/i.test(`${row.channel} ${row.target}`)) {
+    return 'partner_contact';
+  }
+  return 'organic_outreach';
+}
+
+function nextStep(row) {
+  const type = submissionType(row);
+  if (row.target === 'Product Hunt Serviio listing') {
+    return 'Claim or verify the Product Hunt page, then update the listing copy and website link if account access is available.';
+  }
+  if (type === 'directory_listing') {
+    return 'Submit the listing using the provided title, tagline, landing URL, and restaurant AI phone ordering copy.';
+  }
+  if (type === 'business_profile') {
+    return 'Create or update the business profile with Serviio contact details, service area, website URL, and restaurant AI phone ordering category.';
+  }
+  if (type === 'customer_proof') {
+    return 'Request approval for a testimonial, case study, or anonymized proof point, then attach the live proof URL.';
+  }
+  if (type === 'association_contact') {
+    return 'Contact the association, chamber, or community moderator with the approved restaurant-owner education angle.';
+  }
+  if (type === 'partner_contact') {
+    return 'Contact the partner or consultant with the POS-integrated restaurant AI phone ordering referral angle.';
+  }
+  return 'Send the outreach or submission using the prepared copy, then record confirmation details.';
+}
+
+function evidenceNeeded(row) {
+  const type = submissionType(row);
+  if (row.target === 'Product Hunt Serviio listing') {
+    return 'Product Hunt claimed profile, updated listing screenshot, or owner/account confirmation URL.';
+  }
+  if (type === 'directory_listing') {
+    return 'Submission confirmation URL or live directory listing URL.';
+  }
+  if (type === 'business_profile') {
+    return 'Published profile URL, verification screenshot, or dashboard confirmation.';
+  }
+  if (type === 'customer_proof') {
+    return 'Published testimonial/case-study URL or written customer approval note.';
+  }
+  if (type === 'association_contact') {
+    return 'Moderator reply, approved post URL, event/resource listing URL, or sent-message URL.';
+  }
+  if (type === 'partner_contact') {
+    return 'Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.';
+  }
+  return 'Confirmation URL, live link, reply, screenshot, or sent-message URL.';
+}
+
 function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
   const followUpDate = addDaysIso(today, 7);
   return readySubmissionRows(rows).slice(0, limit).map((row) => {
@@ -113,6 +184,9 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       priority: row.priority,
       channel: row.channel,
       target: row.target,
+      submission_type: submissionType(row),
+      next_step: nextStep(row),
+      evidence_needed: evidenceNeeded(row),
       opportunity_score: score.score,
       opportunity_reasons: score.reasons,
       submission_url: row.url,
@@ -169,6 +243,9 @@ if (require.main === module) {
 module.exports = {
   addDaysIso,
   buildAuthoritySubmissionLogRows,
+  evidenceNeeded,
   parseArgs,
+  nextStep,
+  submissionType,
   toCsv,
 };
