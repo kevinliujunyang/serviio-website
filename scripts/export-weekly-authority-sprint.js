@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { authorityScore, nextMilestones } = require('./audit-seo-authority');
+const { authorityScore, isAuthorityRow, nextMilestones } = require('./audit-seo-authority');
 const { buildGtmQueueRows } = require('./export-free-search-gtm-queue');
 const { opportunityScore, packetFor, parseCsv } = require('./print-free-search-submission-packets');
 
@@ -125,7 +125,7 @@ function actionRows(rows, args) {
   return buildGtmQueueRows(rows, {
     today: args.today,
     followUpLimit: 10,
-    readyLimit: args.submissionTarget,
+    readyLimit: args.submissionTarget + 5,
     researchLimit: 5,
   });
 }
@@ -134,7 +134,7 @@ function executionRowsForSprint(rows, submissionTarget) {
   const requiredRows = rows.filter((row) => row.action_type !== 'submit_or_contact' && row.action_type !== 'research_target');
   const customerProofRows = rows.filter((row) => row.action_type === 'submit_or_contact' && /customer proof/i.test(row.channel));
   const submissionRows = rows
-    .filter((row) => row.action_type === 'submit_or_contact' && !/customer proof/i.test(row.channel))
+    .filter((row) => row.action_type === 'submit_or_contact' && !/customer proof/i.test(row.channel) && isAuthorityRow(row))
     .slice(0, submissionTarget);
   const researchRows = rows
     .filter((row) => row.action_type === 'research_target')
@@ -145,6 +145,10 @@ function executionRowsForSprint(rows, submissionTarget) {
     ...customerProofRows,
     ...researchRows,
   ];
+}
+
+function indexingSupportRowsForSprint(rows) {
+  return rows.filter((row) => row.channel === 'Webmaster tool');
 }
 
 function renderActionTable(rows) {
@@ -159,6 +163,23 @@ function renderActionTable(rows) {
       ? 'Reply, live URL, rejection note, or next follow-up date'
       : 'Confirmation note, account/login, submitted date, and follow-up date');
     lines.push(`| ${index + 1} | ${row.action_type} | ${score} | ${row.target} | ${row.channel} | ${evidence} |`);
+  });
+
+  return lines;
+}
+
+function renderIndexingSupportQueue(rows) {
+  const lines = [
+    '## Indexing Support Queue',
+    '',
+    'These rows support discovery and recrawling, but they do not count toward the authority submission target.',
+    '',
+    '| # | Target | Priority | Channel | Contact URL | Landing page | UTM URL | Tracker command |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- |',
+  ];
+
+  rows.forEach((row, index) => {
+    lines.push(`| ${index + 1} | ${row.target} | ${row.priority} | ${row.channel} | ${row.contact_url || row.url || '-'} | ${row.landing_url || '-'} | ${row.utm_url || '-'} | ${row.tracker_command || '-'} |`);
   });
 
   return lines;
@@ -240,6 +261,7 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
   const liveGap = gap(summary.liveRows.length, options.liveTarget);
   const highFitGap = gap(summary.highFitStartedRows.length, options.highFitTarget);
   const executionRows = executionRowsForSprint(queueRows, options.submissionTarget);
+  const indexingRows = indexingSupportRowsForSprint(queueRows);
 
   const lines = [
     '# Serviio Weekly Authority Sprint',
@@ -273,6 +295,8 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
     ...renderActionTable(executionRows),
     '',
     ...renderDailyAuthorityChecklist(executionRows, options.today),
+    '',
+    ...renderIndexingSupportQueue(indexingRows),
     '',
     ...renderSubmissionPayloads(executionRows.filter((row) => row.action_type === 'submit_or_contact'), options.today),
     '',

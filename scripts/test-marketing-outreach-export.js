@@ -483,9 +483,12 @@ const weeklyAuthoritySprintWithLiveOptimization = buildWeeklyAuthoritySprint(tra
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| optimize_live_listing \| 66 \| Product Hunt Serviio listing \| Startup directory \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /npm run marketing:mark -- --target "Product Hunt Serviio listing" --status "live" --date 2026-06-20/);
 assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /Product Hunt Serviio listing" --status submitted/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 16 \| submit_or_contact \| 84 \| The Next AI \| AI directory \|/);
+assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_contact \| \d+ \| Bing Webmaster Tools sitemap \| Webmaster tool \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /## Indexing Support Queue/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| Bing Webmaster Tools sitemap \| P0 \| Webmaster tool \| https:\/\/www\.bing\.com\/webmasters\/ \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 16 \| submit_or_contact \| 82 \| Prep & Profit vendor directory \| Restaurant technology directory \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 17 \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 15\. The Next AI/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 15\. Prep & Profit vendor directory/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 16\. Pilot restaurant testimonial/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
