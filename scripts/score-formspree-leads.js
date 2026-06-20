@@ -254,6 +254,26 @@ function classifyPosPartnerLead({ partnerReferralPriority }) {
   };
 }
 
+function recommendedPosPartnerTargets({ partnerReferralPriority, partnerInquiry, chineseIntent, prioritySource, values }) {
+  if (partnerReferralPriority === 'none') return '';
+
+  const targets = [];
+  if (partnerInquiry) {
+    targets.push('POS consultants', 'restaurant website agencies');
+  }
+
+  if (chineseIntent || prioritySource || /chinese|asian|中餐/i.test(`${values.restaurant} ${values.leadSource} ${values.landingPage}`)) {
+    targets.push('39 Miles', 'MenuSifu', 'Chowbus', 'Mealkeyway');
+  }
+
+  if (/square/i.test(`${values.posFocus} ${values.landingPage} ${values.leadSource}`)) targets.push('Square');
+  if (/toast/i.test(`${values.posFocus} ${values.landingPage} ${values.leadSource}`)) targets.push('Toast');
+  if (/clover/i.test(`${values.posFocus} ${values.landingPage} ${values.leadSource}`)) targets.push('Clover');
+
+  targets.push('Square', 'Toast', 'Clover');
+  return [...new Set(targets)].join(' | ');
+}
+
 function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSignal, volume, posTimelineUrgency }) {
   if (!['hot', 'warm'].includes(partnerReferralPriority)) return '';
 
@@ -496,6 +516,13 @@ function scoreLead(record) {
   const posPartnerLead = classifyPosPartnerLead({
     partnerReferralPriority: partnerReferral.partnerReferralPriority,
   });
+  const recommendedTargets = recommendedPosPartnerTargets({
+    partnerReferralPriority: partnerReferral.partnerReferralPriority,
+    partnerInquiry,
+    chineseIntent,
+    prioritySource,
+    values,
+  });
   const serviioFitStatus = classifyServiioFitStatus({
     partnerInquiry,
     posReady,
@@ -619,6 +646,7 @@ function scoreLead(record) {
     partner_next_action: partnerReferral.partnerNextAction,
     pos_partner_lead_status: posPartnerLead.status,
     pos_partner_lead_type: posPartnerLead.type,
+    recommended_pos_partner_targets: recommendedTargets,
     pos_partner_lead_package: posPartnerLeadPackage,
     serviio_fit_status: serviioFitStatus,
     restaurant_name: values.restaurant,
@@ -729,6 +757,7 @@ function main() {
     'partner_next_action',
     'pos_partner_lead_status',
     'pos_partner_lead_type',
+    'recommended_pos_partner_targets',
     'pos_partner_lead_package',
     'serviio_fit_status',
     'restaurant_name',

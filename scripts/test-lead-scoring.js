@@ -94,6 +94,9 @@ assert.strictEqual(noPosReferral.monetization_route, 'pos_partner_referral');
 assert.strictEqual(noPosReferral.partner_referral_priority, 'hot');
 assert.strictEqual(noPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
 assert.strictEqual(noPosReferral.pos_partner_lead_type, 'hot_no_pos_restaurant');
+assert.match(noPosReferral.recommended_pos_partner_targets, /39 Miles/);
+assert.match(noPosReferral.recommended_pos_partner_targets, /MenuSifu/);
+assert.match(noPosReferral.recommended_pos_partner_targets, /Chowbus/);
 assert.strictEqual(noPosReferral.serviio_fit_status, 'deprioritized_until_pos_ready');
 assert.match(noPosReferral.partner_next_action, /POS partner lead/);
 assert.match(noPosReferral.pos_partner_lead_package, /New Noodle Shop/);
@@ -296,6 +299,8 @@ assert.strictEqual(partnerInquiry.lead_route, 'partner_pipeline');
 assert.strictEqual(partnerInquiry.partner_inquiry, 'yes');
 assert.strictEqual(partnerInquiry.monetization_route, 'partner_relationship');
 assert.strictEqual(partnerInquiry.partner_referral_priority, 'strategic');
+assert.match(partnerInquiry.recommended_pos_partner_targets, /POS consultants/);
+assert.match(partnerInquiry.recommended_pos_partner_targets, /MenuSifu/);
 assert.match(partnerInquiry.lead_next_action, /partner\/referral opportunity/);
 assert.match(partnerInquiry.partner_next_action, /referral economics/);
 assert.match(partnerInquiry.lead_reason, /partner\/referral inquiry/);
@@ -409,6 +414,8 @@ assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
   'Small New Cafe',
 ]);
 assert.strictEqual(posPartnerExportRows[0].pos_partner_lead_type, 'hot_no_pos_restaurant');
+assert.match(posPartnerExportRows[0].recommended_pos_partner_targets, /39 Miles/);
+assert.match(posPartnerExportRows[0].recommended_pos_partner_targets, /MenuSifu/);
 assert.strictEqual(posPartnerExportRows[0].serviio_fit_status, 'deprioritized_until_pos_ready');
 assert.strictEqual(posPartnerExportRows[0].pos_purchase_timeline_urgency, 'urgent');
 assert.match(posPartnerExportRows[0].handoff_summary, /Restaurant: New Noodle Shop/);
@@ -421,6 +428,7 @@ assert.strictEqual(posPartnerExportRows[2].pos_purchase_timeline_urgency, 'urgen
 
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
 assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /recommended_pos_partner_targets/);
 assert.match(posPartnerCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
 assert.match(posPartnerCsv, /Calculator Noodle Shop/);
 assert.match(posPartnerCsv, /\$493/);
