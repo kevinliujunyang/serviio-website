@@ -147,6 +147,7 @@ function compareRows(a, b) {
 }
 
 function packetHint(row) {
+  if (row.target === 'Product Hunt Serviio listing') return 'Claim or verify the existing Product Hunt page, update the restaurant AI phone ordering and POS integration positioning if access is available, then record an updated listing screenshot or owner/account confirmation URL.';
   if (row.channel === 'Webmaster tool') return 'Submit sitemap or priority URLs, then record confirmation in the tracker.';
   if (row.channel === 'Business profile') return 'Use business profile copy, service-area language, phone, logo, and clean homepage URL if UTM is rejected.';
   if (row.channel === 'AI directory') return 'Use the AI Directory Form Pack and choose voice AI, AI agent, automation, restaurant technology, or customer service AI.';

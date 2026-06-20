@@ -205,6 +205,8 @@ assert.ok(nextRows.readyRows.map((row) => row.target).includes('POS consultants'
 assert.ok(nextRows.readyRows.every((row) => nextActionOpportunityScore(row).score >= 88));
 assert.ok(nextRows.readyRows.slice(0, 6).every((row) => /POS|partner\/referral/.test(nextActionOpportunityScore(row).reasons)));
 assert.match(packetHint(menusifuTrackerRow), /POS-Specific Partner Outreach Copy/);
+assert.match(packetHint(productHuntRow), /Claim or verify the existing Product Hunt page/);
+assert.match(packetHint(productHuntRow), /updated listing screenshot/);
 
 const aiDirectoryNextRow = trackerRows.find((row) => row.target === 'AI Directory');
 assert.ok(aiDirectoryNextRow);
