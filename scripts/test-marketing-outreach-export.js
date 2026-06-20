@@ -72,6 +72,12 @@ const {
   parseArgs: parseTrackerGeneratorArgs,
 } = require('./generate-free-search-tracker');
 
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+assert.strictEqual(
+  packageJson.scripts['marketing:submission-log:first-hour'],
+  'node scripts/export-authority-submission-log.js --first-hour',
+);
+
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
 P1,AI directory,AI Directory,https://www.ai-directory.io/submit,not_started,,,,https://serviio.ai/restaurant-ai-phone-order-taker/,https://serviio.ai/restaurant-ai-phone-order-taker/?utm_source=ai_directory_io&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone order taker,Generic directory.
@@ -188,6 +194,18 @@ assert.ok(authoritySubmissionRows.some((row) => row.target === 'Google Business 
 assert.ok(authoritySubmissionRows.some((row) => row.target === 'Bing Places for Business'));
 assert.ok(authoritySubmissionRows.some((row) => row.target === 'Apple Business Connect'));
 assert.ok(authoritySubmissionRows.some((row) => row.target === 'Pilot restaurant testimonial'));
+const firstHourAuthorityRows = buildAuthoritySubmissionLogRows(trackerRows, { firstHour: true, today: '2026-06-06' });
+assert.deepStrictEqual(firstHourAuthorityRows.map((row) => row.target), [
+  'Google Business Profile',
+  'MenuSifu restaurant consultants',
+  '39 Miles restaurant consultants',
+  'Pilot restaurant testimonial',
+]);
+assert.strictEqual(firstHourAuthorityRows[0].expected_lead_acquisition_channel, 'business_profile');
+assert.strictEqual(firstHourAuthorityRows[1].expected_lead_acquisition_channel, 'partner_referral');
+assert.strictEqual(firstHourAuthorityRows[3].expected_lead_acquisition_channel, 'customer_proof');
+assert.match(firstHourAuthorityRows[0].tracker_command, /--target "Google Business Profile" --status submitted --date 2026-06-06/);
+assert.match(firstHourAuthorityRows[3].message_or_listing_copy, /You can choose whether the proof can be published, anonymized, or kept internal/);
 const allAuthoritySubmissionRows = buildAuthoritySubmissionLogRows(trackerRows, { limit: 60, today: '2026-06-06' });
 const googleProfileSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Google Business Profile');
 assert.ok(googleProfileSubmissionRow);
@@ -205,6 +223,14 @@ assert.deepStrictEqual(parseAuthoritySubmissionLogArgs(['--out', 'docs/log.csv',
   out: 'docs/log.csv',
   limit: 9,
   today: '2026-06-06',
+  firstHour: false,
+  help: false,
+});
+assert.deepStrictEqual(parseAuthoritySubmissionLogArgs(['--first-hour', '--today', '2026-06-06']), {
+  out: 'docs/authority-first-hour-submission-log.csv',
+  limit: 15,
+  today: '2026-06-06',
+  firstHour: true,
   help: false,
 });
 assert.throws(() => parseAuthoritySubmissionLogArgs(['--limit', '0']), /--limit must be a positive integer/);

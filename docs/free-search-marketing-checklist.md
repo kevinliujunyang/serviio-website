@@ -158,6 +158,14 @@ npm run marketing:submission-log
 
 This writes `docs/authority-submission-log.csv` by default. Use it as the working sheet for the top 15 authority actions. Fill in `evidence_url`, `account_or_login`, `confirmation_note`, `submitted_date`, and `follow_up_date` while submitting forms or sending partner messages. Use `expected_lead_acquisition_channel` to compare each action against the later `lead_acquisition_channel` counts from Formspree lead scoring. Then run the included tracker command only after the external action is complete.
 
+For the first authority block, export the focused four-row sheet first:
+
+```bash
+npm run marketing:submission-log:first-hour
+```
+
+This writes `docs/authority-first-hour-submission-log.csv` with Google Business Profile, MenuSifu restaurant consultants, 39 Miles restaurant consultants, and the pilot testimonial request. Use it when the goal is to move one manual authority session quickly instead of opening the full 15-row sheet.
+
 After filling the submission log, preview which rows can be safely synced back into the tracker:
 
 ```bash

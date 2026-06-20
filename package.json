@@ -46,6 +46,7 @@
     "marketing:profiles": "node scripts/export-business-profile-pack.js",
     "marketing:directories": "node scripts/export-directory-submission-pack.js",
     "marketing:submission-log": "node scripts/export-authority-submission-log.js",
+    "marketing:submission-log:first-hour": "node scripts/export-authority-submission-log.js --first-hour",
     "marketing:submission-sync": "node scripts/sync-authority-submission-log.js",
     "marketing:authority-sprint": "node scripts/export-weekly-authority-sprint.js",
     "marketing:gtm-queue": "node scripts/export-free-search-gtm-queue.js",

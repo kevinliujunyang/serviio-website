@@ -15,6 +15,7 @@ const {
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/authority-submission-log.csv';
+const DEFAULT_FIRST_HOUR_OUT = 'docs/authority-first-hour-submission-log.csv';
 const DEFAULT_LIMIT = 15;
 const HEADERS = [
   'action_status',
@@ -69,6 +70,7 @@ function parseArgs(argv) {
     out: DEFAULT_OUT,
     limit: DEFAULT_LIMIT,
     today: todayIso(),
+    firstHour: false,
     help: false,
   };
 
@@ -76,6 +78,11 @@ function parseArgs(argv) {
     const arg = argv[index];
     if (arg === '--help' || arg === '-h') {
       args.help = true;
+    } else if (arg === '--first-hour') {
+      args.firstHour = true;
+      if (args.out === DEFAULT_OUT) {
+        args.out = DEFAULT_FIRST_HOUR_OUT;
+      }
     } else if (arg === '--out') {
       args.out = argv[index + 1] || DEFAULT_OUT;
       index += 1;
@@ -208,9 +215,29 @@ function authoritySubmissionSourceRows(rows, limit) {
   ].slice(0, limit);
 }
 
-function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
+function firstHourSubmissionSourceRows(rows) {
+  const selected = [];
+  const usedTargets = new Set();
+  const addFirst = (predicate) => {
+    const row = rows.find((candidate) => !usedTargets.has(candidate.target) && predicate(candidate));
+    if (row) {
+      usedTargets.add(row.target);
+      selected.push(row);
+    }
+  };
+
+  addFirst((row) => /business profile/i.test(row.channel) && /google/i.test(row.target));
+  addFirst((row) => /pos-specific outreach/i.test(row.channel) && /menusifu/i.test(row.target));
+  addFirst((row) => /pos-specific outreach/i.test(row.channel) && /39 miles/i.test(row.target));
+  addFirst((row) => /customer proof/i.test(row.channel));
+
+  return selected;
+}
+
+function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso(), firstHour = false } = {}) {
   const followUpDate = addDaysIso(today, 7);
-  return authoritySubmissionSourceRows(rows, limit).map((row) => {
+  const sourceRows = firstHour ? firstHourSubmissionSourceRows(rows) : authoritySubmissionSourceRows(rows, limit);
+  return sourceRows.map((row) => {
     const packet = packetFor(row);
     const score = opportunityScore(row);
     return {
@@ -268,7 +295,7 @@ function main() {
   }
 
   const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
-  const logRows = buildAuthoritySubmissionLogRows(rows, { limit: args.limit, today: args.today });
+  const logRows = buildAuthoritySubmissionLogRows(rows, { limit: args.limit, today: args.today, firstHour: args.firstHour });
   const outPath = path.resolve(args.out);
   fs.writeFileSync(outPath, `${toCsv(logRows)}\n`);
   console.log(`Wrote ${logRows.length} authority submission log rows to ${outPath}`);
