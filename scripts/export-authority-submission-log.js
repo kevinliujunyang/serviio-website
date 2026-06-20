@@ -184,9 +184,33 @@ function evidenceNeeded(row) {
   return 'Confirmation URL, live link, reply, screenshot, or sent-message URL.';
 }
 
+function reservedMilestoneRows(rows) {
+  return rows.filter((row) => (
+    row.status === 'not_started' &&
+    (
+      (/business profile/i.test(row.channel) && row.priority === 'P0') ||
+      /customer proof/i.test(row.channel)
+    ) &&
+    row.url
+  ));
+}
+
+function authoritySubmissionSourceRows(rows, limit) {
+  const reservedRows = reservedMilestoneRows(rows);
+  const reservedTargets = new Set(reservedRows.map((row) => row.target));
+  const fillerRows = readySubmissionRows(rows)
+    .filter((row) => !reservedTargets.has(row.target))
+    .slice(0, Math.max(0, limit - reservedRows.length));
+
+  return [
+    ...fillerRows,
+    ...reservedRows,
+  ].slice(0, limit);
+}
+
 function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = todayIso() } = {}) {
   const followUpDate = addDaysIso(today, 7);
-  return readySubmissionRows(rows).slice(0, limit).map((row) => {
+  return authoritySubmissionSourceRows(rows, limit).map((row) => {
     const packet = packetFor(row);
     const score = opportunityScore(row);
     return {
@@ -256,10 +280,12 @@ if (require.main === module) {
 
 module.exports = {
   addDaysIso,
+  authoritySubmissionSourceRows,
   buildAuthoritySubmissionLogRows,
   evidenceNeeded,
   parseArgs,
   nextStep,
+  reservedMilestoneRows,
   submissionType,
   toCsv,
 };
