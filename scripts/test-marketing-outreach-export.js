@@ -98,16 +98,19 @@ assert.match(csv, /AI phone ordering add-on for MenuSifu restaurants/);
 
 const trackerRows = parseCsv(fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'));
 const readyRows = readySubmissionRows(trackerRows);
-assert.strictEqual(readyRows.length, 51);
+assert.strictEqual(readyRows.length, 50);
 const indexNowRow = trackerRows.find((row) => row.target === 'IndexNow priority URL batch');
 assert.ok(indexNowRow);
 assert.match(indexNowRow.notes, /restaurant-missed-call-revenue-calculator/);
 assert.match(indexNowRow.notes, /2026-06-20 priority 43-URL IndexNow batch/);
-const productHuntRow = readyRows.find((row) => row.target === 'Product Hunt Serviio listing');
+const productHuntRow = trackerRows.find((row) => row.target === 'Product Hunt Serviio listing');
 assert.ok(productHuntRow);
 assert.strictEqual(productHuntRow.channel, 'Startup directory');
+assert.strictEqual(productHuntRow.status, 'live');
 assert.strictEqual(productHuntRow.url, 'https://www.producthunt.com/products/serviio');
-assert.match(productHuntRow.notes, /claim or verify the existing Product Hunt page/);
+assert.strictEqual(productHuntRow.date_live, '2026-06-20');
+assert.match(productHuntRow.notes, /Product Hunt product page verified live/);
+assert.ok(!readyRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 const customerProofReadyRow = readyRows.find((row) => row.target === 'Pilot restaurant testimonial');
 assert.ok(customerProofReadyRow);
 assert.strictEqual(customerProofReadyRow.channel, 'Customer proof');
@@ -164,7 +167,7 @@ assert.throws(() => parseDirectoryPackArgs(['--limit', '0']), /--limit must be a
 
 const authoritySubmissionRows = buildAuthoritySubmissionLogRows(trackerRows, { limit: 15, today: '2026-06-06' });
 assert.strictEqual(authoritySubmissionRows.length, 15);
-assert.ok(authoritySubmissionRows.some((row) => row.target === 'Product Hunt Serviio listing'));
+assert.ok(!authoritySubmissionRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 assert.strictEqual(authoritySubmissionRows[0].target, 'Chinese restaurant POS consultants');
 assert.strictEqual(authoritySubmissionRows[0].opportunity_score, 100);
 assert.strictEqual(authoritySubmissionRows[0].action_status, '');
@@ -186,11 +189,7 @@ assert.strictEqual(googleProfileSubmissionRow.lead_priority, 'P0 inbound restaur
 assert.match(googleProfileSubmissionRow.lead_route, /Ask every inbound owner which POS system they use/);
 assert.strictEqual(googleProfileSubmissionRow.primary_kpi, 'verified profile plus POS-qualified inbound leads');
 const productHuntSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Product Hunt Serviio listing');
-assert.ok(productHuntSubmissionRow);
-assert.strictEqual(productHuntSubmissionRow.submission_type, 'startup_directory');
-assert.match(productHuntSubmissionRow.next_step, /Claim or verify the Product Hunt page/);
-assert.match(productHuntSubmissionRow.next_step, /updated listing screenshot/);
-assert.match(productHuntSubmissionRow.evidence_needed, /claimed profile/);
+assert.strictEqual(productHuntSubmissionRow, undefined);
 const authoritySubmissionCsv = authoritySubmissionLogToCsv(authoritySubmissionRows);
 assert.match(authoritySubmissionCsv, /action_status,priority,channel,target,submission_type,lead_priority,lead_route,primary_kpi,next_step,evidence_needed,opportunity_score/);
 assert.match(authoritySubmissionCsv, /evidence_url,account_or_login,confirmation_note,submitted_date,live_date,follow_up_date,tracker_command/);
@@ -394,7 +393,7 @@ assert.match(gtmCsv, /P1,Partner outreach,POS consultants/);
 assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
 const defaultGtmQueueRows = buildGtmQueueRows(trackerRows, { today: '2026-06-10' });
-assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Product Hunt Serviio listing'));
+assert.ok(!defaultGtmQueueRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'US-China Restaurant Alliance'));
 assert.ok(defaultGtmQueueRows.some((row) => row.target === 'Google Business Profile'));
 assert.deepStrictEqual(parseGtmQueueArgs(['--today', '2026-06-10', '--out', 'gtm.csv', '--ready-limit', '3', '--research-limit', '2', '--follow-up-limit', '1']), {
@@ -410,9 +409,9 @@ assert.throws(() => parseGtmQueueArgs(['--ready-limit', '0']), /--ready-limit mu
 
 const weeklyAuthoritySprint = buildWeeklyAuthoritySprint(trackerRows, { today: '2026-06-10', submissionTarget: 15, liveTarget: 5, highFitTarget: 8 });
 assert.match(weeklyAuthoritySprint, /^# Serviio Weekly Authority Sprint/m);
-assert.match(weeklyAuthoritySprint, /Authority score: 0\/100/);
+assert.match(weeklyAuthoritySprint, /Authority score: 6\/100/);
 assert.match(weeklyAuthoritySprint, /15 more evidence-qualified submissions or partner contacts/);
-assert.match(weeklyAuthoritySprint, /5 live listings, backlinks, business profiles, or published resource links/);
+assert.match(weeklyAuthoritySprint, /4 live listings, backlinks, business profiles, or published resource links/);
 assert.match(weeklyAuthoritySprint, /High-fit partner\/POS\/association rows started: 0\/8/);
 assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channel \| Evidence needed \|/);
 assert.match(weeklyAuthoritySprint, /Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
