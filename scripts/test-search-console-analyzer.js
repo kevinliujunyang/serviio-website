@@ -166,6 +166,11 @@ assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, to
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /\/guides\/connect-phone-orders-to-pos\//);
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Authority tracker command/);
 assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /--date 2026-06-07/);
+const groupedRankingReport = renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 8, today: '2026-06-07' });
+assert.match(groupedRankingReport, /## Authority Submission Batches/);
+assert.match(groupedRankingReport, /MenuSifu restaurant consultants/);
+assert.match(groupedRankingReport, /\| 83\/100 \| MenuSifu restaurant consultants \| push_to_page_one \| menusifu ai phone ordering \|/i);
+assert.match(groupedRankingReport, /one submission should support these grouped ranking actions/i);
 assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5', '--today', '2026-06-07']), {
   watchlist: 'watch.csv',
   out: 'actions.md',

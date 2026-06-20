@@ -153,6 +153,41 @@ function buildRankingActions(rows, { limit = 25, today = todayIso() } = {}) {
     .slice(0, limit);
 }
 
+function buildAuthoritySubmissionBatches(actions, today = todayIso()) {
+  const byTarget = new Map();
+  for (const row of actions) {
+    if (!row.authority_target) continue;
+    if (!byTarget.has(row.authority_target)) {
+      byTarget.set(row.authority_target, {
+        authority_target: row.authority_target,
+        max_score: row.action_score,
+        action_types: new Set(),
+        queries: [],
+        target_pages: new Set(),
+      });
+    }
+    const batch = byTarget.get(row.authority_target);
+    batch.max_score = Math.max(batch.max_score, row.action_score);
+    batch.action_types.add(row.action_type);
+    batch.queries.push(row.query);
+    batch.target_pages.add(row.target_page);
+  }
+
+  return Array.from(byTarget.values())
+    .map((batch) => {
+      const topQueries = batch.queries.slice(0, 5);
+      const note = `Ranking support for ${topQueries.map((query) => `"${query}"`).join(', ')}; one submission should support these grouped ranking actions.`;
+      return {
+        ...batch,
+        action_types: Array.from(batch.action_types).join(', '),
+        supporting_queries: topQueries.join('; '),
+        target_pages: Array.from(batch.target_pages).join(', '),
+        authority_tracker_command: `npm run marketing:mark -- --target ${quoteShell(batch.authority_target)} --status submitted --date ${today} --note ${quoteShell(note)}`,
+      };
+    })
+    .sort((a, b) => b.max_score - a.max_score || a.authority_target.localeCompare(b.authority_target));
+}
+
 function renderTable(rows) {
   if (rows.length === 0) return '_No ranking actions available._';
   const lines = [
@@ -165,10 +200,23 @@ function renderTable(rows) {
   return lines.join('\n');
 }
 
+function renderAuthorityBatchTable(rows) {
+  if (rows.length === 0) return '_No authority batches available._';
+  const lines = [
+    '| Score | Authority target | Action types | Supporting queries | Target pages | Tracker command |',
+    '| ---: | --- | --- | --- | --- | --- |',
+  ];
+  for (const row of rows) {
+    lines.push(`| ${row.max_score}/100 | ${row.authority_target} | ${row.action_types} | ${row.supporting_queries} | ${row.target_pages} | ${row.authority_tracker_command} |`);
+  }
+  return lines.join('\n');
+}
+
 function renderRankingActionQueue(rows, options = {}) {
   const limit = options.limit || 25;
   const today = options.today || todayIso();
   const actions = buildRankingActions(rows, { limit, today });
+  const authorityBatches = buildAuthoritySubmissionBatches(actions, today);
   const statusCounts = rows.reduce((counts, row) => {
     counts[row.status] = (counts[row.status] || 0) + 1;
     return counts;
@@ -187,11 +235,16 @@ function renderRankingActionQueue(rows, options = {}) {
     '',
     renderTable(actions),
     '',
+    '## Authority Submission Batches',
+    '',
+    renderAuthorityBatchTable(authorityBatches),
+    '',
     '## Usage',
     '',
     '- Work `push_to_page_one` and `ctr_rewrite` rows first because they are closest to first-page traffic.',
     '- For `no_search_console_data`, verify indexing before writing another landing page.',
     '- Keep authority work tied to the listed `authority_target` so backlinks match the query intent.',
+    '- Use `Authority Submission Batches` to avoid submitting the same partner or directory target once per query.',
     '- Run an authority tracker command only after the external submission, reply, backlink, profile, or proof request actually happens.',
     '',
   ].join('\n');
@@ -219,6 +272,7 @@ module.exports = {
   actionScore,
   actionType,
   authorityTrackerCommand,
+  buildAuthoritySubmissionBatches,
   buildRankingActions,
   parseArgs,
   recommendedAction,
