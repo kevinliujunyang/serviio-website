@@ -6,6 +6,11 @@ const {
   parseCsv,
   readySubmissionRows,
 } = require('./print-free-search-submission-packets');
+const {
+  leadPriority,
+  leadRoute,
+  primaryKpi,
+} = require('./lead-routing');
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/authority-submission-log.csv';
@@ -16,6 +21,9 @@ const HEADERS = [
   'channel',
   'target',
   'submission_type',
+  'lead_priority',
+  'lead_route',
+  'primary_kpi',
   'next_step',
   'evidence_needed',
   'opportunity_score',
@@ -185,6 +193,9 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       channel: row.channel,
       target: row.target,
       submission_type: submissionType(row),
+      lead_priority: leadPriority(row),
+      lead_route: leadRoute(row),
+      primary_kpi: primaryKpi(row),
       next_step: nextStep(row),
       evidence_needed: evidenceNeeded(row),
       opportunity_score: score.score,
