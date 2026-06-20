@@ -114,6 +114,24 @@ function renderActionTable(rows) {
   return lines;
 }
 
+function renderDailyAuthorityChecklist(rows, today) {
+  const followUpDate = addDaysIso(today, 7);
+  const lines = [
+    '## Daily Authority Checklist',
+    '',
+    'Work top to bottom during each manual authority block. Leave tracker rows unchanged until a real external action happens.',
+    '',
+    '| # | Target | Priority | Channel | Contact URL | Landing page | UTM URL | Tracker command | Proof fields |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+  ];
+
+  rows.forEach((row, index) => {
+    lines.push(`| ${index + 1} | ${row.target} | ${row.priority} | ${row.channel} | ${row.contact_url || row.url || '-'} | ${row.landing_url || '-'} | ${row.utm_url || '-'} | ${trackerCommand(row, today, followUpDate)} | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date ${followUpDate}. |`);
+  });
+
+  return lines;
+}
+
 function renderSubmissionPayloads(rows, today) {
   const followUpDate = addDaysIso(today, 7);
   const lines = [
@@ -201,6 +219,8 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
     '## Execution Queue',
     '',
     ...renderActionTable(executionRows),
+    '',
+    ...renderDailyAuthorityChecklist(executionRows, options.today),
     '',
     ...renderSubmissionPayloads(executionRows.filter((row) => row.action_type === 'submit_or_contact'), options.today),
     '',

@@ -377,6 +377,10 @@ assert.match(weeklyAuthoritySprint, /High-fit partner\/POS\/association rows sta
 assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channel \| Evidence needed \|/);
 assert.match(weeklyAuthoritySprint, /Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
+assert.match(weeklyAuthoritySprint, /## Daily Authority Checklist/);
+assert.match(weeklyAuthoritySprint, /\| 1 \| Chinese restaurant POS consultants \| P1 \| Partner outreach \| https:\/\/www\.m988\.com\/ \| https:\/\/serviio\.ai\/restaurant-pos-partner-referral\/ \|/);
+assert.match(weeklyAuthoritySprint, /Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-17\./);
+assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status submitted --date 2026-06-10/);
 assert.match(weeklyAuthoritySprint, /## Submission Payloads/);
 assert.match(weeklyAuthoritySprint, /Contact URL: https:\/\/forms\.menusifu\.com\/pages\/demo-request/);
 assert.match(weeklyAuthoritySprint, /Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
