@@ -96,6 +96,31 @@ function trackerRowFromQueueRow(row) {
   };
 }
 
+function renderSubmissionFieldChecklist(packet, row) {
+  const fields = [
+    ['Product/company', packet.title || 'Serviio'],
+    ['Website', row.utm_url || row.landing_url || 'https://serviio.ai/'],
+    ['Clean website', row.landing_url || 'https://serviio.ai/'],
+    ['Title or subject', packet.subject || packet.title],
+    ['Tagline', packet.tagline],
+    ['Short description', packet.shortDescription],
+    ['Categories', packet.categories],
+    ['Features', packet.features],
+    ['Pricing', packet.pricing],
+    ['Contact email', 'info@serviio.ai'],
+    ['Contact phone', '(408) 409-9079'],
+  ].filter(([, value]) => value);
+
+  const lines = [
+    'Field checklist:',
+    '',
+  ];
+  for (const [label, value] of fields) {
+    lines.push(`- ${label}: ${value}`);
+  }
+  return lines;
+}
+
 function actionRows(rows, args) {
   return buildGtmQueueRows(rows, {
     today: args.today,
@@ -180,6 +205,8 @@ function renderSubmissionPayloads(rows, today) {
       `- Evidence needed: ${row.evidence_needed || 'Confirmation note, account/login, submitted date, and follow-up date'}`,
       `- Subject: ${packet.subject || packet.title}`,
       `- Follow-up date: ${followUpDate}`,
+      '',
+      ...renderSubmissionFieldChecklist(packet, row),
       '',
       'Copy:',
       '',

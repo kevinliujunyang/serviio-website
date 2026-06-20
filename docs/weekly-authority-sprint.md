@@ -88,6 +88,20 @@ Use these payloads during the manual submission block. Keep `action_status` blan
 - Subject: Referral path for restaurants missing phone orders
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Chinese restaurant POS partner referral
+- Website: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/restaurant-pos-partner-referral/
+- Title or subject: Referral path for restaurants missing phone orders
+- Tagline: Referral path for POS-ready restaurants missing phone orders.
+- Short description: Serviio helps restaurants answer phone orders with AI, capture structured order details, and evaluate POS or kitchen handoff options.
+- Categories: Partner referral, POS consultant, Restaurant technology, Chinese restaurant operations
+- Features: AI phone ordering referral path; POS-ready lead qualification; Chinese restaurant owner fit; no-POS lead routing for recommendations
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Hi [Name],
@@ -121,6 +135,20 @@ npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status
 - Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for 39 Miles restaurants
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: 39 Miles AI phone ordering partner referral
+- Website: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/39-miles-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for 39 Miles restaurants
+- Tagline: AI phone ordering for restaurants using 39 Miles.
+- Short description: Serviio helps 39 Miles restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: 39 Miles restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 
@@ -167,6 +195,20 @@ npm run marketing:mark -- --target "39 Miles restaurant consultants" --status "s
 - Subject: AI phone ordering add-on for Chowbus restaurants
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Chowbus AI phone ordering partner referral
+- Website: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=chowbus_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/chowbus-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for Chowbus restaurants
+- Tagline: AI phone ordering for restaurants using Chowbus.
+- Short description: Serviio helps Chowbus restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: Chowbus restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Hi [Name],
@@ -211,6 +253,20 @@ npm run marketing:mark -- --target "Chowbus restaurant consultants" --status "su
 - Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Mealkeyway restaurants
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Mealkeyway AI phone ordering partner referral
+- Website: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=mealkeyway_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for Mealkeyway restaurants
+- Tagline: AI phone ordering for restaurants using Mealkeyway.
+- Short description: Serviio helps Mealkeyway restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: Mealkeyway restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 
@@ -257,6 +313,20 @@ npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status 
 - Subject: AI phone ordering add-on for MenuSifu restaurants
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: MenuSifu AI phone ordering partner referral
+- Website: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/menusifu-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for MenuSifu restaurants
+- Tagline: AI phone ordering for restaurants using MenuSifu.
+- Short description: Serviio helps MenuSifu restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: MenuSifu restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Hi [Name],
@@ -302,6 +372,20 @@ npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "s
 - Subject: Serviio - AI Phone Ordering for POS-Ready Restaurants
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Serviio - AI Phone Ordering for POS-Ready Restaurants
+- Website: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=restaurant_pos_ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/
+- Title or subject: Serviio - AI Phone Ordering for POS-Ready Restaurants
+- Tagline: AI phone ordering for restaurant POS and kitchen workflows.
+- Short description: Serviio helps restaurants capture phone orders with AI and evaluate how confirmed orders can flow into the restaurant POS or kitchen workflow.
+- Categories: Restaurant technology, Restaurant POS, AI phone answering, Takeout ordering, Voice AI
+- Features: AI phone order taking; bilingual English and Chinese calls; menu modifiers; pickup detail capture; POS-ready workflow evaluation; SMS confirmations
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Serviio helps restaurants capture phone orders with AI and evaluate how confirmed orders can flow into the restaurant POS or kitchen workflow. It is built for takeout-heavy operators, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
@@ -324,6 +408,20 @@ npm run marketing:mark -- --target "Restaurant POS and automation directories" -
 - Subject: Bing Webmaster Tools sitemap
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Bing Webmaster Tools sitemap
+- Website: https://serviio.ai/sitemap.xml?utm_source=bing_webmaster_tools&utm_medium=indexing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/sitemap.xml
+- Title or subject: Bing Webmaster Tools sitemap
+- Tagline: Submit sitemap and priority URLs.
+- Short description: Submit https://serviio.ai/sitemap.xml and request indexing for top-priority Chinese restaurant and POS landing pages.
+- Categories: Indexing, Search Console, Webmaster tools
+- Features: Sitemap submission; URL inspection; priority page indexing
+- Pricing: Free
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Run npm run indexing:urls, submit the sitemap, then inspect URLs under Top Priority URL Inspection List first.
@@ -345,6 +443,20 @@ npm run marketing:mark -- --target "Bing Webmaster Tools sitemap" --status "subm
 - Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: Referral path for restaurants missing phone orders
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Restaurant POS partner referral
+- Website: https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/restaurant-pos-partner-referral/
+- Title or subject: Referral path for restaurants missing phone orders
+- Tagline: Referral path for POS-ready restaurants missing phone orders.
+- Short description: Serviio helps restaurants answer phone orders with AI, capture structured order details, and evaluate POS or kitchen handoff options.
+- Categories: Partner referral, POS consultant, Restaurant technology, Chinese restaurant operations
+- Features: AI phone ordering referral path; POS-ready lead qualification; Chinese restaurant owner fit; no-POS lead routing for recommendations
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 
@@ -380,6 +492,20 @@ npm run marketing:mark -- --target "POS consultants" --status "submitted" --date
 - Subject: AI phone-ordering add-on for restaurant website clients
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Restaurant phone order automation
+- Website: https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_website_agency&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/restaurant-phone-order-automation/
+- Title or subject: AI phone-ordering add-on for restaurant website clients
+- Tagline: AI phone-ordering add-on for restaurant website and ordering clients.
+- Short description: Serviio helps restaurant website and online-ordering clients capture phone orders with AI when guests still call instead of ordering online.
+- Categories: Restaurant website agency, Online ordering partner, Restaurant technology, AI phone ordering
+- Features: AI phone-ordering add-on; bilingual calls; pickup detail capture; POS-ready handoff evaluation; referral path for website clients
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Hi [Name],
@@ -413,6 +539,20 @@ npm run marketing:mark -- --target "Restaurant website agencies" --status "submi
 - Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Clover restaurants
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Clover AI phone ordering partner referral
+- Website: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/clover-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for Clover restaurants
+- Tagline: AI phone ordering for restaurants using Clover.
+- Short description: Serviio helps Clover restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: Clover restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 
@@ -459,6 +599,20 @@ npm run marketing:mark -- --target "Clover restaurant consultants" --status "sub
 - Subject: AI phone ordering add-on for Square restaurants
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Square AI phone ordering partner referral
+- Website: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/square-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for Square restaurants
+- Tagline: AI phone ordering for restaurants using Square.
+- Short description: Serviio helps Square restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: Square restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Hi [Name],
@@ -503,6 +657,20 @@ npm run marketing:mark -- --target "Square restaurant consultants" --status "sub
 - Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
 - Subject: AI phone ordering add-on for Toast restaurants
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Toast AI phone ordering partner referral
+- Website: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/pos/toast-ai-phone-ordering/
+- Title or subject: AI phone ordering add-on for Toast restaurants
+- Tagline: AI phone ordering for restaurants using Toast.
+- Short description: Serviio helps Toast restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+- Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology
+- Features: Toast restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 
@@ -549,6 +717,20 @@ npm run marketing:mark -- --target "Toast restaurant consultants" --status "subm
 - Subject: Serviio - AI phone ordering for Chinese restaurants
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Serviio - AI phone ordering for Chinese restaurants
+- Website: https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/
+- Title or subject: Serviio - AI phone ordering for Chinese restaurants
+- Tagline: 面向美国中餐馆的 AI 电话接单系统。
+- Short description: Serviio 可以用中文和英文接听电话、确认外卖和自取订单，并评估与餐厅 POS 或厨房流程的对接方式。
+- Categories: Chinese restaurant technology, Restaurant phone ordering, POS workflow, Vendor resource
+- Features: Chinese and English phone answering; takeout order capture; menu questions and modifiers; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 您好 [Name]，
@@ -575,6 +757,20 @@ npm run marketing:mark -- --target "US-China Restaurant Alliance" --status "subm
 - Subject: Serviio
 - Follow-up date: 2026-06-27
 
+Field checklist:
+
+- Product/company: Serviio
+- Website: https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/chinese-restaurant-ai-order-taker/
+- Title or subject: Serviio
+- Tagline: AI phone ordering for restaurants using POS systems.
+- Short description: Serviio helps Chinese restaurants answer phone orders with AI in English and Chinese, capture takeout orders, and evaluate POS-ready kitchen workflows.
+- Categories: AI agents, Voice AI, AI automation, Restaurant technology, Customer service AI, Business operations, Phone answering, Food and beverage
+- Features: 24/7 restaurant phone answering; natural conversation order taking; English and Chinese call handling; menu modifiers; pickup and takeout order capture; SMS confirmations; multi-line call handling; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
 Copy:
 
 Serviio is an AI voice agent for restaurants that answers phone calls, captures order details, asks clarifying questions, and routes confirmed orders toward the restaurant POS or kitchen workflow.
@@ -600,6 +796,20 @@ npm run marketing:mark -- --target "AI phone-order directories" --status "submit
 - Evidence needed: Submission confirmation URL or live directory listing URL.
 - Subject: Serviio
 - Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Serviio
+- Website: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/
+- Title or subject: Serviio
+- Tagline: AI phone ordering for restaurants using POS systems.
+- Short description: Serviio helps Chinese restaurants answer phone orders with AI in English and Chinese, capture takeout orders, and evaluate POS-ready kitchen workflows.
+- Categories: AI agents, Voice AI, AI automation, Restaurant technology, Customer service AI, Business operations, Phone answering, Food and beverage
+- Features: 24/7 restaurant phone answering; natural conversation order taking; English and Chinese call handling; menu modifiers; pickup and takeout order capture; SMS confirmations; multi-line call handling; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
 
 Copy:
 

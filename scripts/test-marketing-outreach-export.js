@@ -445,6 +445,14 @@ assert.match(weeklyAuthoritySprint, /Contact URL: https:\/\/forms\.menusifu\.com
 assert.match(weeklyAuthoritySprint, /Evidence needed: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /UTM URL: https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=menusifu_pos_consultant/);
 assert.match(weeklyAuthoritySprint, /Subject: AI phone ordering add-on for MenuSifu restaurants/);
+assert.match(weeklyAuthoritySprint, /Field checklist:/);
+assert.match(weeklyAuthoritySprint, /Product\/company: MenuSifu AI phone ordering partner referral/);
+assert.match(weeklyAuthoritySprint, /Website: https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=menusifu_pos_consultant/);
+assert.match(weeklyAuthoritySprint, /Categories: POS partner referral, Restaurant POS, AI phone ordering, Chinese restaurant technology/);
+assert.match(weeklyAuthoritySprint, /Features: MenuSifu restaurant owner qualification; AI phone order capture; bilingual calls; POS-ready workflow evaluation; no-POS lead routing/);
+assert.match(weeklyAuthoritySprint, /Pricing: 2% per completed order\. No monthly fees and no setup costs\./);
+assert.match(weeklyAuthoritySprint, /Contact email: info@serviio\.ai/);
+assert.match(weeklyAuthoritySprint, /Contact phone: \(408\) 409-9079/);
 assert.match(weeklyAuthoritySprint, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
 assert.match(weeklyAuthoritySprint, /Follow-up date: 2026-06-17/);
 assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-10/);
