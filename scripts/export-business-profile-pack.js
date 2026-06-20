@@ -48,6 +48,10 @@ function trackerCommand(row, today) {
   return `npm run marketing:mark -- --target "${row.target}" --status submitted --date ${today} --note "Created or claimed business profile; record verification status and live profile URL when available."`;
 }
 
+function liveTrackerCommand(row, today) {
+  return `npm run marketing:mark -- --target "${row.target}" --status live --date ${today} --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."`;
+}
+
 function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
   const profiles = businessProfileRows(rows);
   const lines = [
@@ -92,10 +96,23 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
       `Categories: ${packet.categories}`,
       `Features: ${packet.features}`,
       '',
-      'Tracker update command:',
+      'Evidence to capture:',
+      '',
+      '- Account/login used for the profile',
+      '- Verification screenshot or dashboard confirmation',
+      '- Live profile URL once published',
+      '- Submitted date, verification status, and any pending review date',
+      '',
+      'Tracker update command after profile creation or claim:',
       '',
       '```bash',
       trackerCommand(row, today),
+      '```',
+      '',
+      'Tracker update command after the profile is live:',
+      '',
+      '```bash',
+      liveTrackerCommand(row, today),
       '```',
       ''
     );

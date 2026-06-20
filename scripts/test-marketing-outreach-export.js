@@ -251,6 +251,9 @@ assert.match(businessProfilePack, /info@serviio\.ai/);
 assert.match(businessProfilePack, /\(408\) 409-9079/);
 assert.match(businessProfilePack, /Service-area business serving restaurant owners in the United States/);
 assert.match(businessProfilePack, /AI phone ordering for restaurants using POS systems/);
+assert.match(businessProfilePack, /Evidence to capture/);
+assert.match(businessProfilePack, /verification screenshot or dashboard confirmation/);
+assert.match(businessProfilePack, /npm run marketing:mark -- --target "Google Business Profile" --status live --date 2026-06-06 --url/);
 assert.match(businessProfilePack, /npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-06/);
 assert.deepStrictEqual(parseBusinessProfileArgs(['--out', 'docs/profiles.md', '--today', '2026-06-06']), {
   out: 'docs/profiles.md',

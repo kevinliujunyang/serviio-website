@@ -1,6 +1,6 @@
 # Serviio Business Profile Submission Pack
 
-Generated: 2026-06-06
+Generated: 2026-06-20
 
 Use this pack to create or claim Serviio profiles on Google Business Profile, Bing Places for Business, and Apple Business Connect when eligible.
 
@@ -34,10 +34,23 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
 
-Tracker update command:
+Evidence to capture:
+
+- Account/login used for the profile
+- Verification screenshot or dashboard confirmation
+- Live profile URL once published
+- Submitted date, verification status, and any pending review date
+
+Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-06 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+```
+
+Tracker update command after the profile is live:
+
+```bash
+npm run marketing:mark -- --target "Google Business Profile" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 ## 2. Bing Places for Business
@@ -58,10 +71,23 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
 
-Tracker update command:
+Evidence to capture:
+
+- Account/login used for the profile
+- Verification screenshot or dashboard confirmation
+- Live profile URL once published
+- Submitted date, verification status, and any pending review date
+
+Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Bing Places for Business" --status submitted --date 2026-06-06 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Bing Places for Business" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+```
+
+Tracker update command after the profile is live:
+
+```bash
+npm run marketing:mark -- --target "Bing Places for Business" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 ## 3. Apple Business Connect
@@ -82,10 +108,23 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
 
-Tracker update command:
+Evidence to capture:
+
+- Account/login used for the profile
+- Verification screenshot or dashboard confirmation
+- Live profile URL once published
+- Submitted date, verification status, and any pending review date
+
+Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Apple Business Connect" --status submitted --date 2026-06-06 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Apple Business Connect" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+```
+
+Tracker update command after the profile is live:
+
+```bash
+npm run marketing:mark -- --target "Apple Business Connect" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 Generated 3 business profile actions from docs/free-search-marketing-tracker.csv.
