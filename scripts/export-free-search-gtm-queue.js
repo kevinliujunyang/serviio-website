@@ -143,13 +143,32 @@ function withToday(row, today) {
   return { ...row, today };
 }
 
+function liveListingMessage(row) {
+  if (row.target === 'Product Hunt Serviio listing') {
+    return [
+      'Product Hunt update checklist',
+      `Live URL: ${row.url}`,
+      `Website: ${row.utm_url}`,
+      'Tagline: AI phone ordering for restaurants using POS systems.',
+      'Categories: AI agents, Voice AI, Restaurant technology, Food and beverage',
+      'Logo: https://serviio.ai/assets/logo.svg',
+      'Cover/social image: https://serviio.ai/assets/og-image.png',
+      'Description: Serviio answers restaurant phone calls 24/7, takes phone orders in natural conversation, supports English and Chinese, and helps POS-ready restaurants route orders toward kitchen workflows.',
+      'Confirm the listing mentions Chinese restaurants, 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and POS-ready phone orders.',
+      'Evidence: record account or owner confirmation, updated listing screenshot, and the live Product Hunt URL before treating the optimization as complete.',
+    ].join('\n');
+  }
+
+  return `Claim or update ${row.channel} listing. Live URL: ${row.url}`;
+}
+
 function followUpQueueRow(row) {
   if (row.follow_up_reason === 'live listing optimization') {
     return {
       action_type: 'optimize_live_listing',
       ...commonFields(row),
       subject: `Optimize live listing: ${row.anchor_or_listing_phrase}`,
-      message_or_query: `Claim or update ${row.channel} listing. Live URL: ${row.url}`,
+      message_or_query: liveListingMessage(row),
       next_step: 'Claim or update the live listing, improve restaurant AI phone ordering/POS copy, then record owner/account confirmation or updated screenshot.',
       tracker_command: trackerCommand(row, 'live', 'Claimed or updated live listing; recorded proof or owner/account confirmation.'),
     };

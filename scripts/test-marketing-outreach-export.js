@@ -479,6 +479,13 @@ assert.strictEqual(gtmQueueRows[0].lead_priority, 'P1 partner/referral lead sour
 assert.strictEqual(gtmQueueRows[0].lead_route, 'Partner can refer POS-ready restaurants; keep no-POS owners as POS partner referral prospects.');
 assert.strictEqual(gtmQueueRows[0].expected_lead_acquisition_channel, 'partner_referral');
 assert.match(gtmQueueRows[1].next_step, /Claim or update the live listing/);
+assert.match(gtmQueueRows[1].message_or_query, /Product Hunt update checklist/);
+assert.match(gtmQueueRows[1].message_or_query, /Tagline: AI phone ordering for restaurants using POS systems\./);
+assert.match(gtmQueueRows[1].message_or_query, /Categories: AI agents, Voice AI, Restaurant technology, Food and beverage/);
+assert.match(gtmQueueRows[1].message_or_query, /Website: https:\/\/serviio\.ai\/\?utm_source=product_hunt/);
+assert.match(gtmQueueRows[1].message_or_query, /Logo: https:\/\/serviio\.ai\/assets\/logo\.svg/);
+assert.match(gtmQueueRows[1].message_or_query, /Cover\/social image: https:\/\/serviio\.ai\/assets\/og-image\.png/);
+assert.match(gtmQueueRows[1].message_or_query, /Confirm the listing mentions Chinese restaurants, 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and POS-ready phone orders/);
 assert.match(gtmQueueRows[1].tracker_command, /--status "live"/);
 assert.strictEqual(gtmQueueRows[1].expected_lead_acquisition_channel, 'directory_or_listing');
 assert.match(gtmQueueRows[2].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
