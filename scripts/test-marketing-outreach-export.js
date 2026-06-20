@@ -64,8 +64,10 @@ const {
 } = require('./export-weekly-authority-sprint');
 const {
   applyActions: applySubmissionLogActions,
+  buildEvidencePreflightRows,
   buildSyncActions: buildSubmissionLogSyncActions,
   parseArgs: parseSubmissionSyncArgs,
+  renderEvidencePreflightReport,
   renderReport: renderSubmissionSyncReport,
 } = require('./sync-authority-submission-log');
 const {
@@ -76,6 +78,10 @@ const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 assert.strictEqual(
   packageJson.scripts['marketing:submission-log:first-hour'],
   'node scripts/export-authority-submission-log.js --first-hour',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:submission-preflight:first-hour'],
+  'node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv',
 );
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
@@ -574,6 +580,23 @@ live,P1,Restaurant technology directory,Restaurant POS directory,96,,https://dir
 submitted,P1,AI directory,Incomplete Directory,80,,https://ai.example.com,https://serviio.ai/restaurant-ai-phone-order-taker/,,,,,,,,,,,
 submitted,P1,AI directory,Missing Follow Up,80,,https://ai.example.com,https://serviio.ai/restaurant-ai-phone-order-taker/,,,,,,,info@serviio.ai,Submitted directory form.,2026-06-06,,,
 `), { today: '2026-06-10' });
+const firstHourPreflightRows = buildEvidencePreflightRows(parseCsv(fs.readFileSync('docs/authority-first-hour-submission-log.csv', 'utf8')));
+assert.deepStrictEqual(firstHourPreflightRows.map((row) => row.target), [
+  'Google Business Profile',
+  'MenuSifu restaurant consultants',
+  '39 Miles restaurant consultants',
+  'Pilot restaurant testimonial',
+]);
+assert.match(firstHourPreflightRows[0].required_fields.join(' '), /action_status/);
+assert.match(firstHourPreflightRows[0].required_fields.join(' '), /submitted_date/);
+assert.match(firstHourPreflightRows[0].required_fields.join(' '), /confirmation evidence/);
+assert.match(firstHourPreflightRows[0].required_fields.join(' '), /follow_up_date/);
+const firstHourPreflightReport = renderEvidencePreflightReport(firstHourPreflightRows);
+assert.match(firstHourPreflightReport, /# Authority Evidence Preflight/);
+assert.match(firstHourPreflightReport, /Rows ready for sync: 0/);
+assert.match(firstHourPreflightReport, /Rows still pending evidence: 4/);
+assert.match(firstHourPreflightReport, /Google Business Profile: set `action_status`, `submitted_date`, confirmation evidence, `follow_up_date`/);
+assert.match(firstHourPreflightReport, /Pilot restaurant testimonial: set `action_status`, `submitted_date`, confirmation evidence, `follow_up_date`/);
 assert.strictEqual(submissionLogActions.length, 4);
 assert.deepStrictEqual(submissionLogActions.map((action) => action.issues.length), [0, 0, 3, 1]);
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Valid Updates/);
@@ -605,6 +628,16 @@ assert.deepStrictEqual(parseSubmissionSyncArgs(['--apply', '--today', '2026-06-1
   out: 'out.csv',
   today: '2026-06-10',
   apply: true,
+  preflight: false,
+  help: false,
+});
+assert.deepStrictEqual(parseSubmissionSyncArgs(['--preflight', '--log', 'docs/authority-first-hour-submission-log.csv']), {
+  log: 'docs/authority-first-hour-submission-log.csv',
+  tracker: 'docs/free-search-marketing-tracker.csv',
+  out: 'docs/free-search-marketing-tracker.csv',
+  today: parseSubmissionSyncArgs([]).today,
+  apply: false,
+  preflight: true,
   help: false,
 });
 assert.strictEqual(parseSubmissionSyncArgs([]).log, 'docs/authority-submission-log.csv');

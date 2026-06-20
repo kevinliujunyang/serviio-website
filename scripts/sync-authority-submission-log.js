@@ -19,6 +19,7 @@ function parseArgs(argv) {
     out: DEFAULT_TRACKER,
     today: todayIso(),
     apply: false,
+    preflight: false,
     help: false,
   };
 
@@ -40,6 +41,8 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === '--apply') {
       args.apply = true;
+    } else if (arg === '--preflight') {
+      args.preflight = true;
     } else {
       throw new Error(`Unexpected argument: ${arg}`);
     }
@@ -119,6 +122,75 @@ function buildSyncActions(logRows, { today = todayIso() } = {}) {
     });
 }
 
+function missingPreflightFields(row) {
+  const status = String(row.action_status || '').trim();
+  if (!status) {
+    return [
+      '`action_status`',
+      '`submitted_date`',
+      'confirmation evidence',
+      '`follow_up_date`',
+    ];
+  }
+
+  return rowIssues(row).map((issue) => {
+    if (issue === 'unsupported action_status') return 'supported `action_status`';
+    if (issue === 'missing target') return '`target`';
+    if (issue === 'missing submitted_date') return '`submitted_date`';
+    if (issue === 'missing confirmation evidence') return 'confirmation evidence';
+    if (issue === 'missing follow_up_date') return '`follow_up_date`';
+    if (issue === 'missing live_date') return '`live_date`';
+    if (issue === 'missing evidence_url for live URL') return '`evidence_url` live URL';
+    if (issue === 'missing rejection note') return 'rejection note';
+    return issue;
+  });
+}
+
+function buildEvidencePreflightRows(logRows) {
+  return logRows.map((row) => {
+    const requiredFields = missingPreflightFields(row);
+    return {
+      target: row.target,
+      action_status: row.action_status || '',
+      evidence_needed: row.evidence_needed || '',
+      tracker_command: row.tracker_command || '',
+      required_fields: requiredFields,
+      ready_for_sync: requiredFields.length === 0,
+    };
+  });
+}
+
+function renderEvidencePreflightReport(rows) {
+  const readyRows = rows.filter((row) => row.ready_for_sync);
+  const pendingRows = rows.filter((row) => !row.ready_for_sync);
+  const lines = [
+    '# Authority Evidence Preflight',
+    '',
+    `Rows checked: ${rows.length}`,
+    `Rows ready for sync: ${readyRows.length}`,
+    `Rows still pending evidence: ${pendingRows.length}`,
+  ];
+
+  if (pendingRows.length > 0) {
+    lines.push('', '## Pending Evidence');
+    for (const row of pendingRows) {
+      lines.push(`- ${row.target || '(missing target)'}: set ${row.required_fields.join(', ')}`);
+      if (row.evidence_needed) {
+        lines.push(`  Evidence needed: ${row.evidence_needed}`);
+      }
+    }
+  }
+
+  if (readyRows.length > 0) {
+    lines.push('', '## Ready For Sync');
+    for (const row of readyRows) {
+      lines.push(`- ${row.target}: ${row.action_status}`);
+    }
+  }
+
+  return `${lines.join('\n')}\n`;
+}
+
 function authorityProjectionLines(actions, trackerText) {
   if (!trackerText) return [];
   const currentRows = parseCsv(trackerText);
@@ -196,6 +268,11 @@ function main() {
   }
 
   const logRows = parseCsv(fs.readFileSync(args.log, 'utf8'));
+  if (args.preflight) {
+    process.stdout.write(renderEvidencePreflightReport(buildEvidencePreflightRows(logRows)));
+    return;
+  }
+
   const actions = buildSyncActions(logRows, { today: args.today });
   const trackerText = fs.readFileSync(args.tracker, 'utf8');
   process.stdout.write(renderReport(actions, { apply: args.apply, trackerText }));
@@ -212,10 +289,12 @@ if (require.main === module) {
 
 module.exports = {
   applyActions,
+  buildEvidencePreflightRows,
   buildSyncActions,
   evidenceNote,
   authorityProjectionLines,
   parseArgs,
+  renderEvidencePreflightReport,
   renderReport,
   rowIssues,
 };

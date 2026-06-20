@@ -166,6 +166,14 @@ npm run marketing:submission-log:first-hour
 
 This writes `docs/authority-first-hour-submission-log.csv` with Google Business Profile, MenuSifu restaurant consultants, 39 Miles restaurant consultants, and the pilot testimonial request. Use it when the goal is to move one manual authority session quickly instead of opening the full 15-row sheet.
 
+Before syncing first-hour updates, run the evidence preflight:
+
+```bash
+npm run marketing:submission-preflight:first-hour
+```
+
+This prints the exact missing evidence fields for the four priority rows. Rows are not ready to sync until `action_status`, `submitted_date`, confirmation evidence, and `follow_up_date` are filled; live rows also need a live URL and `live_date`.
+
 After filling the submission log, preview which rows can be safely synced back into the tracker:
 
 ```bash
