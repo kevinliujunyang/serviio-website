@@ -6,6 +6,32 @@ const {
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/business-profile-submission-pack.md';
+const PRIORITY_SERVICE_AREAS = [
+  'New York City',
+  'Los Angeles',
+  'San Francisco Bay Area',
+  'Seattle',
+  'Houston',
+  'Chicago',
+  'Boston',
+  'Philadelphia',
+];
+
+const PROFILE_SERVICES = [
+  'POS-integrated AI phone ordering',
+  'Chinese restaurant AI phone answering',
+  'Restaurant phone order taker AI',
+  'Mandarin and English phone ordering support',
+  'Takeout call automation for POS-ready restaurants',
+];
+
+const LEAD_QUESTIONS = [
+  'Which POS system do you use today: 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another system?',
+  'How many phone orders do you receive during lunch and dinner rush?',
+  'Do staff miss calls, place callers on hold, or manually re-enter phone orders into the POS?',
+  'Do you need English, Mandarin, Cantonese, or bilingual call handling?',
+  'Do you want a demo for AI phone ordering, or do you need help choosing a POS first?',
+];
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -72,6 +98,15 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
     '- Short description: AI phone ordering for restaurants using POS systems.',
     '- Pricing: 2% per completed order. No monthly fees and no setup costs.',
     '- Service focus: Chinese restaurants and takeout-heavy restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS.',
+    '- Priority service areas: New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, Philadelphia, and other US restaurant markets with Chinese takeout density.',
+    '',
+    '## Profile services to add',
+    '',
+    ...PROFILE_SERVICES.map((service) => `- ${service}`),
+    '',
+    '## Lead qualification questions',
+    '',
+    ...LEAD_QUESTIONS.map((question) => `- ${question}`),
     '',
   ];
 
@@ -95,6 +130,17 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
       '',
       `Categories: ${packet.categories}`,
       `Features: ${packet.features}`,
+      '',
+      'Service areas:',
+      '',
+      ...PRIORITY_SERVICE_AREAS.map((area) => `- ${area}`),
+      '',
+      'Lead capture and attribution:',
+      '',
+      `- Use this profile URL as the website link when the platform allows UTM parameters: ${row.utm_url}`,
+      `- If the platform strips UTM parameters, use the clean URL and record the profile source manually: ${row.landing_url}`,
+      '- Ask every inbound lead which POS system they use today before booking a demo.',
+      '- Keep no-POS restaurant owners as lower-priority leads for POS partner referral follow-up.',
       '',
       'Evidence to capture:',
       '',

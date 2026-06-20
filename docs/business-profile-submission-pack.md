@@ -15,6 +15,23 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Short description: AI phone ordering for restaurants using POS systems.
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Service focus: Chinese restaurants and takeout-heavy restaurants using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another POS.
+- Priority service areas: New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, Philadelphia, and other US restaurant markets with Chinese takeout density.
+
+## Profile services to add
+
+- POS-integrated AI phone ordering
+- Chinese restaurant AI phone answering
+- Restaurant phone order taker AI
+- Mandarin and English phone ordering support
+- Takeout call automation for POS-ready restaurants
+
+## Lead qualification questions
+
+- Which POS system do you use today: 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or another system?
+- How many phone orders do you receive during lunch and dinner rush?
+- Do staff miss calls, place callers on hold, or manually re-enter phone orders into the POS?
+- Do you need English, Mandarin, Cantonese, or bilingual call handling?
+- Do you want a demo for AI phone ordering, or do you need help choosing a POS first?
 
 ## 1. Google Business Profile
 
@@ -33,6 +50,24 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
+
+Service areas:
+
+- New York City
+- Los Angeles
+- San Francisco Bay Area
+- Seattle
+- Houston
+- Chicago
+- Boston
+- Philadelphia
+
+Lead capture and attribution:
+
+- Use this profile URL as the website link when the platform allows UTM parameters: https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- If the platform strips UTM parameters, use the clean URL and record the profile source manually: https://serviio.ai/
+- Ask every inbound lead which POS system they use today before booking a demo.
+- Keep no-POS restaurant owners as lower-priority leads for POS partner referral follow-up.
 
 Evidence to capture:
 
@@ -71,6 +106,24 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
 
+Service areas:
+
+- New York City
+- Los Angeles
+- San Francisco Bay Area
+- Seattle
+- Houston
+- Chicago
+- Boston
+- Philadelphia
+
+Lead capture and attribution:
+
+- Use this profile URL as the website link when the platform allows UTM parameters: https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- If the platform strips UTM parameters, use the clean URL and record the profile source manually: https://serviio.ai/
+- Ask every inbound lead which POS system they use today before booking a demo.
+- Keep no-POS restaurant owners as lower-priority leads for POS partner referral follow-up.
+
 Evidence to capture:
 
 - Account/login used for the profile
@@ -107,6 +160,24 @@ Serviio helps restaurants reduce missed calls and capture takeout orders during 
 
 Categories: Software company, Business service, Restaurant technology, Marketing service
 Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
+
+Service areas:
+
+- New York City
+- Los Angeles
+- San Francisco Bay Area
+- Seattle
+- Houston
+- Chicago
+- Boston
+- Philadelphia
+
+Lead capture and attribution:
+
+- Use this profile URL as the website link when the platform allows UTM parameters: https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- If the platform strips UTM parameters, use the clean URL and record the profile source manually: https://serviio.ai/
+- Ask every inbound lead which POS system they use today before booking a demo.
+- Keep no-POS restaurant owners as lower-priority leads for POS partner referral follow-up.
 
 Evidence to capture:
 
