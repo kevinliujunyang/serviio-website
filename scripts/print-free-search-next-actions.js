@@ -111,6 +111,9 @@ function opportunityScore(row) {
     score += 12;
     reasons.push('high-fit channel');
   }
+  if (/existing|claim|verify|claimed profile|live listing/i.test(text)) {
+    reasons.push('existing citation');
+  }
   if (/service-areas|california|new-york|new-jersey|texas|boston|philadelphia|houston/i.test(row.landing_url)) {
     score += 6;
     reasons.push('local landing page');
@@ -122,11 +125,24 @@ function opportunityScore(row) {
   };
 }
 
+function existingCitationRank(row) {
+  const text = `${row.channel} ${row.target} ${row.landing_url} ${row.anchor_or_listing_phrase} ${row.notes}`;
+  return /existing|claim|verify|claimed profile|live listing/i.test(text) ? 0 : 1;
+}
+
+function highFitChannelRank(row) {
+  return /restaurant technology|partner outreach|POS-specific outreach|Chinese business association/i.test(row.channel) ? 0 : 1;
+}
+
 function compareRows(a, b) {
   const scoreDiff = opportunityScore(b).score - opportunityScore(a).score;
   if (scoreDiff) return scoreDiff;
   const priorityDiff = priorityRank(a.priority) - priorityRank(b.priority);
   if (priorityDiff) return priorityDiff;
+  const highFitDiff = highFitChannelRank(a) - highFitChannelRank(b);
+  if (highFitDiff) return highFitDiff;
+  const existingCitationDiff = existingCitationRank(a) - existingCitationRank(b);
+  if (existingCitationDiff) return existingCitationDiff;
   return a.channel.localeCompare(b.channel) || a.target.localeCompare(b.target);
 }
 

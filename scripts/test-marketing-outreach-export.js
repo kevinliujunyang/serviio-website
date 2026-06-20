@@ -164,6 +164,7 @@ assert.throws(() => parseDirectoryPackArgs(['--limit', '0']), /--limit must be a
 
 const authoritySubmissionRows = buildAuthoritySubmissionLogRows(trackerRows, { limit: 15, today: '2026-06-06' });
 assert.strictEqual(authoritySubmissionRows.length, 15);
+assert.ok(authoritySubmissionRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 assert.strictEqual(authoritySubmissionRows[0].target, 'Chinese restaurant POS consultants');
 assert.strictEqual(authoritySubmissionRows[0].opportunity_score, 100);
 assert.strictEqual(authoritySubmissionRows[0].action_status, '');
