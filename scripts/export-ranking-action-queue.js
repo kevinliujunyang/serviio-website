@@ -5,11 +5,16 @@ const { buildRecords, parseCsv } = require('./analyze-search-console');
 const DEFAULT_WATCHLIST = 'docs/first-page-ranking-watchlist.csv';
 const DEFAULT_OUT = 'docs/ranking-action-queue.md';
 
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function parseArgs(argv) {
   const args = {
     watchlist: DEFAULT_WATCHLIST,
     out: DEFAULT_OUT,
     limit: 25,
+    today: todayIso(),
     help: false,
   };
 
@@ -26,6 +31,9 @@ function parseArgs(argv) {
     } else if (arg === '--limit') {
       args.limit = Number(argv[index + 1] || args.limit);
       index += 1;
+    } else if (arg === '--today') {
+      args.today = argv[index + 1] || args.today;
+      index += 1;
     } else {
       throw new Error(`Unexpected argument: ${arg}`);
     }
@@ -33,6 +41,9 @@ function parseArgs(argv) {
 
   if (!Number.isInteger(args.limit) || args.limit < 1) {
     throw new Error('--limit must be a positive integer');
+  }
+  if (!args.help && !/^\d{4}-\d{2}-\d{2}$/.test(args.today)) {
+    throw new Error('--today must use YYYY-MM-DD');
   }
 
   return args;
@@ -52,7 +63,7 @@ function actionType(row) {
   if (row.status === 'near_page_one') return 'push_to_page_one';
   if (row.status === 'needs_authority_or_relevance') return 'authority_and_relevance';
   if (row.status === 'ranking_on_other_page') return 'align_target_page';
-  if (row.status === 'no_search_console_data') return 'indexing_or_data_check';
+  if (row.status === 'no_search_console_data' || row.status === 'needs_search_console_data') return 'indexing_or_data_check';
   return 'monitor';
 }
 
@@ -64,7 +75,7 @@ function actionScore(row) {
   if (row.status === 'page_one' && numeric(row.current_ctr) < 2) score += 30;
   if (row.status === 'needs_authority_or_relevance') score += 20;
   if (row.status === 'ranking_on_other_page') score += 18;
-  if (row.status === 'no_search_console_data') score += row.priority === 'P0' ? 16 : 6;
+  if (row.status === 'no_search_console_data' || row.status === 'needs_search_console_data') score += row.priority === 'P0' ? 16 : 6;
   score += Math.min(20, Math.floor(numeric(row.current_impressions) / 5));
   return Math.min(100, score);
 }
@@ -83,19 +94,33 @@ function recommendedAction(row) {
   if (row.status === 'ranking_on_other_page') {
     return `Align internal links and canonical intent so ${row.target_page} is the page Google ranks for this query.`;
   }
-  if (row.status === 'no_search_console_data') {
+  if (row.status === 'no_search_console_data' || row.status === 'needs_search_console_data') {
     return `Confirm page is indexed, add one internal link using "${row.query}", and keep this query in next Search Console export.`;
   }
   return 'Monitor weekly position, clicks, and CTR.';
 }
 
-function buildRankingActions(rows, { limit = 25 } = {}) {
+function quoteShell(text) {
+  return `"${String(text || '').replace(/"/g, '\\"')}"`;
+}
+
+function authorityTrackerCommand(row, today) {
+  if (!row.authority_target) return '';
+  const note = `Ranking support for "${row.query}" (${row.action_type}); add confirmation URL, partner reply, or live link.`;
+  return `npm run marketing:mark -- --target ${quoteShell(row.authority_target)} --status submitted --date ${today} --note ${quoteShell(note)}`;
+}
+
+function buildRankingActions(rows, { limit = 25, today = todayIso() } = {}) {
   return rows
     .map((row) => ({
       ...row,
       action_type: actionType(row),
       action_score: actionScore(row),
       recommended_action: recommendedAction(row),
+    }))
+    .map((row) => ({
+      ...row,
+      authority_tracker_command: authorityTrackerCommand(row, today),
     }))
     .filter((row) => row.action_type !== 'monitor')
     .sort((a, b) => {
@@ -110,18 +135,19 @@ function buildRankingActions(rows, { limit = 25 } = {}) {
 function renderTable(rows) {
   if (rows.length === 0) return '_No ranking actions available._';
   const lines = [
-    '| Score | Type | Query | Target page | Position | CTR | Action | Authority target |',
-    '| ---: | --- | --- | --- | ---: | ---: | --- | --- |',
+    '| Score | Type | Query | Target page | Position | CTR | Action | Authority target | Authority tracker command |',
+    '| ---: | --- | --- | --- | ---: | ---: | --- | --- | --- |',
   ];
   for (const row of rows) {
-    lines.push(`| ${row.action_score}/100 | ${row.action_type} | ${row.query} | ${row.target_page} | ${row.current_position || '-'} | ${row.current_ctr || '-'} | ${row.recommended_action} | ${row.authority_target || '-'} |`);
+    lines.push(`| ${row.action_score}/100 | ${row.action_type} | ${row.query} | ${row.target_page} | ${row.current_position || '-'} | ${row.current_ctr || '-'} | ${row.recommended_action} | ${row.authority_target || '-'} | ${row.authority_tracker_command || '-'} |`);
   }
   return lines.join('\n');
 }
 
 function renderRankingActionQueue(rows, options = {}) {
   const limit = options.limit || 25;
-  const actions = buildRankingActions(rows, { limit });
+  const today = options.today || todayIso();
+  const actions = buildRankingActions(rows, { limit, today });
   const statusCounts = rows.reduce((counts, row) => {
     counts[row.status] = (counts[row.status] || 0) + 1;
     return counts;
@@ -131,6 +157,7 @@ function renderRankingActionQueue(rows, options = {}) {
     '',
     `Source rows: ${rows.length}`,
     `Actions shown: ${actions.length}`,
+    `Tracker command date: ${today}`,
     '',
     '## Status Counts',
     ...Object.entries(statusCounts).sort().map(([status, count]) => `- ${status}: ${count}`),
@@ -144,6 +171,7 @@ function renderRankingActionQueue(rows, options = {}) {
     '- Work `push_to_page_one` and `ctr_rewrite` rows first because they are closest to first-page traffic.',
     '- For `no_search_console_data`, verify indexing before writing another landing page.',
     '- Keep authority work tied to the listed `authority_target` so backlinks match the query intent.',
+    '- Run an authority tracker command only after the external submission, reply, backlink, profile, or proof request actually happens.',
     '',
   ].join('\n');
 }
@@ -156,7 +184,7 @@ function main() {
   }
 
   const rows = buildRecords(parseCsv(fs.readFileSync(args.watchlist, 'utf8')));
-  const markdown = renderRankingActionQueue(rows, { limit: args.limit });
+  const markdown = renderRankingActionQueue(rows, { limit: args.limit, today: args.today });
   const outPath = path.resolve(args.out || DEFAULT_OUT);
   fs.writeFileSync(outPath, markdown);
   console.log(`Wrote ranking action queue to ${outPath}`);
@@ -169,6 +197,7 @@ if (require.main === module) {
 module.exports = {
   actionScore,
   actionType,
+  authorityTrackerCommand,
   buildRankingActions,
   parseArgs,
   recommendedAction,

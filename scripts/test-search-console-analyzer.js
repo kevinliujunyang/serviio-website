@@ -150,21 +150,28 @@ const sampleUpdatedWatchlist = fs.readFileSync('docs/sample-first-page-ranking-w
 assert.match(sampleUpdatedWatchlist, /near_page_one/);
 assert.match(sampleUpdatedWatchlist, /page_one/);
 const sampleUpdatedWatchlistRows = buildRecords(parseCsv(sampleUpdatedWatchlist));
-const rankingActions = buildRankingActions(sampleUpdatedWatchlistRows, { limit: 8 });
+const rankingActions = buildRankingActions(sampleUpdatedWatchlistRows, { limit: 8, today: '2026-06-07' });
 assert.strictEqual(rankingActions[0].action_type, 'push_to_page_one');
 assert.match(rankingActions[0].query, /menusifu ai phone ordering|restaurant phone order automation/i);
+assert.match(rankingActions[0].authority_tracker_command, /npm run marketing:mark -- --target/);
+assert.match(rankingActions[0].authority_tracker_command, /--date 2026-06-07/);
 assert.ok(rankingActions.some((row) => row.action_type === 'ctr_rewrite' && row.query === 'chinese restaurant phone answering service'));
 assert.ok(rankingActions.some((row) => row.action_type === 'indexing_or_data_check' && row.priority === 'P0'));
 assert.strictEqual(rankingActionType({ status: 'needs_authority_or_relevance' }), 'authority_and_relevance');
-assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5 }), /Serviio Ranking Action Queue/);
-assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5 }), /push_to_page_one/);
-assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5']), {
+assert.strictEqual(rankingActionType({ status: 'needs_search_console_data' }), 'indexing_or_data_check');
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Serviio Ranking Action Queue/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /push_to_page_one/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /Authority tracker command/);
+assert.match(renderRankingActionQueue(sampleUpdatedWatchlistRows, { limit: 5, today: '2026-06-07' }), /--date 2026-06-07/);
+assert.deepStrictEqual(parseRankingActionArgs(['--watchlist', 'watch.csv', '--out', 'actions.md', '--limit', '5', '--today', '2026-06-07']), {
   watchlist: 'watch.csv',
   out: 'actions.md',
   limit: 5,
+  today: '2026-06-07',
   help: false,
 });
 assert.throws(() => parseRankingActionArgs(['--limit', '0']), /--limit must be a positive integer/);
+assert.throws(() => parseRankingActionArgs(['--today', '06-07-2026']), /--today must use YYYY-MM-DD/);
 const sampleRankingActionQueue = fs.readFileSync('docs/sample-ranking-action-queue.md', 'utf8');
 assert.match(sampleRankingActionQueue, /Serviio Ranking Action Queue/);
 assert.match(sampleRankingActionQueue, /push_to_page_one/);
