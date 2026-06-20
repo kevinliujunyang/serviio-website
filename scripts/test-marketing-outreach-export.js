@@ -461,6 +461,11 @@ const submissionSyncReport = renderSubmissionSyncReport(submissionLogActions, { 
 assert.match(submissionSyncReport, /Current authority score: 0\/100/);
 assert.match(submissionSyncReport, /Projected authority score after valid updates: 19\/100/);
 assert.match(submissionSyncReport, /Authority score delta: \+19/);
+assert.match(submissionSyncReport, /Projected submitted or follow-up rows: 1 \(was 0, \+1\)/);
+assert.match(submissionSyncReport, /Projected live authority rows: 1 \(was 0, \+1\)/);
+assert.match(submissionSyncReport, /Projected high-fit started rows: 2 \(was 0, \+2\)/);
+assert.match(submissionSyncReport, /Projected business profiles started: 0 \(was 0, \+0\)/);
+assert.match(submissionSyncReport, /Projected customer proof rows started: 0 \(was 0, \+0\)/);
 const syncedTracker = applySubmissionLogActions(submissionSyncTracker, submissionLogActions);
 assert.match(syncedTracker, /MenuSifu restaurant consultants,https:\/\/forms\.menusifu\.com\/pages\/demo-request,submitted,Serviio,2026-06-06/);
 assert.match(syncedTracker, /Restaurant POS directory,https:\/\/directory\.example\.com\/serviio,live,Serviio,2026-06-06,2026-06-07/);

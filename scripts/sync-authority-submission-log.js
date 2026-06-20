@@ -123,14 +123,26 @@ function authorityProjectionLines(actions, trackerText) {
   if (!trackerText) return [];
   const currentRows = parseCsv(trackerText);
   const projectedRows = parseCsv(applyActions(trackerText, actions));
-  const currentScore = authorityScore(currentRows).score;
-  const projectedScore = authorityScore(projectedRows).score;
+  const current = authorityScore(currentRows);
+  const projected = authorityScore(projectedRows);
+  const currentScore = current.score;
+  const projectedScore = projected.score;
   const delta = projectedScore - currentScore;
   const signedDelta = delta >= 0 ? `+${delta}` : String(delta);
+  const counterLine = (label, projectedValue, currentValue) => {
+    const counterDelta = projectedValue - currentValue;
+    const signedCounterDelta = counterDelta >= 0 ? `+${counterDelta}` : String(counterDelta);
+    return `Projected ${label}: ${projectedValue} (was ${currentValue}, ${signedCounterDelta})`;
+  };
   return [
     `Current authority score: ${currentScore}/100`,
     `Projected authority score after valid updates: ${projectedScore}/100`,
     `Authority score delta: ${signedDelta}`,
+    counterLine('submitted or follow-up rows', projected.submittedRows.length, current.submittedRows.length),
+    counterLine('live authority rows', projected.liveRows.length, current.liveRows.length),
+    counterLine('high-fit started rows', projected.highFitStartedRows.length, current.highFitStartedRows.length),
+    counterLine('business profiles started', projected.businessProfileRows.length, current.businessProfileRows.length),
+    counterLine('customer proof rows started', projected.customerProofRows.length, current.customerProofRows.length),
   ];
 }
 
