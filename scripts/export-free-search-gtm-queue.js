@@ -11,6 +11,9 @@ const {
   packetHint,
   researchQueries,
 } = require('./print-free-search-next-actions');
+const {
+  evidenceNeeded,
+} = require('./export-authority-submission-log');
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/free-search-gtm-queue.csv';
@@ -28,6 +31,7 @@ const HEADERS = [
   'landing_url',
   'utm_url',
   'anchor_or_listing_phrase',
+  'evidence_needed',
   'subject',
   'message_or_query',
   'next_step',
@@ -116,6 +120,7 @@ function commonFields(row) {
     landing_url: row.landing_url,
     utm_url: row.utm_url,
     anchor_or_listing_phrase: row.anchor_or_listing_phrase,
+    evidence_needed: evidenceNeeded(row),
     notes: row.notes,
   };
 }

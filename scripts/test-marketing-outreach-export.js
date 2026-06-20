@@ -347,10 +347,13 @@ assert.deepStrictEqual(gtmQueueRows.map((row) => `${row.action_type}:${row.targe
   'research_target:Pilot restaurant testimonial',
 ]);
 assert.match(gtmQueueRows[0].next_step, /Follow up/);
+assert.match(gtmQueueRows[0].evidence_needed, /Partner reply/);
 assert.match(gtmQueueRows[1].message_or_query, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
+assert.match(gtmQueueRows[1].evidence_needed, /submitted form confirmation/);
 assert.match(gtmQueueRows[2].message_or_query, /"Pilot restaurant testimonial" "submit"/);
+assert.match(gtmQueueRows[2].evidence_needed, /Published testimonial/);
 const gtmCsv = gtmQueueToCsv(gtmQueueRows);
-assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target/);
+assert.match(gtmCsv, /action_type,opportunity_score,priority,channel,target,status,contact_url,landing_url,utm_url,anchor_or_listing_phrase,evidence_needed/);
 assert.match(gtmCsv, /follow_up,90,P1,Partner outreach,POS consultants/);
 assert.match(gtmCsv, /--date 2026-06-10 --note/);
 assert.doesNotMatch(gtmCsv, /Restaurant POS directory/);
