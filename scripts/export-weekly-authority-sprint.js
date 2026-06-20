@@ -105,6 +105,21 @@ function actionRows(rows, args) {
   });
 }
 
+function executionRowsForSprint(rows, submissionTarget) {
+  const requiredRows = rows.filter((row) => row.action_type !== 'submit_or_contact' && row.action_type !== 'research_target');
+  const submissionRows = rows
+    .filter((row) => row.action_type === 'submit_or_contact')
+    .slice(0, submissionTarget);
+  const researchRows = rows
+    .filter((row) => row.action_type === 'research_target')
+    .slice(0, Math.max(0, submissionTarget - submissionRows.length));
+  return [
+    ...requiredRows,
+    ...submissionRows,
+    ...researchRows,
+  ];
+}
+
 function renderActionTable(rows) {
   const lines = [
     '| # | Action | Score | Target | Channel | Evidence needed |',
@@ -195,7 +210,7 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
   const submittedGap = gap(summary.submittedRows.length, options.submissionTarget);
   const liveGap = gap(summary.liveRows.length, options.liveTarget);
   const highFitGap = gap(summary.highFitStartedRows.length, options.highFitTarget);
-  const executionRows = queueRows.slice(0, options.submissionTarget);
+  const executionRows = executionRowsForSprint(queueRows, options.submissionTarget);
 
   const lines = [
     '# Serviio Weekly Authority Sprint',

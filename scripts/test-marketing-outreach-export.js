@@ -444,6 +444,8 @@ const weeklyAuthoritySprintWithLiveOptimization = buildWeeklyAuthoritySprint(tra
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| optimize_live_listing \| 66 \| Product Hunt Serviio listing \| Startup directory \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /npm run marketing:mark -- --target "Product Hunt Serviio listing" --status "live" --date 2026-06-20/);
 assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /Product Hunt Serviio listing" --status submitted/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 16 \| submit_or_contact \| 84 \| The Next AI \| AI directory \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 15\. The Next AI/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
   today: '2026-06-10',
