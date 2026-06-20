@@ -455,11 +455,15 @@ assert.match(weeklyAuthoritySprint, /\| # \| Action \| Score \| Target \| Channe
 assert.match(weeklyAuthoritySprint, /Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
 assert.match(weeklyAuthoritySprint, /MenuSifu restaurant consultants/);
 assert.match(weeklyAuthoritySprint, /Pilot restaurant testimonial/);
-assert.match(weeklyAuthoritySprint, /\| 16 \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
+assert.match(weeklyAuthoritySprint, /Google Business Profile/);
+assert.match(weeklyAuthoritySprint, /\| \d+ \| submit_or_contact \| 92 \| Google Business Profile \| Business profile \|/);
+assert.match(weeklyAuthoritySprint, /\| \d+ \| submit_or_contact \| 74 \| Bing Places for Business \| Business profile \|/);
+assert.match(weeklyAuthoritySprint, /\| \d+ \| submit_or_contact \| 74 \| Apple Business Connect \| Business profile \|/);
+assert.match(weeklyAuthoritySprint, /\| \d+ \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
 assert.match(weeklyAuthoritySprint, /Customer proof request for restaurant AI phone ordering/);
 assert.match(weeklyAuthoritySprint, /You can choose whether the proof can be published, anonymized, or kept internal for sales conversations\./);
 assert.match(weeklyAuthoritySprint, /## Daily Authority Checklist/);
-assert.match(weeklyAuthoritySprint, /\| 1 \| Chinese restaurant POS consultants \| P1 \| Partner outreach \| https:\/\/www\.m988\.com\/ \| https:\/\/serviio\.ai\/restaurant-pos-partner-referral\/ \|/);
+assert.match(weeklyAuthoritySprint, /\| \d+ \| Chinese restaurant POS consultants \| P1 \| Partner outreach \| https:\/\/www\.m988\.com\/ \| https:\/\/serviio\.ai\/restaurant-pos-partner-referral\/ \|/);
 assert.match(weeklyAuthoritySprint, /Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-17\./);
 assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status "submitted" --date 2026-06-10/);
 assert.match(weeklyAuthoritySprint, /## Submission Payloads/);
@@ -486,10 +490,10 @@ assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /Product Hunt Ser
 assert.doesNotMatch(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_contact \| \d+ \| Bing Webmaster Tools sitemap \| Webmaster tool \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /## Indexing Support Queue/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 1 \| Bing Webmaster Tools sitemap \| P0 \| Webmaster tool \| https:\/\/www\.bing\.com\/webmasters\/ \|/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 16 \| submit_or_contact \| 82 \| Prep & Profit vendor directory \| Restaurant technology directory \|/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| 17 \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 15\. Prep & Profit vendor directory/);
-assert.match(weeklyAuthoritySprintWithLiveOptimization, /### 16\. Pilot restaurant testimonial/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_contact \| 82 \| Prep & Profit vendor directory \| Restaurant technology directory \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /### \d+\. Prep & Profit vendor directory/);
+assert.match(weeklyAuthoritySprintWithLiveOptimization, /### \d+\. Pilot restaurant testimonial/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
   today: '2026-06-10',

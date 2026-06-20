@@ -133,14 +133,20 @@ function actionRows(rows, args) {
 function executionRowsForSprint(rows, submissionTarget) {
   const requiredRows = rows.filter((row) => row.action_type !== 'submit_or_contact' && row.action_type !== 'research_target');
   const customerProofRows = rows.filter((row) => row.action_type === 'submit_or_contact' && /customer proof/i.test(row.channel));
+  const businessProfileRows = rows.filter((row) => row.action_type === 'submit_or_contact' && /business profile/i.test(row.channel));
+  const reservedTargets = new Set([
+    ...customerProofRows.map((row) => row.target),
+    ...businessProfileRows.map((row) => row.target),
+  ]);
   const submissionRows = rows
-    .filter((row) => row.action_type === 'submit_or_contact' && !/customer proof/i.test(row.channel) && isAuthorityRow(row))
+    .filter((row) => row.action_type === 'submit_or_contact' && !reservedTargets.has(row.target) && isAuthorityRow(row))
     .slice(0, submissionTarget);
   const researchRows = rows
     .filter((row) => row.action_type === 'research_target')
     .slice(0, Math.max(0, submissionTarget - submissionRows.length));
   return [
     ...requiredRows,
+    ...businessProfileRows,
     ...submissionRows,
     ...customerProofRows,
     ...researchRows,

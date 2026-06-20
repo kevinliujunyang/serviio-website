@@ -192,6 +192,7 @@ function pendingBusinessProfileRows(rows) {
   return rows.filter((row) =>
     row.status === 'not_started' &&
     /business profile/i.test(row.channel) &&
+    row.priority === 'P0' &&
     row.url
   );
 }
@@ -218,11 +219,9 @@ function buildGtmQueueRows(rows, {
     ...readyRows.map((row) => row.target),
     ...nextRows.researchRows.map((row) => row.target),
   ]);
-  const missingBusinessProfile = pendingBusinessProfileRows(rows)
-    .find((row) => !queuedTargets.has(row.target));
-  const businessProfileRows = missingBusinessProfile
-    ? [readyQueueRow(withToday(missingBusinessProfile, today))]
-    : [];
+  const businessProfileRows = pendingBusinessProfileRows(rows)
+    .filter((row) => !queuedTargets.has(row.target))
+    .map((row) => readyQueueRow(withToday(row, today)));
   const missingCustomerProof = pendingCustomerProofRows(rows)
     .find((row) => !queuedTargets.has(row.target));
   const customerProofRows = missingCustomerProof

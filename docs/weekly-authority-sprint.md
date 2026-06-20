@@ -33,22 +33,25 @@ Goal: move Serviio from technically SEO-ready to ranking-authority-ready for Chi
 | # | Action | Score | Target | Channel | Evidence needed |
 | --- | --- | ---: | --- | --- | --- |
 | 1 | optimize_live_listing | 66 | Product Hunt Serviio listing | Startup directory | Product Hunt claimed profile, updated listing screenshot, or owner/account confirmation URL. |
-| 2 | submit_or_contact | 100 | Chinese restaurant POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 3 | submit_or_contact | 100 | 39 Miles restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 4 | submit_or_contact | 100 | Chowbus restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 5 | submit_or_contact | 100 | Mealkeyway restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 6 | submit_or_contact | 100 | MenuSifu restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 7 | submit_or_contact | 96 | Restaurant POS and automation directories | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
-| 8 | submit_or_contact | 88 | POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 9 | submit_or_contact | 88 | Restaurant website agencies | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 10 | submit_or_contact | 88 | Clover restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 11 | submit_or_contact | 88 | Square restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 12 | submit_or_contact | 88 | Toast restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
-| 13 | submit_or_contact | 84 | US-China Restaurant Alliance | Chinese business association | Moderator reply, approved post URL, event/resource listing URL, or sent-message URL. |
-| 14 | submit_or_contact | 84 | AI phone-order directories | AI directory | Submission confirmation URL or live directory listing URL. |
-| 15 | submit_or_contact | 84 | The Next AI | AI directory | Submission confirmation URL or live directory listing URL. |
-| 16 | submit_or_contact | 82 | Prep & Profit vendor directory | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
-| 17 | submit_or_contact | 60 | Pilot restaurant testimonial | Customer proof | Published testimonial/case-study URL or written customer approval note. |
+| 2 | submit_or_contact | 92 | Google Business Profile | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 3 | submit_or_contact | 74 | Bing Places for Business | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 4 | submit_or_contact | 74 | Apple Business Connect | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 5 | submit_or_contact | 100 | Chinese restaurant POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 6 | submit_or_contact | 100 | 39 Miles restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 7 | submit_or_contact | 100 | Chowbus restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 8 | submit_or_contact | 100 | Mealkeyway restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 9 | submit_or_contact | 100 | MenuSifu restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 10 | submit_or_contact | 96 | Restaurant POS and automation directories | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
+| 11 | submit_or_contact | 88 | POS consultants | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 12 | submit_or_contact | 88 | Restaurant website agencies | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 13 | submit_or_contact | 88 | Clover restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 14 | submit_or_contact | 88 | Square restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 15 | submit_or_contact | 88 | Toast restaurant consultants | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 16 | submit_or_contact | 84 | US-China Restaurant Alliance | Chinese business association | Moderator reply, approved post URL, event/resource listing URL, or sent-message URL. |
+| 17 | submit_or_contact | 84 | AI phone-order directories | AI directory | Submission confirmation URL or live directory listing URL. |
+| 18 | submit_or_contact | 84 | The Next AI | AI directory | Submission confirmation URL or live directory listing URL. |
+| 19 | submit_or_contact | 82 | Prep & Profit vendor directory | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
+| 20 | submit_or_contact | 60 | Pilot restaurant testimonial | Customer proof | Published testimonial/case-study URL or written customer approval note. |
 
 ## Daily Authority Checklist
 
@@ -57,22 +60,25 @@ Work top to bottom during each manual authority block. Leave tracker rows unchan
 | # | Target | Priority | Channel | Contact URL | Landing page | UTM URL | Tracker command | Proof fields |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Product Hunt Serviio listing | P1 | Startup directory | https://www.producthunt.com/products/serviio | https://serviio.ai/ | https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Product Hunt Serviio listing" --status "live" --date 2026-06-20 --note "Claimed or updated live listing; recorded proof or owner/account confirmation." | Record updated listing screenshot, account/owner confirmation, and the live URL that changed. |
-| 2 | Chinese restaurant POS consultants | P1 | Partner outreach | https://www.m988.com/ | https://serviio.ai/restaurant-pos-partner-referral/ | https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 3 | 39 Miles restaurant consultants | P1 | POS-specific outreach | https://pos.menuorg.com/en/ | https://serviio.ai/pos/39-miles-ai-phone-ordering/ | https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "39 Miles restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 4 | Chowbus restaurant consultants | P1 | POS-specific outreach | https://www.chowbus.com/resources/become-a-referral-partner | https://serviio.ai/pos/chowbus-ai-phone-ordering/ | https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=chowbus_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Chowbus restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 5 | Mealkeyway restaurant consultants | P1 | POS-specific outreach | https://www.mealkeyway.online/ | https://serviio.ai/pos/mealkeyway-ai-phone-ordering/ | https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=mealkeyway_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 6 | MenuSifu restaurant consultants | P1 | POS-specific outreach | https://forms.menusifu.com/pages/demo-request | https://serviio.ai/pos/menusifu-ai-phone-ordering/ | https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 7 | Restaurant POS and automation directories | P1 | Restaurant technology directory | https://techchef.one/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=restaurant_pos_ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Restaurant POS and automation directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 8 | POS consultants | P1 | Partner outreach | https://bearheartconsulting.com/hospitality-technology-services/point-of-sale-implementation/ | https://serviio.ai/restaurant-pos-partner-referral/ | https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 9 | Restaurant website agencies | P1 | Partner outreach | https://www.eaters365.com/ | https://serviio.ai/restaurant-phone-order-automation/ | https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_website_agency&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Restaurant website agencies" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 10 | Clover restaurant consultants | P1 | POS-specific outreach | https://limelightpayments.com/contact-us/ | https://serviio.ai/pos/clover-ai-phone-ordering/ | https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Clover restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 11 | Square restaurant consultants | P1 | POS-specific outreach | https://squarepos.consulting/ | https://serviio.ai/pos/square-ai-phone-ordering/ | https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Square restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 12 | Toast restaurant consultants | P1 | POS-specific outreach | https://bearheartconsulting.com/hospitality-technology-services/toast-pos-system-implementation/ | https://serviio.ai/pos/toast-ai-phone-ordering/ | https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Toast restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 13 | US-China Restaurant Alliance | P1 | Chinese business association | https://u-cra.com/application/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "US-China Restaurant Alliance" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 14 | AI phone-order directories | P1 | AI directory | https://agentstide.com/ | https://serviio.ai/chinese-restaurant-ai-order-taker/ | https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "AI phone-order directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 15 | The Next AI | P1 | AI directory | https://www.thenextai.com/submit-ai-tool/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "The Next AI" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 16 | Prep & Profit vendor directory | P1 | Restaurant technology directory | https://www.prepandprofit.com/ | https://serviio.ai/restaurant-pos-phone-order-integration/ | https://serviio.ai/restaurant-pos-phone-order-integration/?utm_source=prep_and_profit&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Prep & Profit vendor directory" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
-| 17 | Pilot restaurant testimonial | P2 | Customer proof | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Pilot restaurant testimonial" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 2 | Google Business Profile | P0 | Business profile | https://www.google.com/business/ | https://serviio.ai/ | https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Google Business Profile" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 3 | Bing Places for Business | P0 | Business profile | https://www.bingplaces.com/ | https://serviio.ai/ | https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Bing Places for Business" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 4 | Apple Business Connect | P0 | Business profile | https://businessconnect.apple.com/ | https://serviio.ai/ | https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Apple Business Connect" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 5 | Chinese restaurant POS consultants | P1 | Partner outreach | https://www.m988.com/ | https://serviio.ai/restaurant-pos-partner-referral/ | https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 6 | 39 Miles restaurant consultants | P1 | POS-specific outreach | https://pos.menuorg.com/en/ | https://serviio.ai/pos/39-miles-ai-phone-ordering/ | https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "39 Miles restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 7 | Chowbus restaurant consultants | P1 | POS-specific outreach | https://www.chowbus.com/resources/become-a-referral-partner | https://serviio.ai/pos/chowbus-ai-phone-ordering/ | https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=chowbus_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Chowbus restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 8 | Mealkeyway restaurant consultants | P1 | POS-specific outreach | https://www.mealkeyway.online/ | https://serviio.ai/pos/mealkeyway-ai-phone-ordering/ | https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=mealkeyway_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 9 | MenuSifu restaurant consultants | P1 | POS-specific outreach | https://forms.menusifu.com/pages/demo-request | https://serviio.ai/pos/menusifu-ai-phone-ordering/ | https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 10 | Restaurant POS and automation directories | P1 | Restaurant technology directory | https://techchef.one/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=restaurant_pos_ai_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Restaurant POS and automation directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 11 | POS consultants | P1 | Partner outreach | https://bearheartconsulting.com/hospitality-technology-services/point-of-sale-implementation/ | https://serviio.ai/restaurant-pos-partner-referral/ | https://serviio.ai/restaurant-pos-partner-referral/?utm_source=pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 12 | Restaurant website agencies | P1 | Partner outreach | https://www.eaters365.com/ | https://serviio.ai/restaurant-phone-order-automation/ | https://serviio.ai/restaurant-phone-order-automation/?utm_source=restaurant_website_agency&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Restaurant website agencies" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 13 | Clover restaurant consultants | P1 | POS-specific outreach | https://limelightpayments.com/contact-us/ | https://serviio.ai/pos/clover-ai-phone-ordering/ | https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=clover_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Clover restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 14 | Square restaurant consultants | P1 | POS-specific outreach | https://squarepos.consulting/ | https://serviio.ai/pos/square-ai-phone-ordering/ | https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=square_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Square restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 15 | Toast restaurant consultants | P1 | POS-specific outreach | https://bearheartconsulting.com/hospitality-technology-services/toast-pos-system-implementation/ | https://serviio.ai/pos/toast-ai-phone-ordering/ | https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=toast_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Toast restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 16 | US-China Restaurant Alliance | P1 | Chinese business association | https://u-cra.com/application/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/ | https://serviio.ai/zh/chinese-restaurant-ai-phone-ordering/?utm_source=us_china_restaurant_alliance&utm_medium=partner_referral&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "US-China Restaurant Alliance" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 17 | AI phone-order directories | P1 | AI directory | https://agentstide.com/ | https://serviio.ai/chinese-restaurant-ai-order-taker/ | https://serviio.ai/chinese-restaurant-ai-order-taker/?utm_source=ai_order_taker_directory&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "AI phone-order directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 18 | The Next AI | P1 | AI directory | https://www.thenextai.com/submit-ai-tool/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/ | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=the_next_ai&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "The Next AI" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 19 | Prep & Profit vendor directory | P1 | Restaurant technology directory | https://www.prepandprofit.com/ | https://serviio.ai/restaurant-pos-phone-order-integration/ | https://serviio.ai/restaurant-pos-phone-order-integration/?utm_source=prep_and_profit&utm_medium=organic_listing&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Prep & Profit vendor directory" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
+| 20 | Pilot restaurant testimonial | P2 | Customer proof | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/ | https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing | npm run marketing:mark -- --target "Pilot restaurant testimonial" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail." | Record owner, submitted date, confirmation note, evidence URL if available, and follow-up date 2026-06-27. |
 
 ## Indexing Support Queue
 
@@ -86,7 +92,115 @@ These rows support discovery and recrawling, but they do not count toward the au
 
 Use these payloads during the manual submission block. Keep `action_status` blank until the external action is actually submitted or published.
 
-### 1. Chinese restaurant POS consultants
+### 1. Google Business Profile
+
+- Score: 92/100
+- Channel: Business profile
+- Contact URL: https://www.google.com/business/
+- Clean URL: https://serviio.ai/
+- UTM URL: https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Anchor/listing phrase: AI phone ordering for restaurants
+- Evidence needed: Published profile URL, verification screenshot, or dashboard confirmation.
+- Subject: Serviio
+- Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Serviio
+- Website: https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/
+- Title or subject: Serviio
+- Tagline: AI phone ordering for restaurants.
+- Short description: Serviio is an AI phone ordering system for restaurants. It answers calls 24/7, takes orders in natural conversation, supports English and Chinese, and helps restaurants connect phone orders to POS-ready kitchen workflows.
+- Categories: Software company, Business service, Restaurant technology, Marketing service
+- Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
+Copy:
+
+Serviio helps restaurants reduce missed calls and capture takeout orders during lunch, dinner, weekends, and holidays. It is built for restaurants with phone-order volume, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Google Business Profile" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
+```
+
+### 2. Bing Places for Business
+
+- Score: 74/100
+- Channel: Business profile
+- Contact URL: https://www.bingplaces.com/
+- Clean URL: https://serviio.ai/
+- UTM URL: https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Anchor/listing phrase: Restaurant AI phone answering
+- Evidence needed: Published profile URL, verification screenshot, or dashboard confirmation.
+- Subject: Serviio
+- Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Serviio
+- Website: https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/
+- Title or subject: Serviio
+- Tagline: AI phone ordering for restaurants.
+- Short description: Serviio is an AI phone ordering system for restaurants. It answers calls 24/7, takes orders in natural conversation, supports English and Chinese, and helps restaurants connect phone orders to POS-ready kitchen workflows.
+- Categories: Software company, Business service, Restaurant technology, Marketing service
+- Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
+Copy:
+
+Serviio helps restaurants reduce missed calls and capture takeout orders during lunch, dinner, weekends, and holidays. It is built for restaurants with phone-order volume, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Bing Places for Business" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
+```
+
+### 3. Apple Business Connect
+
+- Score: 74/100
+- Channel: Business profile
+- Contact URL: https://businessconnect.apple.com/
+- Clean URL: https://serviio.ai/
+- UTM URL: https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Anchor/listing phrase: AI phone ordering for restaurants
+- Evidence needed: Published profile URL, verification screenshot, or dashboard confirmation.
+- Subject: Serviio
+- Follow-up date: 2026-06-27
+
+Field checklist:
+
+- Product/company: Serviio
+- Website: https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Clean website: https://serviio.ai/
+- Title or subject: Serviio
+- Tagline: AI phone ordering for restaurants.
+- Short description: Serviio is an AI phone ordering system for restaurants. It answers calls 24/7, takes orders in natural conversation, supports English and Chinese, and helps restaurants connect phone orders to POS-ready kitchen workflows.
+- Categories: Software company, Business service, Restaurant technology, Marketing service
+- Features: 24/7 calls; AI phone ordering; bilingual English and Chinese; POS-ready workflow evaluation
+- Pricing: 2% per completed order. No monthly fees and no setup costs.
+- Contact email: info@serviio.ai
+- Contact phone: (408) 409-9079
+
+Copy:
+
+Serviio helps restaurants reduce missed calls and capture takeout orders during lunch, dinner, weekends, and holidays. It is built for restaurants with phone-order volume, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Apple Business Connect" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
+```
+
+### 4. Chinese restaurant POS consultants
 
 - Score: 100/100
 - Channel: Partner outreach
@@ -134,7 +248,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Chinese restaurant POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 2. 39 Miles restaurant consultants
+### 5. 39 Miles restaurant consultants
 
 - Score: 100/100
 - Channel: POS-specific outreach
@@ -193,7 +307,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "39 Miles restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 3. Chowbus restaurant consultants
+### 6. Chowbus restaurant consultants
 
 - Score: 100/100
 - Channel: POS-specific outreach
@@ -252,7 +366,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Chowbus restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 4. Mealkeyway restaurant consultants
+### 7. Mealkeyway restaurant consultants
 
 - Score: 100/100
 - Channel: POS-specific outreach
@@ -311,7 +425,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Mealkeyway restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 5. MenuSifu restaurant consultants
+### 8. MenuSifu restaurant consultants
 
 - Score: 100/100
 - Channel: POS-specific outreach
@@ -370,7 +484,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 6. Restaurant POS and automation directories
+### 9. Restaurant POS and automation directories
 
 - Score: 96/100
 - Channel: Restaurant technology directory
@@ -406,7 +520,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Restaurant POS and automation directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 7. POS consultants
+### 10. POS consultants
 
 - Score: 88/100
 - Channel: Partner outreach
@@ -454,7 +568,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "POS consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 8. Restaurant website agencies
+### 11. Restaurant website agencies
 
 - Score: 88/100
 - Channel: Partner outreach
@@ -502,7 +616,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Restaurant website agencies" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 9. Clover restaurant consultants
+### 12. Clover restaurant consultants
 
 - Score: 88/100
 - Channel: POS-specific outreach
@@ -561,7 +675,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Clover restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 10. Square restaurant consultants
+### 13. Square restaurant consultants
 
 - Score: 88/100
 - Channel: POS-specific outreach
@@ -620,7 +734,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Square restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 11. Toast restaurant consultants
+### 14. Toast restaurant consultants
 
 - Score: 88/100
 - Channel: POS-specific outreach
@@ -679,7 +793,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Toast restaurant consultants" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 12. US-China Restaurant Alliance
+### 15. US-China Restaurant Alliance
 
 - Score: 84/100
 - Channel: Chinese business association
@@ -719,7 +833,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "US-China Restaurant Alliance" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 13. AI phone-order directories
+### 16. AI phone-order directories
 
 - Score: 84/100
 - Channel: AI directory
@@ -759,7 +873,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "AI phone-order directories" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 14. The Next AI
+### 17. The Next AI
 
 - Score: 84/100
 - Channel: AI directory
@@ -799,7 +913,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "The Next AI" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 15. Prep & Profit vendor directory
+### 18. Prep & Profit vendor directory
 
 - Score: 82/100
 - Channel: Restaurant technology directory
@@ -835,7 +949,7 @@ Tracker command after real submission:
 npm run marketing:mark -- --target "Prep & Profit vendor directory" --status "submitted" --date 2026-06-20 --note "Submitted/contacted; add confirmation or next follow-up detail."
 ```
 
-### 16. Pilot restaurant testimonial
+### 19. Pilot restaurant testimonial
 
 - Score: 60/100
 - Channel: Customer proof
