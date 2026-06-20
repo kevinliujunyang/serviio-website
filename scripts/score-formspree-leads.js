@@ -35,6 +35,14 @@ const FIELD_ALIASES = {
     'interested_in_pos',
     'interested in pos',
   ],
+  posPartnerConsent: [
+    'pos_partner_consent',
+    'pos partner consent',
+    'partner_sharing_consent',
+    'partner sharing consent',
+    'share_with_pos_partners',
+    'share with pos partners',
+  ],
   posPurchaseTimeline: [
     'pos_purchase_timeline',
     'pos purchase timeline',
@@ -61,6 +69,7 @@ const NAMED_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|c
 const OTHER_POS_PATTERN = /(^|\b)(other|another|existing|current|custom|local|legacy)\s+(pos|point\s*of\s*sale)\b|\b(already\s+have|use|using|on)\s+(a\s+)?(pos|point\s*of\s*sale)\b/i;
 const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\b)|\u6682\u65f6\u6ca1\u6709/i;
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
+const POS_PARTNER_CONSENT_PATTERN = /(^|\b)(yes|y|agree|consent|share|sharing|providers?|consultants?|partners?)\b|\u540c\u610f|\u53ef\u4ee5/i;
 const URGENT_POS_TIMELINE_PATTERN = /immediate|right\s*away|asap|within\s*1\s*month|1\s*month|\u9a6c\u4e0a|1\s*\u4e2a\u6708\u5185/i;
 const NEAR_POS_TIMELINE_PATTERN = /1\s*-\s*3\s*months?|1\s*to\s*3\s*months?|3\s*months?|\u0031-\u0033\s*\u4e2a\u6708/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
@@ -289,7 +298,13 @@ function classifyServiioFitStatus({ partnerInquiry, posReady, noPos, wantsPosRec
   return 'unknown_needs_pos_qualification';
 }
 
-function classifyPosPartnerLead({ partnerReferralPriority }) {
+function classifyPosPartnerLead({ partnerReferralPriority, posPartnerSharingConsent }) {
+  if (['hot', 'warm'].includes(partnerReferralPriority) && !posPartnerSharingConsent) {
+    return {
+      status: 'partner_referral_needs_consent',
+      type: 'consent_required',
+    };
+  }
   if (partnerReferralPriority === 'hot') {
     return {
       status: 'qualified_for_pos_partner',
@@ -341,6 +356,7 @@ function buildPosPartnerLeadPackage({ values, partnerReferralPriority, painSigna
     `Current POS: ${values.pos || 'no POS captured'}`,
     `Phone orders/week: ${values.phoneOrders || 'unknown volume'} (${volume})`,
     `POS recommendation interest: ${values.posRecommendationInterest || 'not captured'}`,
+    `Partner sharing consent: ${values.posPartnerConsent || 'not captured'}`,
     `POS buying timeline: ${timeline}`,
   ];
 
@@ -541,6 +557,7 @@ function scoreLead(record) {
   const noPos = NO_POS_PATTERN.test(posText);
   const posReady = !noPos && hasKnownPos(values.pos);
   const wantsPosRecommendation = WANTS_POS_PATTERN.test(values.posRecommendationInterest);
+  const posPartnerSharingConsent = POS_PARTNER_CONSENT_PATTERN.test(values.posPartnerConsent);
   const volume = classifyPhoneVolume(values.phoneOrders);
   const highVolume = volume === 'high';
   const mediumVolume = volume === 'medium';
@@ -569,6 +586,7 @@ function scoreLead(record) {
   });
   const posPartnerLead = classifyPosPartnerLead({
     partnerReferralPriority: partnerReferral.partnerReferralPriority,
+    posPartnerSharingConsent,
   });
   const recommendedTargets = recommendedPosPartnerTargets({
     partnerReferralPriority: partnerReferral.partnerReferralPriority,
@@ -591,6 +609,9 @@ function scoreLead(record) {
     posTimelineUrgency,
   });
   const leadAcquisitionChannel = classifyLeadAcquisitionChannel(values);
+  const partnerNextAction = posPartnerLead.status === 'partner_referral_needs_consent'
+    ? 'Get explicit partner-sharing consent before sending this no-POS lead to POS providers or consultants.'
+    : partnerReferral.partnerNextAction;
 
   let score = 0;
   const reasons = [];
@@ -698,7 +719,8 @@ function scoreLead(record) {
     }),
     monetization_route: partnerReferral.monetizationRoute,
     partner_referral_priority: partnerReferral.partnerReferralPriority,
-    partner_next_action: partnerReferral.partnerNextAction,
+    partner_next_action: partnerNextAction,
+    pos_partner_sharing_consent: yesNo(posPartnerSharingConsent),
     lead_acquisition_channel: leadAcquisitionChannel,
     pos_partner_lead_status: posPartnerLead.status,
     pos_partner_lead_type: posPartnerLead.type,
@@ -717,6 +739,7 @@ function scoreLead(record) {
     main_pain: values.pain,
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
+    pos_partner_consent: values.posPartnerConsent,
     pos_purchase_timeline: values.posPurchaseTimeline,
     pos_purchase_timeline_urgency: posTimelineUrgency,
     lead_source: values.leadSource,
@@ -822,6 +845,7 @@ function main() {
     'monetization_route',
     'partner_referral_priority',
     'partner_next_action',
+    'pos_partner_sharing_consent',
     'lead_acquisition_channel',
     'pos_partner_lead_status',
     'pos_partner_lead_type',
@@ -840,6 +864,7 @@ function main() {
     'main_pain',
     'conversion_offer',
     'pos_recommendation_interest',
+    'pos_partner_consent',
     'pos_purchase_timeline',
     'pos_purchase_timeline_urgency',
     'lead_source',

@@ -573,6 +573,24 @@ function validatePosFocusFields(pages) {
   return { errors, posPageCount: posPages.length };
 }
 
+function validatePosPartnerConsentFields(pages) {
+  const errors = [];
+  const posRecommendationPages = pages.filter((file) => {
+    const html = fs.readFileSync(file, 'utf8');
+    return html.includes('name="conversion_offer" value="pos_recommendation_fit_check"')
+      && !file.includes('restaurant-pos-partner-referral/');
+  });
+
+  for (const file of posRecommendationPages) {
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('name="pos_partner_consent"')) {
+      errors.push(`${file}: POS recommendation form missing pos_partner_consent`);
+    }
+  }
+
+  return { errors, posRecommendationPageCount: posRecommendationPages.length };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -1208,6 +1226,7 @@ function runValidation() {
   const homepageAuthorityHubLinks = validateHomepageAuthorityHubLinks();
   const homepageConversionOffers = validateHomepageConversionOffers();
   const posFocusFields = validatePosFocusFields(pages);
+  const posPartnerConsentFields = validatePosPartnerConsentFields(pages);
   const attribution = validateAttributionScript();
   const searchConsoleCoverage = validateSearchConsoleCoverage();
   const freeSearchTracker = validateFreeSearchTracker();
@@ -1230,6 +1249,7 @@ function runValidation() {
     ...homepageAuthorityHubLinks.errors,
     ...homepageConversionOffers.errors,
     ...posFocusFields.errors,
+    ...posPartnerConsentFields.errors,
     ...attribution.errors,
     ...searchConsoleCoverage.errors,
     ...freeSearchTracker.errors,
@@ -1260,6 +1280,7 @@ function runValidation() {
       `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
       `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
       `${posFocusFields.posPageCount} POS focus fields validated`,
+      `${posPartnerConsentFields.posRecommendationPageCount} POS partner consent fields validated`,
       'form attribution validated',
       `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
       'free search tracker validated',

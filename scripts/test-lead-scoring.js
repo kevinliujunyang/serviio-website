@@ -87,6 +87,7 @@ const noPosReferral = scoreLead({
   phone_orders_per_week: '76-150',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
   pos_purchase_timeline: 'Within 1 month',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
 });
 assert.strictEqual(noPosReferral.lead_priority, 'nurture');
 assert.strictEqual(noPosReferral.lead_route, 'pos_referral');
@@ -95,6 +96,7 @@ assert.strictEqual(noPosReferral.monetization_route, 'pos_partner_referral');
 assert.strictEqual(noPosReferral.partner_referral_priority, 'hot');
 assert.strictEqual(noPosReferral.pos_partner_lead_status, 'qualified_for_pos_partner');
 assert.strictEqual(noPosReferral.pos_partner_lead_type, 'hot_no_pos_restaurant');
+assert.strictEqual(noPosReferral.pos_partner_sharing_consent, 'yes');
 assert.match(noPosReferral.recommended_pos_partner_targets, /39 Miles/);
 assert.match(noPosReferral.recommended_pos_partner_targets, /MenuSifu/);
 assert.match(noPosReferral.recommended_pos_partner_targets, /Chowbus/);
@@ -121,6 +123,7 @@ const calculatorNoPosReferral = scoreLead({
   conversion_offer: 'ai_phone_order_fit_check',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
   pos_purchase_timeline: 'Within 1 month',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
   calculator_missed_calls_per_week: '40',
   calculator_order_rate_percent: '55',
   calculator_average_order_value: '32',
@@ -143,6 +146,7 @@ const warmNoPosReferral = scoreLead({
   pos_system: 'No POS yet',
   phone_orders_per_week: 'Under 25',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
   pos_purchase_timeline: 'Not sure yet',
 });
 assert.strictEqual(warmNoPosReferral.lead_route, 'pos_referral');
@@ -164,6 +168,7 @@ const urgentTimelineNoPosReferral = scoreLead({
   phone_orders_per_week: 'Under 25',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
   pos_purchase_timeline: 'Immediately',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
 });
 assert.strictEqual(urgentTimelineNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(urgentTimelineNoPosReferral.partner_referral_priority, 'hot');
@@ -175,6 +180,21 @@ assert.match(urgentTimelineNoPosReferral.pos_partner_lead_package, /POS buying t
 assert.strictEqual(classifyPosPurchaseTimeline('Within 1 month'), 'urgent');
 assert.strictEqual(classifyPosPurchaseTimeline('1-3 months'), 'near_term');
 assert.strictEqual(classifyPosPurchaseTimeline('Not sure yet'), 'unknown');
+
+const noConsentPosReferral = scoreLead({
+  ...baseLead,
+  restaurant: 'Consent Pending Noodle',
+  pos_system: 'No POS yet',
+  phone_orders_per_week: '76-150',
+  pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_purchase_timeline: 'Within 1 month',
+});
+assert.strictEqual(noConsentPosReferral.lead_route, 'pos_referral');
+assert.strictEqual(noConsentPosReferral.partner_referral_priority, 'hot');
+assert.strictEqual(noConsentPosReferral.pos_partner_sharing_consent, 'no');
+assert.strictEqual(noConsentPosReferral.pos_partner_lead_status, 'partner_referral_needs_consent');
+assert.strictEqual(noConsentPosReferral.pos_partner_lead_type, 'consent_required');
+assert.match(noConsentPosReferral.partner_next_action, /Get explicit partner-sharing consent/);
 
 const ambiguousPos = scoreLead({
   ...baseLead,
@@ -226,6 +246,7 @@ const localPosFitReferral = scoreLead({
   phone_orders_per_week: '76-150',
   conversion_offer: 'local_pos_fit_check',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
 });
 assert.strictEqual(localPosFitReferral.lead_route, 'pos_referral');
 assert.strictEqual(localPosFitReferral.partner_referral_priority, 'hot');
@@ -405,6 +426,7 @@ const urgentNoPosReferral = scoreLead({
   phone_orders_per_week: 'Under 25',
   main_pain: 'Customers call after hours and leave voicemail orders.',
   pos_recommendation_interest: 'Yes, I want POS recommendations',
+  pos_partner_consent: 'Yes, Serviio may share my request with POS providers or consultants',
 });
 assert.strictEqual(urgentNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(urgentNoPosReferral.partner_referral_priority, 'hot');
@@ -459,6 +481,7 @@ const posPartnerExportRows = buildPosPartnerRows([
   noPosReferral,
   calculatorNoPosReferral,
   urgentTimelineNoPosReferral,
+  noConsentPosReferral,
   ambiguousPos,
 ]);
 assert.deepStrictEqual(posPartnerExportRows.map((row) => row.restaurant_name), [
@@ -485,7 +508,8 @@ assert.strictEqual(posPartnerExportRows[3].pos_partner_lead_type, 'warm_no_pos_r
 assert.strictEqual(posPartnerExportRows[2].pos_purchase_timeline_urgency, 'urgent');
 
 const posPartnerCsv = posPartnerToCsv(posPartnerExportRows);
-assert.match(posPartnerCsv, /pos_recommendation_interest,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /pos_recommendation_interest,pos_partner_sharing_consent,pos_partner_consent,pos_purchase_timeline,pos_purchase_timeline_urgency/);
+assert.match(posPartnerCsv, /pos_partner_sharing_consent/);
 assert.match(posPartnerCsv, /lead_acquisition_channel/);
 assert.match(posPartnerCsv, /recommended_pos_partner_targets/);
 assert.match(posPartnerCsv, /pos_partner_pitch/);
@@ -494,6 +518,7 @@ assert.match(posPartnerCsv, /Calculator Noodle Shop/);
 assert.match(posPartnerCsv, /\$493/);
 assert.match(posPartnerCsv, /\$10/);
 assert.match(posPartnerCsv, /hot_no_pos_restaurant,hot,Fast POS Dumpling/);
+assert.doesNotMatch(posPartnerCsv, /Consent Pending Noodle/);
 assert.doesNotMatch(posPartnerCsv, /Golden Dragon Chinese Restaurant/);
 
 const demoQueueRows = buildDemoQueueRows([

@@ -249,8 +249,10 @@ Use `partner_referral_priority` to handle no-POS leads:
 
 Use the POS partner packaging fields when a restaurant owner does not have a POS but asks for recommendations:
 - `pos_partner_lead_status=qualified_for_pos_partner`: this no-POS lead can be worked as a POS partner referral instead of a Serviio demo.
+- `pos_partner_lead_status=partner_referral_needs_consent`: the owner asked for POS recommendations, but did not give partner-sharing consent. Keep the lead internal and get consent before sending it to a POS provider or consultant.
 - `pos_partner_lead_type=hot_no_pos_restaurant`: prioritize partner handoff because the lead has stronger commercial signals.
 - `pos_partner_lead_type=warm_no_pos_restaurant`: keep nurturing and collect timeline, budget, and POS requirements before handoff.
+- `pos_partner_sharing_consent=yes`: the owner checked the POS partner consent box. Only these no-POS leads should be exported for POS partner handoff.
 - `pos_partner_lead_package`: copy this summary into partner follow-up. It includes restaurant name, location, POS status, phone-order volume, POS recommendation interest, pain, lead source, and landing page.
 - For calculator-origin no-POS leads, the POS partner handoff also includes `calculator_missed_calls_per_week`, `estimated_lost_orders`, `estimated_lost_revenue`, `estimated_recoverable_revenue`, and `estimated_serviio_fee`. Use those values as context for urgency, not as guaranteed revenue.
 - `serviio_fit_status=deprioritized_until_pos_ready`: do not push immediate AI phone ordering until the restaurant chooses or implements a POS.
