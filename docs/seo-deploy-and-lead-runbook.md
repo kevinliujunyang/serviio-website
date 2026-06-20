@@ -300,7 +300,7 @@ First follow-up should confirm:
 
 ## Attribution Fields
 
-Every Formspree form loads `/assets/js/form-attribution.js`, which appends:
+Every Formspree form loads `/assets/js/form-attribution.js`, which appends first-touch campaign fields from persistent browser storage and current-session fields from the active visit. This keeps Product Hunt, directory, partner, chamber, business-profile, and calculator attribution attached when a restaurant owner returns later and submits a form.
 - `landing_page`
 - `landing_path`
 - `first_referrer`

@@ -581,6 +581,7 @@ function validateAttributionScript() {
   }
   const js = fs.readFileSync(file, 'utf8');
   const requiredSnippets = [
+    'localStorage',
     'sessionStorage',
     'serviio_attribution',
     'landing_page',

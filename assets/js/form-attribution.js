@@ -27,7 +27,14 @@
     return Boolean(currentAttribution[name]);
   });
 
-  function readStoredAttribution(key) {
+  function readStoredAttribution(key, persist) {
+    if (persist) {
+      try {
+        return JSON.parse(window.localStorage.getItem(key) || 'null') || {};
+      } catch (error) {
+        // Fall back to session storage below.
+      }
+    }
     try {
       return JSON.parse(window.sessionStorage.getItem(key) || 'null') || {};
     } catch (error) {
@@ -35,7 +42,14 @@
     }
   }
 
-  function writeStoredAttribution(key, value) {
+  function writeStoredAttribution(key, value, persist) {
+    if (persist) {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        // Ignore private-mode or blocked-storage failures; session storage still helps.
+      }
+    }
     try {
       window.sessionStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
@@ -43,7 +57,7 @@
     }
   }
 
-  var firstTouch = readStoredAttribution(storageKey);
+  var firstTouch = readStoredAttribution(storageKey, true);
   if (!firstTouch.landing_page || hasCampaignSignal) {
     firstTouch = {
       landing_page: window.location.href,
@@ -58,7 +72,7 @@
       first_msclkid: currentAttribution.msclkid || firstTouch.first_msclkid || '',
       first_seen_at: firstTouch.first_seen_at || now,
     };
-    writeStoredAttribution(storageKey, firstTouch);
+    writeStoredAttribution(storageKey, firstTouch, true);
   }
 
   var sessionAttribution = readStoredAttribution(sessionKey);

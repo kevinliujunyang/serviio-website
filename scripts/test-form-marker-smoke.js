@@ -94,37 +94,62 @@ function createForm() {
   };
 }
 
+function runAttributionScript({ href, pathname = '/', search = '', referrer = '', sessionStore = {}, localStore = {}, form: targetForm }) {
+  const writes = {
+    session: {},
+    local: {},
+  };
+  const context = {
+    URLSearchParams,
+    Date,
+    String,
+    Boolean,
+    Object,
+    window: {
+      location: {
+        href,
+        pathname,
+        search,
+      },
+      sessionStorage: {
+        getItem(key) { return sessionStore[key] || null; },
+        setItem(key, value) {
+          sessionStore[key] = value;
+          writes.session[key] = value;
+        },
+      },
+      localStorage: {
+        getItem(key) { return localStore[key] || null; },
+        setItem(key, value) {
+          localStore[key] = value;
+          writes.local[key] = value;
+        },
+      },
+    },
+    document: {
+      referrer,
+      createElement() {
+        return createField('');
+      },
+      querySelectorAll(selector) {
+        return selector === 'form[action*="formspree.io"]' ? [targetForm] : [];
+      },
+    },
+  };
+  vm.runInNewContext(attributionScript, context);
+  return writes;
+}
+
 const form = createForm();
 form.fields.push(createField('lead_source', 'homepage'));
-const context = {
-  URLSearchParams,
-  Date,
-  String,
-  Boolean,
-  Object,
-  window: {
-    location: {
-      href: 'https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
-      pathname: '/',
-      search: '?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
-    },
-    sessionStorage: {
-      getItem() { return null; },
-      setItem() {},
-    },
-  },
-  document: {
-    referrer: '',
-    createElement() {
-      return createField('');
-    },
-    querySelectorAll(selector) {
-      return selector === 'form[action*="formspree.io"]' ? [form] : [];
-    },
-  },
-};
-
-vm.runInNewContext(attributionScript, context);
+const persistentAttribution = {};
+const firstVisitWrites = runAttributionScript({
+  href: 'https://serviio.ai/?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  search: '?utm_source=product_hunt&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  localStore: persistentAttribution,
+  form,
+});
+assert.ok(firstVisitWrites.local.serviio_attribution, 'first-touch attribution should be written to localStorage');
 assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'unknown_pos_status');
 assert.strictEqual(form.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
 form.querySelector('[name="pos_system"]').value = 'Toast';
@@ -134,5 +159,15 @@ assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').valu
 assert.strictEqual(form.querySelector('input[name="lead_route_hint"]').value, 'serviio_demo');
 assert.strictEqual(form.querySelector('input[name="monetization_route_hint"]').value, 'serviio_demo');
 assert.strictEqual(form.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
+
+const returnVisitForm = createForm();
+returnVisitForm.fields.push(createField('lead_source', 'homepage'));
+runAttributionScript({
+  href: 'https://serviio.ai/',
+  localStore: persistentAttribution,
+  form: returnVisitForm,
+});
+assert.strictEqual(returnVisitForm.querySelector('input[name="first_utm_source"]').value, 'product_hunt');
+assert.strictEqual(returnVisitForm.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
 
 console.log('Form marker smoke tests passed');
