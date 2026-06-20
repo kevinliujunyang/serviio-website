@@ -324,6 +324,12 @@ assert.match(renderAuthorityReport(trackerRows), /Indexing support rows: 1/);
 assert.match(renderAuthorityReport(trackerRows), /Live Authority Optimizations/);
 assert.match(renderAuthorityReport(trackerRows), /Product Hunt Serviio listing/);
 assert.match(renderAuthorityReport(trackerRows), /Claim or update live listing and record proof/);
+assert.match(renderAuthorityReport(trackerRows), /Required Business Profile Actions/);
+assert.match(renderAuthorityReport(trackerRows), /Business profile - Google Business Profile/);
+assert.match(renderAuthorityReport(trackerRows), /Business profile - Bing Places for Business/);
+assert.match(renderAuthorityReport(trackerRows), /Business profile - Apple Business Connect/);
+assert.match(renderAuthorityReport(trackerRows), /Required Customer Proof Actions/);
+assert.match(renderAuthorityReport(trackerRows), /Customer proof - Pilot restaurant testimonial/);
 
 const updateResult = updateTracker(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.

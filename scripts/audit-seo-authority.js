@@ -90,6 +90,18 @@ function needsLiveOptimization(row) {
     LIVE_OPTIMIZATION_PATTERN.test(row.notes || '');
 }
 
+function missingBusinessProfileRows(rows) {
+  return rows
+    .filter((row) => row.channel === 'Business profile' && row.priority === 'P0' && !isStartedWithEvidence(row))
+    .slice(0, 3);
+}
+
+function missingCustomerProofRows(rows) {
+  return rows
+    .filter((row) => row.channel === 'Customer proof' && !isStartedWithEvidence(row))
+    .slice(0, 3);
+}
+
 function evidenceIssues(rows) {
   return rows
     .filter(isAuthorityRow)
@@ -158,6 +170,8 @@ function renderReport(rows) {
   const liveOptimizationRows = rows
     .filter(needsLiveOptimization)
     .sort((a, b) => opportunityScore(b).score - opportunityScore(a).score);
+  const businessProfileRows = missingBusinessProfileRows(rows);
+  const customerProofRows = missingCustomerProofRows(rows);
 
   const lines = [
     '# Serviio SEO Authority Audit',
@@ -189,6 +203,28 @@ function renderReport(rows) {
     lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
     lines.push(`  URL: ${row.url}`);
     lines.push(`  UTM: ${row.utm_url}`);
+  }
+
+  if (businessProfileRows.length) {
+    lines.push('', '## Required Business Profile Actions');
+    for (const row of businessProfileRows) {
+      const opportunity = opportunityScore(row);
+      lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
+      lines.push(`  URL: ${row.url}`);
+      lines.push(`  UTM: ${row.utm_url}`);
+      lines.push('  Action: Create or claim profile, add Serviio service-area details, and record verification proof.');
+    }
+  }
+
+  if (customerProofRows.length) {
+    lines.push('', '## Required Customer Proof Actions');
+    for (const row of customerProofRows) {
+      const opportunity = opportunityScore(row);
+      lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
+      lines.push(`  URL: ${row.url}`);
+      lines.push(`  UTM: ${row.utm_url}`);
+      lines.push('  Action: Request or publish proof mentioning city, restaurant type, POS, and phone-order pain.');
+    }
   }
 
   if (liveOptimizationRows.length) {
@@ -225,6 +261,8 @@ module.exports = {
   authorityScore,
   evidenceIssues,
   isAuthorityRow,
+  missingBusinessProfileRows,
+  missingCustomerProofRows,
   needsLiveOptimization,
   nextMilestones,
   renderReport,
