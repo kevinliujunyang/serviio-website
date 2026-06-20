@@ -107,6 +107,26 @@ const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'ut
 const priorityQueries = extractPriorityQueries(scorecard);
 assert.ok(priorityQueries.length >= 100);
 assert.ok(priorityQueries.includes('MenuSifu POS AI phone agent'));
+const posCombinationQueries = [
+  ['39 Miles AI phone answering', '/pos/39-miles-ai-phone-ordering/'],
+  ['39 Miles AI order taker', '/pos/39-miles-ai-phone-ordering/'],
+  ['MenuSifu AI phone answering', '/pos/menusifu-ai-phone-ordering/'],
+  ['MenuSifu AI order taker', '/pos/menusifu-ai-phone-ordering/'],
+  ['Chowbus AI phone answering', '/pos/chowbus-ai-phone-ordering/'],
+  ['Chowbus AI order taker', '/pos/chowbus-ai-phone-ordering/'],
+  ['Mealkeyway AI phone answering', '/pos/mealkeyway-ai-phone-ordering/'],
+  ['Mealkeyway AI order taker', '/pos/mealkeyway-ai-phone-ordering/'],
+  ['Square AI phone answering', '/pos/square-ai-phone-ordering/'],
+  ['Square AI order taker', '/pos/square-ai-phone-ordering/'],
+  ['Toast AI phone answering', '/pos/toast-ai-phone-ordering/'],
+  ['Toast AI order taker', '/pos/toast-ai-phone-ordering/'],
+  ['Clover AI phone answering', '/pos/clover-ai-phone-ordering/'],
+  ['Clover AI order taker', '/pos/clover-ai-phone-ordering/'],
+];
+for (const [query, targetPage] of posCombinationQueries) {
+  assert.ok(priorityQueries.includes(query), `Priority queries should include ${query}`);
+  assert.strictEqual(rankingWatchlistTargetPageFor(query), targetPage);
+}
 assert.strictEqual(rankingWatchlistClusterFor('MenuSifu POS AI phone agent'), 'Named POS');
 assert.strictEqual(rankingWatchlistClusterFor('boston chinese restaurant ai phone ordering'), 'Local service area');
 assert.strictEqual(rankingWatchlistTargetPageFor('MenuSifu POS AI phone agent'), '/pos/menusifu-ai-phone-ordering/');
