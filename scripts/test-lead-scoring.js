@@ -270,6 +270,26 @@ assert.strictEqual(businessProfileLead.lead_acquisition_channel, 'business_profi
 assert.strictEqual(businessProfileLead.priority_seo_source, 'yes');
 assert.strictEqual(businessProfileLead.lead_route, 'demo_queue');
 
+const businessProfileProductLead = scoreLead({
+  ...baseLead,
+  restaurant: 'Business Profile MenuSifu Wok',
+  lead_source: 'google_business_profile_product',
+  landing_page: 'https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  pos_system: 'MenuSifu',
+  phone_orders_per_week: '25-75',
+  main_pain: 'Bilingual calls and manual POS entry during dinner rush',
+  conversion_offer: 'named_pos_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+  utm_source: 'business_profile_product',
+  utm_medium: 'organic_listing',
+});
+assert.strictEqual(businessProfileProductLead.lead_acquisition_channel, 'business_profile');
+assert.strictEqual(businessProfileProductLead.lead_priority, 'high');
+assert.strictEqual(businessProfileProductLead.lead_route, 'call_now');
+assert.strictEqual(businessProfileProductLead.serviio_fit_status, 'serviio_demo_fit');
+assert.match(businessProfileProductLead.buyer_profile, /offer:named_pos_fit_check/);
+assert.match(businessProfileProductLead.lead_reason, /urgent pain: rush_hour\+bilingual_calls\+manual_entry/);
+
 const submittedChannelLead = scoreLead({
   ...baseLead,
   restaurant: 'Product Hunt Wok',
@@ -418,6 +438,7 @@ assert.strictEqual(classifyPainSignal('Need Mandarin and Cantonese call handling
 assert.strictEqual(classifyPainSignal('General question'), 'other');
 assert.strictEqual(classifyPainSignal(''), 'unknown');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'business_profile_post', utmMedium: 'organic_listing' }), 'business_profile');
+assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'business_profile_product', utmMedium: 'organic_listing' }), 'business_profile');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'product_hunt', utmMedium: 'organic_listing' }), 'directory_or_listing');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmMedium: 'partner_referral' }), 'partner_referral');
 
@@ -567,10 +588,11 @@ assert.deepStrictEqual(parseCustomerProofExportArgs(['formspree.csv', '--summary
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
-assert.strictEqual(sampleScoredRows.length, 5);
+assert.strictEqual(sampleScoredRows.length, 6);
 assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
   'Boston Wok',
+  'Business Profile MenuSifu Wok',
 ]);
 assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'New Noodle Shop',
@@ -579,12 +601,19 @@ assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.re
 assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
   'Boston Wok',
+  'Business Profile MenuSifu Wok',
 ]);
 assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
+const sampleBusinessProfileProductLead = sampleScoredRows.find((row) => row.restaurant_name === 'Business Profile MenuSifu Wok');
+assert.ok(sampleBusinessProfileProductLead);
+assert.strictEqual(sampleBusinessProfileProductLead.lead_acquisition_channel, 'business_profile');
+assert.strictEqual(sampleBusinessProfileProductLead.lead_route, 'call_now');
+assert.strictEqual(sampleBusinessProfileProductLead.pos_system, 'MenuSifu');
 const sampleSummary = summarize(sampleScoredRows);
 assert.match(sampleSummary, /Serviio demo|Lead scoring summary/);
 assert.match(sampleSummary, /Acquisition channels:/);
 assert.match(sampleSummary, /seo_landing_page: 3/);
+assert.match(sampleSummary, /business_profile: 1/);
 assert.match(sampleSummary, /partner_referral: 1/);
 assert.match(sampleSummary, /direct_or_unknown: 1/);
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
