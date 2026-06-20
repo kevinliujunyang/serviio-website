@@ -945,6 +945,7 @@ function validateLeadScoringWorkflow() {
   const scorer = fs.readFileSync('scripts/score-formspree-leads.js', 'utf8');
   const test = fs.readFileSync('scripts/test-lead-scoring.js', 'utf8');
   const runbook = fs.readFileSync('docs/seo-deploy-and-lead-runbook.md', 'utf8');
+  const normalizedRunbook = runbook.toLowerCase();
 
   if (packageJson.scripts?.['leads:score'] !== 'node scripts/score-formspree-leads.js') {
     errors.push('package.json: missing leads:score script');
@@ -1004,6 +1005,19 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('npm run leads:customer-proof') || !runbook.includes('authority_tracker_target=Pilot restaurant testimonial')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof lead workflow');
+  }
+  if (
+    !runbook.includes('calculator_missed_calls_per_week') ||
+    !runbook.includes('estimated_recoverable_revenue') ||
+    !runbook.includes('estimated_serviio_fee')
+  ) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing revenue calculator estimate workflow');
+  }
+  if (
+    !normalizedRunbook.includes('calculator-origin demo leads') ||
+    !normalizedRunbook.includes('calculator-origin no-pos leads')
+  ) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing calculator-origin lead routing guidance');
   }
   for (const file of [
     'docs/sample-formspree-leads.csv',

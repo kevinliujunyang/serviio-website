@@ -154,6 +154,20 @@ npm run leads:customer-proof -- path/to/formspree-export.csv --out customer-proo
 
 This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `authority_tracker_target=Pilot restaurant testimonial`, and `authority_tracker_note` so customer proof can become evidence in the authority tracker.
 
+Calculator-origin demo leads from `/restaurant-missed-call-revenue-calculator/` include the calculator assumptions and estimate fields in the demo queue:
+- `calculator_missed_calls_per_week`
+- `calculator_order_rate_percent`
+- `calculator_average_order_value`
+- `calculator_recovery_rate_percent`
+- `estimated_lost_orders`
+- `estimated_lost_revenue`
+- `estimated_recoverable_revenue`
+- `estimated_serviio_fee`
+
+Use these fields during the first call. Confirm the owner still believes the missed-call estimate is directionally right, then qualify whether the order should flow to the current POS, a kitchen workflow, or a staff confirmation step. Do not quote the calculator as a guaranteed recovery number.
+
+Calculator-origin no-POS leads keep the same estimate fields in the POS partner handoff export. Use `estimated_recoverable_revenue`, `estimated_lost_orders`, and `estimated_serviio_fee` to explain why the owner may be commercially ready for POS recommendations before Serviio AI phone ordering. These leads should stay out of the immediate Serviio demo queue until the POS path is chosen.
+
 For a quick count without writing a scored CSV:
 
 ```bash
@@ -232,6 +246,7 @@ Use the POS partner packaging fields when a restaurant owner does not have a POS
 - `pos_partner_lead_type=hot_no_pos_restaurant`: prioritize partner handoff because the lead has stronger commercial signals.
 - `pos_partner_lead_type=warm_no_pos_restaurant`: keep nurturing and collect timeline, budget, and POS requirements before handoff.
 - `pos_partner_lead_package`: copy this summary into partner follow-up. It includes restaurant name, location, POS status, phone-order volume, POS recommendation interest, pain, lead source, and landing page.
+- For calculator-origin no-POS leads, the POS partner handoff also includes `calculator_missed_calls_per_week`, `estimated_lost_orders`, `estimated_lost_revenue`, `estimated_recoverable_revenue`, and `estimated_serviio_fee`. Use those values as context for urgency, not as guaranteed revenue.
 - `serviio_fit_status=deprioritized_until_pos_ready`: do not push immediate AI phone ordering until the restaurant chooses or implements a POS.
 - `pos_purchase_timeline`: use this to prioritize POS partner handoff. `Immediately` and `Within 1 month` are stronger resale/referral signals than `Not sure yet`.
 - `pos_purchase_timeline_urgency`: normalized timeline bucket. `urgent` means immediate or within 1 month, `near_term` means roughly 1-3 months, `unknown` means the owner is unsure, and `not_applicable` means the restaurant already has a POS. Treat urgent no-POS leads as stronger POS partner handoff candidates, especially when location and Chinese/POS-intent are present.
