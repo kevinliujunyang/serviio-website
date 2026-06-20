@@ -41,7 +41,29 @@ function primaryKpi(row) {
   return 'submission evidence and qualified lead source';
 }
 
+function leadAcquisitionChannel(row) {
+  const sourceText = [
+    row.channel,
+    row.target,
+    row.landing_url,
+    row.utm_url,
+    row.anchor_or_listing_phrase,
+    row.notes,
+  ].join(' ');
+
+  if (/business[_\s-]?profile|google_business_profile|bing_places|apple_business_connect/i.test(sourceText)) return 'business_profile';
+  if (/partner[_\s-]?referral|pos[_\s-]?consultant|restaurant[_\s-]?website[_\s-]?agency/i.test(sourceText)) return 'partner_referral';
+  if (/customer[_\s-]?proof|testimonial/i.test(sourceText)) return 'customer_proof';
+  if (/missed[_\s-]?call[_\s-]?revenue[_\s-]?calculator|restaurant-missed-call-revenue-calculator/i.test(sourceText)) return 'calculator';
+  if (/directory|organic[_\s-]?listing|product_hunt|startup/i.test(sourceText)) return 'directory_or_listing';
+  if (/community[_\s-]?post|wechat|reddit|meetup|chamber|association/i.test(sourceText)) return 'community_or_association';
+  if (/search_console|indexing|indexnow|webmaster/i.test(sourceText)) return 'indexing_or_webmaster';
+  if (/service[_\s-]?area|service-areas|chinese|pos|restaurant-ai|ai-phone|phone-order/i.test(sourceText)) return 'seo_landing_page';
+  return 'direct_or_unknown';
+}
+
 module.exports = {
+  leadAcquisitionChannel,
   leadPriority,
   leadRoute,
   posSystemFor,

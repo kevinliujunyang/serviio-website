@@ -15,6 +15,7 @@ const {
   evidenceNeeded,
 } = require('./export-authority-submission-log');
 const {
+  leadAcquisitionChannel,
   leadPriority,
   leadRoute,
   primaryKpi,
@@ -31,6 +32,7 @@ const HEADERS = [
   'lead_priority',
   'lead_route',
   'primary_kpi',
+  'expected_lead_acquisition_channel',
   'priority',
   'channel',
   'target',
@@ -123,6 +125,7 @@ function commonFields(row) {
     lead_priority: leadPriority(row),
     lead_route: leadRoute(row),
     primary_kpi: primaryKpi(row),
+    expected_lead_acquisition_channel: leadAcquisitionChannel(row),
     priority: row.priority,
     channel: row.channel,
     target: row.target,

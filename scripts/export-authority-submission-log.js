@@ -7,6 +7,7 @@ const {
   readySubmissionRows,
 } = require('./print-free-search-submission-packets');
 const {
+  leadAcquisitionChannel,
   leadPriority,
   leadRoute,
   primaryKpi,
@@ -24,6 +25,7 @@ const HEADERS = [
   'lead_priority',
   'lead_route',
   'primary_kpi',
+  'expected_lead_acquisition_channel',
   'next_step',
   'evidence_needed',
   'opportunity_score',
@@ -196,6 +198,7 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       lead_priority: leadPriority(row),
       lead_route: leadRoute(row),
       primary_kpi: primaryKpi(row),
+      expected_lead_acquisition_channel: leadAcquisitionChannel(row),
       next_step: nextStep(row),
       evidence_needed: evidenceNeeded(row),
       opportunity_score: score.score,

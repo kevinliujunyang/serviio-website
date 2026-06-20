@@ -156,7 +156,7 @@ Export a CSV submission log before working through authority targets:
 npm run marketing:submission-log
 ```
 
-This writes `docs/authority-submission-log.csv` by default. Use it as the working sheet for the top 15 authority actions. Fill in `evidence_url`, `account_or_login`, `confirmation_note`, `submitted_date`, and `follow_up_date` while submitting forms or sending partner messages. Then run the included tracker command only after the external action is complete.
+This writes `docs/authority-submission-log.csv` by default. Use it as the working sheet for the top 15 authority actions. Fill in `evidence_url`, `account_or_login`, `confirmation_note`, `submitted_date`, and `follow_up_date` while submitting forms or sending partner messages. Use `expected_lead_acquisition_channel` to compare each action against the later `lead_acquisition_channel` counts from Formspree lead scoring. Then run the included tracker command only after the external action is complete.
 
 After filling the submission log, preview which rows can be safely synced back into the tracker:
 
@@ -186,7 +186,7 @@ Regenerate the checked-in execution queue for the current week:
 npm run marketing:gtm-queue:export
 ```
 
-This writes `docs/free-search-gtm-queue.csv` with the next authority actions, explicit tracker commands, and the date needed for evidence-qualified authority scoring.
+This writes `docs/free-search-gtm-queue.csv` with the next authority actions, expected lead-acquisition channel, explicit tracker commands, and the date needed for evidence-qualified authority scoring.
 
 Use the ready-to-paste listing and outreach copy in:
 
