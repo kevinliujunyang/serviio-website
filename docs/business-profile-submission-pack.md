@@ -33,6 +33,28 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Do you need English, Mandarin, Cantonese, or bilingual call handling?
 - Do you want a demo for AI phone ordering, or do you need help choosing a POS first?
 
+## Profile post drafts
+
+Use these as Google Business Profile updates, Bing Places posts if available, Apple Business Connect showcases, or directory profile updates after the profile exists.
+
+### 1. AI phone ordering for POS-ready restaurants
+
+- Body: Serviio helps restaurants answer phone orders 24/7, capture pickup details, and evaluate POS-ready workflows for systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+- CTA: Check POS fit
+- URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 2. Bilingual phone answering for Chinese restaurants
+
+- Body: For Chinese restaurants with lunch and dinner rush phone volume, Serviio can answer in English and Chinese, ask about modifiers, confirm pickup details, and reduce missed-call pressure on staff.
+- CTA: Check Chinese restaurant fit
+- URL: https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
+### 3. Estimate missed-call revenue before a demo
+
+- Body: Use the restaurant missed-call revenue calculator to estimate how much weekly takeout revenue may be lost when staff miss calls or manually re-enter phone orders during rush hours.
+- CTA: Estimate missed-call revenue
+- URL: https://serviio.ai/restaurant-missed-call-revenue-calculator/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+
 ## 1. Google Business Profile
 
 - Submission URL: https://www.google.com/business/

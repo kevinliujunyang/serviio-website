@@ -33,6 +33,27 @@ const LEAD_QUESTIONS = [
   'Do you want a demo for AI phone ordering, or do you need help choosing a POS first?',
 ];
 
+const PROFILE_POSTS = [
+  {
+    title: 'AI phone ordering for POS-ready restaurants',
+    body: 'Serviio helps restaurants answer phone orders 24/7, capture pickup details, and evaluate POS-ready workflows for systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
+    cta: 'Check POS fit',
+    url: 'https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    title: 'Bilingual phone answering for Chinese restaurants',
+    body: 'For Chinese restaurants with lunch and dinner rush phone volume, Serviio can answer in English and Chinese, ask about modifiers, confirm pickup details, and reduce missed-call pressure on staff.',
+    cta: 'Check Chinese restaurant fit',
+    url: 'https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+  {
+    title: 'Estimate missed-call revenue before a demo',
+    body: 'Use the restaurant missed-call revenue calculator to estimate how much weekly takeout revenue may be lost when staff miss calls or manually re-enter phone orders during rush hours.',
+    cta: 'Estimate missed-call revenue',
+    url: 'https://serviio.ai/restaurant-missed-call-revenue-calculator/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing',
+  },
+];
+
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -108,6 +129,18 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
     '',
     ...LEAD_QUESTIONS.map((question) => `- ${question}`),
     '',
+    '## Profile post drafts',
+    '',
+    'Use these as Google Business Profile updates, Bing Places posts if available, Apple Business Connect showcases, or directory profile updates after the profile exists.',
+    '',
+    ...PROFILE_POSTS.flatMap((post, index) => [
+      `### ${index + 1}. ${post.title}`,
+      '',
+      `- Body: ${post.body}`,
+      `- CTA: ${post.cta}`,
+      `- URL: ${post.url}`,
+      '',
+    ]),
   ];
 
   for (const [index, row] of profiles.entries()) {
