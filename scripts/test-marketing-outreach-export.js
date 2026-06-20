@@ -11,6 +11,7 @@ const {
   nextActionRows,
   opportunityScore: nextActionOpportunityScore,
   packetHint,
+  renderNextActionReport,
   researchQueries,
 } = require('./print-free-search-next-actions');
 const {
@@ -205,6 +206,7 @@ assert.throws(() => parseAuthoritySubmissionLogArgs(['--limit', '0']), /--limit 
 const nextRows = nextActionRows(trackerRows, { readyLimit: 8, researchLimit: 8 });
 assert.strictEqual(nextRows.readyRows.length, 8);
 assert.strictEqual(nextRows.researchRows.length, 0);
+assert.ok(nextRows.liveOptimizationRows.some((row) => row.target === 'Product Hunt Serviio listing'));
 
 const nextTopTargets = nextRows.readyRows.slice(0, 6).map((row) => row.target);
 assert.ok(nextTopTargets.includes('Chinese restaurant POS consultants'));
@@ -212,6 +214,10 @@ assert.ok(nextTopTargets.includes('MenuSifu restaurant consultants'));
 assert.ok(nextRows.readyRows.map((row) => row.target).includes('POS consultants'));
 assert.ok(nextRows.readyRows.every((row) => nextActionOpportunityScore(row).score >= 88));
 assert.ok(nextRows.readyRows.slice(0, 6).every((row) => /POS|partner\/referral/.test(nextActionOpportunityScore(row).reasons)));
+const nextActionReport = renderNextActionReport(trackerRows, { readyLimit: 8, researchLimit: 8 });
+assert.match(nextActionReport, /## Live Listing Optimizations/);
+assert.match(nextActionReport, /Product Hunt Serviio listing/);
+assert.match(nextActionReport, /After action: keep status=live and record updated listing screenshot or owner\/account confirmation/);
 assert.match(packetHint(menusifuTrackerRow), /POS-Specific Partner Outreach Copy/);
 assert.match(packetHint(productHuntRow), /Claim or verify the existing Product Hunt page/);
 assert.match(packetHint(productHuntRow), /updated listing screenshot/);

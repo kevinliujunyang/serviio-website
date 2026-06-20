@@ -3,6 +3,7 @@ const fs = require('fs');
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const READY_LIMIT = 8;
 const RESEARCH_LIMIT = 8;
+const LIVE_OPTIMIZATION_PATTERN = /\bclaim(?:ed|ing)?\b.*\bpending\b|\bupdate(?:d|ing)?\b.*\bpending\b|\bclaim\/update access still pending\b/i;
 
 function parseCsvLine(line) {
   const cells = [];
@@ -194,6 +195,9 @@ function researchQueries(row) {
 
 function nextActionRows(rows, { readyLimit = READY_LIMIT, researchLimit = RESEARCH_LIMIT } = {}) {
   return {
+    liveOptimizationRows: rows
+      .filter((row) => row.status === 'live' && row.date_live && LIVE_OPTIMIZATION_PATTERN.test(row.notes || ''))
+      .sort(compareRows),
     readyRows: rows
       .filter((row) => row.status === 'not_started' && hasTargetUrl(row))
       .sort(compareRows)
@@ -205,44 +209,68 @@ function nextActionRows(rows, { readyLimit = READY_LIMIT, researchLimit = RESEAR
   };
 }
 
-function main() {
-  const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
-  const { readyRows, researchRows } = nextActionRows(rows);
+function renderNextActionReport(rows, options = {}) {
+  const { liveOptimizationRows, readyRows, researchRows } = nextActionRows(rows, options);
+  const lines = [
+    '# Serviio Free Search Next Actions',
+    '',
+    'Use this before manual submission sessions. Complete live listing optimizations and ready submissions first when time is limited, then research partner/POS targets.',
+    '',
+  ];
 
-  console.log('# Serviio Free Search Next Actions');
-  console.log('');
-  console.log('Use this before manual submission sessions. Complete ready submissions first when time is limited, then research partner/POS targets.');
-  console.log('');
+  if (liveOptimizationRows.length) {
+    lines.push('## Live Listing Optimizations');
+    for (const row of liveOptimizationRows) {
+      const opportunity = opportunityScore(row);
+      lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.target}`);
+      lines.push(`  Channel: ${row.channel}`);
+      lines.push(`  Why: ${opportunity.reasons}`);
+      lines.push(`  Live listing: ${row.url}`);
+      lines.push(`  Landing: ${row.landing_url}`);
+      lines.push(`  UTM: ${row.utm_url}`);
+      lines.push(`  Phrase: ${row.anchor_or_listing_phrase}`);
+      lines.push(`  Copy hint: ${packetHint(row)}`);
+      lines.push('  After action: keep status=live and record updated listing screenshot or owner/account confirmation.');
+    }
+    lines.push('');
+  }
 
-  console.log('## Ready Submissions');
+  lines.push('## Ready Submissions');
   for (const row of readyRows) {
     const opportunity = opportunityScore(row);
-    console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.target}`);
-    console.log(`  Channel: ${row.channel}`);
-    console.log(`  Why: ${opportunity.reasons}`);
-    console.log(`  Submit/contact: ${row.url}`);
-    console.log(`  Landing: ${row.landing_url}`);
-    console.log(`  UTM: ${row.utm_url}`);
-    console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
-    console.log(`  Copy hint: ${packetHint(row)}`);
-    console.log('  After action: set status=submitted, owner, date_submitted, and notes in docs/free-search-marketing-tracker.csv');
+    lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.target}`);
+    lines.push(`  Channel: ${row.channel}`);
+    lines.push(`  Why: ${opportunity.reasons}`);
+    lines.push(`  Submit/contact: ${row.url}`);
+    lines.push(`  Landing: ${row.landing_url}`);
+    lines.push(`  UTM: ${row.utm_url}`);
+    lines.push(`  Phrase: ${row.anchor_or_listing_phrase}`);
+    lines.push(`  Copy hint: ${packetHint(row)}`);
+    lines.push('  After action: set status=submitted, owner, date_submitted, and notes in docs/free-search-marketing-tracker.csv');
   }
 
-  console.log('');
-  console.log('## Target Research');
+  lines.push('');
+  lines.push('## Target Research');
   for (const row of researchRows) {
     const opportunity = opportunityScore(row);
-    console.log(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
-    console.log(`  Why: ${opportunity.reasons}`);
-    console.log(`  Landing: ${row.landing_url}`);
-    console.log(`  UTM: ${row.utm_url}`);
-    console.log(`  Phrase: ${row.anchor_or_listing_phrase}`);
-    console.log('  Searches:');
+    lines.push(`- ${opportunity.score}/100 [${row.priority}] ${row.channel} - ${row.target}`);
+    lines.push(`  Why: ${opportunity.reasons}`);
+    lines.push(`  Landing: ${row.landing_url}`);
+    lines.push(`  UTM: ${row.utm_url}`);
+    lines.push(`  Phrase: ${row.anchor_or_listing_phrase}`);
+    lines.push('  Searches:');
     for (const query of researchQueries(row)) {
-      console.log(`    - ${query}`);
+      lines.push(`    - ${query}`);
     }
-    console.log('  After research: replace blank url with the submission/contact URL, or add notes if rejected/not relevant.');
+    lines.push('  After research: replace blank url with the submission/contact URL, or add notes if rejected/not relevant.');
   }
+
+  return `${lines.join('\n')}\n`;
+}
+
+function main() {
+  const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
+  process.stdout.write(renderNextActionReport(rows));
 }
 
 if (require.main === module) {
@@ -256,5 +284,6 @@ module.exports = {
   opportunityScore,
   packetHint,
   parseCsv,
+  renderNextActionReport,
   researchQueries,
 };
