@@ -1,11 +1,11 @@
 # Serviio Ranking Action Queue
 
-Source rows: 110
+Source rows: 113
 Actions shown: 25
 Tracker command date: 2026-06-20
 
 ## Status Counts
-- needs_search_console_data: 110
+- needs_search_console_data: 113
 
 ## Actions
 

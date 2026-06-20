@@ -73,6 +73,28 @@ function posSlug(name) {
     .replace(/\s+/g, '-');
 }
 
+function localServiceAreaPageFor(query) {
+  const text = String(query || '').toLowerCase();
+  const localPages = [
+    ['san francisco', '/service-areas/san-francisco-chinese-restaurant-ai-phone-ordering/'],
+    ['los angeles', '/service-areas/los-angeles-chinese-restaurant-ai-phone-ordering/'],
+    ['new york city', '/service-areas/new-york-city-chinese-restaurant-ai-phone-ordering/'],
+    ['new york', '/service-areas/new-york-chinese-restaurant-ai-phone-ordering/'],
+    ['new jersey', '/service-areas/new-jersey-chinese-restaurant-ai-phone-ordering/'],
+    ['massachusetts', '/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/'],
+    ['pennsylvania', '/service-areas/pennsylvania-chinese-restaurant-ai-phone-ordering/'],
+    ['philadelphia', '/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/'],
+    ['california', '/service-areas/california-chinese-restaurant-ai-phone-ordering/'],
+    ['houston', '/service-areas/houston-chinese-restaurant-ai-phone-ordering/'],
+    ['seattle', '/service-areas/seattle-chinese-restaurant-ai-phone-ordering/'],
+    ['chicago', '/service-areas/chicago-chinese-restaurant-ai-phone-ordering/'],
+    ['boston', '/service-areas/boston-chinese-restaurant-ai-phone-ordering/'],
+    ['texas', '/service-areas/texas-chinese-restaurant-ai-phone-ordering/'],
+  ];
+  const match = localPages.find(([name]) => text.includes(name));
+  return match ? match[1] : '';
+}
+
 function clusterFor(query) {
   const text = String(query || '').toLowerCase();
   if (/39\s*miles|menusifu|menu\s*sifu|chowbus|mealkeyway|square|toast|clover/.test(text)) return 'Named POS';
@@ -88,12 +110,10 @@ function clusterFor(query) {
 function targetPageFor(query) {
   const text = String(query || '').toLowerCase();
   const namedPos = posName(query);
+  const localServiceAreaPage = localServiceAreaPageFor(query);
   if (namedPos) return `/pos/${posSlug(namedPos)}-ai-phone-ordering/`;
   if (/revenue.*calculator|revenue loss calculator|missed call.*calculator/.test(text)) return '/restaurant-missed-call-revenue-calculator/';
-  if (/boston/.test(text)) return '/service-areas/boston-restaurant-ai-phone-ordering/';
-  if (/philadelphia/.test(text)) return '/service-areas/philadelphia-restaurant-ai-phone-ordering/';
-  if (/massachusetts/.test(text)) return '/service-areas/massachusetts-restaurant-ai-phone-ordering/';
-  if (/pennsylvania/.test(text)) return '/service-areas/pennsylvania-restaurant-ai-phone-ordering/';
+  if (localServiceAreaPage) return localServiceAreaPage;
   if (/best pos|without pos|no pos/.test(text)) return '/best-pos-for-chinese-restaurant-phone-orders/';
   if (/chinese restaurant pos system|chinese takeout.*pos|takeout.*pos/.test(text)) return '/chinese-restaurant-pos-system/';
   if (/connect phone orders to pos|how to connect phone orders/.test(text)) return '/guides/connect-phone-orders-to-pos/';
@@ -200,6 +220,7 @@ module.exports = {
   buildWatchlistRows,
   clusterFor,
   extractPriorityQueries,
+  localServiceAreaPageFor,
   parseArgs,
   targetPageFor,
   toCsv,

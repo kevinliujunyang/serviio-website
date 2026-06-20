@@ -35,7 +35,7 @@ const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "Chinese restaurant phone answering service","https://serviio.ai/chinese-restaurant-phone-answering-service/",0,55,0.6%,5.4
 "restaurant tech trends","https://serviio.ai/restaurant-tech-ai-phone-ordering/",0,20,0%,34
 "Square POS phone order AI","https://serviio.ai/pos/square-ai-phone-ordering/",0,18,0%,22
-"Boston restaurant AI assistant","https://serviio.ai/service-areas/boston-restaurant-ai-phone-ordering/",0,12,0%,14
+"Boston restaurant AI assistant","https://serviio.ai/service-areas/boston-chinese-restaurant-ai-phone-ordering/",0,12,0%,14
 `;
 
 const rows = parseCsv(csv).slice(1).map((row) => {
@@ -50,7 +50,8 @@ assert.match(buyerActions[0].intentReasons, /named POS/);
 assert.match(buyerActions[0].action, /Push to page one/);
 const localAction = buyerActions.find((row) => row.query === 'Boston restaurant AI assistant');
 assert(localAction, 'Expected local service-area row in buyer intent actions');
-assert.strictEqual(localAction.intentScore, 60);
+assert.strictEqual(localAction.intentScore, 85);
+assert.match(localAction.intentReasons, /Chinese\/Asian/);
 assert.match(localAction.intentReasons, /local service area/);
 assert.match(localAction.action, /city\/state relevance/);
 
@@ -66,15 +67,17 @@ assert.deepStrictEqual(
   rewriteBriefs.map((row) => row.query),
   [
     'MenuSifu AI phone ordering',
+    'Boston restaurant AI assistant',
     'Chinese restaurant AI phone ordering',
     'Chinese restaurant phone answering service',
-    'Boston restaurant AI assistant',
   ],
 );
 assert.strictEqual(rewriteBriefs[0].rewriteReason, 'near page one');
 assert.strictEqual(rewriteBriefs[0].suggestedTitle, 'MenuSifu AI Phone Ordering for Restaurants - Serviio');
 assert.match(rewriteBriefs[0].suggestedMeta, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway/);
-assert.strictEqual(rewriteBriefs[1].suggestedTitle, 'Chinese Restaurant AI Phone Ordering - Serviio');
+const chineseAiBrief = rewriteBriefs.find((row) => row.query === 'Chinese restaurant AI phone ordering');
+assert.ok(chineseAiBrief);
+assert.strictEqual(chineseAiBrief.suggestedTitle, 'Chinese Restaurant AI Phone Ordering - Serviio');
 const lowCtrBrief = rewriteBriefs.find((row) => row.query === 'Chinese restaurant phone answering service');
 assert.ok(lowCtrBrief);
 assert.strictEqual(lowCtrBrief.rewriteReason, 'page-one low CTR');
@@ -110,12 +113,16 @@ assert.strictEqual(rankingWatchlistTargetPageFor('MenuSifu POS AI phone agent'),
 assert.strictEqual(rankingWatchlistTargetPageFor('39 Miles POS AI phone agent'), '/pos/39-miles-ai-phone-ordering/');
 assert.strictEqual(rankingWatchlistTargetPageFor('restaurant missed call revenue calculator'), '/restaurant-missed-call-revenue-calculator/');
 assert.strictEqual(rankingWatchlistTargetPageFor('restaurant phone order revenue loss calculator'), '/restaurant-missed-call-revenue-calculator/');
-assert.strictEqual(rankingWatchlistTargetPageFor('boston chinese restaurant ai phone ordering'), '/service-areas/boston-restaurant-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('boston chinese restaurant ai phone ordering'), '/service-areas/boston-chinese-restaurant-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('restaurant ai assistant boston'), '/service-areas/boston-chinese-restaurant-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('massachusetts chinese restaurant ai phone ordering'), '/service-areas/massachusetts-chinese-restaurant-ai-phone-ordering/');
+assert.strictEqual(rankingWatchlistTargetPageFor('restaurant pos phone order integration philadelphia'), '/service-areas/philadelphia-chinese-restaurant-ai-phone-ordering/');
 assert.strictEqual(rankingWatchlistTargetPageFor('restaurant without POS'), '/best-pos-for-chinese-restaurant-phone-orders/');
 const watchlistRows = buildWatchlistRows(priorityQueries);
 assert.strictEqual(watchlistRows.length, priorityQueries.length);
 assert.ok(watchlistRows.some((row) => row.query === 'MenuSifu POS AI phone agent' && row.authority_target === 'MenuSifu restaurant consultants'));
 assert.ok(watchlistRows.every((row) => row.target_position === '1-10'));
+assert.ok(watchlistRows.every((row) => fs.existsSync(`.${new URL(row.target_url).pathname}index.html`) || fs.existsSync(`.${new URL(row.target_url).pathname}`)), 'Every first-page watchlist target URL should resolve to a generated page or asset');
 const watchlistCsv = rankingWatchlistToCsv(watchlistRows);
 assert.match(watchlistCsv, /priority,cluster,query,target_page,target_url,target_position,current_position/);
 assert.match(watchlistCsv, /needs_search_console_data/);
