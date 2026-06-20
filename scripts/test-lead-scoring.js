@@ -569,7 +569,12 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
   'Boston Wok',
 ]);
 assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
-assert.match(summarize(sampleScoredRows), /Serviio demo|Lead scoring summary/);
+const sampleSummary = summarize(sampleScoredRows);
+assert.match(sampleSummary, /Serviio demo|Lead scoring summary/);
+assert.match(sampleSummary, /Acquisition channels:/);
+assert.match(sampleSummary, /seo_landing_page: 3/);
+assert.match(sampleSummary, /partner_referral: 1/);
+assert.match(sampleSummary, /direct_or_unknown: 1/);
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('call_script'));

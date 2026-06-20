@@ -154,6 +154,8 @@ npm run leads:customer-proof -- path/to/formspree-export.csv --out customer-proo
 
 This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `authority_tracker_target=Pilot restaurant testimonial`, and `authority_tracker_note` so customer proof can become evidence in the authority tracker.
 
+Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
+
 Calculator-origin demo leads from `/restaurant-missed-call-revenue-calculator/` include the calculator assumptions and estimate fields in the demo queue:
 - `calculator_missed_calls_per_week`
 - `calculator_order_rate_percent`
@@ -176,6 +178,8 @@ npm run leads:demo-queue -- path/to/formspree-export.csv --summary-only
 npm run leads:pos-partners -- path/to/formspree-export.csv --summary-only
 npm run leads:customer-proof -- path/to/formspree-export.csv --summary-only
 ```
+
+The lead-scoring summary prints acquisition-channel counts. Use those counts to compare whether business profiles, directories, partner referrals, calculators, community posts, or SEO landing pages are producing POS-ready demo leads versus no-POS partner-referral leads.
 
 Before processing a new export format, run the scorer regression check:
 

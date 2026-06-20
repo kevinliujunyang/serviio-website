@@ -701,6 +701,7 @@ function summarize(scoredRows) {
   const counts = { high: 0, medium: 0, nurture: 0, review: 0 };
   const routeCounts = {};
   const partnerCounts = {};
+  const acquisitionCounts = {};
   const qualifiedPosPartnerLeads = scoredRows
     .filter((row) => row.pos_partner_lead_status === 'qualified_for_pos_partner')
     .length;
@@ -708,6 +709,8 @@ function summarize(scoredRows) {
     counts[row.lead_priority] = (counts[row.lead_priority] || 0) + 1;
     routeCounts[row.lead_route] = (routeCounts[row.lead_route] || 0) + 1;
     partnerCounts[row.partner_referral_priority] = (partnerCounts[row.partner_referral_priority] || 0) + 1;
+    const acquisitionChannel = row.lead_acquisition_channel || 'direct_or_unknown';
+    acquisitionCounts[acquisitionChannel] = (acquisitionCounts[acquisitionChannel] || 0) + 1;
   });
 
   const lines = [
@@ -728,6 +731,14 @@ function summarize(scoredRows) {
     `- No-POS nurture route: ${routeCounts.nurture_no_pos || 0}`,
     `- Manual review route: ${routeCounts.manual_review || 0}`,
   ];
+
+  const acquisitionLines = Object.entries(acquisitionCounts)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([channel, count]) => `- ${channel}: ${count}`);
+
+  if (acquisitionLines.length > 0) {
+    lines.push('', 'Acquisition channels:', ...acquisitionLines);
+  }
 
   const topLeads = scoredRows
     .filter((row) => row.lead_priority === 'high')
