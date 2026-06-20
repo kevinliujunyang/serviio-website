@@ -333,6 +333,29 @@ assert.strictEqual(urgentNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(urgentNoPosReferral.partner_referral_priority, 'hot');
 assert.strictEqual(urgentNoPosReferral.urgent_pain_signal, 'yes');
 
+const calculatorDemoLead = scoreLead({
+  ...baseLead,
+  restaurant: 'Calculator Wok',
+  lead_source: 'restaurant_missed_call_revenue_calculator',
+  landing_page: 'https://serviio.ai/restaurant-missed-call-revenue-calculator/',
+  pos_system: 'Toast',
+  phone_orders_per_week: '76-150',
+  main_pain: 'Missed calls during rush',
+  conversion_offer: 'ai_phone_order_fit_check',
+  pos_recommendation_interest: 'Not applicable, I already have a POS',
+  pos_purchase_timeline: 'Not applicable, I already have a POS',
+  calculator_missed_calls_per_week: '40',
+  calculator_order_rate_percent: '55',
+  calculator_average_order_value: '32',
+  calculator_recovery_rate_percent: '70',
+  estimated_lost_orders: '22',
+  estimated_lost_revenue: '$704',
+  estimated_recoverable_revenue: '$493',
+  estimated_serviio_fee: '$10',
+});
+assert.strictEqual(calculatorDemoLead.lead_route, 'call_now');
+assert.strictEqual(calculatorDemoLead.estimated_recoverable_revenue, '$493');
+
 assert.strictEqual(classifyPainSignal('Need Mandarin and Cantonese call handling'), 'bilingual_calls');
 assert.strictEqual(classifyPainSignal('General question'), 'other');
 assert.strictEqual(classifyPainSignal(''), 'unknown');
@@ -377,12 +400,14 @@ const demoQueueRows = buildDemoQueueRows([
   highPriority,
   localPosFitDemo,
   namedPosOfferDemo,
+  calculatorDemoLead,
   noPosReferral,
   partnerInquiry,
   ambiguousPos,
 ]);
 assert.deepStrictEqual(demoQueueRows.map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
+  'Calculator Wok',
   'Boston Wok',
   'POS Offer Bistro',
 ]);
@@ -391,10 +416,15 @@ assert.strictEqual(demoQueueRows[0].demo_priority, 'call_now');
 assert.match(demoQueueRows[0].call_script, /Confirm they still use MenuSifu/);
 assert.match(demoQueueRows[0].call_script, /150\+/);
 assert.match(demoQueueRows[0].call_script, /2% per completed order/);
-assert.strictEqual(demoQueueRows[1].demo_priority, 'demo_queue');
+assert.strictEqual(demoQueueRows[1].demo_priority, 'call_now');
+assert.strictEqual(demoQueueRows[2].demo_priority, 'demo_queue');
 const demoQueueCsv = demoQueueToCsv(demoQueueRows);
 assert.match(demoQueueCsv, /demo_priority,lead_priority,lead_route,restaurant_name/);
 assert.match(demoQueueCsv, /call_now,high,call_now,Golden Dragon Chinese Restaurant/);
+assert.match(demoQueueCsv, /calculator_missed_calls_per_week,calculator_order_rate_percent,calculator_average_order_value,calculator_recovery_rate_percent/);
+assert.match(demoQueueCsv, /Calculator Wok/);
+assert.match(demoQueueCsv, /\$493/);
+assert.match(demoQueueCsv, /\$10/);
 assert.doesNotMatch(demoQueueCsv, /New Noodle Shop/);
 assert.doesNotMatch(demoQueueCsv, /Restaurant Tech Partner/);
 

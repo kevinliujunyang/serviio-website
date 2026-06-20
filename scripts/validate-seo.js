@@ -1062,6 +1062,50 @@ function validateCustomerProofWorkflow() {
   return { errors };
 }
 
+function validateRevenueCalculatorLeadCapture() {
+  const errors = [];
+  const page = 'restaurant-missed-call-revenue-calculator/index.html';
+  if (!fs.existsSync(page)) {
+    errors.push(`${page}: missing revenue calculator page`);
+    return { errors };
+  }
+
+  const html = fs.readFileSync(page, 'utf8');
+  const requiredFields = [
+    'calculator_missed_calls_per_week',
+    'calculator_order_rate_percent',
+    'calculator_average_order_value',
+    'calculator_recovery_rate_percent',
+    'estimated_lost_orders',
+    'estimated_lost_revenue',
+    'estimated_recoverable_revenue',
+    'estimated_serviio_fee',
+  ];
+
+  for (const field of requiredFields) {
+    if (!html.includes(`name="${field}"`)) {
+      errors.push(`${page}: missing calculator lead field ${field}`);
+    }
+  }
+
+  for (const id of [
+    'calculator_missed_calls_per_week',
+    'calculator_order_rate_percent',
+    'calculator_average_order_value',
+    'calculator_recovery_rate_percent',
+    'estimated_lost_orders',
+    'estimated_lost_revenue',
+    'estimated_recoverable_revenue',
+    'estimated_serviio_fee',
+  ]) {
+    if (!html.includes(`document.getElementById('${id}')`)) {
+      errors.push(`${page}: calculator script does not update ${id}`);
+    }
+  }
+
+  return { errors };
+}
+
 function validateServiceAreaGeneration(pages) {
   const errors = [];
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -1133,6 +1177,7 @@ const keywordCoverageTooling = validateKeywordCoverageTooling();
 const searchConsoleAnalyzerWorkflow = validateSearchConsoleAnalyzerWorkflow();
 const leadScoringWorkflow = validateLeadScoringWorkflow();
 const customerProofWorkflow = validateCustomerProofWorkflow();
+const revenueCalculatorLeadCapture = validateRevenueCalculatorLeadCapture();
 const serviceAreaGeneration = validateServiceAreaGeneration(pages);
 const errors = [
   ...metadata.errors,
@@ -1154,6 +1199,7 @@ const errors = [
   ...searchConsoleAnalyzerWorkflow.errors,
   ...leadScoringWorkflow.errors,
   ...customerProofWorkflow.errors,
+  ...revenueCalculatorLeadCapture.errors,
   ...serviceAreaGeneration.errors,
 ];
 
@@ -1186,6 +1232,7 @@ console.log([
   'Search Console analyzer workflow validated',
   'lead scoring workflow validated',
   'customer proof workflow validated',
+  'revenue calculator lead capture validated',
   `${serviceAreaGeneration.serviceAreaLeadPageCount} service-area lead attribution markers validated`,
   'service-area generator lead fields validated',
   'IndexNow setup validated',

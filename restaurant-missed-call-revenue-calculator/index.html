@@ -133,8 +133,14 @@
                         <input type="hidden" name="lead_source" value="restaurant_missed_call_revenue_calculator">
                         <input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
                         <input type="hidden" name="conversion_offer" value="ai_phone_order_fit_check">
+                        <input type="hidden" id="calculator_missed_calls_per_week" name="calculator_missed_calls_per_week" value="40">
+                        <input type="hidden" id="calculator_order_rate_percent" name="calculator_order_rate_percent" value="55">
+                        <input type="hidden" id="calculator_average_order_value" name="calculator_average_order_value" value="32">
+                        <input type="hidden" id="calculator_recovery_rate_percent" name="calculator_recovery_rate_percent" value="70">
+                        <input type="hidden" id="estimated_lost_orders" name="estimated_lost_orders" value="22">
                         <input type="hidden" id="estimated_lost_revenue" name="estimated_lost_revenue" value="$704">
                         <input type="hidden" id="estimated_recoverable_revenue" name="estimated_recoverable_revenue" value="$493">
+                        <input type="hidden" id="estimated_serviio_fee" name="estimated_serviio_fee" value="$10">
                         <div><label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">Restaurant Name</label><input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Golden Dragon"></div>
                         <div><label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label><input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Owner or manager name"></div>
                         <div><label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label><input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567"></div>
@@ -179,8 +185,14 @@
         document.getElementById('lost_revenue').textContent = formatter.format(lostRevenue);
         document.getElementById('recoverable_revenue').textContent = formatter.format(recoverableRevenue);
         document.getElementById('serviio_fee').textContent = formatter.format(fee);
+        document.getElementById('calculator_missed_calls_per_week').value = String(missedCalls);
+        document.getElementById('calculator_order_rate_percent').value = String(Math.min(100, value('order_rate')));
+        document.getElementById('calculator_average_order_value').value = String(averageOrder);
+        document.getElementById('calculator_recovery_rate_percent').value = String(Math.min(100, value('recovery_rate')));
+        document.getElementById('estimated_lost_orders').value = String(Math.round(lostOrders));
         document.getElementById('estimated_lost_revenue').value = formatter.format(lostRevenue);
         document.getElementById('estimated_recoverable_revenue').value = formatter.format(recoverableRevenue);
+        document.getElementById('estimated_serviio_fee').value = formatter.format(fee);
     }
     ids.forEach((id) => document.getElementById(id).addEventListener('input', calculate));
     calculate();

@@ -25,6 +25,14 @@ const DEMO_HEADERS = [
   'conversion_offer',
   'lead_source',
   'landing_path',
+  'calculator_missed_calls_per_week',
+  'calculator_order_rate_percent',
+  'calculator_average_order_value',
+  'calculator_recovery_rate_percent',
+  'estimated_lost_orders',
+  'estimated_lost_revenue',
+  'estimated_recoverable_revenue',
+  'estimated_serviio_fee',
   'buyer_profile',
   'lead_score',
   'lead_reason',
@@ -88,13 +96,17 @@ function buildCallScript(row) {
   const pos = row.pos_system || row.pos_focus || 'their current POS';
   const volume = row.phone_orders_per_week || 'their weekly phone-order volume';
   const pain = row.main_pain || 'missed calls, manual entry, or rush-hour pressure';
+  const calculatorContext = row.estimated_recoverable_revenue
+    ? `Reference their calculator estimate: ${row.estimated_lost_orders || 'unknown'} lost weekly orders, ${row.estimated_lost_revenue || 'unknown lost revenue'}, ${row.estimated_recoverable_revenue} recoverable revenue, and ${row.estimated_serviio_fee || 'the 2% fee'} estimated Serviio fee.`
+    : '';
   return [
     `Confirm they still use ${pos} and receive ${volume} phone orders per week.`,
     `Ask where calls break today: ${pain}.`,
+    calculatorContext,
     'Confirm whether orders should flow into the POS, kitchen workflow, or SMS confirmation first.',
     'Position Serviio as AI phone ordering for POS-ready restaurants at 2% per completed order, with no monthly fee or setup cost.',
     'Close for a POS workflow review and live menu/order-taking demo.',
-  ].join(' ');
+  ].filter(Boolean).join(' ');
 }
 
 function buildDemoQueueRows(scoredRows) {
@@ -125,6 +137,14 @@ function buildDemoQueueRows(scoredRows) {
       conversion_offer: row.conversion_offer,
       lead_source: row.lead_source,
       landing_path: row.landing_path,
+      calculator_missed_calls_per_week: row.calculator_missed_calls_per_week,
+      calculator_order_rate_percent: row.calculator_order_rate_percent,
+      calculator_average_order_value: row.calculator_average_order_value,
+      calculator_recovery_rate_percent: row.calculator_recovery_rate_percent,
+      estimated_lost_orders: row.estimated_lost_orders,
+      estimated_lost_revenue: row.estimated_lost_revenue,
+      estimated_recoverable_revenue: row.estimated_recoverable_revenue,
+      estimated_serviio_fee: row.estimated_serviio_fee,
       buyer_profile: row.buyer_profile,
       lead_score: row.lead_score,
       lead_reason: row.lead_reason,
