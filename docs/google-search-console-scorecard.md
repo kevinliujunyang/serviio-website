@@ -138,6 +138,9 @@ Track these as exact query groups in Search Console exports:
 - AI phone ordering for existing POS
 - phone orders connected to restaurant POS
 - restaurant POS integration service
+- restaurant POS integration checklist
+- Chinese restaurant POS integration checklist
+- AI phone ordering POS readiness checklist
 - how to connect phone orders to POS
 - restaurant phone order automation
 - restaurant ai assistant
@@ -268,6 +271,8 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/restaurant-ai-phone-order-taker/`
 - `/restaurant-pos-phone-order-integration/`
 - `/zh/restaurant-pos-phone-order-integration/`
+- `/restaurant-pos-integration-checklist/`
+- `/zh/restaurant-pos-integration-checklist/`
 - `/chinese-restaurant-pos-integration/`
 - `/zh/chinese-restaurant-pos-integration/`
 - `/pos-integrated-ai-phone-agent/`

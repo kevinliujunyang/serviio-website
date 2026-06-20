@@ -313,6 +313,8 @@ function validateIndexNowSetup() {
     '/zh/guides/connect-phone-orders-to-pos/',
     '/best-pos-for-chinese-restaurant-phone-orders/',
     '/zh/best-pos-for-chinese-restaurant-phone-orders/',
+    '/restaurant-pos-integration-checklist/',
+    '/zh/restaurant-pos-integration-checklist/',
     '/restaurant-missed-call-revenue-calculator/',
     '/pos/mealkeyway-ai-phone-ordering/',
     '/zh/pos/mealkeyway-ai-phone-ordering/',

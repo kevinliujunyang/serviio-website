@@ -35,6 +35,8 @@ const TOP_PRIORITY_PATHS = [
   '/zh/guides/chinese-restaurant-pos-comparison/',
   '/best-pos-for-chinese-restaurant-phone-orders/',
   '/zh/best-pos-for-chinese-restaurant-phone-orders/',
+  '/restaurant-pos-integration-checklist/',
+  '/zh/restaurant-pos-integration-checklist/',
   '/restaurant-missed-call-revenue-calculator/',
   '/pos/39-miles-ai-phone-ordering/',
   '/zh/pos/39-miles-ai-phone-ordering/',
