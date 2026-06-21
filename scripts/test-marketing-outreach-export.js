@@ -200,12 +200,14 @@ assert.strictEqual(liveListingRows[0].live_url, 'https://www.producthunt.com/pro
 assert.match(liveListingRows[0].update_checklist, /Confirm the listing mentions Chinese restaurants/);
 assert.match(liveListingRows[0].update_checklist, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus/);
 assert.match(liveListingRows[0].proof_fields, /owner confirmation/);
+assert.strictEqual(liveListingRows[0].authority_media_kit_url, 'https://serviio.ai/authority-media-kit/');
+assert.strictEqual(liveListingRows[0].customer_proof_request_url, 'https://serviio.ai/customer-proof-request/');
 assert.strictEqual(liveListingRows[0].action_status, '');
 assert.strictEqual(liveListingRows[0].evidence_url, '');
 assert.strictEqual(liveListingRows[0].completed_date, '');
 assert.match(liveListingRows[0].tracker_command, /--target "Product Hunt Serviio listing" --status "live" --date 2026-06-21/);
 const liveListingCsv = liveListingToCsv(liveListingRows);
-assert.match(liveListingCsv, /action_type,priority,channel,target,live_url/);
+assert.match(liveListingCsv, /action_type,priority,channel,target,live_url,website_url,tagline,categories,logo_url,cover_image_url,authority_media_kit_url,customer_proof_request_url/);
 assert.match(liveListingCsv, /action_status,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,confirmation_note,completed_date/);
 assert.match(liveListingCsv, /AI phone ordering for restaurants using POS systems/);
 assert.match(liveListingCsv, /assets\/og-image\.png/);

@@ -874,6 +874,18 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('docs/live-listing-optimization.csv')) {
     errors.push('docs/live-listing-optimization.csv: missing live listing optimization CSV');
+  } else {
+    const liveListingOptimization = fs.readFileSync('docs/live-listing-optimization.csv', 'utf8');
+    for (const required of [
+      'authority_media_kit_url',
+      'customer_proof_request_url',
+      'https://serviio.ai/authority-media-kit/',
+      'https://serviio.ai/customer-proof-request/',
+    ]) {
+      if (!liveListingOptimization.includes(required)) {
+        errors.push(`docs/live-listing-optimization.csv: missing ${required}`);
+      }
+    }
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {

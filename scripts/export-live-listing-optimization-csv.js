@@ -12,6 +12,8 @@ const {
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/live-listing-optimization.csv';
 const DEFAULT_LIMIT = 10;
+const AUTHORITY_MEDIA_KIT_URL = 'https://serviio.ai/authority-media-kit/';
+const CUSTOMER_PROOF_REQUEST_URL = 'https://serviio.ai/customer-proof-request/';
 const HEADERS = [
   'action_type',
   'priority',
@@ -23,6 +25,8 @@ const HEADERS = [
   'categories',
   'logo_url',
   'cover_image_url',
+  'authority_media_kit_url',
+  'customer_proof_request_url',
   'description',
   'update_checklist',
   'proof_fields',
@@ -108,6 +112,8 @@ function productHuntFields(row, today) {
     categories: 'AI agents; Voice AI; Restaurant technology; Food and beverage',
     logo_url: 'https://serviio.ai/assets/logo.svg',
     cover_image_url: 'https://serviio.ai/assets/og-image.png',
+    authority_media_kit_url: AUTHORITY_MEDIA_KIT_URL,
+    customer_proof_request_url: CUSTOMER_PROOF_REQUEST_URL,
     description: 'Serviio answers restaurant phone calls 24/7, takes phone orders in natural conversation, supports English and Chinese, and helps POS-ready restaurants route orders toward kitchen workflows.',
     update_checklist: 'Claim or verify owner access. Update tagline, categories, website URL, logo, cover image, and description. Confirm the listing mentions Chinese restaurants, 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and POS-ready phone orders.',
     proof_fields: 'Record account or owner confirmation, updated listing screenshot, and the live Product Hunt URL before treating the optimization as complete.',
@@ -137,6 +143,8 @@ function genericLiveListingFields(row, today) {
     categories: row.channel,
     logo_url: 'https://serviio.ai/assets/logo.svg',
     cover_image_url: 'https://serviio.ai/assets/og-image.png',
+    authority_media_kit_url: AUTHORITY_MEDIA_KIT_URL,
+    customer_proof_request_url: CUSTOMER_PROOF_REQUEST_URL,
     description: 'Serviio answers restaurant phone calls, captures takeout orders, and qualifies POS-ready restaurant workflows.',
     update_checklist: 'Claim or update the live listing, strengthen restaurant AI phone ordering and POS integration copy, then record owner/account confirmation or updated screenshot.',
     proof_fields: 'Record updated listing screenshot, account or owner confirmation, and the live URL that changed.',
