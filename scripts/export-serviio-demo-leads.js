@@ -93,6 +93,10 @@ function routeRank(route) {
   return { call_now: 0, demo_queue: 1 }[route] ?? 9;
 }
 
+function isCustomerProofSubmission(row) {
+  return /customer[_\s-]?proof/i.test(`${row.conversion_offer || ''} ${row.lead_source || ''} ${row.landing_path || ''}`);
+}
+
 function buildCallScript(row) {
   const pos = row.pos_system || row.pos_focus || 'their current POS';
   const volume = row.phone_orders_per_week || 'their weekly phone-order volume';
@@ -113,6 +117,7 @@ function buildCallScript(row) {
 function buildDemoQueueRows(scoredRows) {
   return scoredRows
     .filter((row) =>
+      !isCustomerProofSubmission(row) &&
       row.serviio_fit_status === 'serviio_demo_fit' &&
       ['call_now', 'demo_queue'].includes(row.lead_route)
     )

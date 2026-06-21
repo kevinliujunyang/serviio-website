@@ -162,6 +162,14 @@ npm run leads:customer-proof -- path/to/formspree-export.csv --out customer-proo
 
 This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `proof_usage_plan`, `permission_next_step`, `authority_tracker_target=Pilot restaurant testimonial`, `authority_tracker_note`, and `authority_tracker_command_template` so customer proof can become evidence in the authority tracker instead of staying as an untracked private quote.
 
+To export submitted customer proof into tracker-ready authority evidence:
+
+```bash
+npm run leads:customer-proof:evidence -- path/to/formspree-export.csv --out customer-proof-evidence.csv
+```
+
+This writes publishable customer-proof submissions from `conversion_offer=customer_proof_request` into evidence rows for `authority_tracker_target=Pilot restaurant testimonial`. The output includes quote permission, city, restaurant type, POS system, phone-order pain, `evidence_note`, and a `tracker_command`. The sample command is `npm run leads:sample:customer-proof:evidence`, which writes `docs/sample-customer-proof-evidence.csv`.
+
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
 Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `authority_opportunity`, and `partner_authority_opportunity`. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.

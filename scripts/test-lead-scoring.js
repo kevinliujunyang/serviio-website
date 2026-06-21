@@ -16,6 +16,11 @@ const {
   toCsv: customerProofToCsv,
 } = require('./export-customer-proof-followups');
 const {
+  buildCustomerProofEvidenceRows,
+  parseArgs: parseCustomerProofEvidenceArgs,
+  toCsv: customerProofEvidenceToCsv,
+} = require('./export-customer-proof-evidence');
+const {
   buildPartnerPipelineRows,
   parseArgs: parsePartnerPipelineExportArgs,
   toCsv: partnerPipelineToCsv,
@@ -603,6 +608,31 @@ assert.match(customerProofCsv, /authority_tracker_command_template/);
 assert.match(customerProofCsv, /Pilot restaurant testimonial/);
 assert.doesNotMatch(customerProofCsv, /New Noodle Shop/);
 
+const proofEvidenceRecords = recordsFromCsv(`restaurant,name,email,phone,restaurant_city,restaurant_state,restaurant_type,pos_system,phone_orders_per_week,main_pain,conversion_offer,quote,proof_permission,lead_source,landing_page
+San Jose Wok,Owner,proof@example.com,(408) 555-0188,San Jose,CA,Chinese takeout,MenuSifu,150+,Missed calls during rush,customer_proof_request,"Serviio helped us answer more dinner-rush calls while staff packed pickup orders.","Public anonymous quote",customer_proof_request,https://serviio.ai/customer-proof-request/
+Internal Only Wok,Manager,internal@example.com,(408) 555-0199,San Jose,CA,Chinese restaurant,Square,25-75,Bilingual calls,customer_proof_request,"Useful for internal sales reference only.","Internal reference only",customer_proof_request,https://serviio.ai/customer-proof-request/
+Demo Lead,Owner,demo@example.com,(408) 555-0111,San Jose,CA,Chinese takeout,Toast,76-150,Manual POS entry,pos_readiness_checklist,"Not proof yet.","Public quote with restaurant name",general_contact,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/
+`);
+const proofEvidenceRows = buildCustomerProofEvidenceRows(proofEvidenceRecords);
+assert.deepStrictEqual(proofEvidenceRows.map((row) => row.restaurant_name), ['San Jose Wok']);
+assert.strictEqual(proofEvidenceRows[0].authority_tracker_target, 'Pilot restaurant testimonial');
+assert.strictEqual(proofEvidenceRows[0].proof_permission, 'Public anonymous quote');
+assert.match(proofEvidenceRows[0].evidence_note, /San Jose Wok/);
+assert.match(proofEvidenceRows[0].evidence_note, /MenuSifu/);
+assert.match(proofEvidenceRows[0].evidence_note, /Missed calls during rush/);
+assert.match(proofEvidenceRows[0].tracker_command, /--target "Pilot restaurant testimonial" --status submitted/);
+assert.match(proofEvidenceRows[0].tracker_command, /customer proof received/i);
+const proofEvidenceCsv = customerProofEvidenceToCsv(proofEvidenceRows);
+assert.match(proofEvidenceCsv, /evidence_priority,restaurant_name,restaurant_city/);
+assert.match(proofEvidenceCsv, /authority_tracker_target/);
+assert.match(proofEvidenceCsv, /tracker_command/);
+assert.doesNotMatch(proofEvidenceCsv, /Internal Only Wok/);
+assert.deepStrictEqual(parseCustomerProofEvidenceArgs(['formspree.csv', '--out', 'proof-evidence.csv']), {
+  input: 'formspree.csv',
+  out: 'proof-evidence.csv',
+  summaryOnly: false,
+});
+
 const partnerPipelineRows = buildPartnerPipelineRows([
   highPriority,
   noPosReferral,
@@ -710,7 +740,7 @@ assert.deepStrictEqual(parseLeadPagePerformanceArgs(['formspree.csv', '--summary
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
-assert.strictEqual(sampleScoredRows.length, 6);
+assert.strictEqual(sampleScoredRows.length, 7);
 assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
   'Boston Wok',
@@ -724,6 +754,9 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
   'Golden Dragon Chinese Restaurant',
   'Boston Wok',
   'Business Profile MenuSifu Wok',
+]);
+assert.deepStrictEqual(buildCustomerProofEvidenceRows(sampleLeadRecords).map((row) => row.restaurant_name), [
+  'San Jose Wok Proof',
 ]);
 assert.deepStrictEqual(buildPartnerPipelineRows(sampleScoredRows).map((row) => row.partner_name), [
   'Restaurant Tech Partner',

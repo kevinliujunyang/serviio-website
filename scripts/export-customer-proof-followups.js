@@ -89,6 +89,10 @@ function proofPriority(row) {
   return 'P2';
 }
 
+function isCustomerProofSubmission(row) {
+  return /customer[_\s-]?proof/i.test(`${row.conversion_offer || ''} ${row.lead_source || ''} ${row.landing_path || ''}`);
+}
+
 function proofAngle(row) {
   const parts = [];
   if (row.restaurant_city && row.restaurant_state) parts.push(`${row.restaurant_city}, ${row.restaurant_state}`);
@@ -131,6 +135,7 @@ function authorityTrackerCommandTemplate(row) {
 function buildCustomerProofRows(scoredRows) {
   return scoredRows
     .filter((row) =>
+      !isCustomerProofSubmission(row) &&
       row.serviio_fit_status === 'serviio_demo_fit' &&
       ['call_now', 'demo_queue'].includes(row.lead_route)
     )

@@ -1088,6 +1088,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:customer-proof'] !== 'node scripts/export-customer-proof-followups.js') {
     errors.push('package.json: missing leads:customer-proof script');
   }
+  if (packageJson.scripts?.['leads:customer-proof:evidence'] !== 'node scripts/export-customer-proof-evidence.js') {
+    errors.push('package.json: missing leads:customer-proof:evidence script');
+  }
   if (packageJson.scripts?.['leads:page-performance'] !== 'node scripts/export-lead-page-performance.js') {
     errors.push('package.json: missing leads:page-performance script');
   }
@@ -1106,6 +1109,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:sample:customer-proof'] !== 'node scripts/export-customer-proof-followups.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-followups.csv') {
     errors.push('package.json: missing leads:sample:customer-proof script');
   }
+  if (packageJson.scripts?.['leads:sample:customer-proof:evidence'] !== 'node scripts/export-customer-proof-evidence.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-evidence.csv') {
+    errors.push('package.json: missing leads:sample:customer-proof:evidence script');
+  }
   if (packageJson.scripts?.['leads:sample:page-performance'] !== 'node scripts/export-lead-page-performance.js docs/sample-formspree-leads.csv --out docs/sample-lead-page-performance.csv') {
     errors.push('package.json: missing leads:sample:page-performance script');
   }
@@ -1120,6 +1126,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!fs.existsSync('scripts/export-customer-proof-followups.js')) {
     errors.push('scripts/export-customer-proof-followups.js: missing customer proof follow-up export');
+  }
+  if (!fs.existsSync('scripts/export-customer-proof-evidence.js')) {
+    errors.push('scripts/export-customer-proof-evidence.js: missing customer proof evidence export');
   }
   if (!fs.existsSync('scripts/export-lead-page-performance.js')) {
     errors.push('scripts/export-lead-page-performance.js: missing lead page performance export');
@@ -1153,6 +1162,9 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('buildCustomerProofRows') || !test.includes('export-customer-proof-followups')) {
     errors.push('scripts/test-lead-scoring.js: missing customer proof follow-up export coverage');
   }
+  if (!test.includes('buildCustomerProofEvidenceRows') || !test.includes('export-customer-proof-evidence')) {
+    errors.push('scripts/test-lead-scoring.js: missing customer proof evidence export coverage');
+  }
   if (!test.includes('buildPartnerPipelineRows') || !test.includes('export-partner-pipeline-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing partner pipeline export coverage');
   }
@@ -1164,6 +1176,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('npm run leads:customer-proof') || !runbook.includes('authority_tracker_target=Pilot restaurant testimonial')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof lead workflow');
+  }
+  if (!runbook.includes('npm run leads:customer-proof:evidence') || !runbook.includes('docs/sample-customer-proof-evidence.csv')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing inbound customer proof evidence workflow');
   }
   if (
     !runbook.includes('npm run leads:partner-pipeline') ||
@@ -1199,6 +1214,7 @@ function validateLeadScoringWorkflow() {
     'docs/sample-pos-partner-leads.csv',
     'docs/sample-partner-pipeline-leads.csv',
     'docs/sample-customer-proof-followups.csv',
+    'docs/sample-customer-proof-evidence.csv',
     'docs/sample-lead-page-performance.csv',
   ]) {
     if (!fs.existsSync(file)) {
