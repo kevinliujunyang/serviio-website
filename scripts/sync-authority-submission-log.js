@@ -273,7 +273,13 @@ function main() {
 
   const logRows = parseCsv(fs.readFileSync(args.log, 'utf8'));
   if (args.preflight) {
-    process.stdout.write(renderEvidencePreflightReport(buildEvidencePreflightRows(logRows)));
+    const report = renderEvidencePreflightReport(buildEvidencePreflightRows(logRows));
+    if (args.out && args.out !== DEFAULT_TRACKER) {
+      fs.writeFileSync(path.resolve(args.out), report);
+      console.log(`Wrote authority evidence preflight to ${path.resolve(args.out)}`);
+    } else {
+      process.stdout.write(report);
+    }
     return;
   }
 

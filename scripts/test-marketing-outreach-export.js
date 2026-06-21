@@ -83,6 +83,10 @@ assert.strictEqual(
   packageJson.scripts['marketing:submission-preflight:first-hour'],
   'node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv',
 );
+assert.strictEqual(
+  packageJson.scripts['marketing:submission-preflight:first-hour:export'],
+  'node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv --out docs/authority-evidence-preflight.md',
+);
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
 P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,not_started,,,,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,Use POS-specific partner path.
@@ -681,6 +685,15 @@ assert.deepStrictEqual(parseSubmissionSyncArgs(['--preflight', '--log', 'docs/au
   log: 'docs/authority-first-hour-submission-log.csv',
   tracker: 'docs/free-search-marketing-tracker.csv',
   out: 'docs/free-search-marketing-tracker.csv',
+  today: parseSubmissionSyncArgs([]).today,
+  apply: false,
+  preflight: true,
+  help: false,
+});
+assert.deepStrictEqual(parseSubmissionSyncArgs(['--preflight', '--log', 'docs/authority-first-hour-submission-log.csv', '--out', 'docs/authority-evidence-preflight.md']), {
+  log: 'docs/authority-first-hour-submission-log.csv',
+  tracker: 'docs/free-search-marketing-tracker.csv',
+  out: 'docs/authority-evidence-preflight.md',
   today: parseSubmissionSyncArgs([]).today,
   apply: false,
   preflight: true,

@@ -174,6 +174,14 @@ npm run marketing:submission-preflight:first-hour
 
 This prints the exact missing evidence fields for the four priority rows. Rows are not ready to sync until `action_status`, `submitted_date`, confirmation evidence, and `follow_up_date` are filled; live rows also need a live URL and `live_date`.
 
+To save the same first-hour proof checklist as a Markdown artifact:
+
+```bash
+npm run marketing:submission-preflight:first-hour:export
+```
+
+This writes `docs/authority-evidence-preflight.md`. Use that file as the shareable worksheet for the first-hour authority block before applying any tracker updates.
+
 After filling the submission log, preview which rows can be safely synced back into the tracker:
 
 ```bash
