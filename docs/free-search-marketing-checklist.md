@@ -370,6 +370,7 @@ Good early signs:
 - Search Console impressions appear for target query clusters.
 - Referral sessions show `utm_campaign=free_search_marketing`.
 - Formspree leads include `landing_page`, `first_utm_source`, `current_page`, email, phone, POS system, city/state, and phone-order volume.
+- `npm run leads:page-performance -- path/to/formspree-export.csv --out lead-page-performance.csv` shows which landing pages are producing demo-fit leads, POS referral leads, partner pipeline leads, and authority opportunities.
 - Partner or directory traffic produces POS-ready Chinese restaurant leads.
 
 Do not count a listing as successful until it is live and the URL is recorded.

@@ -1054,6 +1054,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:customer-proof'] !== 'node scripts/export-customer-proof-followups.js') {
     errors.push('package.json: missing leads:customer-proof script');
   }
+  if (packageJson.scripts?.['leads:page-performance'] !== 'node scripts/export-lead-page-performance.js') {
+    errors.push('package.json: missing leads:page-performance script');
+  }
   if (packageJson.scripts?.['leads:sample:score'] !== 'node scripts/score-formspree-leads.js docs/sample-formspree-leads.csv --out docs/sample-scored-leads.csv') {
     errors.push('package.json: missing leads:sample:score script');
   }
@@ -1069,6 +1072,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:sample:customer-proof'] !== 'node scripts/export-customer-proof-followups.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-followups.csv') {
     errors.push('package.json: missing leads:sample:customer-proof script');
   }
+  if (packageJson.scripts?.['leads:sample:page-performance'] !== 'node scripts/export-lead-page-performance.js docs/sample-formspree-leads.csv --out docs/sample-lead-page-performance.csv') {
+    errors.push('package.json: missing leads:sample:page-performance script');
+  }
   if (!fs.existsSync('scripts/export-serviio-demo-leads.js')) {
     errors.push('scripts/export-serviio-demo-leads.js: missing Serviio demo queue export');
   }
@@ -1080,6 +1086,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!fs.existsSync('scripts/export-customer-proof-followups.js')) {
     errors.push('scripts/export-customer-proof-followups.js: missing customer proof follow-up export');
+  }
+  if (!fs.existsSync('scripts/export-lead-page-performance.js')) {
+    errors.push('scripts/export-lead-page-performance.js: missing lead page performance export');
   }
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
@@ -1113,6 +1122,9 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('buildPartnerPipelineRows') || !test.includes('export-partner-pipeline-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing partner pipeline export coverage');
   }
+  if (!test.includes('buildLeadPagePerformanceRows') || !test.includes('export-lead-page-performance')) {
+    errors.push('scripts/test-lead-scoring.js: missing lead page performance export coverage');
+  }
   if (!runbook.includes('npm run leads:demo-queue')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Serviio demo queue workflow');
   }
@@ -1125,6 +1137,13 @@ function validateLeadScoringWorkflow() {
     !runbook.includes('authority_next_step')
   ) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing partner pipeline lead workflow');
+  }
+  if (
+    !runbook.includes('npm run leads:page-performance') ||
+    !runbook.includes('demo_fit_leads') ||
+    !runbook.includes('pos_referral_leads')
+  ) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing lead page performance workflow');
   }
   if (
     !runbook.includes('calculator_missed_calls_per_week') ||
@@ -1146,6 +1165,7 @@ function validateLeadScoringWorkflow() {
     'docs/sample-pos-partner-leads.csv',
     'docs/sample-partner-pipeline-leads.csv',
     'docs/sample-customer-proof-followups.csv',
+    'docs/sample-lead-page-performance.csv',
   ]) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing lead scoring sample workflow file`);

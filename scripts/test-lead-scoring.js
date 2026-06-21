@@ -21,6 +21,11 @@ const {
   toCsv: partnerPipelineToCsv,
 } = require('./export-partner-pipeline-leads');
 const {
+  buildLeadPagePerformanceRows,
+  parseArgs: parseLeadPagePerformanceArgs,
+  toCsv: leadPagePerformanceToCsv,
+} = require('./export-lead-page-performance');
+const {
   classifyPainSignal,
   classifyPhoneVolume,
   classifyLeadAcquisitionChannel,
@@ -622,6 +627,36 @@ assert.match(partnerPipelineCsv, /authority_next_step/);
 assert.match(partnerPipelineCsv, /authority_tracker_command_template/);
 assert.match(partnerPipelineCsv, /Restaurant Tech Partner/);
 assert.doesNotMatch(partnerPipelineCsv, /New Noodle Shop/);
+
+const leadPagePerformanceRows = buildLeadPagePerformanceRows([
+  highPriority,
+  calculatorDemoLead,
+  calculatorNoPosReferral,
+  partnerInquiry,
+  noPosReferral,
+  ambiguousPos,
+]);
+assert.deepStrictEqual(leadPagePerformanceRows.map((row) => row.landing_path), [
+  '/chinese-restaurant-pos-ai-phone-agent/',
+  '/restaurant-missed-call-revenue-calculator/',
+  '/restaurant-pos-partner-referral/',
+]);
+const calculatorPerformanceRow = leadPagePerformanceRows.find((row) => row.landing_path === '/restaurant-missed-call-revenue-calculator/');
+assert.strictEqual(calculatorPerformanceRow.total_leads, 2);
+assert.strictEqual(calculatorPerformanceRow.demo_fit_leads, 1);
+assert.strictEqual(calculatorPerformanceRow.pos_referral_leads, 1);
+assert.strictEqual(calculatorPerformanceRow.estimated_recoverable_revenue_total, '$986');
+assert.strictEqual(calculatorPerformanceRow.estimated_serviio_fee_total, '$20');
+assert.match(calculatorPerformanceRow.next_action, /Protect this page/);
+const partnerPerformanceRow = leadPagePerformanceRows.find((row) => row.landing_path === '/restaurant-pos-partner-referral/');
+assert.strictEqual(partnerPerformanceRow.partner_pipeline_leads, 1);
+assert.strictEqual(partnerPerformanceRow.authority_opportunity_leads, 1);
+assert.match(partnerPerformanceRow.next_action, /partner follow-up/);
+const leadPagePerformanceCsv = leadPagePerformanceToCsv(leadPagePerformanceRows);
+assert.match(leadPagePerformanceCsv, /landing_path,total_leads,high_priority_leads/);
+assert.match(leadPagePerformanceCsv, /restaurant-missed-call-revenue-calculator/);
+assert.match(leadPagePerformanceCsv, /\$986/);
+assert.match(leadPagePerformanceCsv, /partner follow-up/);
 assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
   input: 'formspree.csv',
   out: 'demo-leads.csv',
@@ -662,6 +697,16 @@ assert.deepStrictEqual(parsePartnerPipelineExportArgs(['formspree.csv', '--summa
   out: '',
   summaryOnly: true,
 });
+assert.deepStrictEqual(parseLeadPagePerformanceArgs(['formspree.csv', '--out', 'page-performance.csv']), {
+  input: 'formspree.csv',
+  out: 'page-performance.csv',
+  summaryOnly: false,
+});
+assert.deepStrictEqual(parseLeadPagePerformanceArgs(['formspree.csv', '--summary-only']), {
+  input: 'formspree.csv',
+  out: '',
+  summaryOnly: true,
+});
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
@@ -683,6 +728,10 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
 assert.deepStrictEqual(buildPartnerPipelineRows(sampleScoredRows).map((row) => row.partner_name), [
   'Restaurant Tech Partner',
 ]);
+assert.ok(buildLeadPagePerformanceRows(sampleScoredRows).some((row) =>
+  row.landing_path === '/pos/menusifu-ai-phone-ordering/' &&
+  row.demo_fit_leads === 1
+));
 const samplePartnerLead = sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner');
 assert.strictEqual(samplePartnerLead.lead_route, 'partner_pipeline');
 assert.strictEqual(samplePartnerLead.partner_authority_opportunity, 'yes');
@@ -711,5 +760,7 @@ assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').in
 assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-partner-pipeline-leads.csv', 'utf8').includes('authority_tracker_command_template'));
 assert.ok(fs.readFileSync('docs/sample-partner-pipeline-leads.csv', 'utf8').includes('Restaurant Tech Partner'));
+assert.ok(fs.readFileSync('docs/sample-lead-page-performance.csv', 'utf8').includes('landing_path,total_leads'));
+assert.ok(fs.readFileSync('docs/sample-lead-page-performance.csv', 'utf8').includes('/pos/menusifu-ai-phone-ordering/'));
 
 console.log('Lead scoring tests passed');

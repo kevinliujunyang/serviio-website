@@ -192,6 +192,14 @@ npm run leads:customer-proof -- path/to/formspree-export.csv --summary-only
 
 The lead-scoring summary prints acquisition-channel counts. Use those counts to compare whether business profiles, directories, partner referrals, calculators, community posts, or SEO landing pages are producing POS-ready demo leads versus no-POS partner-referral leads.
 
+To group scored leads by SEO landing page and see which pages produce qualified leads:
+
+```bash
+npm run leads:page-performance -- path/to/formspree-export.csv --out lead-page-performance.csv
+```
+
+Use this after each Formspree export. The CSV shows `demo_fit_leads`, `pos_referral_leads`, `partner_pipeline_leads`, `authority_opportunity_leads`, calculator revenue estimates, and a `next_action` for each landing page. Protect pages that create both Serviio demo leads and POS referral leads, and prioritize Search Console CTR/title work on pages that already produce high-priority leads.
+
 Before processing a new export format, run the scorer regression check:
 
 ```bash
@@ -204,10 +212,12 @@ To preview the complete routing workflow without real Formspree data, regenerate
 npm run leads:sample:score
 npm run leads:sample:demo
 npm run leads:sample:pos-partners
+npm run leads:sample:partner-pipeline
 npm run leads:sample:customer-proof
+npm run leads:sample:page-performance
 ```
 
-The fixture at `docs/sample-formspree-leads.csv` includes POS-ready demo leads, no-POS POS-referral leads, and a partner/referral inquiry. The generated sample CSVs make it easy to verify that the split is working before processing live leads, including customer-proof follow-ups for POS-ready demo leads.
+The fixture at `docs/sample-formspree-leads.csv` includes POS-ready demo leads, no-POS POS-referral leads, and a partner/referral inquiry. The generated sample CSVs make it easy to verify that the split is working before processing live leads, including customer-proof follow-ups for POS-ready demo leads and page-level lead quality reporting.
 
 Call high-priority leads first. The script writes routing, fit, and contact columns before the original Formspree columns:
 - `lead_priority`
