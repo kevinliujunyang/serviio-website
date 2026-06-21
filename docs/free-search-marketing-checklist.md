@@ -106,6 +106,22 @@ npm run marketing:profile-execution:export
 
 This writes `docs/business-profile-execution-queue.csv` with the ordered profile work: core Google profile first, priority 39 Miles and MenuSifu product/service cards, profile posts, then Bing and Apple mirror/setup rows. Use it during the manual profile block and keep `docs/business-profile-evidence-log.csv` as the evidence capture sheet.
 
+Before syncing profile evidence into the authority tracker, run the business profile preflight:
+
+```bash
+npm run marketing:profile-evidence-preflight
+```
+
+This checks only the `profile_core` rows for Google Business Profile, Bing Places, and Apple Business Connect. Product cards and posts stay as supporting evidence, but they do not independently mark a business profile authority target as submitted or live.
+
+After a real profile has `submitted_date`, confirmation evidence, and either `follow_up_date` or a live `evidence_url` plus `live_date`, sync the evidence into the tracker:
+
+```bash
+npm run marketing:profile-evidence-sync -- --apply
+```
+
+This updates `docs/free-search-marketing-tracker.csv` from `docs/business-profile-evidence-log.csv` and projects the authority-score change before applying. Do not sync blank, sample, draft, or product-card-only profile evidence.
+
 For the customer-proof milestone, send early pilots or customers to:
 
 ```text

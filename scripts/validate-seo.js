@@ -747,6 +747,12 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:profile-execution:export'] !== 'node scripts/export-business-profile-execution-queue.js --out docs/business-profile-execution-queue.csv') {
     errors.push('package.json: missing marketing:profile-execution:export script');
   }
+  if (packageJson.scripts?.['marketing:profile-evidence-sync'] !== 'node scripts/sync-business-profile-evidence-log.js') {
+    errors.push('package.json: missing marketing:profile-evidence-sync script');
+  }
+  if (packageJson.scripts?.['marketing:profile-evidence-preflight'] !== 'node scripts/sync-business-profile-evidence-log.js --preflight') {
+    errors.push('package.json: missing marketing:profile-evidence-preflight script');
+  }
   if (packageJson.scripts?.['marketing:directories'] !== 'node scripts/export-directory-submission-pack.js') {
     errors.push('package.json: missing marketing:directories script');
   }
@@ -789,6 +795,9 @@ function validateFreeSearchTracker() {
   if (!fs.existsSync('scripts/sync-authority-submission-log.js')) {
     errors.push('scripts/sync-authority-submission-log.js: missing authority submission log sync');
   }
+  if (!fs.existsSync('scripts/sync-business-profile-evidence-log.js')) {
+    errors.push('scripts/sync-business-profile-evidence-log.js: missing business profile evidence sync');
+  }
   if (!fs.existsSync('scripts/export-weekly-authority-sprint.js')) {
     errors.push('scripts/export-weekly-authority-sprint.js: missing weekly authority sprint export');
   }
@@ -820,6 +829,9 @@ function validateFreeSearchTracker() {
   if (!checklist.includes('npm run marketing:profile-execution:export') || !checklist.includes('docs/business-profile-execution-queue.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:profile-execution:export workflow');
   }
+  if (!checklist.includes('npm run marketing:profile-evidence-preflight') || !checklist.includes('npm run marketing:profile-evidence-sync')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing business profile evidence sync workflow');
+  }
   if (!checklist.includes('npm run marketing:directories')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:directories workflow');
   }
@@ -849,6 +861,9 @@ function validateFreeSearchTracker() {
   }
   if (!marketingTest.includes('Unverified AI Directory') || !marketingTest.includes('Evidence Issues')) {
     errors.push('scripts/test-marketing-outreach-export.js: missing authority evidence regression coverage');
+  }
+  if (!marketingTest.includes('buildProfileEvidencePreflightRows') || !marketingTest.includes('sync-business-profile-evidence-log')) {
+    errors.push('scripts/test-marketing-outreach-export.js: missing business profile evidence sync coverage');
   }
   if (!checklist.includes('owner`, `date_submitted`') || !checklist.includes('date_live')) {
     errors.push('docs/free-search-marketing-checklist.md: missing authority evidence requirements');

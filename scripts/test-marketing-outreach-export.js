@@ -88,6 +88,14 @@ const {
   renderReport: renderSubmissionSyncReport,
 } = require('./sync-authority-submission-log');
 const {
+  applyActions: applyProfileEvidenceActions,
+  buildProfileEvidencePreflightRows,
+  buildSyncActions: buildProfileEvidenceSyncActions,
+  parseArgs: parseProfileEvidenceSyncArgs,
+  renderPreflightReport: renderProfileEvidencePreflightReport,
+  renderReport: renderProfileEvidenceSyncReport,
+} = require('./sync-business-profile-evidence-log');
+const {
   parseArgs: parseTrackerGeneratorArgs,
 } = require('./generate-free-search-tracker');
 
@@ -111,6 +119,14 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:profile-execution:export'],
   'node scripts/export-business-profile-execution-queue.js --out docs/business-profile-execution-queue.csv',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:profile-evidence-sync'],
+  'node scripts/sync-business-profile-evidence-log.js',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:profile-evidence-preflight'],
+  'node scripts/sync-business-profile-evidence-log.js --preflight',
 );
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
@@ -836,6 +852,69 @@ assert.match(syncedTracker, /MenuSifu restaurant consultants,https:\/\/forms\.me
 assert.match(syncedTracker, /Restaurant POS directory,https:\/\/directory\.example\.com\/serviio,live,Serviio,2026-06-06,2026-06-07/);
 assert.match(syncedTracker, /Incomplete Directory,https:\/\/ai\.example\.com,not_started/);
 assert.match(syncedTracker, /Missing Follow Up,https:\/\/ai\.example\.com,not_started/);
+const businessProfileEvidenceRowsForSync = parseCsv(`profile_item_type,profile_platform,item_name,destination_url,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,submitted_date,live_date,follow_up_date
+profile_core,Google Business Profile,Serviio profile,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,https://maps.google.com/?cid=serviio,info@serviio.ai,Verified Google dashboard screenshot,2026-06-10,2026-06-11,
+product_card,Google Business Profile,39 Miles AI phone ordering,https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing,https://maps.google.com/?cid=serviio-products,info@serviio.ai,Product card screenshot,2026-06-10,2026-06-11,
+profile_core,Bing Places for Business,Serviio profile,https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing,,info@serviio.ai,Bing dashboard submitted screenshot,2026-06-12,,2026-06-19
+profile_core,Apple Business Connect,Serviio profile,https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing,,,Apple draft only,,,
+`);
+const profileEvidenceActions = buildProfileEvidenceSyncActions(businessProfileEvidenceRowsForSync, { today: '2026-06-12' });
+assert.deepStrictEqual(profileEvidenceActions.map((action) => `${action.status}:${action.target}:${action.issues.length}`), [
+  'live:Google Business Profile:0',
+  'submitted:Bing Places for Business:0',
+  'submitted:Apple Business Connect:2',
+]);
+assert.strictEqual(profileEvidenceActions[0].updateArgs.url, 'https://maps.google.com/?cid=serviio');
+assert.match(profileEvidenceActions[0].updateArgs.note, /Business profile evidence: Serviio profile/);
+assert.match(profileEvidenceActions[0].updateArgs.note, /Verified Google dashboard screenshot/);
+assert.match(profileEvidenceActions[1].updateArgs.note, /Follow up: 2026-06-19/);
+assert.deepStrictEqual(profileEvidenceActions[2].issues, [
+  'missing submitted_date',
+  'missing follow_up_date',
+]);
+const profilePreflightRows = buildProfileEvidencePreflightRows(businessProfileEvidenceRowsForSync);
+assert.deepStrictEqual(profilePreflightRows.map((row) => `${row.profile_platform}:${row.ready_for_sync}`), [
+  'Google Business Profile:true',
+  'Bing Places for Business:true',
+  'Apple Business Connect:false',
+]);
+const profilePreflightReport = renderProfileEvidencePreflightReport(profilePreflightRows);
+assert.match(profilePreflightReport, /# Business Profile Evidence Preflight/);
+assert.match(profilePreflightReport, /Rows ready for sync: 2/);
+assert.match(profilePreflightReport, /Apple Business Connect: set `submitted_date`, `follow_up_date`/);
+const profileSyncTracker = `priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
+P0,Business profile,Google Business Profile,https://www.google.com/business/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Profile setup.
+P0,Business profile,Bing Places for Business,https://www.bingplaces.com/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone answering,Mirror Google listing details.
+P0,Business profile,Apple Business Connect,https://businessconnect.apple.com/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Add action link.
+`;
+const profileSyncReport = renderProfileEvidenceSyncReport(profileEvidenceActions, { trackerText: profileSyncTracker });
+assert.match(profileSyncReport, /# Business Profile Evidence Sync/);
+assert.match(profileSyncReport, /Valid updates: 2/);
+assert.match(profileSyncReport, /Rows with issues: 1/);
+assert.match(profileSyncReport, /Projected business profiles started: 2 \(was 0, \+2\)/);
+assert.match(profileSyncReport, /Projected live authority rows: 1 \(was 0, \+1\)/);
+const syncedProfileTracker = applyProfileEvidenceActions(profileSyncTracker, profileEvidenceActions);
+assert.match(syncedProfileTracker, /Google Business Profile,https:\/\/maps\.google\.com\/\?cid=serviio,live,Serviio,2026-06-10,2026-06-11/);
+assert.match(syncedProfileTracker, /Bing Places for Business,https:\/\/www\.bingplaces\.com\/,submitted,Serviio,2026-06-12,/);
+assert.match(syncedProfileTracker, /Apple Business Connect,https:\/\/businessconnect\.apple\.com\/,not_started/);
+assert.deepStrictEqual(parseProfileEvidenceSyncArgs(['--apply', '--evidence-log', 'profile.csv', '--tracker', 'tracker.csv', '--out', 'out.csv', '--today', '2026-06-12']), {
+  evidenceLog: 'profile.csv',
+  tracker: 'tracker.csv',
+  out: 'out.csv',
+  today: '2026-06-12',
+  apply: true,
+  preflight: false,
+  help: false,
+});
+assert.deepStrictEqual(parseProfileEvidenceSyncArgs(['--preflight']), {
+  evidenceLog: 'docs/business-profile-evidence-log.csv',
+  tracker: 'docs/free-search-marketing-tracker.csv',
+  out: 'docs/free-search-marketing-tracker.csv',
+  today: parseProfileEvidenceSyncArgs([]).today,
+  apply: false,
+  preflight: true,
+  help: false,
+});
 assert.deepStrictEqual(parseSubmissionSyncArgs(['--apply', '--today', '2026-06-10', '--log', 'log.csv', '--tracker', 'tracker.csv', '--out', 'out.csv']), {
   log: 'log.csv',
   tracker: 'tracker.csv',
