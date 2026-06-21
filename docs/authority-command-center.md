@@ -20,6 +20,75 @@ Generated: 2026-06-21
 | 3 | 39 Miles restaurant consultants | 8 | 14 | 23 | 29 |
 | 4 | Pilot restaurant testimonial | 18 | 24 | 41 | 47 |
 
+## Immediate Execution Details
+
+Use these details during the next manual authority block. Do not run the tracker command until the external action is actually submitted and evidence fields are filled.
+
+### 1. Google Business Profile
+
+- Channel: Business profile
+- Contact URL: https://www.google.com/business/
+- Landing URL: https://serviio.ai/
+- UTM URL: https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Subject: Serviio
+- Proof fields: Published profile URL, verification screenshot, or dashboard confirmation.
+- Evidence channel: business_profile
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-21 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."
+```
+
+### 2. MenuSifu restaurant consultants
+
+- Channel: POS-specific outreach
+- Contact URL: https://forms.menusifu.com/pages/demo-request
+- Landing URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/
+- UTM URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Subject: AI phone ordering add-on for MenuSifu restaurants
+- Proof fields: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
+- Evidence channel: partner_referral
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-21 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."
+```
+
+### 3. 39 Miles restaurant consultants
+
+- Channel: POS-specific outreach
+- Contact URL: https://pos.menuorg.com/en/
+- Landing URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/
+- UTM URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+- Subject: AI phone ordering add-on for 39 Miles restaurants
+- Proof fields: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.
+- Evidence channel: partner_referral
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "39 Miles restaurant consultants" --status submitted --date 2026-06-21 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."
+```
+
+### 4. Pilot restaurant testimonial
+
+- Channel: Customer proof
+- Contact URL: https://serviio.ai/customer-proof-request/
+- Landing URL: https://serviio.ai/customer-proof-request/
+- UTM URL: https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing
+- Subject: Customer proof request for restaurant AI phone ordering
+- Proof fields: Published testimonial/case-study URL or written customer approval note.
+- Evidence channel: customer_proof
+
+Tracker command after real submission:
+
+```bash
+npm run marketing:mark -- --target "Pilot restaurant testimonial" --status submitted --date 2026-06-21 --note "Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."
+```
+
+
 ## Evidence Readiness
 
 - Rows ready for first-hour sync: 0/4

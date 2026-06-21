@@ -66,6 +66,38 @@ function firstHourProjection(firstHourRows) {
   };
 }
 
+function renderImmediateExecutionDetails(firstHourRows) {
+  const lines = [
+    '## Immediate Execution Details',
+    '',
+    'Use these details during the next manual authority block. Do not run the tracker command until the external action is actually submitted and evidence fields are filled.',
+    '',
+  ];
+
+  for (const row of firstHourRows) {
+    lines.push(
+      `### ${row.position}. ${row.target}`,
+      '',
+      `- Channel: ${row.channel}`,
+      `- Contact URL: ${row.contact_url}`,
+      `- Landing URL: ${row.landing_url}`,
+      `- UTM URL: ${row.utm_url}`,
+      `- Subject: ${row.subject}`,
+      `- Proof fields: ${row.proof_fields}`,
+      `- Evidence channel: ${row.expected_lead_acquisition_channel}`,
+      '',
+      'Tracker command after real submission:',
+      '',
+      '```bash',
+      row.tracker_command,
+      '```',
+      '',
+    );
+  }
+
+  return lines;
+}
+
 function buildAuthorityCommandCenter({
   trackerRows,
   firstHourRows,
@@ -100,6 +132,8 @@ function buildAuthorityCommandCenter({
   }
 
   lines.push(
+    '',
+    ...renderImmediateExecutionDetails(firstHourRows),
     '',
     '## Evidence Readiness',
     '',

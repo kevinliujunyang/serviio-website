@@ -945,6 +945,12 @@ assert.match(authorityCommandCenter, /First-hour projected score after ordered c
 assert.match(authorityCommandCenter, /First-hour projected delta: \+41/);
 assert.match(authorityCommandCenter, /Google Business Profile \| 7 \| 13 \| 7 \| 13/);
 assert.match(authorityCommandCenter, /Pilot restaurant testimonial \| 18 \| 24 \| 41 \| 47/);
+assert.match(authorityCommandCenter, /## Immediate Execution Details/);
+assert.match(authorityCommandCenter, /### 2\. MenuSifu restaurant consultants/);
+assert.match(authorityCommandCenter, /- Contact URL: https:\/\/forms\.menusifu\.com\/pages\/demo-request/);
+assert.match(authorityCommandCenter, /- Subject: AI phone ordering add-on for MenuSifu restaurants/);
+assert.match(authorityCommandCenter, /- Proof fields: Partner reply, referral-page URL, submitted form confirmation, or sent-message URL\./);
+assert.match(authorityCommandCenter, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status submitted --date 2026-06-10/);
 assert.match(authorityCommandCenter, /Rows ready for first-hour sync: 0\/4/);
 assert.match(authorityCommandCenter, /Rows ready for live-listing sync: 0\/1/);
 assert.match(authorityCommandCenter, /Product Hunt Serviio listing: set `action_status`, `completed_date`, `evidence_url` live URL, confirmation evidence/);
