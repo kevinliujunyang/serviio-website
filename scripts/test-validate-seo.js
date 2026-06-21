@@ -88,6 +88,23 @@ try {
 
 try {
   fs.readFileSync = (file, ...args) => {
+    if (file === 'bilingual-restaurant-phone-ordering/index.html') {
+      return originalReadFileSync(file, ...args).replace(/name="pos_partner_consent"/g, 'name="pos_partner_permission_removed"');
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /bilingual-restaurant-phone-ordering\/index\.html: lead form missing optional pos_partner_consent/.test(error)),
+    `expected missing static POS partner consent field error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
+try {
+  fs.readFileSync = (file, ...args) => {
     if (file === 'service-areas/boston-chinese-restaurant-ai-phone-ordering/index.html') {
       return originalReadFileSync(file, ...args)
         .replace(/restaurant AI assistant/gi, 'AI answering')

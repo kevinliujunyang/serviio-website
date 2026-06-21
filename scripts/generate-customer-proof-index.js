@@ -164,6 +164,7 @@ function buildCustomerProofIndexHtml(rows, { updated = todayIso() } = {}) {
                         <option>Yes, I want POS recommendations</option>
                         <option>Maybe later</option>
                     </select>
+                    <label class="mt-4 flex gap-3 text-sm text-gray-700"><input class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600" type="checkbox" name="pos_partner_consent" value="Yes, Serviio may share my request with POS providers or consultants"><span>If I ask for POS recommendations, Serviio may share my request with POS providers or consultants so they can follow up.</span></label>
                     <label class="mt-4 block text-sm font-medium text-gray-700">POS purchase timeline</label>
                     <select class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" name="pos_purchase_timeline" required>
                         <option value="">Select one</option>

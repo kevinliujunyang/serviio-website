@@ -10,6 +10,7 @@ const requiredMarkerGroups = [
   ['name="language_need"'],
   ['name="main_pain"'],
   ['name="pos_recommendation_interest"'],
+  ['name="pos_partner_consent"'],
   ['name="pos_purchase_timeline"'],
 ];
 const requiredMarkers = requiredMarkerGroups.flat();

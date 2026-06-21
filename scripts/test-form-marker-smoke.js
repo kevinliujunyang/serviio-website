@@ -17,6 +17,7 @@ const completeHtml = `
   <select name="language_need"></select>
   <select name="main_pain"></select>
   <select name="pos_recommendation_interest"></select>
+  <input name="pos_partner_consent">
   <select name="pos_purchase_timeline"></select>
 </form>
 `;
@@ -36,6 +37,7 @@ assert.deepStrictEqual(
     'missing name="phone_orders_per_week"',
     'missing name="language_need"',
     'missing name="pos_recommendation_interest"',
+    'missing name="pos_partner_consent"',
     'missing name="pos_purchase_timeline"',
   ],
 );
@@ -45,6 +47,7 @@ assert.ok(requiredMarkerGroups.some((group) => group.includes('name="pos_system"
 assert.ok(requiredMarkers.includes('name="phone_orders_per_week"'));
 assert.ok(requiredMarkers.includes('name="language_need"'));
 assert.ok(requiredMarkers.includes('name="pos_recommendation_interest"'));
+assert.ok(requiredMarkers.includes('name="pos_partner_consent"'));
 assert.strictEqual(resolveBaseUrl('https://serviio.ai/'), 'https://serviio.ai');
 assert.strictEqual(resolveBaseUrl(), 'https://serviio.ai');
 

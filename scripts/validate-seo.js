@@ -579,20 +579,19 @@ function validatePosFocusFields(pages) {
 
 function validatePosPartnerConsentFields(pages) {
   const errors = [];
-  const posRecommendationPages = pages.filter((file) => {
+  const leadFormPages = pages.filter((file) => {
     const html = fs.readFileSync(file, 'utf8');
-    return html.includes('name="conversion_offer" value="pos_recommendation_fit_check"')
-      && !file.includes('restaurant-pos-partner-referral/');
+    return html.includes('formspree.io');
   });
 
-  for (const file of posRecommendationPages) {
+  for (const file of leadFormPages) {
     const html = fs.readFileSync(file, 'utf8');
     if (!html.includes('name="pos_partner_consent"')) {
-      errors.push(`${file}: POS recommendation form missing pos_partner_consent`);
+      errors.push(`${file}: lead form missing optional pos_partner_consent`);
     }
   }
 
-  return { errors, posRecommendationPageCount: posRecommendationPages.length };
+  return { errors, leadFormPageCount: leadFormPages.length };
 }
 
 function validatePartnerReferralWorkflow() {
@@ -1657,7 +1656,7 @@ function runValidation() {
       `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
       `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
       `${posFocusFields.posPageCount} POS focus fields validated`,
-      `${posPartnerConsentFields.posRecommendationPageCount} POS partner consent fields validated`,
+      `${posPartnerConsentFields.leadFormPageCount} POS partner consent fields validated`,
       'partner referral authority capture validated',
       'authority media kit validated',
       'form attribution validated',
