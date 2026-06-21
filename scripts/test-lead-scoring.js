@@ -21,6 +21,11 @@ const {
   toCsv: customerProofEvidenceToCsv,
 } = require('./export-customer-proof-evidence');
 const {
+  buildCustomerProofPublishingRows,
+  parseArgs: parseCustomerProofPublishingArgs,
+  toCsv: customerProofPublishingToCsv,
+} = require('./export-customer-proof-publishing-queue');
+const {
   buildPartnerPipelineRows,
   parseArgs: parsePartnerPipelineExportArgs,
   toCsv: partnerPipelineToCsv,
@@ -630,6 +635,30 @@ assert.doesNotMatch(proofEvidenceCsv, /Internal Only Wok/);
 assert.deepStrictEqual(parseCustomerProofEvidenceArgs(['formspree.csv', '--out', 'proof-evidence.csv']), {
   input: 'formspree.csv',
   out: 'proof-evidence.csv',
+  summaryOnly: false,
+});
+const proofPublishingRows = buildCustomerProofPublishingRows(proofEvidenceRecords, { today: '2026-06-21' });
+assert.deepStrictEqual(proofPublishingRows.map((row) => row.restaurant_display_name), ['Anonymous Chinese takeout in San Jose']);
+assert.strictEqual(proofPublishingRows[0].publish_priority, 'P1');
+assert.strictEqual(proofPublishingRows[0].slug, 'san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof');
+assert.strictEqual(proofPublishingRows[0].draft_path, 'customer-proof/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof/index.html');
+assert.strictEqual(proofPublishingRows[0].canonical_url, 'https://serviio.ai/customer-proof/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof/');
+assert.match(proofPublishingRows[0].page_title, /San Jose MenuSifu Chinese takeout AI phone ordering proof/);
+assert.match(proofPublishingRows[0].meta_description, /San Jose Chinese takeout/);
+assert.match(proofPublishingRows[0].meta_description, /MenuSifu/);
+assert.match(proofPublishingRows[0].hero_h1, /Chinese takeout using MenuSifu/);
+assert.match(proofPublishingRows[0].quote, /dinner-rush calls/);
+assert.match(proofPublishingRows[0].proof_summary, /Missed calls during rush/);
+assert.match(proofPublishingRows[0].proof_summary, /150\+/);
+assert.match(proofPublishingRows[0].jsonld_types, /Review/);
+assert.match(proofPublishingRows[0].internal_links, /\/pos\/menusifu-ai-phone-ordering\//);
+assert.match(proofPublishingRows[0].internal_links, /\/service-areas\/san-jose-chinese-restaurant-ai-phone-ordering\//);
+assert.match(proofPublishingRows[0].tracker_command, /--target "Pilot restaurant testimonial" --status live --date 2026-06-21 --url "https:\/\/serviio.ai\/customer-proof\/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof\/"/);
+assert.doesNotMatch(customerProofPublishingToCsv(proofPublishingRows), /Internal Only Wok/);
+assert.deepStrictEqual(parseCustomerProofPublishingArgs(['formspree.csv', '--out', 'proof-publishing.csv', '--today', '2026-06-21']), {
+  input: 'formspree.csv',
+  out: 'proof-publishing.csv',
+  today: '2026-06-21',
   summaryOnly: false,
 });
 
