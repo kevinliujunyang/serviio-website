@@ -34,6 +34,7 @@
     "search:watchlist:sample": "node scripts/update-first-page-ranking-watchlist.js docs/sample-search-console-export.csv --out docs/sample-first-page-ranking-watchlist-updated.csv --checked 2026-06-07",
     "search:ranking-actions": "node scripts/export-ranking-action-queue.js",
     "search:ranking-actions:sample": "node scripts/export-ranking-action-queue.js --watchlist docs/sample-first-page-ranking-watchlist-updated.csv --out docs/sample-ranking-action-queue.md",
+    "search:weekly-review": "node scripts/export-weekly-seo-review.js",
     "search:test": "node scripts/test-search-console-analyzer.js",
     "smoke:anchors:test": "node scripts/test-deploy-anchor-smoke.js",
     "seo:coverage": "node scripts/audit-keyword-coverage.js",

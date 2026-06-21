@@ -28,6 +28,11 @@ const {
   parseArgs: parseRankingActionArgs,
   renderRankingActionQueue,
 } = require('./export-ranking-action-queue');
+const {
+  buildWeeklyReview,
+  parseArgs: parseWeeklyReviewArgs,
+  renderWeeklyReview,
+} = require('./export-weekly-seo-review');
 
 const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "MenuSifu AI phone ordering","https://serviio.ai/pos/menusifu-ai-phone-ordering/",1,42,1.2%,12.4
@@ -214,5 +219,45 @@ assert.throws(() => parseRankingActionArgs(['--today', '06-07-2026']), /--today 
 const sampleRankingActionQueue = fs.readFileSync('docs/sample-ranking-action-queue.md', 'utf8');
 assert.match(sampleRankingActionQueue, /Serviio Ranking Action Queue/);
 assert.match(sampleRankingActionQueue, /push_to_page_one/);
+
+const weeklyReview = buildWeeklyReview({
+  watchlistRows: sampleUpdatedWatchlistRows,
+  authorityRows: buildRecords(parseCsv(fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'))),
+  today: '2026-06-07',
+  limit: 8,
+});
+assert.strictEqual(weeklyReview.watchlist.totalRows, sampleUpdatedWatchlistRows.length);
+assert.ok(weeklyReview.watchlist.statusCounts.near_page_one > 0);
+assert.ok(weeklyReview.rankingActions.some((row) => row.action_type === 'push_to_page_one'));
+assert.strictEqual(weeklyReview.authority.score, 6);
+const weeklyReviewReport = renderWeeklyReview(weeklyReview);
+assert.match(weeklyReviewReport, /# Serviio Weekly SEO Review/);
+assert.match(weeklyReviewReport, /Review date: 2026-06-07/);
+assert.match(weeklyReviewReport, /## Ranking Data Status/);
+assert.match(weeklyReviewReport, /near_page_one/);
+assert.match(weeklyReviewReport, /## Priority Ranking Actions/);
+assert.match(weeklyReviewReport, /menusifu ai phone ordering/i);
+assert.match(weeklyReviewReport, /## Authority Blocker/);
+assert.match(weeklyReviewReport, /Authority score: 6\/100/);
+assert.match(weeklyReviewReport, /Business profiles started: 0/);
+assert.match(weeklyReviewReport, /Customer proof rows started: 0/);
+assert.match(weeklyReviewReport, /Submit or contact at least 15 authority targets/);
+assert.match(weeklyReviewReport, /## First-Hour Authority Targets/);
+assert.match(weeklyReviewReport, /Google Business Profile/);
+assert.match(weeklyReviewReport, /MenuSifu restaurant consultants/);
+assert.match(weeklyReviewReport, /39 Miles restaurant consultants/);
+assert.match(weeklyReviewReport, /Pilot restaurant testimonial/);
+assert.match(weeklyReviewReport, /## Next Workflow/);
+assert.match(weeklyReviewReport, /Export fresh Search Console query\/page data/);
+assert.deepStrictEqual(parseWeeklyReviewArgs(['--watchlist', 'watch.csv', '--authority', 'authority.csv', '--out', 'review.md', '--today', '2026-06-07', '--limit', '5']), {
+  watchlist: 'watch.csv',
+  authority: 'authority.csv',
+  out: 'review.md',
+  today: '2026-06-07',
+  limit: 5,
+  help: false,
+});
+assert.throws(() => parseWeeklyReviewArgs(['--limit', '0']), /--limit must be a positive integer/);
+assert.throws(() => parseWeeklyReviewArgs(['--today', '06-07-2026']), /--today must use YYYY-MM-DD/);
 
 console.log('Search Console analyzer tests passed');
