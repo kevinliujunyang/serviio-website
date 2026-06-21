@@ -407,6 +407,9 @@ function validateOrganizationAuthority() {
     if (organization.email !== 'info@serviio.ai') {
       errors.push(`${file}: Organization JSON-LD email must match public email`);
     }
+    if (!asArray(organization.sameAs).includes('https://www.producthunt.com/products/serviio')) {
+      errors.push(`${file}: Organization JSON-LD sameAs must include Product Hunt entity page`);
+    }
 
     const contactPoints = asArray(organization.contactPoint).filter(Boolean);
     const contactTypes = new Set(contactPoints.map((point) => point.contactType));
