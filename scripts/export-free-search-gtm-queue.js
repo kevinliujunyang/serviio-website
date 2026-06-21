@@ -13,6 +13,7 @@ const {
 } = require('./print-free-search-next-actions');
 const {
   evidenceNeeded,
+  executionChecklist,
 } = require('./export-authority-submission-log');
 const {
   leadAcquisitionChannel,
@@ -186,12 +187,16 @@ function followUpQueueRow(row) {
 
 function readyQueueRow(row) {
   const packet = packetFor(row);
+  const checklist = executionChecklist(row);
+  const nextStepPrefix = /business profile/i.test(row.channel)
+    ? checklist
+    : packetHint(row);
   return {
     action_type: 'submit_or_contact',
     ...commonFields(row),
     subject: packet.subject || packet.title,
     message_or_query: packet.longDescription,
-    next_step: `${packetHint(row)} After action, mark submitted with confirmation details.`,
+    next_step: `${nextStepPrefix} After action, mark submitted with confirmation details.`,
     tracker_command: trackerCommand(row, 'submitted', 'Submitted/contacted; add confirmation or next follow-up detail.'),
   };
 }

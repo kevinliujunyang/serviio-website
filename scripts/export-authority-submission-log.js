@@ -374,6 +374,7 @@ module.exports = {
   authoritySubmissionSourceRows,
   buildAuthoritySubmissionLogRows,
   evidenceNeeded,
+  executionChecklist,
   parseArgs,
   nextStep,
   reservedMilestoneRows,

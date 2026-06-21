@@ -498,11 +498,15 @@ P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.
 P2,Customer proof,Pilot restaurant testimonial,,not_started,,,,https://serviio.ai/chinese-restaurant-ai-phone-ordering/,https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Need target.
 P1,Restaurant technology directory,Restaurant POS directory,https://directory.example.com,live,Serviio,2026-06-01,2026-06-03,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/,https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=directory&utm_medium=organic_listing&utm_campaign=free_search_marketing,Chinese restaurant POS AI phone agent,Live.
 P0,Business profile,Google Business Profile,https://www.google.com/business/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Profile setup.
+P0,Business profile,Bing Places for Business,https://www.bingplaces.com/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing,Restaurant AI phone answering,Mirror Google listing details.
+P0,Business profile,Apple Business Connect,https://businessconnect.apple.com/,not_started,,,,https://serviio.ai/,https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Add action link.
 `), { today: '2026-06-10', followUpLimit: 5, readyLimit: 5, researchLimit: 5 });
 assert.deepStrictEqual(gtmQueueRows.map((row) => `${row.action_type}:${row.target}`), [
   'follow_up:POS consultants',
   'optimize_live_listing:Product Hunt Serviio listing',
   'submit_or_contact:MenuSifu restaurant consultants',
+  'submit_or_contact:Apple Business Connect',
+  'submit_or_contact:Bing Places for Business',
   'submit_or_contact:Google Business Profile',
   'research_target:Pilot restaurant testimonial',
 ]);
@@ -526,13 +530,19 @@ assert.match(gtmQueueRows[2].evidence_needed, /submitted form confirmation/);
 assert.strictEqual(gtmQueueRows[2].lead_priority, 'P0 POS-ready Chinese restaurant lead source');
 assert.match(gtmQueueRows[2].lead_route, /MenuSifu/);
 assert.strictEqual(gtmQueueRows[2].expected_lead_acquisition_channel, 'partner_referral');
-assert.strictEqual(gtmQueueRows[3].lead_priority, 'P0 inbound restaurant-owner lead source');
-assert.match(gtmQueueRows[3].lead_route, /Ask every inbound owner which POS system they use/);
+assert.strictEqual(gtmQueueRows[5].lead_priority, 'P0 inbound restaurant-owner lead source');
+assert.match(gtmQueueRows[5].lead_route, /Ask every inbound owner which POS system they use/);
+assert.strictEqual(gtmQueueRows[5].expected_lead_acquisition_channel, 'business_profile');
+assert.match(gtmQueueRows[4].next_step, /Import from Google only after Google Business Profile fields are accurate/);
+assert.match(gtmQueueRows[4].next_step, /Use Bing Places website URL with utm_source=bing_places if accepted/);
+assert.strictEqual(gtmQueueRows[4].expected_lead_acquisition_channel, 'business_profile');
+assert.match(gtmQueueRows[3].next_step, /Add action link to the Chinese restaurant POS AI phone agent page/);
+assert.match(gtmQueueRows[3].next_step, /Use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase/);
 assert.strictEqual(gtmQueueRows[3].expected_lead_acquisition_channel, 'business_profile');
-assert.match(gtmQueueRows[4].message_or_query, /"Pilot restaurant testimonial" "submit"/);
-assert.match(gtmQueueRows[4].evidence_needed, /Published testimonial/);
-assert.strictEqual(gtmQueueRows[4].lead_priority, 'P2 proof asset for conversion');
-assert.strictEqual(gtmQueueRows[4].expected_lead_acquisition_channel, 'customer_proof');
+assert.match(gtmQueueRows[6].message_or_query, /"Pilot restaurant testimonial" "submit"/);
+assert.match(gtmQueueRows[6].evidence_needed, /Published testimonial/);
+assert.strictEqual(gtmQueueRows[6].lead_priority, 'P2 proof asset for conversion');
+assert.strictEqual(gtmQueueRows[6].expected_lead_acquisition_channel, 'customer_proof');
 const gtmCsv = gtmQueueToCsv(gtmQueueRows);
 assert.match(gtmCsv, /action_type,opportunity_score,lead_priority,lead_route,primary_kpi,expected_lead_acquisition_channel,priority,channel,target,status,contact_url/);
 assert.match(gtmCsv, /follow_up,90,P1 partner\/referral lead source,Partner can refer POS-ready restaurants/);
