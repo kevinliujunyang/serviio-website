@@ -172,6 +172,10 @@ const calculatorNoPosReferral = scoreLead({
 });
 assert.strictEqual(calculatorNoPosReferral.lead_route, 'pos_referral');
 assert.strictEqual(calculatorNoPosReferral.partner_referral_priority, 'hot');
+assert.strictEqual(calculatorNoPosReferral.revenue_opportunity_signal, 'medium');
+assert.strictEqual(calculatorNoPosReferral.estimated_recoverable_revenue_value, '493');
+assert.match(calculatorNoPosReferral.lead_reason, /calculator revenue opportunity: medium/);
+assert.match(calculatorNoPosReferral.buyer_profile, /revenue:medium/);
 
 const warmNoPosReferral = scoreLead({
   ...baseLead,
@@ -897,7 +901,7 @@ assert.deepStrictEqual(parseLeadPagePerformanceArgs(['formspree.csv', '--summary
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
-assert.strictEqual(sampleScoredRows.length, 7);
+assert.strictEqual(sampleScoredRows.length, 8);
 assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
   'Business Profile MenuSifu Wok',
@@ -905,6 +909,7 @@ assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.res
 ]);
 assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'New Noodle Shop',
+  'Calculator Noodle Shop',
   'Fast POS Dumpling',
 ]);
 assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row.restaurant_name), [
@@ -924,6 +929,10 @@ assert.ok(buildLeadPagePerformanceRows(sampleScoredRows).some((row) =>
 ));
 const samplePartnerLead = sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner');
 assert.strictEqual(samplePartnerLead.lead_route, 'partner_pipeline');
+const sampleCalculatorLead = sampleScoredRows.find((row) => row.restaurant_name === 'Calculator Noodle Shop');
+assert.strictEqual(sampleCalculatorLead.lead_acquisition_channel, 'calculator');
+assert.strictEqual(sampleCalculatorLead.revenue_opportunity_signal, 'medium');
+assert.strictEqual(sampleCalculatorLead.estimated_recoverable_revenue_value, '493');
 assert.strictEqual(samplePartnerLead.partner_authority_opportunity, 'yes');
 assert.strictEqual(samplePartnerLead.partner_website, 'https://partner.example.com/resources');
 assert.match(samplePartnerLead.partner_next_action, /resource listing or backlink/);

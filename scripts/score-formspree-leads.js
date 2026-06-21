@@ -105,6 +105,24 @@ const FIELD_ALIASES = {
   utmMedium: ['utm_medium', 'utm medium'],
   utmCampaign: ['utm_campaign', 'utm campaign'],
   leadAcquisitionChannel: ['lead_acquisition_channel', 'lead acquisition channel'],
+  estimatedRecoverableRevenue: [
+    'estimated_recoverable_revenue',
+    'estimated recoverable revenue',
+    'recoverable_revenue',
+    'recoverable revenue',
+  ],
+  estimatedLostRevenue: [
+    'estimated_lost_revenue',
+    'estimated lost revenue',
+    'lost_revenue',
+    'lost revenue',
+  ],
+  estimatedServiioFee: [
+    'estimated_serviio_fee',
+    'estimated serviio fee',
+    'serviio_fee',
+    'serviio fee',
+  ],
 };
 
 const NAMED_POS_PATTERN = /39\s*miles|square|toast|clover|menusifu|menu\s*sifu|chowbus|mealkeyway/i;
@@ -226,6 +244,20 @@ function yesNo(value) {
   return value ? 'yes' : 'no';
 }
 
+function parseMoney(value) {
+  const text = String(value || '').replace(/,/g, '');
+  const match = text.match(/-?\d+(?:\.\d+)?/);
+  return match ? Number(match[0]) : 0;
+}
+
+function classifyRevenueOpportunity(value) {
+  const amount = parseMoney(value);
+  if (amount >= 1000) return 'high';
+  if (amount >= 250) return 'medium';
+  if (amount > 0) return 'low';
+  return 'unknown';
+}
+
 function buildBuyerProfile({
   posReadiness,
   volume,
@@ -247,6 +279,7 @@ function buildBuyerProfile({
   if (posTimelineUrgency && posTimelineUrgency !== 'not_applicable') parts.push(`pos_timeline_urgency:${posTimelineUrgency}`);
   if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
   if (values.languageNeedSignal && values.languageNeedSignal !== 'unknown') parts.push(`language:${values.languageNeedSignal}`);
+  if (values.revenueOpportunitySignal && values.revenueOpportunitySignal !== 'unknown') parts.push(`revenue:${values.revenueOpportunitySignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.partnerType) parts.push(`partner_type:${values.partnerType}`);
   if (partnerReferralVolumeTier && partnerReferralVolumeTier !== 'none') parts.push(`partner_volume:${partnerReferralVolumeTier}`);
@@ -636,6 +669,8 @@ function scoreLead(record) {
   const mediumVolume = volume === 'medium';
   const painSignal = classifyPainSignal(values.pain);
   const languageNeedSignal = classifyLanguageNeed(values.languageNeed);
+  const recoverableRevenueValue = parseMoney(values.estimatedRecoverableRevenue);
+  const revenueOpportunitySignal = classifyRevenueOpportunity(values.estimatedRecoverableRevenue);
   const posTimelineUrgency = classifyPosPurchaseTimeline(values.posPurchaseTimeline);
   const urgentPain = painSignal
     .split('+')
@@ -772,6 +807,16 @@ function scoreLead(record) {
     score += 4;
     reasons.push('language need: multilingual');
   }
+  if (revenueOpportunitySignal === 'high') {
+    score += 10;
+    reasons.push('calculator revenue opportunity: high');
+  } else if (revenueOpportunitySignal === 'medium') {
+    score += 6;
+    reasons.push('calculator revenue opportunity: medium');
+  } else if (revenueOpportunitySignal === 'low') {
+    score += 2;
+    reasons.push('calculator revenue opportunity: low');
+  }
 
   let priority = 'review';
   if (posReady && (highVolume || urgentPain) && (chineseIntent || prioritySource)) {
@@ -823,6 +868,7 @@ function scoreLead(record) {
         ...values,
         partnerAuthorityOpportunity,
         languageNeedSignal,
+        revenueOpportunitySignal,
       },
     }),
     monetization_route: partnerReferral.monetizationRoute,
@@ -851,6 +897,8 @@ function scoreLead(record) {
     phone_orders_per_week: values.phoneOrders,
     language_need: values.languageNeed,
     language_need_signal: languageNeedSignal,
+    revenue_opportunity_signal: revenueOpportunitySignal,
+    estimated_recoverable_revenue_value: recoverableRevenueValue ? String(recoverableRevenueValue) : '',
     main_pain: values.pain,
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
@@ -984,6 +1032,8 @@ function main() {
     'phone_orders_per_week',
     'language_need',
     'language_need_signal',
+    'revenue_opportunity_signal',
+    'estimated_recoverable_revenue_value',
     'main_pain',
     'conversion_offer',
     'pos_recommendation_interest',
