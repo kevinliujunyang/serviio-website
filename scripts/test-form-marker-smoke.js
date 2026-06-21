@@ -55,6 +55,7 @@ for (const snippet of [
   'directory_or_listing',
   'pos_referral_candidate',
   'serviio_demo',
+  'pos_partner_consent',
 ]) {
   assert.ok(attributionScript.includes(snippet), `form-attribution.js missing ${snippet}`);
 }
@@ -64,10 +65,36 @@ function createField(name, value = '') {
     name,
     value,
     type: '',
+    id: '',
+    className: '',
+    required: false,
+    textContent: '',
+    children: [],
+    parentNode: null,
     getAttribute(attribute) {
-      return attribute === 'value' ? this.value : '';
+      if (attribute === 'value') return this.value;
+      return this[attribute] || '';
+    },
+    setAttribute(attribute, attributeValue) {
+      this[attribute] = attributeValue;
+    },
+    appendChild(child) {
+      child.parentNode = this;
+      this.children.push(child);
+    },
+    addEventListener() {
+      // The test invokes submit handlers directly; field-level change listeners only need to register cleanly.
     },
   };
+}
+
+function findField(fields, name) {
+  for (const field of fields) {
+    if (field.name === name) return field;
+    const child = findField(field.children || [], name);
+    if (child) return child;
+  }
+  return null;
 }
 
 function createForm() {
@@ -79,6 +106,11 @@ function createForm() {
   return {
     fields,
     appendChild(field) {
+      field.parentNode = this;
+      fields.push(field);
+    },
+    insertBefore(field) {
+      field.parentNode = this;
       fields.push(field);
     },
     addEventListener(name, handler) {
@@ -87,7 +119,7 @@ function createForm() {
     querySelector(selector) {
       const nameMatch = selector.match(/name="([^"]+)"/) || selector.match(/\[name="([^"]+)"\]/);
       if (!nameMatch) return null;
-      return fields.find((field) => field.name === nameMatch[1]) || null;
+      return findField(fields, nameMatch[1]);
     },
     submit() {
       listeners.submit();
@@ -170,12 +202,14 @@ runAttributionScript({
   search: '?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing',
   form: noPosForm,
 });
+assert.ok(noPosForm.querySelector('[name="pos_partner_consent"]'), 'POS recommendation forms should collect partner-sharing consent');
 noPosForm.querySelector('[name="pos_system"]').value = 'No POS yet';
 noPosForm.querySelector('[name="pos_recommendation_interest"]').value = 'Yes, I want POS recommendations';
 noPosForm.submit();
 assert.strictEqual(noPosForm.querySelector('input[name="pos_readiness_signal"]').value, 'pos_referral_candidate');
 assert.strictEqual(noPosForm.querySelector('input[name="lead_route_hint"]').value, 'pos_partner_referral');
 assert.strictEqual(noPosForm.querySelector('input[name="monetization_route_hint"]').value, 'pos_partner_referral');
+assert.strictEqual(noPosForm.querySelector('[name="pos_partner_consent"]').required, true);
 assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /39_miles/);
 assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /menusifu/);
 assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /chowbus/);

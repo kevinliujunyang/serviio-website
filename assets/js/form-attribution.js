@@ -94,6 +94,50 @@
     if (overwrite || !field.value) field.value = value;
   }
 
+  function createOption(value, text) {
+    var option = document.createElement('option');
+    option.value = value;
+    option.textContent = text;
+    return option;
+  }
+
+  function ensurePosPartnerConsentField(form) {
+    if (!form.querySelector('[name="pos_recommendation_interest"]')) return;
+    if (form.querySelector('[name="pos_partner_consent"]')) return;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'serviio-pos-partner-consent';
+
+    var fieldId = 'pos_partner_consent_' + Math.random().toString(36).slice(2, 9);
+    var label = document.createElement('label');
+    label.setAttribute('for', fieldId);
+    label.className = 'block text-sm font-medium text-gray-700 mb-2';
+    label.textContent = 'If you need POS recommendations, may Serviio share your request with POS providers or consultants?';
+
+    var select = document.createElement('select');
+    select.id = fieldId;
+    select.name = 'pos_partner_consent';
+    select.className = 'w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition';
+    select.appendChild(createOption('', 'Select one'));
+    select.appendChild(createOption('Yes, Serviio may share my request with POS providers or consultants', 'Yes, Serviio may share my request with POS providers or consultants'));
+    select.appendChild(createOption('No, keep my request internal to Serviio', 'No, keep my request internal to Serviio'));
+
+    var help = document.createElement('p');
+    help.className = 'text-xs text-gray-500 mt-2';
+    help.textContent = 'This is only used for no-POS restaurants asking for POS recommendations.';
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(select);
+    wrapper.appendChild(help);
+
+    var submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton && submitButton.parentNode === form && form.insertBefore) {
+      form.insertBefore(wrapper, submitButton);
+    } else {
+      form.appendChild(wrapper);
+    }
+  }
+
   function fieldValue(form, name) {
     var field = form.querySelector('[name="' + name + '"]');
     return field ? String(field.value || field.getAttribute('value') || '').trim() : '';
@@ -162,6 +206,11 @@
     var posSystem = fieldValue(form, 'pos_system') || fieldValue(form, 'pos_status');
     var posRecommendationInterest = fieldValue(form, 'pos_recommendation_interest');
     var posReadiness = classifyPosReadiness(posSystem, posRecommendationInterest);
+    var posPartnerConsent = form.querySelector('[name="pos_partner_consent"]');
+
+    if (posPartnerConsent) {
+      posPartnerConsent.required = posReadiness === 'pos_referral_candidate';
+    }
 
     ensureHiddenField(form, 'pos_readiness_signal', posReadiness, true);
     ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness), true);
@@ -174,7 +223,12 @@
     Object.keys(attributionFields).forEach(function (name) {
       ensureHiddenField(form, name, attributionFields[name]);
     });
+    ensurePosPartnerConsentField(form);
     enrichPosReadiness(form);
+    ['pos_system', 'pos_status', 'pos_recommendation_interest'].forEach(function (name) {
+      var field = form.querySelector('[name="' + name + '"]');
+      if (field) field.addEventListener('change', function () { enrichPosReadiness(form); });
+    });
     form.addEventListener('submit', function () {
       enrichPosReadiness(form);
     });

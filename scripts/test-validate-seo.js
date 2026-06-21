@@ -69,4 +69,21 @@ try {
   fs.readFileSync = originalReadFileSync;
 }
 
+try {
+  fs.readFileSync = (file, ...args) => {
+    if (file === 'assets/js/form-attribution.js') {
+      return originalReadFileSync(file, ...args).replace(/pos_partner_consent/g, 'pos_partner_permission_removed');
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /form-attribution\.js: missing pos_partner_consent/.test(error)),
+    `expected missing POS partner consent attribution error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
 console.log('SEO validator tests passed');

@@ -643,6 +643,8 @@ function validateAttributionScript() {
     'directory_or_listing',
     'pos_referral_candidate',
     'serviio_demo',
+    'pos_partner_consent',
+    'ensurePosPartnerConsentField',
   ];
   for (const snippet of requiredSnippets) {
     if (!js.includes(snippet)) errors.push(`${file}: missing ${snippet}`);
