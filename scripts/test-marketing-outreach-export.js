@@ -88,6 +88,10 @@ const {
   parseArgs: parseWeeklyAuthoritySprintArgs,
 } = require('./export-weekly-authority-sprint');
 const {
+  buildAuthorityCommandCenter,
+  parseArgs: parseAuthorityCommandCenterArgs,
+} = require('./export-authority-command-center');
+const {
   applyActions: applySubmissionLogActions,
   buildEvidencePreflightRows,
   buildSyncActions: buildSubmissionLogSyncActions,
@@ -139,6 +143,10 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:live-listings-preflight'],
   'node scripts/sync-live-listing-optimization-log.js --preflight',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:authority-command-center'],
+  'node scripts/export-authority-command-center.js',
 );
 assert.strictEqual(
   packageJson.scripts['marketing:profile-evidence-preflight'],
@@ -923,6 +931,33 @@ assert.match(firstHourPreflightReport, /Checklist: Submit MenuSifu partner or de
 assert.match(firstHourPreflightReport, /Checklist: Contact 39 Miles\/MENUPO using the official contact path/);
 assert.match(firstHourPreflightReport, /Checklist: Send customer proof request link to a pilot, demo, or customer contact/);
 assert.match(firstHourPreflightReport, /Pilot restaurant testimonial: set `action_status`, `submitted_date`, confirmation evidence, `follow_up_date`/);
+const authorityCommandCenter = buildAuthorityCommandCenter({
+  trackerRows,
+  firstHourRows: firstHourExecutionRows,
+  firstHourPreflightRows,
+  liveListingPreflightRows: pendingLiveListingPreflight,
+  today: '2026-06-21',
+});
+assert.match(authorityCommandCenter, /^# Serviio Authority Command Center/m);
+assert.match(authorityCommandCenter, /Generated: 2026-06-21/);
+assert.match(authorityCommandCenter, /Current authority score: 6\/100/);
+assert.match(authorityCommandCenter, /First-hour projected score after ordered completion: 47\/100/);
+assert.match(authorityCommandCenter, /First-hour projected delta: \+41/);
+assert.match(authorityCommandCenter, /Google Business Profile \| 7 \| 13 \| 7 \| 13/);
+assert.match(authorityCommandCenter, /Pilot restaurant testimonial \| 18 \| 24 \| 41 \| 47/);
+assert.match(authorityCommandCenter, /Rows ready for first-hour sync: 0\/4/);
+assert.match(authorityCommandCenter, /Rows ready for live-listing sync: 0\/1/);
+assert.match(authorityCommandCenter, /Product Hunt Serviio listing: set `action_status`, `completed_date`, `evidence_url` live URL, confirmation evidence/);
+assert.match(authorityCommandCenter, /npm run marketing:submission-preflight:first-hour/);
+assert.match(authorityCommandCenter, /npm run marketing:submission-sync -- --apply --log docs\/authority-first-hour-submission-log.csv/);
+assert.match(authorityCommandCenter, /npm run marketing:live-listings-preflight/);
+assert.match(authorityCommandCenter, /npm run marketing:live-listings-sync -- --apply/);
+assert.deepStrictEqual(parseAuthorityCommandCenterArgs(['--today', '2026-06-21', '--out', 'docs/authority.md']), {
+  out: 'docs/authority.md',
+  today: '2026-06-21',
+  help: false,
+});
+assert.throws(() => parseAuthorityCommandCenterArgs(['--today', '06-21-2026']), /--today must use YYYY-MM-DD/);
 assert.strictEqual(submissionLogActions.length, 4);
 assert.deepStrictEqual(submissionLogActions.map((action) => action.issues.length), [0, 0, 3, 1]);
 assert.match(renderSubmissionSyncReport(submissionLogActions), /Valid Updates/);

@@ -74,6 +74,7 @@
     "marketing:submission-preflight:first-hour": "node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv",
     "marketing:submission-preflight:first-hour:export": "node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv --out docs/authority-evidence-preflight.md",
     "marketing:authority-sprint": "node scripts/export-weekly-authority-sprint.js",
+    "marketing:authority-command-center": "node scripts/export-authority-command-center.js",
     "marketing:gtm-queue": "node scripts/export-free-search-gtm-queue.js",
     "marketing:gtm-queue:export": "node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv",
     "marketing:sprint": "node scripts/print-partner-outreach-sprint.js",

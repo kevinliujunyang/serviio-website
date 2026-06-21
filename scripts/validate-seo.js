@@ -771,6 +771,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:authority-sprint'] !== 'node scripts/export-weekly-authority-sprint.js') {
     errors.push('package.json: missing marketing:authority-sprint script');
   }
+  if (packageJson.scripts?.['marketing:authority-command-center'] !== 'node scripts/export-authority-command-center.js') {
+    errors.push('package.json: missing marketing:authority-command-center script');
+  }
   if (packageJson.scripts?.['marketing:gtm-queue:export'] !== 'node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv') {
     errors.push('package.json: missing marketing:gtm-queue:export script');
   }
@@ -810,11 +813,17 @@ function validateFreeSearchTracker() {
   if (!fs.existsSync('scripts/export-weekly-authority-sprint.js')) {
     errors.push('scripts/export-weekly-authority-sprint.js: missing weekly authority sprint export');
   }
+  if (!fs.existsSync('scripts/export-authority-command-center.js')) {
+    errors.push('scripts/export-authority-command-center.js: missing authority command center export');
+  }
   if (!fs.existsSync('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-gtm-queue.csv: missing exported GTM execution queue');
   }
   if (!fs.existsSync('docs/weekly-authority-sprint.md')) {
     errors.push('docs/weekly-authority-sprint.md: missing weekly authority sprint scorecard');
+  }
+  if (!fs.existsSync('docs/authority-command-center.md')) {
+    errors.push('docs/authority-command-center.md: missing authority command center');
   }
   if (!fs.existsSync('docs/first-hour-authority-execution.csv')) {
     errors.push('docs/first-hour-authority-execution.csv: missing first-hour authority execution CSV');
@@ -861,6 +870,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:authority-sprint') || !checklist.includes('docs/weekly-authority-sprint.md')) {
     errors.push('docs/free-search-marketing-checklist.md: missing weekly authority sprint workflow');
+  }
+  if (!checklist.includes('npm run marketing:authority-command-center') || !checklist.includes('docs/authority-command-center.md')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing authority command center workflow');
   }
   if (!checklist.includes('npm run marketing:gtm-queue:export') || !checklist.includes('docs/free-search-gtm-queue.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing checked-in GTM queue workflow');

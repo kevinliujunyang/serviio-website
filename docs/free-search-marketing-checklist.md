@@ -82,6 +82,14 @@ npm run marketing:authority-sprint
 
 This writes `docs/weekly-authority-sprint.md` with the current authority score, the exact gap to 15 submitted/contacted authority targets, 5 live authority links or profiles, 8 high-fit POS/partner starts, and the evidence fields needed after each external action.
 
+Generate the authority command center when you want one evidence-focused view of the current score, first-hour projection, pending proof fields, and sync commands:
+
+```bash
+npm run marketing:authority-command-center
+```
+
+This writes `docs/authority-command-center.md`. Use it before and after a manual authority block to confirm which rows are still missing evidence and whether the first-hour block can move the projected score toward the next authority milestone.
+
 Generate the first-hour execution CSV when you want the shortest copy/paste queue for the actions that move the authority score fastest:
 
 ```bash
