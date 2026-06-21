@@ -37,6 +37,11 @@ const {
   parseArgs: parseCustomerProofPageArgs,
 } = require('./generate-customer-proof-pages');
 const {
+  buildCustomerProofIndexHtml,
+  generateCustomerProofIndex,
+  parseArgs: parseCustomerProofIndexArgs,
+} = require('./generate-customer-proof-index');
+const {
   buildPartnerPipelineRows,
   parseArgs: parsePartnerPipelineExportArgs,
   toCsv: partnerPipelineToCsv,
@@ -718,6 +723,47 @@ assert.match(fs.readFileSync(path.join(proofPageTempDir, generatedProofPages[0].
 assert.deepStrictEqual(parseCustomerProofPageArgs(['proof-publishing.csv', '--out-dir', 'proof-pages']), {
   input: 'proof-publishing.csv',
   outDir: 'proof-pages',
+  help: false,
+});
+const proofIndexHtml = buildCustomerProofIndexHtml(proofPublishingRows, { updated: '2026-06-21' });
+assert.match(proofIndexHtml, /<!DOCTYPE html>/);
+assert.match(proofIndexHtml, /<title>Customer proof for restaurant AI phone ordering \| Serviio<\/title>/);
+assert.match(proofIndexHtml, /<link rel="canonical" href="https:\/\/serviio.ai\/customer-proof\/">/);
+assert.doesNotMatch(proofIndexHtml, /noindex/);
+assert.match(proofIndexHtml, /Anonymous Chinese takeout in San Jose/);
+assert.match(proofIndexHtml, /San Jose MenuSifu Chinese takeout AI phone ordering proof/);
+assert.match(proofIndexHtml, /https:\/\/serviio.ai\/customer-proof\/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof\//);
+assert.match(proofIndexHtml, /"@type": "ItemList"/);
+assert.match(proofIndexHtml, /"@type": "FAQPage"/);
+assert.match(proofIndexHtml, /name="pos_system"/);
+assert.match(proofIndexHtml, /name="lead_source" value="customer_proof_index"/);
+const proofIndexTempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'serviio-proof-index-'));
+const generatedProofIndex = generateCustomerProofIndex(proofPublishingRows, {
+  outDir: proofIndexTempDir,
+  updated: '2026-06-21',
+});
+assert.strictEqual(generatedProofIndex.relativePath, 'customer-proof/index.html');
+assert.ok(fs.existsSync(path.join(proofIndexTempDir, generatedProofIndex.relativePath)));
+assert.match(
+  fs.readFileSync(path.join(proofIndexTempDir, generatedProofIndex.relativePath), 'utf8'),
+  /Customer proof for restaurant AI phone ordering/,
+);
+assert.deepStrictEqual(parseCustomerProofIndexArgs(['proof-publishing.csv', '--out-dir', 'proof-index']), {
+  input: 'proof-publishing.csv',
+  outDir: 'proof-index',
+  updated: parseCustomerProofIndexArgs([]).updated,
+  help: false,
+});
+assert.deepStrictEqual(parseCustomerProofIndexArgs([
+  'proof-publishing.csv',
+  '--out-dir',
+  'proof-index',
+  '--updated',
+  '2026-06-21',
+]), {
+  input: 'proof-publishing.csv',
+  outDir: 'proof-index',
+  updated: '2026-06-21',
   help: false,
 });
 

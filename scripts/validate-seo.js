@@ -1143,6 +1143,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:customer-proof:pages'] !== 'node scripts/generate-customer-proof-pages.js') {
     errors.push('package.json: missing leads:customer-proof:pages script');
   }
+  if (packageJson.scripts?.['leads:customer-proof:index'] !== 'node scripts/generate-customer-proof-index.js') {
+    errors.push('package.json: missing leads:customer-proof:index script');
+  }
   if (packageJson.scripts?.['leads:page-performance'] !== 'node scripts/export-lead-page-performance.js') {
     errors.push('package.json: missing leads:page-performance script');
   }
@@ -1197,6 +1200,9 @@ function validateLeadScoringWorkflow() {
   if (!fs.existsSync('scripts/generate-customer-proof-pages.js')) {
     errors.push('scripts/generate-customer-proof-pages.js: missing customer proof static page generator');
   }
+  if (!fs.existsSync('scripts/generate-customer-proof-index.js')) {
+    errors.push('scripts/generate-customer-proof-index.js: missing customer proof index generator');
+  }
   if (!fs.existsSync('scripts/export-lead-page-performance.js')) {
     errors.push('scripts/export-lead-page-performance.js: missing lead page performance export');
   }
@@ -1241,6 +1247,9 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('generateCustomerProofPages') || !test.includes('generate-customer-proof-pages')) {
     errors.push('scripts/test-lead-scoring.js: missing customer proof page generator coverage');
   }
+  if (!test.includes('generateCustomerProofIndex') || !test.includes('generate-customer-proof-index')) {
+    errors.push('scripts/test-lead-scoring.js: missing customer proof index generator coverage');
+  }
   if (!test.includes('buildPartnerPipelineRows') || !test.includes('export-partner-pipeline-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing partner pipeline export coverage');
   }
@@ -1264,6 +1273,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('npm run leads:customer-proof:pages') || !runbook.includes('Do not run this on sample proof')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof static page generation workflow');
+  }
+  if (!runbook.includes('npm run leads:customer-proof:index') || !runbook.includes('customer-proof/index.html')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof index generation workflow');
   }
   if (
     !runbook.includes('npm run leads:partner-pipeline') ||
