@@ -622,6 +622,39 @@ function validatePartnerReferralWorkflow() {
   return { errors };
 }
 
+function validateAuthorityMediaKit() {
+  const errors = [];
+  const page = 'authority-media-kit/index.html';
+
+  if (!fs.existsSync(page)) {
+    errors.push(`${page}: missing authority media kit page`);
+    return { errors };
+  }
+
+  const html = fs.readFileSync(page, 'utf8');
+  const requiredSnippets = [
+    'https://serviio.ai/authority-media-kit/',
+    '"@type":"AboutPage"',
+    'https://www.producthunt.com/products/serviio',
+    'AI voice assistant that takes restaurant orders by phone',
+    '39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway',
+    'info@serviio.ai',
+    '(408) 409-9079',
+    '/assets/logo.svg',
+    '/assets/og-image.png',
+    '/restaurant-pos-partner-referral/',
+    '/customer-proof-request/',
+  ];
+
+  for (const snippet of requiredSnippets) {
+    if (!html.includes(snippet)) {
+      errors.push(`${page}: missing ${snippet}`);
+    }
+  }
+
+  return { errors };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -1519,6 +1552,7 @@ function runValidation() {
   const posFocusFields = validatePosFocusFields(pages);
   const posPartnerConsentFields = validatePosPartnerConsentFields(pages);
   const partnerReferralWorkflow = validatePartnerReferralWorkflow();
+  const authorityMediaKit = validateAuthorityMediaKit();
   const attribution = validateAttributionScript();
   const searchConsoleCoverage = validateSearchConsoleCoverage();
   const freeSearchTracker = validateFreeSearchTracker();
@@ -1543,6 +1577,7 @@ function runValidation() {
     ...posFocusFields.errors,
     ...posPartnerConsentFields.errors,
     ...partnerReferralWorkflow.errors,
+    ...authorityMediaKit.errors,
     ...attribution.errors,
     ...searchConsoleCoverage.errors,
     ...freeSearchTracker.errors,
@@ -1575,6 +1610,7 @@ function runValidation() {
       `${posFocusFields.posPageCount} POS focus fields validated`,
       `${posPartnerConsentFields.posRecommendationPageCount} POS partner consent fields validated`,
       'partner referral authority capture validated',
+      'authority media kit validated',
       'form attribution validated',
       `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
       'free search tracker validated',
