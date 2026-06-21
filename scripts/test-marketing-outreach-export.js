@@ -211,6 +211,12 @@ assert.strictEqual(firstHourAuthorityRows[0].expected_lead_acquisition_channel, 
 assert.strictEqual(firstHourAuthorityRows[1].expected_lead_acquisition_channel, 'partner_referral');
 assert.strictEqual(firstHourAuthorityRows[3].expected_lead_acquisition_channel, 'customer_proof');
 assert.match(firstHourAuthorityRows[0].tracker_command, /--target "Google Business Profile" --status submitted --date 2026-06-06/);
+assert.match(firstHourAuthorityRows[0].execution_checklist, /Use clean homepage URL if Google rejects UTM parameters/);
+assert.match(firstHourAuthorityRows[0].execution_checklist, /Capture verification screenshot or dashboard confirmation/);
+assert.match(firstHourAuthorityRows[1].execution_checklist, /Submit MenuSifu partner or demo form/);
+assert.match(firstHourAuthorityRows[1].execution_checklist, /Ask for referral or integration contact path/);
+assert.match(firstHourAuthorityRows[2].execution_checklist, /Contact 39 Miles\/MENUPO using the official contact path/);
+assert.match(firstHourAuthorityRows[3].execution_checklist, /Send customer proof request link/);
 assert.match(firstHourAuthorityRows[3].message_or_listing_copy, /You can choose whether the proof can be published, anonymized, or kept internal/);
 const allAuthoritySubmissionRows = buildAuthoritySubmissionLogRows(trackerRows, { limit: 60, today: '2026-06-06' });
 const googleProfileSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Google Business Profile');
@@ -222,7 +228,8 @@ assert.strictEqual(googleProfileSubmissionRow.expected_lead_acquisition_channel,
 const productHuntSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Product Hunt Serviio listing');
 assert.strictEqual(productHuntSubmissionRow, undefined);
 const authoritySubmissionCsv = authoritySubmissionLogToCsv(authoritySubmissionRows);
-assert.match(authoritySubmissionCsv, /action_status,priority,channel,target,submission_type,lead_priority,lead_route,primary_kpi,expected_lead_acquisition_channel,next_step,evidence_needed,opportunity_score/);
+assert.match(authoritySubmissionCsv, /action_status,priority,channel,target,submission_type,lead_priority,lead_route,primary_kpi,expected_lead_acquisition_channel,next_step,evidence_needed,execution_checklist,opportunity_score/);
+assert.match(authoritySubmissionCsv, /execution_checklist/);
 assert.match(authoritySubmissionCsv, /evidence_url,account_or_login,confirmation_note,submitted_date,live_date,follow_up_date,tracker_command/);
 assert.match(authoritySubmissionCsv, /Chinese restaurant POS consultants/);
 assert.deepStrictEqual(parseAuthoritySubmissionLogArgs(['--out', 'docs/log.csv', '--limit', '9', '--today', '2026-06-06']), {

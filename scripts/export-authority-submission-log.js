@@ -29,6 +29,7 @@ const HEADERS = [
   'expected_lead_acquisition_channel',
   'next_step',
   'evidence_needed',
+  'execution_checklist',
   'opportunity_score',
   'opportunity_reasons',
   'submission_url',
@@ -191,6 +192,50 @@ function evidenceNeeded(row) {
   return 'Confirmation URL, live link, reply, screenshot, or sent-message URL.';
 }
 
+function executionChecklist(row) {
+  if (/business profile/i.test(row.channel) && /google/i.test(row.target)) {
+    return [
+      'Use clean homepage URL if Google rejects UTM parameters.',
+      'Add service-area business details, phone, website, logo, restaurant technology category, services, products, Q&A, and one update post.',
+      'Capture verification screenshot or dashboard confirmation, account/login used, submitted date, and pending review status.',
+    ].join(' ');
+  }
+
+  if (/pos-specific outreach/i.test(row.channel) && /menusifu/i.test(row.target)) {
+    return [
+      'Submit MenuSifu partner or demo form with Serviio POS-ready phone-order copy.',
+      'Ask for referral or integration contact path for Chinese restaurants using MenuSifu.',
+      'Capture submitted form confirmation, account/login or email used, submitted date, and seven-day follow-up date.',
+    ].join(' ');
+  }
+
+  if (/pos-specific outreach/i.test(row.channel) && /39\s*miles/i.test(row.target)) {
+    return [
+      'Contact 39 Miles/MENUPO using the official contact path with Serviio POS-ready phone-order copy.',
+      'Ask for referral, integration, or consultant contact path for Chinese restaurants using 39 Miles.',
+      'Capture sent-message URL or screenshot, account/login or email used, submitted date, and seven-day follow-up date.',
+    ].join(' ');
+  }
+
+  if (/customer proof/i.test(row.channel)) {
+    return [
+      'Send customer proof request link to a pilot, demo, or customer contact.',
+      'Ask for city, restaurant type, POS system, weekly phone-order volume, phone-order pain, quote, and publication permission.',
+      'Capture written approval, submitted proof form URL or screenshot, submitted date, and follow-up date.',
+    ].join(' ');
+  }
+
+  if (/partner|POS|consultant/i.test(`${row.channel} ${row.target}`)) {
+    return 'Send partner outreach copy, ask for referral or backlink/resource-listing path, and capture sent-message or submitted-form proof plus follow-up date.';
+  }
+
+  if (/directory|listing|startup/i.test(row.channel)) {
+    return 'Submit listing copy, capture confirmation or live listing URL, account/login used, submitted date, and follow-up date.';
+  }
+
+  return 'Complete the external action, then capture confirmation evidence, account/login used, submitted date, and follow-up date.';
+}
+
 function reservedMilestoneRows(rows) {
   return rows.filter((row) => (
     row.status === 'not_started' &&
@@ -252,6 +297,7 @@ function buildAuthoritySubmissionLogRows(rows, { limit = DEFAULT_LIMIT, today = 
       expected_lead_acquisition_channel: leadAcquisitionChannel(row),
       next_step: nextStep(row),
       evidence_needed: evidenceNeeded(row),
+      execution_checklist: executionChecklist(row),
       opportunity_score: score.score,
       opportunity_reasons: score.reasons,
       submission_url: row.url,
