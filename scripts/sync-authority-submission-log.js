@@ -153,6 +153,7 @@ function buildEvidencePreflightRows(logRows) {
       target: row.target,
       action_status: row.action_status || '',
       evidence_needed: row.evidence_needed || '',
+      execution_checklist: row.execution_checklist || '',
       tracker_command: row.tracker_command || '',
       required_fields: requiredFields,
       ready_for_sync: requiredFields.length === 0,
@@ -177,6 +178,9 @@ function renderEvidencePreflightReport(rows) {
       lines.push(`- ${row.target || '(missing target)'}: set ${row.required_fields.join(', ')}`);
       if (row.evidence_needed) {
         lines.push(`  Evidence needed: ${row.evidence_needed}`);
+      }
+      if (row.execution_checklist) {
+        lines.push(`  Checklist: ${row.execution_checklist}`);
       }
     }
   }
