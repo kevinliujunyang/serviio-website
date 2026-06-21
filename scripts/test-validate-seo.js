@@ -86,4 +86,27 @@ try {
   fs.readFileSync = originalReadFileSync;
 }
 
+try {
+  fs.readFileSync = (file, ...args) => {
+    if (file === 'service-areas/boston-chinese-restaurant-ai-phone-ordering/index.html') {
+      return originalReadFileSync(file, ...args)
+        .replace(/restaurant AI assistant/gi, 'AI answering')
+        .replace(/restaurant POS phone order integration/gi, 'POS workflow');
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /missing local restaurant AI assistant intent/.test(error)),
+    `expected missing local restaurant AI assistant intent error, got: ${result.errors.join('; ')}`
+  );
+  assert.ok(
+    result.errors.some((error) => /missing local restaurant POS phone order integration intent/.test(error)),
+    `expected missing local restaurant POS phone order integration intent error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
 console.log('SEO validator tests passed');

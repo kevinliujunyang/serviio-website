@@ -1323,6 +1323,19 @@ function validateServiceAreaGeneration(pages) {
     if (!html.includes('name="conversion_offer" value="local_pos_fit_check"')) {
       errors.push(`${file}: service-area form missing local_pos_fit_check conversion_offer`);
     }
+    if (file.startsWith('service-areas/') && !file.startsWith('service-areas/index.html')) {
+      const title = extractAttr(html, /<title>([^<]+)<\/title>/) || '';
+      const description = extractAttr(html, /<meta name="description" content="([^"]+)/) || '';
+      const h1 = extractAttr(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || '';
+      const faq = [...html.matchAll(/"@type":"Question","name":"([^"]+)/g)].map((match) => match[1]).join(' ');
+      const seoSurfaces = `${title} ${description} ${h1} ${faq}`.toLowerCase();
+      if (!seoSurfaces.includes('restaurant ai assistant')) {
+        errors.push(`${file}: missing local restaurant AI assistant intent in title/meta/h1/FAQ`);
+      }
+      if (!seoSurfaces.includes('restaurant pos phone order integration')) {
+        errors.push(`${file}: missing local restaurant POS phone order integration intent in title/meta/h1/FAQ`);
+      }
+    }
   }
 
   return { errors, serviceAreaLeadPageCount: serviceAreaLeadPages.length };
