@@ -201,6 +201,24 @@ function executionChecklist(row) {
     ].join(' ');
   }
 
+  if (/business profile/i.test(row.channel) && /bing/i.test(row.target)) {
+    return [
+      'Import from Google only after Google Business Profile fields are accurate.',
+      'Use Bing Places website URL with utm_source=bing_places if accepted; otherwise use clean homepage URL and record the source manually.',
+      'Mirror Google services and include Chinese restaurant AI phone answering, POS-integrated AI phone ordering, and restaurant phone order taker AI.',
+      'Capture profile dashboard screenshot, account/login used, submitted date, verification or sync status, and seven-day follow-up date.',
+    ].join(' ');
+  }
+
+  if (/business profile/i.test(row.channel) && /apple/i.test(row.target)) {
+    return [
+      'Add action link to the Chinese restaurant POS AI phone agent page.',
+      'Use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase.',
+      'Add service-area description, logo, cover image, website, phone, and restaurant technology positioning.',
+      'Capture Business Connect dashboard screenshot, account/login used, submitted date, verification status, and seven-day follow-up date.',
+    ].join(' ');
+  }
+
   if (/pos-specific outreach/i.test(row.channel) && /menusifu/i.test(row.target)) {
     return [
       'Submit MenuSifu partner or demo form with Serviio POS-ready phone-order copy.',

@@ -229,6 +229,16 @@ assert.strictEqual(googleProfileSubmissionRow.lead_priority, 'P0 inbound restaur
 assert.match(googleProfileSubmissionRow.lead_route, /Ask every inbound owner which POS system they use/);
 assert.strictEqual(googleProfileSubmissionRow.primary_kpi, 'verified profile plus POS-qualified inbound leads');
 assert.strictEqual(googleProfileSubmissionRow.expected_lead_acquisition_channel, 'business_profile');
+const bingProfileSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Bing Places for Business');
+assert.ok(bingProfileSubmissionRow);
+assert.match(bingProfileSubmissionRow.execution_checklist, /Import from Google only after Google Business Profile fields are accurate/);
+assert.match(bingProfileSubmissionRow.execution_checklist, /Use Bing Places website URL with utm_source=bing_places if accepted/);
+assert.match(bingProfileSubmissionRow.execution_checklist, /Mirror Google services and include Chinese restaurant AI phone answering/);
+const appleProfileSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Apple Business Connect');
+assert.ok(appleProfileSubmissionRow);
+assert.match(appleProfileSubmissionRow.execution_checklist, /Add action link to the Chinese restaurant POS AI phone agent page/);
+assert.match(appleProfileSubmissionRow.execution_checklist, /Use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase/);
+assert.match(appleProfileSubmissionRow.execution_checklist, /Capture Business Connect dashboard screenshot/);
 const productHuntSubmissionRow = allAuthoritySubmissionRows.find((row) => row.target === 'Product Hunt Serviio listing');
 assert.strictEqual(productHuntSubmissionRow, undefined);
 const authoritySubmissionCsv = authoritySubmissionLogToCsv(authoritySubmissionRows);
