@@ -2,8 +2,11 @@ const fs = require('fs');
 const { opportunityScore, parseCsv } = require('./print-free-search-submission-packets');
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
+const DEFAULT_OUT = '';
 const DEFAULT_DAYS = 7;
 const DEFAULT_LIMIT = 12;
+const AUTHORITY_MEDIA_KIT_URL = 'https://serviio.ai/authority-media-kit/';
+const CUSTOMER_PROOF_REQUEST_URL = 'https://serviio.ai/customer-proof-request/';
 const ACTIVE_STATUSES = new Set(['submitted', 'follow-up needed']);
 const FOLLOW_UP_CHANNELS = new Set([
   'AI directory',
@@ -30,6 +33,7 @@ function parseArgs(argv) {
     today: todayIso(),
     days: DEFAULT_DAYS,
     limit: DEFAULT_LIMIT,
+    out: DEFAULT_OUT,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -47,6 +51,9 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === '--limit') {
       args.limit = Number(argv[index + 1]);
+      index += 1;
+    } else if (arg === '--out') {
+      args.out = argv[index + 1] || DEFAULT_OUT;
       index += 1;
     } else {
       throw new Error(`Unexpected argument: ${arg}`);
@@ -155,6 +162,8 @@ function renderFollowUpReport(rows) {
     lines.push(`Landing URL: ${row.landing_url}`);
     lines.push(`UTM URL: ${row.utm_url}`);
     lines.push(`Anchor/listing phrase: ${row.anchor_or_listing_phrase}`);
+    lines.push(`Authority media kit: ${AUTHORITY_MEDIA_KIT_URL}`);
+    lines.push(`Customer proof request: ${CUSTOMER_PROOF_REQUEST_URL}`);
     if (row.follow_up_reason === 'live listing optimization') {
       lines.push('Next step: Claim or update the live listing, strengthen restaurant AI phone ordering and POS integration copy, then record proof.');
       lines.push(`Next tracker command: npm run marketing:mark -- --target ${quoteShell(row.target)} --status "live" --note "Claimed or updated live listing; recorded proof or owner/account confirmation."`);
@@ -170,12 +179,18 @@ function renderFollowUpReport(rows) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
-    console.log('Usage: node scripts/print-free-search-follow-ups.js [--days 7] [--today YYYY-MM-DD] [--limit 12]');
+    console.log('Usage: node scripts/print-free-search-follow-ups.js [--days 7] [--today YYYY-MM-DD] [--limit 12] [--out docs/free-search-follow-up-queue.md]');
     return;
   }
 
   const rows = parseCsv(fs.readFileSync(args.csvPath, 'utf8'));
-  process.stdout.write(renderFollowUpReport(followUpRows(rows, args)));
+  const report = renderFollowUpReport(followUpRows(rows, args));
+  if (args.out) {
+    fs.writeFileSync(args.out, report);
+    console.log(`Wrote ${args.out}`);
+  } else {
+    process.stdout.write(report);
+  }
 }
 
 if (require.main === module) {

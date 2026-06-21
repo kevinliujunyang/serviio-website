@@ -707,12 +707,14 @@ assert.strictEqual(dueFollowUps[2].due_date, '2026-06-08');
 assert.match(renderFollowUpReport(dueFollowUps), /# Serviio Free Search Follow-Up Queue/);
 assert.match(renderFollowUpReport(dueFollowUps), /npm run marketing:mark -- --target "POS consultants" --status "follow-up needed"/);
 assert.match(renderFollowUpReport(dueFollowUps), /Claim or update the live listing/);
+assert.match(renderFollowUpReport(dueFollowUps), /Authority media kit: https:\/\/serviio\.ai\/authority-media-kit\//);
 assert.match(renderFollowUpReport(dueFollowUps), /https:\/\/serviio.ai\/restaurant-pos-partner-referral\//);
-assert.deepStrictEqual(parseFollowUpArgs(['--today', '2026-06-10', '--days', '5', '--limit', '3']), {
+assert.deepStrictEqual(parseFollowUpArgs(['--today', '2026-06-10', '--days', '5', '--limit', '3', '--out', 'docs/follow-ups.md']), {
   csvPath: 'docs/free-search-marketing-tracker.csv',
   today: '2026-06-10',
   days: 5,
   limit: 3,
+  out: 'docs/follow-ups.md',
 });
 assert.throws(() => parseFollowUpArgs(['--days', '0']), /--days must be a positive integer/);
 

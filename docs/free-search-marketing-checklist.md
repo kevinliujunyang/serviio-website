@@ -188,6 +188,14 @@ npm run marketing:follow-ups
 
 Use this after each outreach session and at least weekly. The queue prioritizes rows already marked `follow-up needed`, then submitted rows that are at least seven days old. After a follow-up message, run `marketing:mark` again with a fresh note. If the listing becomes visible, switch the row to `status=live` and record the live URL.
 
+Regenerate the checked-in follow-up queue before a weekly authority block:
+
+```bash
+npm run marketing:follow-ups:export
+```
+
+This writes `docs/free-search-follow-up-queue.md` so live listing updates, partner replies, and stale submitted rows stay visible alongside the weekly authority sprint.
+
 The tracker includes an `IndexNow priority URL batch` row. Keep that row as `submitted` after successful `npm run indexnow:submit` responses, and update `notes` if a later batch is submitted.
 
 Print ready-to-paste submission packets for rows with a known target URL:

@@ -81,6 +81,7 @@
     "marketing:sprint:export": "node scripts/export-partner-outreach-sprint.js",
     "marketing:mark": "node scripts/update-free-search-tracker.js",
     "marketing:follow-ups": "node scripts/print-free-search-follow-ups.js",
+    "marketing:follow-ups:export": "node scripts/print-free-search-follow-ups.js --out docs/free-search-follow-up-queue.md",
     "marketing:test": "node scripts/test-marketing-outreach-export.js",
     "marketing:next": "node scripts/print-free-search-next-actions.js",
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
