@@ -52,6 +52,20 @@ npm run search:ranking-actions:sample
 
 This writes `docs/sample-ranking-action-queue.md` and prioritizes `push_to_page_one`, `ctr_rewrite`, `authority_and_relevance`, `align_target_page`, and `indexing_or_data_check` work. Use this queue before creating new SEO pages so the highest-leverage existing ranking opportunities get worked first.
 
+After exporting Formspree lead page performance, combine search demand with lead quality:
+
+```bash
+npm run search:lead-priority -- path/to/search-console-export.csv path/to/lead-page-performance.csv --out search-lead-priority.md
+```
+
+Preview the combined queue with sample data:
+
+```bash
+npm run search:lead-priority:sample
+```
+
+This writes `docs/sample-search-lead-priority.md`. Use it to prioritize pages that have both Search Console impressions and qualified lead output, especially named-POS pages with demo-fit leads, no-POS pages with POS referral leads, and partner pages with backlink or referral opportunities.
+
 Preview the analyzer without live Search Console data:
 
 ```bash

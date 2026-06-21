@@ -912,6 +912,12 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (packageJson.scripts?.['search:ranking-actions:sample'] !== 'node scripts/export-ranking-action-queue.js --watchlist docs/sample-first-page-ranking-watchlist-updated.csv --out docs/sample-ranking-action-queue.md') {
     errors.push('package.json: missing search:ranking-actions:sample script');
   }
+  if (packageJson.scripts?.['search:lead-priority'] !== 'node scripts/export-search-lead-priority.js') {
+    errors.push('package.json: missing search:lead-priority script');
+  }
+  if (packageJson.scripts?.['search:lead-priority:sample'] !== 'node scripts/export-search-lead-priority.js docs/sample-search-console-export.csv docs/sample-lead-page-performance.csv --out docs/sample-search-lead-priority.md --limit 8') {
+    errors.push('package.json: missing search:lead-priority:sample script');
+  }
   if (packageJson.scripts?.['search:test'] !== 'node scripts/test-search-console-analyzer.js') {
     errors.push('package.json: missing search:test script');
   }
@@ -923,6 +929,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   if (!fs.existsSync('scripts/export-ranking-action-queue.js')) {
     errors.push('scripts/export-ranking-action-queue.js: missing ranking action queue export');
+  }
+  if (!fs.existsSync('scripts/export-search-lead-priority.js')) {
+    errors.push('scripts/export-search-lead-priority.js: missing search-to-lead priority export');
   }
   if (!analyzer.includes('buildTitleMetaRewriteBriefs')) {
     errors.push('scripts/analyze-search-console.js: missing title/meta rewrite brief builder');
@@ -942,6 +951,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   if (!test.includes('buildRankingActions') || !test.includes('push_to_page_one')) {
     errors.push('scripts/test-search-console-analyzer.js: missing ranking action queue regression coverage');
   }
+  if (!test.includes('buildSearchLeadActions') || !test.includes('sample-search-lead-priority')) {
+    errors.push('scripts/test-search-console-analyzer.js: missing search-to-lead priority regression coverage');
+  }
   if (!scorecard.includes('npm run search:watchlist') || !scorecard.includes('docs/first-page-ranking-watchlist.csv')) {
     errors.push('docs/google-search-console-scorecard.md: missing first-page ranking watchlist workflow');
   }
@@ -950,6 +962,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   if (!scorecard.includes('npm run search:ranking-actions') || !scorecard.includes('docs/sample-ranking-action-queue.md')) {
     errors.push('docs/google-search-console-scorecard.md: missing ranking action queue workflow');
+  }
+  if (!scorecard.includes('npm run search:lead-priority') || !scorecard.includes('docs/sample-search-lead-priority.md')) {
+    errors.push('docs/google-search-console-scorecard.md: missing search-to-lead priority workflow');
   }
   if (!scorecard.includes('Title/Meta Rewrite Briefs')) {
     errors.push('docs/google-search-console-scorecard.md: missing Title/Meta Rewrite Briefs workflow');
@@ -963,6 +978,7 @@ function validateSearchConsoleAnalyzerWorkflow() {
     'docs/first-page-ranking-watchlist.csv',
     'docs/sample-first-page-ranking-watchlist-updated.csv',
     'docs/sample-ranking-action-queue.md',
+    'docs/sample-search-lead-priority.md',
   ]) {
     if (!fs.existsSync(file)) {
       errors.push(`${file}: missing Search Console sample workflow file`);

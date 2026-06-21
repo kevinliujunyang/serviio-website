@@ -39,6 +39,8 @@
     "search:ranking-actions": "node scripts/export-ranking-action-queue.js",
     "search:ranking-actions:sample": "node scripts/export-ranking-action-queue.js --watchlist docs/sample-first-page-ranking-watchlist-updated.csv --out docs/sample-ranking-action-queue.md",
     "search:weekly-review": "node scripts/export-weekly-seo-review.js",
+    "search:lead-priority": "node scripts/export-search-lead-priority.js",
+    "search:lead-priority:sample": "node scripts/export-search-lead-priority.js docs/sample-search-console-export.csv docs/sample-lead-page-performance.csv --out docs/sample-search-lead-priority.md --limit 8",
     "search:test": "node scripts/test-search-console-analyzer.js",
     "smoke:anchors:test": "node scripts/test-deploy-anchor-smoke.js",
     "seo:coverage": "node scripts/audit-keyword-coverage.js",

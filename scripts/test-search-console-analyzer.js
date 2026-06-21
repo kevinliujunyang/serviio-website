@@ -33,6 +33,11 @@ const {
   parseArgs: parseWeeklyReviewArgs,
   renderWeeklyReview,
 } = require('./export-weekly-seo-review');
+const {
+  buildSearchLeadActions,
+  parseArgs: parseSearchLeadArgs,
+  renderSearchLeadActions,
+} = require('./export-search-lead-priority');
 
 const csv = `Query,Page,Clicks,Impressions,CTR,Position
 "MenuSifu AI phone ordering","https://serviio.ai/pos/menusifu-ai-phone-ordering/",1,42,1.2%,12.4
@@ -107,6 +112,35 @@ assert.match(sampleReport, /Serviio Search Console Export Analysis/);
 assert.match(sampleReport, /Buyer-Intent Action Queue/);
 assert.match(sampleReport, /Title\/Meta Rewrite Briefs/);
 assert.match(sampleReport, /MenuSifu AI phone ordering/);
+
+const leadPageRows = buildRecords(parseCsv(fs.readFileSync('docs/sample-lead-page-performance.csv', 'utf8')));
+const searchLeadActions = buildSearchLeadActions(sampleRows, leadPageRows, { limit: 5 });
+assert.strictEqual(searchLeadActions[0].page, '/pos/menusifu-ai-phone-ordering/');
+assert.strictEqual(searchLeadActions[0].demo_fit_leads, 1);
+assert.strictEqual(searchLeadActions[0].impressions, 42);
+assert.strictEqual(searchLeadActions[0].best_position, 12.4);
+assert.match(searchLeadActions[0].queries, /MenuSifu AI phone ordering/);
+assert.match(searchLeadActions[0].recommended_action, /Push this near-page-one POS page/);
+assert.ok(searchLeadActions.some((row) =>
+  row.page === '/service-areas/boston-chinese-restaurant-ai-phone-ordering/' &&
+  row.demo_fit_leads === 1
+));
+const searchLeadReport = renderSearchLeadActions(searchLeadActions);
+assert.match(searchLeadReport, /# Serviio Search-to-Lead Priority Queue/);
+assert.match(searchLeadReport, /\/pos\/menusifu-ai-phone-ordering\//);
+assert.match(searchLeadReport, /MenuSifu AI phone ordering/);
+assert.match(searchLeadReport, /demo-fit leads/);
+const sampleSearchLeadReport = fs.readFileSync('docs/sample-search-lead-priority.md', 'utf8');
+assert.match(sampleSearchLeadReport, /Serviio Search-to-Lead Priority Queue/);
+assert.match(sampleSearchLeadReport, /\/pos\/menusifu-ai-phone-ordering\//);
+assert.deepStrictEqual(parseSearchLeadArgs(['gsc.csv', 'lead-page-performance.csv', '--out', 'search-lead.md', '--limit', '5']), {
+  searchConsole: 'gsc.csv',
+  leadPages: 'lead-page-performance.csv',
+  out: 'search-lead.md',
+  limit: 5,
+  help: false,
+});
+assert.throws(() => parseSearchLeadArgs(['gsc.csv', 'lead.csv', '--limit', '0']), /--limit must be a positive integer/);
 
 const scorecard = fs.readFileSync('docs/google-search-console-scorecard.md', 'utf8');
 const priorityQueries = extractPriorityQueries(scorecard);
