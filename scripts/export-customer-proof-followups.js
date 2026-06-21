@@ -28,8 +28,11 @@ const PROOF_HEADERS = [
   'proof_request_url',
   'proof_angle',
   'suggested_message',
+  'proof_usage_plan',
+  'permission_next_step',
   'authority_tracker_target',
   'authority_tracker_note',
+  'authority_tracker_command_template',
 ];
 
 function parseArgs(argv) {
@@ -108,6 +111,23 @@ function suggestedMessage(row) {
   ].join(' ');
 }
 
+function proofUsagePlan(row) {
+  const city = [row.restaurant_city, row.restaurant_state].filter(Boolean).join(', ');
+  const pos = row.pos_system || 'POS system';
+  const pain = row.main_pain || 'phone-order pain';
+  return `Use as city + POS testimonial after permission: ${city || 'restaurant market'} | ${pos} | ${pain}`;
+}
+
+function permissionNextStep(row) {
+  const restaurant = row.restaurant_name || 'the restaurant';
+  return `Request public quote with restaurant name first; accept anonymous quote if ${restaurant} wants privacy; do not publish internal-only proof.`;
+}
+
+function authorityTrackerCommandTemplate(row) {
+  const note = `Customer proof requested for ${row.restaurant_name || 'restaurant lead'}: ${proofAngle(row)}`;
+  return `npm run marketing:mark -- --target "Pilot restaurant testimonial" --status submitted --date YYYY-MM-DD --note "${note}; evidence: FORM_OR_REPLY_URL"`;
+}
+
 function buildCustomerProofRows(scoredRows) {
   return scoredRows
     .filter((row) =>
@@ -138,8 +158,11 @@ function buildCustomerProofRows(scoredRows) {
       proof_request_url: PROOF_URL,
       proof_angle: proofAngle(row),
       suggested_message: suggestedMessage(row),
+      proof_usage_plan: proofUsagePlan(row),
+      permission_next_step: permissionNextStep(row),
       authority_tracker_target: 'Pilot restaurant testimonial',
       authority_tracker_note: `Ask ${row.restaurant_name || 'restaurant lead'} for proof: ${proofAngle(row)}`,
+      authority_tracker_command_template: authorityTrackerCommandTemplate(row),
     }));
 }
 

@@ -152,7 +152,7 @@ To export POS-ready demo leads that should later be asked for customer proof:
 npm run leads:customer-proof -- path/to/formspree-export.csv --out customer-proof-followups.csv
 ```
 
-This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `authority_tracker_target=Pilot restaurant testimonial`, and `authority_tracker_note` so customer proof can become evidence in the authority tracker.
+This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. Use it after a successful demo, pilot, or setup to request a testimonial through `https://serviio.ai/customer-proof-request/`. The output includes `proof_angle`, `suggested_message`, `proof_usage_plan`, `permission_next_step`, `authority_tracker_target=Pilot restaurant testimonial`, `authority_tracker_note`, and `authority_tracker_command_template` so customer proof can become evidence in the authority tracker instead of staying as an untracked private quote.
 
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
@@ -235,7 +235,7 @@ Use `pain_signal` and `urgent_pain_signal` to spot owners with immediate operati
 
 Use `partner_inquiry` to separate POS consultants, restaurant technology partners, website agencies, and referral partners from ordinary restaurant-owner leads. Partner-page submissions should go to partnership follow-up first, not the restaurant demo queue.
 
-Use the customer proof follow-up export after a lead has a real demo, pilot, or successful setup. Do not count proof as authority until the customer submits permission or a testimonial. Once proof is usable, update the `Pilot restaurant testimonial` row in `docs/free-search-marketing-tracker.csv` with `status=submitted` or `status=live`, the evidence note, and the live proof URL if one exists.
+Use the customer proof follow-up export after a lead has a real demo, pilot, or successful setup. Do not count proof as authority until the customer submits permission or a testimonial. Use `permission_next_step` to decide whether the proof can be public, anonymous, or internal-only. Use `proof_usage_plan` to keep the published proof tied to city, POS system, phone-order volume, and pain. Once proof is usable, run the generated `authority_tracker_command_template` after replacing `YYYY-MM-DD` and `FORM_OR_REPLY_URL`, then update the `Pilot restaurant testimonial` row in `docs/free-search-marketing-tracker.csv` with `status=submitted` or `status=live`, the evidence note, and the live proof URL if one exists.
 
 Use `monetization_route` to split follow-up:
 - `serviio_demo`: POS-ready restaurant lead. Keep this in Serviio's demo pipeline first.

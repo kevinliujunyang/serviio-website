@@ -581,9 +581,15 @@ assert.match(customerProofRows[0].proof_angle, /San Jose, CA/);
 assert.match(customerProofRows[0].proof_angle, /MenuSifu/);
 assert.match(customerProofRows[0].suggested_message, /customer-proof-request/);
 assert.match(customerProofRows[0].authority_tracker_note, /Golden Dragon Chinese Restaurant/);
+assert.match(customerProofRows[0].proof_usage_plan, /city \+ POS testimonial/);
+assert.match(customerProofRows[0].permission_next_step, /public quote with restaurant name/);
+assert.match(customerProofRows[0].authority_tracker_command_template, /npm run marketing:mark -- --target "Pilot restaurant testimonial" --status submitted/);
 const customerProofCsv = customerProofToCsv(customerProofRows);
 assert.match(customerProofCsv, /proof_priority,restaurant_name,restaurant_city/);
 assert.match(customerProofCsv, /lead_acquisition_channel/);
+assert.match(customerProofCsv, /proof_usage_plan/);
+assert.match(customerProofCsv, /permission_next_step/);
+assert.match(customerProofCsv, /authority_tracker_command_template/);
 assert.match(customerProofCsv, /Pilot restaurant testimonial/);
 assert.doesNotMatch(customerProofCsv, /New Noodle Shop/);
 assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
