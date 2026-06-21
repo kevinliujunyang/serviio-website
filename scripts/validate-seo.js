@@ -1043,6 +1043,12 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:demo-queue'] !== 'node scripts/export-serviio-demo-leads.js') {
     errors.push('package.json: missing leads:demo-queue script');
   }
+  if (packageJson.scripts?.['leads:pos-partners'] !== 'node scripts/export-pos-partner-leads.js') {
+    errors.push('package.json: missing leads:pos-partners script');
+  }
+  if (packageJson.scripts?.['leads:partner-pipeline'] !== 'node scripts/export-partner-pipeline-leads.js') {
+    errors.push('package.json: missing leads:partner-pipeline script');
+  }
   if (packageJson.scripts?.['leads:customer-proof'] !== 'node scripts/export-customer-proof-followups.js') {
     errors.push('package.json: missing leads:customer-proof script');
   }
@@ -1055,11 +1061,20 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:sample:pos-partners'] !== 'node scripts/export-pos-partner-leads.js docs/sample-formspree-leads.csv --out docs/sample-pos-partner-leads.csv') {
     errors.push('package.json: missing leads:sample:pos-partners script');
   }
+  if (packageJson.scripts?.['leads:sample:partner-pipeline'] !== 'node scripts/export-partner-pipeline-leads.js docs/sample-formspree-leads.csv --out docs/sample-partner-pipeline-leads.csv') {
+    errors.push('package.json: missing leads:sample:partner-pipeline script');
+  }
   if (packageJson.scripts?.['leads:sample:customer-proof'] !== 'node scripts/export-customer-proof-followups.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-followups.csv') {
     errors.push('package.json: missing leads:sample:customer-proof script');
   }
   if (!fs.existsSync('scripts/export-serviio-demo-leads.js')) {
     errors.push('scripts/export-serviio-demo-leads.js: missing Serviio demo queue export');
+  }
+  if (!fs.existsSync('scripts/export-pos-partner-leads.js')) {
+    errors.push('scripts/export-pos-partner-leads.js: missing POS partner lead export');
+  }
+  if (!fs.existsSync('scripts/export-partner-pipeline-leads.js')) {
+    errors.push('scripts/export-partner-pipeline-leads.js: missing partner pipeline export');
   }
   if (!fs.existsSync('scripts/export-customer-proof-followups.js')) {
     errors.push('scripts/export-customer-proof-followups.js: missing customer proof follow-up export');
@@ -1093,11 +1108,21 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('buildCustomerProofRows') || !test.includes('export-customer-proof-followups')) {
     errors.push('scripts/test-lead-scoring.js: missing customer proof follow-up export coverage');
   }
+  if (!test.includes('buildPartnerPipelineRows') || !test.includes('export-partner-pipeline-leads')) {
+    errors.push('scripts/test-lead-scoring.js: missing partner pipeline export coverage');
+  }
   if (!runbook.includes('npm run leads:demo-queue')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing Serviio demo queue workflow');
   }
   if (!runbook.includes('npm run leads:customer-proof') || !runbook.includes('authority_tracker_target=Pilot restaurant testimonial')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof lead workflow');
+  }
+  if (
+    !runbook.includes('npm run leads:partner-pipeline') ||
+    !runbook.includes('authority_tracker_target=POS consultants') ||
+    !runbook.includes('authority_next_step')
+  ) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing partner pipeline lead workflow');
   }
   if (
     !runbook.includes('calculator_missed_calls_per_week') ||
@@ -1117,6 +1142,7 @@ function validateLeadScoringWorkflow() {
     'docs/sample-scored-leads.csv',
     'docs/sample-demo-leads.csv',
     'docs/sample-pos-partner-leads.csv',
+    'docs/sample-partner-pipeline-leads.csv',
     'docs/sample-customer-proof-followups.csv',
   ]) {
     if (!fs.existsSync(file)) {

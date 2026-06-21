@@ -50,4 +50,23 @@ try {
   fs.readFileSync = originalReadFileSync;
 }
 
+try {
+  fs.readFileSync = (file, ...args) => {
+    if (file === 'package.json') {
+      const packageJson = JSON.parse(originalReadFileSync(file, ...args));
+      delete packageJson.scripts['leads:partner-pipeline'];
+      return JSON.stringify(packageJson);
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /missing leads:partner-pipeline script/.test(error)),
+    `expected missing partner pipeline export script error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
 console.log('SEO validator tests passed');

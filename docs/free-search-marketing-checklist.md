@@ -58,6 +58,14 @@ npm run marketing:sprint:export
 
 This writes `docs/partner-outreach-sprint.md` by default. Use it as the working sheet while submitting forms or sending partner emails, then run the included `npm run marketing:mark` command after each real action.
 
+Export strategic partner form submissions after Formspree leads arrive:
+
+```bash
+npm run leads:partner-pipeline -- path/to/formspree-export.csv --out partner-pipeline-leads.csv
+```
+
+This creates a working CSV for POS consultants, restaurant technology partners, and resource-listing opportunities. Use the `authority_next_step` and `authority_tracker_command_template` fields to follow up on referral paths, backlinks, and vendor/resource listings that can improve search authority for POS-integrated restaurant AI phone ordering pages.
+
 Check the off-site authority score after each outreach session:
 
 ```bash

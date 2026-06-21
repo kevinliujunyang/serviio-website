@@ -146,6 +146,14 @@ npm run leads:pos-partners -- path/to/formspree-export.csv --out pos-partner-lea
 
 This writes a smaller partner-handoff CSV with contact fields, POS recommendation interest, phone-order volume, pain, `recommended_pos_partner_targets`, `partner_next_action`, `pos_partner_pitch`, and `handoff_summary`. Use it for POS partner conversations or referral resale. Do not mix this file into the immediate Serviio demo queue because these restaurants are marked `serviio_fit_status=deprioritized_until_pos_ready`.
 
+To export POS consultants, restaurant technology partners, and resource-listing opportunities:
+
+```bash
+npm run leads:partner-pipeline -- path/to/formspree-export.csv --out partner-pipeline-leads.csv
+```
+
+This writes a partner follow-up CSV for `partner_pipeline` leads. The output includes `partner_website`, `partner_authority_opportunity`, `authority_next_step`, `partner_pitch`, `authority_tracker_target=POS consultants`, `authority_tracker_note`, and `authority_tracker_command_template` so referral conversations and backlink/resource-listing asks can be tracked as ranking authority work.
+
 To export POS-ready demo leads that should later be asked for customer proof:
 
 ```bash
@@ -178,6 +186,7 @@ For a quick count without writing a scored CSV:
 npm run leads:score -- path/to/formspree-export.csv --summary-only
 npm run leads:demo-queue -- path/to/formspree-export.csv --summary-only
 npm run leads:pos-partners -- path/to/formspree-export.csv --summary-only
+npm run leads:partner-pipeline -- path/to/formspree-export.csv --summary-only
 npm run leads:customer-proof -- path/to/formspree-export.csv --summary-only
 ```
 

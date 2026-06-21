@@ -16,6 +16,11 @@ const {
   toCsv: customerProofToCsv,
 } = require('./export-customer-proof-followups');
 const {
+  buildPartnerPipelineRows,
+  parseArgs: parsePartnerPipelineExportArgs,
+  toCsv: partnerPipelineToCsv,
+} = require('./export-partner-pipeline-leads');
+const {
   classifyPainSignal,
   classifyPhoneVolume,
   classifyLeadAcquisitionChannel,
@@ -592,6 +597,31 @@ assert.match(customerProofCsv, /permission_next_step/);
 assert.match(customerProofCsv, /authority_tracker_command_template/);
 assert.match(customerProofCsv, /Pilot restaurant testimonial/);
 assert.doesNotMatch(customerProofCsv, /New Noodle Shop/);
+
+const partnerPipelineRows = buildPartnerPipelineRows([
+  highPriority,
+  noPosReferral,
+  partnerInquiry,
+  ambiguousPos,
+]);
+assert.deepStrictEqual(partnerPipelineRows.map((row) => row.partner_name), [
+  'Restaurant Tech Partner',
+]);
+assert.strictEqual(partnerPipelineRows[0].pipeline_priority, 'P0');
+assert.strictEqual(partnerPipelineRows[0].partner_website, 'https://partner.example.com/resources');
+assert.strictEqual(partnerPipelineRows[0].partner_authority_opportunity, 'yes');
+assert.match(partnerPipelineRows[0].authority_next_step, /resource listing or backlink/);
+assert.match(partnerPipelineRows[0].partner_pitch, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus/);
+assert.match(partnerPipelineRows[0].partner_pitch, /Restaurant Tech Partner/);
+assert.match(partnerPipelineRows[0].authority_tracker_command_template, /Restaurant Tech Partner/);
+assert.match(partnerPipelineRows[0].authority_tracker_command_template, /status submitted/);
+const partnerPipelineCsv = partnerPipelineToCsv(partnerPipelineRows);
+assert.match(partnerPipelineCsv, /pipeline_priority,partner_name/);
+assert.match(partnerPipelineCsv, /partner_website/);
+assert.match(partnerPipelineCsv, /authority_next_step/);
+assert.match(partnerPipelineCsv, /authority_tracker_command_template/);
+assert.match(partnerPipelineCsv, /Restaurant Tech Partner/);
+assert.doesNotMatch(partnerPipelineCsv, /New Noodle Shop/);
 assert.deepStrictEqual(parseDemoQueueExportArgs(['formspree.csv', '--out', 'demo-leads.csv']), {
   input: 'formspree.csv',
   out: 'demo-leads.csv',
@@ -622,6 +652,16 @@ assert.deepStrictEqual(parseCustomerProofExportArgs(['formspree.csv', '--summary
   out: '',
   summaryOnly: true,
 });
+assert.deepStrictEqual(parsePartnerPipelineExportArgs(['formspree.csv', '--out', 'partner-pipeline.csv']), {
+  input: 'formspree.csv',
+  out: 'partner-pipeline.csv',
+  summaryOnly: false,
+});
+assert.deepStrictEqual(parsePartnerPipelineExportArgs(['formspree.csv', '--summary-only']), {
+  input: 'formspree.csv',
+  out: '',
+  summaryOnly: true,
+});
 
 const sampleLeadRecords = recordsFromCsv(fs.readFileSync('docs/sample-formspree-leads.csv', 'utf8'));
 const sampleScoredRows = sampleLeadRecords.map(scoreLead);
@@ -639,6 +679,9 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
   'Golden Dragon Chinese Restaurant',
   'Boston Wok',
   'Business Profile MenuSifu Wok',
+]);
+assert.deepStrictEqual(buildPartnerPipelineRows(sampleScoredRows).map((row) => row.partner_name), [
+  'Restaurant Tech Partner',
 ]);
 const samplePartnerLead = sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner');
 assert.strictEqual(samplePartnerLead.lead_route, 'partner_pipeline');
@@ -666,5 +709,7 @@ assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes(
 assert.ok(fs.readFileSync('docs/sample-pos-partner-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('proof_request_url'));
 assert.ok(fs.readFileSync('docs/sample-customer-proof-followups.csv', 'utf8').includes('lead_acquisition_channel'));
+assert.ok(fs.readFileSync('docs/sample-partner-pipeline-leads.csv', 'utf8').includes('authority_tracker_command_template'));
+assert.ok(fs.readFileSync('docs/sample-partner-pipeline-leads.csv', 'utf8').includes('Restaurant Tech Partner'));
 
 console.log('Lead scoring tests passed');
