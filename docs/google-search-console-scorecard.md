@@ -68,6 +68,8 @@ Use `POS-Specific Query Opportunities` to improve pages and outreach anchors for
 
 Use `Title/Meta Rewrite Briefs` as the direct page-edit queue for high-intent rows that are either near page one or already on page one with weak CTR. Apply these suggestions before broad copy rewrites because they are tied to real Search Console query/page evidence.
 
+When Search Console data is not available yet, record a dated manual SERP spot check before making ranking claims. Use `docs/manual-serp-spot-check-2026-06-20.md` as the template: list the exact target queries checked, note whether Serviio appeared, record visible third-party entity pages such as Product Hunt, and tie the interpretation back to the authority tracker. Manual spot checks are directional only; they do not replace Search Console query/page exports.
+
 Audit whether priority queries are represented in crawlable page text with:
 
 ```bash
