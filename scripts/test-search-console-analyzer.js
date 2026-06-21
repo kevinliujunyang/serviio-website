@@ -125,6 +125,11 @@ assert.ok(searchLeadActions.some((row) =>
   row.page === '/service-areas/boston-chinese-restaurant-ai-phone-ordering/' &&
   row.demo_fit_leads === 1
 ));
+const noSearchLeadPageAction = searchLeadActions.find((row) => row.page === '/chinese-restaurant-pos-ai-phone-agent/');
+assert.ok(noSearchLeadPageAction);
+assert.strictEqual(noSearchLeadPageAction.impressions, 0);
+assert.match(noSearchLeadPageAction.recommended_action, /Export or wait for Search Console data/);
+assert.doesNotMatch(noSearchLeadPageAction.recommended_action, /page-one/);
 const searchLeadReport = renderSearchLeadActions(searchLeadActions);
 assert.match(searchLeadReport, /# Serviio Search-to-Lead Priority Queue/);
 assert.match(searchLeadReport, /\/pos\/menusifu-ai-phone-ordering\//);

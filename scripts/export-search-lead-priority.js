@@ -95,6 +95,9 @@ function groupSearchRows(searchRows) {
 }
 
 function recommendedAction(row) {
+  if (row.impressions === 0 && (row.demo_fit_leads > 0 || row.pos_referral_leads > 0 || row.partner_pipeline_leads > 0)) {
+    return 'Export or wait for Search Console data for this lead-producing page; preserve the conversion path while checking indexing, impressions, and target-query alignment.';
+  }
   if (row.demo_fit_leads > 0 && row.best_position > 10 && row.best_position <= 20) {
     return 'Push this near-page-one POS page: improve title/description CTR, add exact-anchor internal links, and include it in the next authority outreach batch.';
   }
