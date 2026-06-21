@@ -105,6 +105,29 @@ try {
 
 try {
   fs.readFileSync = (file, ...args) => {
+    if (file === 'restaurant-pos-partner-referral/index.html') {
+      return originalReadFileSync(file, ...args)
+        .replace(/Suggested listing copy/g, 'Listing copy removed')
+        .replace(/AI phone ordering partner program/g, 'AI ordering partnership');
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /restaurant-pos-partner-referral\/index\.html: missing Suggested listing copy/.test(error)),
+    `expected missing partner listing copy error, got: ${result.errors.join('; ')}`
+  );
+  assert.ok(
+    result.errors.some((error) => /restaurant-pos-partner-referral\/index\.html: missing AI phone ordering partner program/.test(error)),
+    `expected missing partner program keyword error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
+try {
+  fs.readFileSync = (file, ...args) => {
     if (file === 'service-areas/boston-chinese-restaurant-ai-phone-ordering/index.html') {
       return originalReadFileSync(file, ...args)
         .replace(/restaurant AI assistant/gi, 'AI answering')

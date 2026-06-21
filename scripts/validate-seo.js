@@ -609,6 +609,11 @@ function validatePartnerReferralWorkflow() {
     'name="partner_type"',
     'name="monthly_referrals_estimate"',
     'name="authority_opportunity"',
+    'AI phone ordering partner program',
+    'POS consultant referral program',
+    'Restaurant POS reseller referral program',
+    'Suggested listing copy',
+    'https://serviio.ai/restaurant-pos-partner-referral/',
     'resource listing',
     'backlink',
   ];
