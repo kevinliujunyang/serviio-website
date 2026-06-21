@@ -240,6 +240,27 @@ function renderPostEvidenceFields(post) {
   ];
 }
 
+function renderBusinessProfileEvidenceLogTemplate(rows) {
+  const googleRow = rows.find((row) => row.target === 'Google Business Profile');
+  const profileUrl = googleRow?.utm_url || 'https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing';
+  const templateRows = [
+    ['profile_core', 'Google Business Profile', 'Serviio profile', profileUrl],
+    ...PROFILE_PRODUCTS.map((product) => ['product_card', 'Google Business Profile', product.name, product.url]),
+    ...PROFILE_POSTS.map((post) => ['profile_post', 'Google Business Profile', post.title, post.url]),
+  ];
+
+  return [
+    '## Business Profile Evidence Log Template',
+    '',
+    'Copy these rows while creating profile products and posts. Fill evidence fields only after the external profile item exists.',
+    '',
+    '| profile_item_type | profile_platform | item_name | destination_url | evidence_url | account_or_login | screenshot_or_dashboard_confirmation | submitted_date | live_date | follow_up_date |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+    ...templateRows.map((row) => `| ${row.join(' | ')} |  |  |  |  |  |  |`),
+    '',
+  ];
+}
+
 function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
   const profiles = businessProfileRows(rows);
   const lines = [
@@ -278,6 +299,7 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
     '- Apple Business Connect: add action link to POS fit check; upload logo/cover image, service-area description, website, phone, and a showcase pointing to a POS or Chinese restaurant fit page.',
     '- Do not mark submitted or live until profile evidence is captured: account/login used, screenshot or dashboard confirmation, submitted date, and live URL when available.',
     '',
+    ...renderBusinessProfileEvidenceLogTemplate(rows),
     ...renderPlatformFieldMappings(),
     '## Profile services to add',
     '',

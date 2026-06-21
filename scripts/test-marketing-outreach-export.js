@@ -340,6 +340,11 @@ assert.match(businessProfilePack, /Google Business Profile: use clean homepage i
 assert.match(businessProfilePack, /Bing Places for Business: mirror Google NAP and service details/);
 assert.match(businessProfilePack, /Apple Business Connect: add action link to POS fit check/);
 assert.match(businessProfilePack, /Do not mark submitted or live until profile evidence is captured/);
+assert.match(businessProfilePack, /## Business Profile Evidence Log Template/);
+assert.match(businessProfilePack, /profile_item_type \| profile_platform \| item_name \| destination_url \| evidence_url \| account_or_login \| screenshot_or_dashboard_confirmation \| submitted_date \| live_date \| follow_up_date/);
+assert.match(businessProfilePack, /profile_core \| Google Business Profile \| Serviio profile \| https:\/\/serviio\.ai\/\?utm_source=google_business_profile/);
+assert.match(businessProfilePack, /product_card \| Google Business Profile \| 39 Miles AI phone ordering \| https:\/\/serviio\.ai\/pos\/39-miles-ai-phone-ordering\/\?utm_source=business_profile_product/);
+assert.match(businessProfilePack, /profile_post \| Google Business Profile \| AI phone ordering for POS-ready restaurants \| https:\/\/serviio\.ai\/chinese-restaurant-pos-ai-phone-agent\/\?utm_source=business_profile_post/);
 assert.match(businessProfilePack, /## Platform field mapping/);
 assert.match(businessProfilePack, /### Google Business Profile/);
 assert.match(businessProfilePack, /- Primary category: Software company/);

@@ -33,6 +33,24 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Apple Business Connect: add action link to POS fit check; upload logo/cover image, service-area description, website, phone, and a showcase pointing to a POS or Chinese restaurant fit page.
 - Do not mark submitted or live until profile evidence is captured: account/login used, screenshot or dashboard confirmation, submitted date, and live URL when available.
 
+## Business Profile Evidence Log Template
+
+Copy these rows while creating profile products and posts. Fill evidence fields only after the external profile item exists.
+
+| profile_item_type | profile_platform | item_name | destination_url | evidence_url | account_or_login | screenshot_or_dashboard_confirmation | submitted_date | live_date | follow_up_date |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| profile_core | Google Business Profile | Serviio profile | https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | 39 Miles AI phone ordering | https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | Square AI phone ordering | https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | Toast AI phone ordering | https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | Clover AI phone ordering | https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | MenuSifu AI phone ordering | https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | Chowbus AI phone ordering | https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| product_card | Google Business Profile | Mealkeyway AI phone ordering | https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| profile_post | Google Business Profile | AI phone ordering for POS-ready restaurants | https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| profile_post | Google Business Profile | Bilingual phone answering for Chinese restaurants | https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+| profile_post | Google Business Profile | Estimate missed-call revenue before a demo | https://serviio.ai/restaurant-missed-call-revenue-calculator/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing |  |  |  |  |  |  |
+
 ## Platform field mapping
 
 Use this section while creating each profile so the authority work is consistent across Google, Bing, and Apple.
