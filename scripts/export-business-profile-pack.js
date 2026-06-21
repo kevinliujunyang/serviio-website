@@ -241,13 +241,15 @@ function renderPostEvidenceFields(post) {
 }
 
 function renderBusinessProfileEvidenceLogTemplate(rows) {
-  const googleRow = rows.find((row) => row.target === 'Google Business Profile');
-  const profileUrl = googleRow?.utm_url || 'https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing';
-  const templateRows = [
-    ['profile_core', 'Google Business Profile', 'Serviio profile', profileUrl],
-    ...PROFILE_PRODUCTS.map((product) => ['product_card', 'Google Business Profile', product.name, product.url]),
-    ...PROFILE_POSTS.map((post) => ['profile_post', 'Google Business Profile', post.title, post.url]),
-  ];
+  const platforms = businessProfileRows(rows).map((row) => ({
+    name: row.target,
+    profileUrl: row.utm_url || row.landing_url,
+  }));
+  const templateRows = platforms.flatMap((platform) => [
+    ['profile_core', platform.name, 'Serviio profile', platform.profileUrl],
+    ...PROFILE_PRODUCTS.map((product) => ['product_card', platform.name, product.name, product.url]),
+    ...PROFILE_POSTS.map((post) => ['profile_post', platform.name, post.title, post.url]),
+  ]);
 
   return [
     '## Business Profile Evidence Log Template',

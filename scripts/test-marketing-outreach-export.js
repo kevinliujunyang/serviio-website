@@ -345,6 +345,10 @@ assert.match(businessProfilePack, /profile_item_type \| profile_platform \| item
 assert.match(businessProfilePack, /profile_core \| Google Business Profile \| Serviio profile \| https:\/\/serviio\.ai\/\?utm_source=google_business_profile/);
 assert.match(businessProfilePack, /product_card \| Google Business Profile \| 39 Miles AI phone ordering \| https:\/\/serviio\.ai\/pos\/39-miles-ai-phone-ordering\/\?utm_source=business_profile_product/);
 assert.match(businessProfilePack, /profile_post \| Google Business Profile \| AI phone ordering for POS-ready restaurants \| https:\/\/serviio\.ai\/chinese-restaurant-pos-ai-phone-agent\/\?utm_source=business_profile_post/);
+assert.match(businessProfilePack, /profile_core \| Bing Places for Business \| Serviio profile \| https:\/\/serviio\.ai\/\?utm_source=bing_places/);
+assert.match(businessProfilePack, /product_card \| Bing Places for Business \| MenuSifu AI phone ordering \| https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=business_profile_product/);
+assert.match(businessProfilePack, /profile_core \| Apple Business Connect \| Serviio profile \| https:\/\/serviio\.ai\/\?utm_source=apple_business_connect/);
+assert.match(businessProfilePack, /profile_post \| Apple Business Connect \| Bilingual phone answering for Chinese restaurants \| https:\/\/serviio\.ai\/chinese-restaurant-ai-phone-ordering\/\?utm_source=business_profile_post/);
 assert.match(businessProfilePack, /## Platform field mapping/);
 assert.match(businessProfilePack, /### Google Business Profile/);
 assert.match(businessProfilePack, /- Primary category: Software company/);
