@@ -67,6 +67,7 @@
     "marketing:submission-log": "node scripts/export-authority-submission-log.js",
     "marketing:submission-log:first-hour": "node scripts/export-authority-submission-log.js --first-hour",
     "marketing:first-hour-authority": "node scripts/export-first-hour-authority-csv.js",
+    "marketing:first-hour-brief": "node scripts/export-first-hour-authority-brief.js",
     "marketing:live-listings": "node scripts/export-live-listing-optimization-csv.js",
     "marketing:live-listings-sync": "node scripts/sync-live-listing-optimization-log.js",
     "marketing:live-listings-preflight": "node scripts/sync-live-listing-optimization-log.js --preflight",

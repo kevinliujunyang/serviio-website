@@ -92,6 +92,10 @@ const {
   parseArgs: parseAuthorityCommandCenterArgs,
 } = require('./export-authority-command-center');
 const {
+  buildFirstHourAuthorityBrief,
+  parseArgs: parseFirstHourBriefArgs,
+} = require('./export-first-hour-authority-brief');
+const {
   applyActions: applySubmissionLogActions,
   buildEvidencePreflightRows,
   buildSyncActions: buildSubmissionLogSyncActions,
@@ -147,6 +151,10 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:authority-command-center'],
   'node scripts/export-authority-command-center.js',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:first-hour-brief'],
+  'node scripts/export-first-hour-authority-brief.js',
 );
 assert.strictEqual(
   packageJson.scripts['marketing:profile-evidence-preflight'],
@@ -968,6 +976,26 @@ assert.match(authorityCommandCenter, /npm run marketing:submission-preflight:fir
 assert.match(authorityCommandCenter, /npm run marketing:submission-sync -- --apply --log docs\/authority-first-hour-submission-log.csv/);
 assert.match(authorityCommandCenter, /npm run marketing:live-listings-preflight/);
 assert.match(authorityCommandCenter, /npm run marketing:live-listings-sync -- --apply/);
+const firstHourAuthorityBrief = buildFirstHourAuthorityBrief(firstHourAuthorityRows, { today: '2026-06-21' });
+assert.match(firstHourAuthorityBrief, /^# Serviio First-Hour Authority Brief/m);
+assert.match(firstHourAuthorityBrief, /Generated: 2026-06-21/);
+assert.match(firstHourAuthorityBrief, /## 1\. Google Business Profile/);
+assert.match(firstHourAuthorityBrief, /Use clean homepage URL if Google rejects UTM parameters/);
+assert.match(firstHourAuthorityBrief, /## 2\. MenuSifu restaurant consultants/);
+assert.match(firstHourAuthorityBrief, /Submit MenuSifu partner or demo form/);
+assert.match(firstHourAuthorityBrief, /## 3\. 39 Miles restaurant consultants/);
+assert.match(firstHourAuthorityBrief, /Contact 39 Miles\/MENUPO using the official contact path/);
+assert.match(firstHourAuthorityBrief, /## 4\. Pilot restaurant testimonial/);
+assert.match(firstHourAuthorityBrief, /city, restaurant type, POS system, weekly phone-order volume/);
+assert.match(firstHourAuthorityBrief, /Evidence fields to fill after the action/);
+assert.match(firstHourAuthorityBrief, /action_status: submitted/);
+assert.match(firstHourAuthorityBrief, /npm run marketing:mark -- --target "Pilot restaurant testimonial" --status submitted --date 2026-06-06/);
+assert.deepStrictEqual(parseFirstHourBriefArgs(['--today', '2026-06-21', '--log', 'docs/authority-first-hour-submission-log.csv', '--out', 'docs/brief.md']), {
+  log: 'docs/authority-first-hour-submission-log.csv',
+  out: 'docs/brief.md',
+  today: '2026-06-21',
+  help: false,
+});
 assert.deepStrictEqual(parseAuthorityCommandCenterArgs(['--today', '2026-06-21', '--out', 'docs/authority.md']), {
   out: 'docs/authority.md',
   today: '2026-06-21',

@@ -812,6 +812,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:authority-command-center'] !== 'node scripts/export-authority-command-center.js') {
     errors.push('package.json: missing marketing:authority-command-center script');
   }
+  if (packageJson.scripts?.['marketing:first-hour-brief'] !== 'node scripts/export-first-hour-authority-brief.js') {
+    errors.push('package.json: missing marketing:first-hour-brief script');
+  }
   if (packageJson.scripts?.['marketing:gtm-queue:export'] !== 'node scripts/export-free-search-gtm-queue.js --out docs/free-search-gtm-queue.csv') {
     errors.push('package.json: missing marketing:gtm-queue:export script');
   }
@@ -838,6 +841,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-first-hour-authority-csv.js')) {
     errors.push('scripts/export-first-hour-authority-csv.js: missing first-hour authority execution export');
+  }
+  if (!fs.existsSync('scripts/export-first-hour-authority-brief.js')) {
+    errors.push('scripts/export-first-hour-authority-brief.js: missing first-hour authority brief export');
   }
   if (!fs.existsSync('scripts/export-live-listing-optimization-csv.js')) {
     errors.push('scripts/export-live-listing-optimization-csv.js: missing live listing optimization export');
@@ -871,6 +877,23 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('docs/first-hour-authority-execution.csv')) {
     errors.push('docs/first-hour-authority-execution.csv: missing first-hour authority execution CSV');
+  }
+  if (!fs.existsSync('docs/first-hour-authority-brief.md')) {
+    errors.push('docs/first-hour-authority-brief.md: missing first-hour authority brief');
+  } else {
+    const firstHourBrief = fs.readFileSync('docs/first-hour-authority-brief.md', 'utf8');
+    for (const required of [
+      '# Serviio First-Hour Authority Brief',
+      'Google Business Profile',
+      'MenuSifu restaurant consultants',
+      '39 Miles restaurant consultants',
+      'Pilot restaurant testimonial',
+      'Evidence fields to fill after the action',
+    ]) {
+      if (!firstHourBrief.includes(required)) {
+        errors.push(`docs/first-hour-authority-brief.md: missing ${required}`);
+      }
+    }
   }
   if (!fs.existsSync('docs/live-listing-optimization.csv')) {
     errors.push('docs/live-listing-optimization.csv: missing live listing optimization CSV');
@@ -914,6 +937,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:first-hour-authority') || !checklist.includes('docs/first-hour-authority-execution.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing first-hour authority execution workflow');
+  }
+  if (!checklist.includes('npm run marketing:first-hour-brief') || !checklist.includes('docs/first-hour-authority-brief.md')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing first-hour authority brief workflow');
   }
   if (!checklist.includes('npm run marketing:live-listings') || !checklist.includes('docs/live-listing-optimization.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing live listing optimization workflow');

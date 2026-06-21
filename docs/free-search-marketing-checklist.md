@@ -98,6 +98,14 @@ npm run marketing:first-hour-authority
 
 This writes `docs/first-hour-authority-execution.csv` with Google Business Profile, MenuSifu, 39 Miles, and customer-proof actions in order. Use it during the manual submission block, then update evidence only after the real external action is submitted or published.
 
+Generate the first-hour authority brief when you want the same queue as a copy/paste worksheet with proof fields and tracker commands:
+
+```bash
+npm run marketing:first-hour-brief
+```
+
+This writes `docs/first-hour-authority-brief.md` with the Google Business Profile, MenuSifu, 39 Miles, and customer-proof payloads, execution checklist, evidence fields, and tracker commands. Use it when doing the manual account/form work so evidence is captured before any row is marked submitted.
+
 Generate the live-listing optimization CSV when an existing public listing needs claim/update proof, such as Product Hunt:
 
 ```bash
