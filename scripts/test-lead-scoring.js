@@ -26,6 +26,10 @@ const {
   toCsv: customerProofPublishingToCsv,
 } = require('./export-customer-proof-publishing-queue');
 const {
+  buildCustomerProofDraftPack,
+  parseArgs: parseCustomerProofDraftArgs,
+} = require('./export-customer-proof-page-drafts');
+const {
   buildPartnerPipelineRows,
   parseArgs: parsePartnerPipelineExportArgs,
   toCsv: partnerPipelineToCsv,
@@ -660,6 +664,28 @@ assert.deepStrictEqual(parseCustomerProofPublishingArgs(['formspree.csv', '--out
   out: 'proof-publishing.csv',
   today: '2026-06-21',
   summaryOnly: false,
+});
+const proofDraftPack = buildCustomerProofDraftPack(proofPublishingRows, { today: '2026-06-21' });
+assert.match(proofDraftPack, /^# Customer Proof Page Draft Pack/m);
+assert.match(proofDraftPack, /Generated: 2026-06-21/);
+assert.match(proofDraftPack, /## 1\. Anonymous Chinese takeout in San Jose/);
+assert.match(proofDraftPack, /Draft path: `customer-proof\/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof\/index.html`/);
+assert.match(proofDraftPack, /Canonical URL: https:\/\/serviio\.ai\/customer-proof\/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof\//);
+assert.match(proofDraftPack, /Page title: San Jose MenuSifu Chinese takeout AI phone ordering proof \| Serviio/);
+assert.match(proofDraftPack, /Privacy: anonymous proof; do not publish restaurant legal name/);
+assert.match(proofDraftPack, /H1: San Jose Chinese takeout using MenuSifu for AI phone ordering/);
+assert.match(proofDraftPack, /> Serviio helped us answer more dinner-rush calls while staff packed pickup orders\./);
+assert.match(proofDraftPack, /Proof summary: San Jose, CA \| Chinese takeout \| MenuSifu \| 150\+ weekly phone orders \| Missed calls during rush/);
+assert.match(proofDraftPack, /JSON-LD types: Review; FAQPage; BreadcrumbList/);
+assert.match(proofDraftPack, /\/pos\/menusifu-ai-phone-ordering\//);
+assert.match(proofDraftPack, /\/service-areas\/san-jose-chinese-restaurant-ai-phone-ordering\//);
+assert.match(proofDraftPack, /Tracker command after publishing/);
+assert.match(proofDraftPack, /--target "Pilot restaurant testimonial" --status live --date 2026-06-21/);
+assert.deepStrictEqual(parseCustomerProofDraftArgs(['proof-publishing.csv', '--out', 'proof-drafts.md', '--today', '2026-06-21']), {
+  input: 'proof-publishing.csv',
+  out: 'proof-drafts.md',
+  today: '2026-06-21',
+  help: false,
 });
 
 const partnerPipelineRows = buildPartnerPipelineRows([

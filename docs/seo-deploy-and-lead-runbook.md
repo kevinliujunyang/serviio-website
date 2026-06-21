@@ -178,6 +178,14 @@ npm run leads:customer-proof:publish -- path/to/formspree-export.csv --out custo
 
 This writes publishable proof into draft page rows with `slug`, `draft_path`, `canonical_url`, `page_title`, `meta_description`, `hero_h1`, quote, JSON-LD type hints, internal links to the matching POS/city pages, and a `tracker_command` that marks `Pilot restaurant testimonial` live after the proof page is published. Anonymous permission is preserved in `restaurant_display_name`; internal-only proof is excluded. The sample command is `npm run leads:sample:customer-proof:publish`, which writes `docs/sample-customer-proof-publishing-queue.csv`.
 
+To render those publishing rows into reviewable page drafts before creating live files:
+
+```bash
+npm run leads:customer-proof:drafts -- customer-proof-publishing-queue.csv --out customer-proof-page-drafts.md
+```
+
+This writes a Markdown proof-page draft pack with the target path, canonical URL, page title, meta description, H1, approved quote, proof summary, JSON-LD type hints, internal links, privacy note, and tracker command after publishing. Use the sample command `npm run leads:sample:customer-proof:drafts`, which writes `docs/sample-customer-proof-page-drafts.md`, to review the format without publishing a fake proof page.
+
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
 Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `authority_opportunity`, and `partner_authority_opportunity`. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.

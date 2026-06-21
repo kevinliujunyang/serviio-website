@@ -1122,6 +1122,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:customer-proof:publish'] !== 'node scripts/export-customer-proof-publishing-queue.js') {
     errors.push('package.json: missing leads:customer-proof:publish script');
   }
+  if (packageJson.scripts?.['leads:customer-proof:drafts'] !== 'node scripts/export-customer-proof-page-drafts.js') {
+    errors.push('package.json: missing leads:customer-proof:drafts script');
+  }
   if (packageJson.scripts?.['leads:page-performance'] !== 'node scripts/export-lead-page-performance.js') {
     errors.push('package.json: missing leads:page-performance script');
   }
@@ -1146,6 +1149,9 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:sample:customer-proof:publish'] !== 'node scripts/export-customer-proof-publishing-queue.js docs/sample-formspree-leads.csv --out docs/sample-customer-proof-publishing-queue.csv') {
     errors.push('package.json: missing leads:sample:customer-proof:publish script');
   }
+  if (packageJson.scripts?.['leads:sample:customer-proof:drafts'] !== 'node scripts/export-customer-proof-page-drafts.js docs/sample-customer-proof-publishing-queue.csv --out docs/sample-customer-proof-page-drafts.md') {
+    errors.push('package.json: missing leads:sample:customer-proof:drafts script');
+  }
   if (packageJson.scripts?.['leads:sample:page-performance'] !== 'node scripts/export-lead-page-performance.js docs/sample-formspree-leads.csv --out docs/sample-lead-page-performance.csv') {
     errors.push('package.json: missing leads:sample:page-performance script');
   }
@@ -1166,6 +1172,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!fs.existsSync('scripts/export-customer-proof-publishing-queue.js')) {
     errors.push('scripts/export-customer-proof-publishing-queue.js: missing customer proof publishing queue export');
+  }
+  if (!fs.existsSync('scripts/export-customer-proof-page-drafts.js')) {
+    errors.push('scripts/export-customer-proof-page-drafts.js: missing customer proof page drafts export');
   }
   if (!fs.existsSync('scripts/export-lead-page-performance.js')) {
     errors.push('scripts/export-lead-page-performance.js: missing lead page performance export');
@@ -1205,6 +1214,9 @@ function validateLeadScoringWorkflow() {
   if (!test.includes('buildCustomerProofPublishingRows') || !test.includes('export-customer-proof-publishing-queue')) {
     errors.push('scripts/test-lead-scoring.js: missing customer proof publishing queue coverage');
   }
+  if (!test.includes('buildCustomerProofDraftPack') || !test.includes('export-customer-proof-page-drafts')) {
+    errors.push('scripts/test-lead-scoring.js: missing customer proof page draft coverage');
+  }
   if (!test.includes('buildPartnerPipelineRows') || !test.includes('export-partner-pipeline-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing partner pipeline export coverage');
   }
@@ -1222,6 +1234,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('npm run leads:customer-proof:publish') || !runbook.includes('docs/sample-customer-proof-publishing-queue.csv')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof publishing workflow');
+  }
+  if (!runbook.includes('npm run leads:customer-proof:drafts') || !runbook.includes('docs/sample-customer-proof-page-drafts.md')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing customer proof page draft workflow');
   }
   if (
     !runbook.includes('npm run leads:partner-pipeline') ||
@@ -1259,6 +1274,7 @@ function validateLeadScoringWorkflow() {
     'docs/sample-customer-proof-followups.csv',
     'docs/sample-customer-proof-evidence.csv',
     'docs/sample-customer-proof-publishing-queue.csv',
+    'docs/sample-customer-proof-page-drafts.md',
     'docs/sample-lead-page-performance.csv',
   ]) {
     if (!fs.existsSync(file)) {
