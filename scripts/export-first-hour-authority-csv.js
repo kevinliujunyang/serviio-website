@@ -30,6 +30,8 @@ const HEADERS = [
   'target',
   'projected_authority_delta',
   'projected_authority_score',
+  'cumulative_authority_delta',
+  'cumulative_authority_score',
   'contact_url',
   'landing_url',
   'utm_url',
@@ -104,10 +106,9 @@ function copyPastePayload(row) {
   ].filter(Boolean).join('\n\n');
 }
 
-function projectedAuthorityImpact(rows, target, { today = todayIso() } = {}) {
-  const current = authorityScore(rows).score;
-  const projectedRows = rows.map((row) => {
-    if (row.target !== target) return { ...row };
+function projectSubmittedRows(rows, target, { today = todayIso() } = {}) {
+  return rows.map((row) => {
+    if (row.target !== target) return row;
     return {
       ...row,
       status: 'submitted',
@@ -116,10 +117,28 @@ function projectedAuthorityImpact(rows, target, { today = todayIso() } = {}) {
       notes: row.notes || 'Projected first-hour authority submission.',
     };
   });
+}
+
+function projectedAuthorityImpact(rows, target, { today = todayIso() } = {}) {
+  const current = authorityScore(rows).score;
+  const projectedRows = projectSubmittedRows(rows, target, { today });
   const projected = authorityScore(projectedRows).score;
   return {
     projected_authority_delta: projected - current,
     projected_authority_score: projected,
+  };
+}
+
+function cumulativeAuthorityImpact(rows, targets, { today = todayIso() } = {}) {
+  const current = authorityScore(rows).score;
+  let projectedRows = rows;
+  for (const target of targets) {
+    projectedRows = projectSubmittedRows(projectedRows, target, { today });
+  }
+  const projected = authorityScore(projectedRows).score;
+  return {
+    cumulative_authority_delta: projected - current,
+    cumulative_authority_score: projected,
   };
 }
 
@@ -132,6 +151,7 @@ function buildFirstHourAuthorityRows(rows, { today = todayIso() } = {}) {
     }
     const packet = packetFor(row);
     const projected = projectedAuthorityImpact(rows, row.target, { today });
+    const cumulative = cumulativeAuthorityImpact(rows, FIRST_HOUR_TARGETS.slice(0, index + 1), { today });
     return {
       position: index + 1,
       action_type: 'submit_or_contact',
@@ -140,6 +160,8 @@ function buildFirstHourAuthorityRows(rows, { today = todayIso() } = {}) {
       target: row.target,
       projected_authority_delta: projected.projected_authority_delta,
       projected_authority_score: projected.projected_authority_score,
+      cumulative_authority_delta: cumulative.cumulative_authority_delta,
+      cumulative_authority_score: cumulative.cumulative_authority_score,
       contact_url: row.url,
       landing_url: row.landing_url,
       utm_url: row.utm_url,
