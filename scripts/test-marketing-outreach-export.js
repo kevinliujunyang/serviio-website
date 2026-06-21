@@ -185,6 +185,7 @@ const indexNowRow = trackerRows.find((row) => row.target === 'IndexNow priority 
 assert.ok(indexNowRow);
 assert.match(indexNowRow.notes, /restaurant-missed-call-revenue-calculator/);
 assert.match(indexNowRow.notes, /2026-06-20 priority 43-URL IndexNow batch/);
+assert.match(indexNowRow.notes, /2026-06-21: Submitted current 139-URL full-site IndexNow batch after authority media kit, Product Hunt live-listing export, and proof-link workflow updates; IndexNow HTTP 200\./);
 const productHuntRow = trackerRows.find((row) => row.target === 'Product Hunt Serviio listing');
 assert.ok(productHuntRow);
 assert.strictEqual(productHuntRow.channel, 'Startup directory');
