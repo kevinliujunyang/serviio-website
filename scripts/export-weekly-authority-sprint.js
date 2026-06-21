@@ -233,6 +233,57 @@ function renderFirstHourAuthorityBlock(rows) {
   return lines;
 }
 
+const BUSINESS_PROFILE_FIELD_MAPPINGS = [
+  {
+    platform: 'Google Business Profile',
+    fields: [
+      ['Primary category', 'Software company'],
+      ['Additional categories', 'Business service; Restaurant technology; Marketing service'],
+      ['Website field', 'https://serviio.ai/ (use clean URL if Google rejects UTM parameters)'],
+      ['Service areas', 'United States service-area business; prioritize New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, and Philadelphia'],
+      ['Products field', 'Add POS-specific products for 39 Miles, MenuSifu, Square, Toast, Clover, Chowbus, and Mealkeyway when available'],
+      ['Evidence before tracker update', 'dashboard confirmation screenshot, account email, submitted date, and verification or review status'],
+    ],
+  },
+  {
+    platform: 'Bing Places for Business',
+    fields: [
+      ['Import source', 'import from Google only after the Google profile fields are accurate'],
+      ['Primary category', 'Software company'],
+      ['Website field', 'https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing'],
+      ['Services field', 'Mirror the Google services list and include Chinese restaurant AI phone answering'],
+      ['Evidence before tracker update', 'profile dashboard screenshot, account email, submitted date, and verification or sync status'],
+    ],
+  },
+  {
+    platform: 'Apple Business Connect',
+    fields: [
+      ['Primary category', 'Software company'],
+      ['Website field', 'https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing'],
+      ['Action link', 'https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing'],
+      ['Showcase', 'use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase'],
+      ['Evidence before tracker update', 'Business Connect dashboard screenshot, account email, submitted date, and verification status'],
+    ],
+  },
+];
+
+function renderBusinessProfileFieldMapping(rows) {
+  if (!rows.some((row) => /business profile/i.test(row.channel))) return [];
+
+  return [
+    '## Business Profile Field Mapping',
+    '',
+    'Use these fields while creating Google, Bing, and Apple profiles so the authority work is consistent and proof-ready.',
+    '',
+    ...BUSINESS_PROFILE_FIELD_MAPPINGS.flatMap((mapping) => [
+      `### ${mapping.platform} fields`,
+      '',
+      ...mapping.fields.map(([label, value]) => `- ${label}: ${value}`),
+      '',
+    ]),
+  ];
+}
+
 function renderDailyAuthorityChecklist(rows, today) {
   const followUpDate = addDaysIso(today, 7);
   const lines = [
@@ -344,6 +395,7 @@ function buildWeeklyAuthoritySprint(rows, args = {}) {
     '',
     ...renderActionTable(executionRows),
     '',
+    ...renderBusinessProfileFieldMapping(executionRows),
     ...renderDailyAuthorityChecklist(executionRows, options.today),
     '',
     ...renderIndexingSupportQueue(indexingRows),
