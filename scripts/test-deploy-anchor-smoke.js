@@ -1,4 +1,5 @@
 const assert = require('assert');
+const fs = require('fs');
 const {
   buildAnchorFailures,
   requiredHomepageAnchors,
@@ -34,5 +35,16 @@ assert.ok(requiredHomepageAnchors.some((anchor) => anchor.text === 'Chowbus POS 
 assert.ok(requiredHomepageAnchors.some((anchor) => anchor.text === 'Restaurant phone order automation'));
 assert.strictEqual(resolveBaseUrl('https://serviio.ai/'), 'https://serviio.ai');
 assert.strictEqual(resolveBaseUrl(), 'https://serviio.ai');
+
+const posHubHtml = fs.readFileSync('restaurant-pos-phone-order-integration/index.html', 'utf8');
+assert.deepStrictEqual(
+  buildAnchorFailures(posHubHtml, [
+    { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles AI phone answering' },
+    { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles AI order taker' },
+    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu AI phone answering' },
+    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu AI order taker' },
+  ]),
+  [],
+);
 
 console.log('Deploy anchor smoke tests passed');
