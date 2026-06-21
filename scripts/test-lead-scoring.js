@@ -363,17 +363,23 @@ const partnerInquiry = scoreLead({
   main_pain: 'Our restaurant clients miss calls during rush and need less manual POS entry.',
   conversion_offer: 'pos_recommendation_fit_check',
   pos_recommendation_interest: 'Yes, route no-POS leads for POS recommendations',
+  partner_website: 'https://partner.example.com/resources',
+  authority_opportunity: 'Yes, we can add Serviio to our restaurant technology resource page',
 });
 assert.strictEqual(partnerInquiry.lead_priority, 'medium');
 assert.strictEqual(partnerInquiry.lead_route, 'partner_pipeline');
 assert.strictEqual(partnerInquiry.partner_inquiry, 'yes');
+assert.strictEqual(partnerInquiry.partner_authority_opportunity, 'yes');
+assert.strictEqual(partnerInquiry.partner_website, 'https://partner.example.com/resources');
 assert.strictEqual(partnerInquiry.monetization_route, 'partner_relationship');
 assert.strictEqual(partnerInquiry.partner_referral_priority, 'strategic');
 assert.match(partnerInquiry.recommended_pos_partner_targets, /POS consultants/);
 assert.match(partnerInquiry.recommended_pos_partner_targets, /MenuSifu/);
 assert.match(partnerInquiry.lead_next_action, /partner\/referral opportunity/);
 assert.match(partnerInquiry.partner_next_action, /referral economics/);
+assert.match(partnerInquiry.partner_next_action, /resource listing or backlink/);
 assert.match(partnerInquiry.lead_reason, /partner\/referral inquiry/);
+assert.match(partnerInquiry.buyer_profile, /authority_opportunity/);
 assert.match(partnerInquiry.buyer_profile, /partner_referral:strategic/);
 
 const posIntegrationOfferDemo = scoreLead({
@@ -628,7 +634,11 @@ assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row
   'Boston Wok',
   'Business Profile MenuSifu Wok',
 ]);
-assert.strictEqual(sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner').lead_route, 'partner_pipeline');
+const samplePartnerLead = sampleScoredRows.find((row) => row.restaurant_name === 'Restaurant Tech Partner');
+assert.strictEqual(samplePartnerLead.lead_route, 'partner_pipeline');
+assert.strictEqual(samplePartnerLead.partner_authority_opportunity, 'yes');
+assert.strictEqual(samplePartnerLead.partner_website, 'https://partner.example.com/resources');
+assert.match(samplePartnerLead.partner_next_action, /resource listing or backlink/);
 const sampleBusinessProfileProductLead = sampleScoredRows.find((row) => row.restaurant_name === 'Business Profile MenuSifu Wok');
 assert.ok(sampleBusinessProfileProductLead);
 assert.strictEqual(sampleBusinessProfileProductLead.lead_acquisition_channel, 'business_profile');
@@ -642,6 +652,7 @@ assert.match(sampleSummary, /business_profile: 1/);
 assert.match(sampleSummary, /partner_referral: 1/);
 assert.match(sampleSummary, /direct_or_unknown: 1/);
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('pos_purchase_timeline_urgency'));
+assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('partner_authority_opportunity'));
 assert.ok(fs.readFileSync('docs/sample-scored-leads.csv', 'utf8').includes('lead_acquisition_channel'));
 assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('call_script'));
 assert.ok(fs.readFileSync('docs/sample-demo-leads.csv', 'utf8').includes('lead_acquisition_channel'));

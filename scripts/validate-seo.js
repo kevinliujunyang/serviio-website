@@ -591,6 +591,32 @@ function validatePosPartnerConsentFields(pages) {
   return { errors, posRecommendationPageCount: posRecommendationPages.length };
 }
 
+function validatePartnerReferralWorkflow() {
+  const errors = [];
+  const page = 'restaurant-pos-partner-referral/index.html';
+
+  if (!fs.existsSync(page)) {
+    errors.push(`${page}: missing partner referral page`);
+    return { errors };
+  }
+
+  const html = fs.readFileSync(page, 'utf8');
+  const requiredSnippets = [
+    'name="partner_website"',
+    'name="authority_opportunity"',
+    'resource listing',
+    'backlink',
+  ];
+
+  for (const snippet of requiredSnippets) {
+    if (!html.includes(snippet)) {
+      errors.push(`${page}: missing ${snippet}`);
+    }
+  }
+
+  return { errors };
+}
+
 function validateAttributionScript() {
   const errors = [];
   const file = 'assets/js/form-attribution.js';
@@ -1018,7 +1044,7 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
   }
-  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal', 'pos_purchase_timeline_urgency', 'classifyPosPurchaseTimeline']) {
+  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal', 'pos_purchase_timeline_urgency', 'classifyPosPurchaseTimeline', 'partner_authority_opportunity', 'authority_opportunity']) {
     if (!scorer.includes(snippet)) {
       errors.push(`scripts/score-formspree-leads.js: missing ${snippet}`);
     }
@@ -1034,6 +1060,9 @@ function validateLeadScoringWorkflow() {
   }
   if (!runbook.includes('pos_purchase_timeline_urgency')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing POS purchase timeline urgency workflow');
+  }
+  if (!runbook.includes('partner_authority_opportunity') || !runbook.includes('resource listing or backlink')) {
+    errors.push('docs/seo-deploy-and-lead-runbook.md: missing partner authority opportunity workflow');
   }
   if (!test.includes('buildDemoQueueRows') || !test.includes('export-serviio-demo-leads')) {
     errors.push('scripts/test-lead-scoring.js: missing Serviio demo queue export coverage');
@@ -1227,6 +1256,7 @@ function runValidation() {
   const homepageConversionOffers = validateHomepageConversionOffers();
   const posFocusFields = validatePosFocusFields(pages);
   const posPartnerConsentFields = validatePosPartnerConsentFields(pages);
+  const partnerReferralWorkflow = validatePartnerReferralWorkflow();
   const attribution = validateAttributionScript();
   const searchConsoleCoverage = validateSearchConsoleCoverage();
   const freeSearchTracker = validateFreeSearchTracker();
@@ -1250,6 +1280,7 @@ function runValidation() {
     ...homepageConversionOffers.errors,
     ...posFocusFields.errors,
     ...posPartnerConsentFields.errors,
+    ...partnerReferralWorkflow.errors,
     ...attribution.errors,
     ...searchConsoleCoverage.errors,
     ...freeSearchTracker.errors,
@@ -1281,6 +1312,7 @@ function runValidation() {
       `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
       `${posFocusFields.posPageCount} POS focus fields validated`,
       `${posPartnerConsentFields.posRecommendationPageCount} POS partner consent fields validated`,
+      'partner referral authority capture validated',
       'form attribution validated',
       `${searchConsoleCoverage.priorityPathCount} Search Console priority paths validated`,
       'free search tracker validated',

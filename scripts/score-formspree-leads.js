@@ -51,6 +51,21 @@ const FIELD_ALIASES = {
     'purchase_timeline',
     'purchase timeline',
   ],
+  partnerWebsite: [
+    'partner_website',
+    'partner website',
+    'company_website',
+    'company website',
+    'website',
+  ],
+  authorityOpportunity: [
+    'authority_opportunity',
+    'authority opportunity',
+    'backlink_opportunity',
+    'backlink opportunity',
+    'resource_listing_opportunity',
+    'resource listing opportunity',
+  ],
   leadSource: ['lead_source', 'lead source'],
   landingPage: ['landing_page', 'landing page'],
   landingPath: ['landing_path', 'landing path'],
@@ -70,6 +85,7 @@ const OTHER_POS_PATTERN = /(^|\b)(other|another|existing|current|custom|local|le
 const NO_POS_PATTERN = /(^|\b)(no|none|not applicable|n\/a|without)\s*(pos)?($|\b)|\u6682\u65f6\u6ca1\u6709/i;
 const WANTS_POS_PATTERN = /(^|\b)(yes|y|interested|maybe|recommend|recommendation|consider)\b|\u5e0c\u671b/i;
 const POS_PARTNER_CONSENT_PATTERN = /(^|\b)(yes|y|agree|consent|share|sharing|providers?|consultants?|partners?)\b|\u540c\u610f|\u53ef\u4ee5/i;
+const PARTNER_AUTHORITY_OPPORTUNITY_PATTERN = /(^|\b)(yes|y|resource|listing|directory|backlink|link|profile|vendor|partner\s*page|co-?marketing)\b/i;
 const URGENT_POS_TIMELINE_PATTERN = /immediate|right\s*away|asap|within\s*1\s*month|1\s*month|\u9a6c\u4e0a|1\s*\u4e2a\u6708\u5185/i;
 const NEAR_POS_TIMELINE_PATTERN = /1\s*-\s*3\s*months?|1\s*to\s*3\s*months?|3\s*months?|\u0031-\u0033\s*\u4e2a\u6708/i;
 const CHINESE_INTENT_PATTERN = /chinese|asian|zh|mandarin|cantonese|menusifu|menu\s*sifu|chowbus|39\s*miles|[\u4e00-\u9fff]/i;
@@ -190,6 +206,7 @@ function buildBuyerProfile({
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
   if (values.posPurchaseTimeline) parts.push(`pos_timeline:${values.posPurchaseTimeline}`);
+  if (values.partnerAuthorityOpportunity) parts.push('authority_opportunity');
   if (values.leadSource) parts.push(`source:${values.leadSource}`);
 
   return parts.join(' | ');
@@ -609,9 +626,14 @@ function scoreLead(record) {
     posTimelineUrgency,
   });
   const leadAcquisitionChannel = classifyLeadAcquisitionChannel(values);
-  const partnerNextAction = posPartnerLead.status === 'partner_referral_needs_consent'
+  const partnerAuthorityOpportunity = partnerInquiry &&
+    PARTNER_AUTHORITY_OPPORTUNITY_PATTERN.test(values.authorityOpportunity);
+  const partnerNextActionBase = posPartnerLead.status === 'partner_referral_needs_consent'
     ? 'Get explicit partner-sharing consent before sending this no-POS lead to POS providers or consultants.'
     : partnerReferral.partnerNextAction;
+  const partnerNextAction = partnerAuthorityOpportunity
+    ? `${partnerNextActionBase} Also ask for a resource listing or backlink from ${values.partnerWebsite || 'the partner site'}.`
+    : partnerNextActionBase;
 
   let score = 0;
   const reasons = [];
@@ -638,6 +660,10 @@ function scoreLead(record) {
   if (partnerInquiry) {
     score += 20;
     reasons.push('partner/referral inquiry');
+  }
+  if (partnerAuthorityOpportunity) {
+    score += 8;
+    reasons.push('partner authority opportunity');
   }
   if (hasUsLocation) {
     score += 5;
@@ -715,11 +741,16 @@ function scoreLead(record) {
       partnerReferralPriority: partnerReferral.partnerReferralPriority,
       posTimelineUrgency,
       painSignal,
-      values,
+      values: {
+        ...values,
+        partnerAuthorityOpportunity,
+      },
     }),
     monetization_route: partnerReferral.monetizationRoute,
     partner_referral_priority: partnerReferral.partnerReferralPriority,
     partner_next_action: partnerNextAction,
+    partner_authority_opportunity: yesNo(partnerAuthorityOpportunity),
+    partner_website: values.partnerWebsite,
     pos_partner_sharing_consent: yesNo(posPartnerSharingConsent),
     lead_acquisition_channel: leadAcquisitionChannel,
     pos_partner_lead_status: posPartnerLead.status,
@@ -742,6 +773,7 @@ function scoreLead(record) {
     pos_partner_consent: values.posPartnerConsent,
     pos_purchase_timeline: values.posPurchaseTimeline,
     pos_purchase_timeline_urgency: posTimelineUrgency,
+    authority_opportunity: values.authorityOpportunity,
     lead_source: values.leadSource,
     landing_path: values.landingPath || values.currentPath || pagePathFromUrl(values.landingPage || values.currentPage),
     ...record,
@@ -845,6 +877,8 @@ function main() {
     'monetization_route',
     'partner_referral_priority',
     'partner_next_action',
+    'partner_authority_opportunity',
+    'partner_website',
     'pos_partner_sharing_consent',
     'lead_acquisition_channel',
     'pos_partner_lead_status',
@@ -867,6 +901,7 @@ function main() {
     'pos_partner_consent',
     'pos_purchase_timeline',
     'pos_purchase_timeline_urgency',
+    'authority_opportunity',
     'lead_source',
     'landing_path',
   ];

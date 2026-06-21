@@ -40,6 +40,21 @@
     </main>
     <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center"><div class="mb-6 md:mb-0"><img src="/assets/logo.svg" alt="Serviio" class="h-8 brightness-0 invert"><p class="text-gray-500 mt-2">Restaurant POS partner referral</p></div><div class="flex gap-8 text-gray-400"><a href="/" class="hover:text-white transition">Home</a><a href="/restaurant-pos-phone-order-integration/" class="hover:text-white transition">POS Integration</a><a href="/#contact" class="hover:text-white transition">Contact</a></div></div></footer>
     <script>document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}));if(window.location.hash==='#thank-you'){document.getElementById('contact-form').innerHTML='<div class="text-center py-8"><h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3><p class="text-gray-600">We received your partner request and will follow up soon.</p></div>';}</script>
+    <script>
+    (() => {
+        const form = document.getElementById('contact-form');
+        if (!form || form.querySelector('[name="partner_website"]')) return;
+        const fieldClass = 'w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition';
+        const partnerWebsite = document.createElement('div');
+        partnerWebsite.innerHTML = `<label for="partner_website" class="block text-sm font-medium text-gray-700 mb-2">Partner Website</label><input type="url" id="partner_website" name="partner_website" class="${fieldClass}" placeholder="https://yourcompany.com">`;
+        const authorityOpportunity = document.createElement('div');
+        authorityOpportunity.innerHTML = `<label for="authority_opportunity" class="block text-sm font-medium text-gray-700 mb-2">Can you add Serviio to a resource listing or backlink page?</label><select id="authority_opportunity" name="authority_opportunity" class="${fieldClass}"><option value="">Select one</option><option>Yes, we can add a resource listing or backlink</option><option>Maybe, send listing copy for review</option><option>No backlink or listing available</option><option>Not sure yet</option></select>`;
+        const emailField = form.querySelector('[name="email"]')?.closest('div');
+        const timelineField = form.querySelector('[name="pos_purchase_timeline"]')?.closest('div');
+        if (emailField) emailField.insertAdjacentElement('afterend', partnerWebsite);
+        if (timelineField) timelineField.insertAdjacentElement('beforebegin', authorityOpportunity);
+    })();
+    </script>
     <script src="/assets/js/form-attribution.js"></script>
 </body>
 </html>

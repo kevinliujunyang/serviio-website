@@ -156,6 +156,8 @@ This writes a proof follow-up queue for `call_now` and `demo_queue` leads only. 
 
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
+Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `authority_opportunity`, and `partner_authority_opportunity`. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.
+
 Calculator-origin demo leads from `/restaurant-missed-call-revenue-calculator/` include the calculator assumptions and estimate fields in the demo queue:
 - `calculator_missed_calls_per_week`
 - `calculator_order_rate_percent`
