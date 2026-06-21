@@ -1,5 +1,7 @@
 const assert = require('assert');
 const fs = require('fs');
+const os = require('os');
+const path = require('path');
 const {
   buildPosPartnerRows,
   parseArgs: parsePosPartnerExportArgs,
@@ -29,6 +31,11 @@ const {
   buildCustomerProofDraftPack,
   parseArgs: parseCustomerProofDraftArgs,
 } = require('./export-customer-proof-page-drafts');
+const {
+  buildCustomerProofPageHtml,
+  generateCustomerProofPages,
+  parseArgs: parseCustomerProofPageArgs,
+} = require('./generate-customer-proof-pages');
 const {
   buildPartnerPipelineRows,
   parseArgs: parsePartnerPipelineExportArgs,
@@ -685,6 +692,32 @@ assert.deepStrictEqual(parseCustomerProofDraftArgs(['proof-publishing.csv', '--o
   input: 'proof-publishing.csv',
   out: 'proof-drafts.md',
   today: '2026-06-21',
+  help: false,
+});
+const proofPageHtml = buildCustomerProofPageHtml(proofPublishingRows[0]);
+assert.match(proofPageHtml, /<!DOCTYPE html>/);
+assert.match(proofPageHtml, /<title>San Jose MenuSifu Chinese takeout AI phone ordering proof \| Serviio<\/title>/);
+assert.match(proofPageHtml, /<link rel="canonical" href="https:\/\/serviio.ai\/customer-proof\/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof\/">/);
+assert.doesNotMatch(proofPageHtml, /noindex/);
+assert.match(proofPageHtml, /Anonymous Chinese takeout in San Jose/);
+assert.doesNotMatch(proofPageHtml, /San Jose Wok</);
+assert.match(proofPageHtml, /Serviio helped us answer more dinner-rush calls/);
+assert.match(proofPageHtml, /"@type": "Review"/);
+assert.match(proofPageHtml, /"@type": "FAQPage"/);
+assert.match(proofPageHtml, /\/pos\/menusifu-ai-phone-ordering\//);
+assert.match(proofPageHtml, /\/service-areas\/san-jose-chinese-restaurant-ai-phone-ordering\//);
+assert.match(proofPageHtml, /name="pos_system"/);
+assert.match(proofPageHtml, /name="proof_source"/);
+const proofPageTempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'serviio-proof-pages-'));
+const generatedProofPages = generateCustomerProofPages(proofPublishingRows, { outDir: proofPageTempDir });
+assert.deepStrictEqual(generatedProofPages.map((page) => page.relativePath), [
+  'customer-proof/san-jose-menusifu-chinese-takeout-ai-phone-ordering-proof/index.html',
+]);
+assert.ok(fs.existsSync(path.join(proofPageTempDir, generatedProofPages[0].relativePath)));
+assert.match(fs.readFileSync(path.join(proofPageTempDir, generatedProofPages[0].relativePath), 'utf8'), /Review; FAQPage; BreadcrumbList/);
+assert.deepStrictEqual(parseCustomerProofPageArgs(['proof-publishing.csv', '--out-dir', 'proof-pages']), {
+  input: 'proof-publishing.csv',
+  outDir: 'proof-pages',
   help: false,
 });
 

@@ -186,6 +186,14 @@ npm run leads:customer-proof:drafts -- customer-proof-publishing-queue.csv --out
 
 This writes a Markdown proof-page draft pack with the target path, canonical URL, page title, meta description, H1, approved quote, proof summary, JSON-LD type hints, internal links, privacy note, and tracker command after publishing. Use the sample command `npm run leads:sample:customer-proof:drafts`, which writes `docs/sample-customer-proof-page-drafts.md`, to review the format without publishing a fake proof page.
 
+After a real approved proof draft is reviewed, generate static proof pages:
+
+```bash
+npm run leads:customer-proof:pages -- customer-proof-publishing-queue.csv --out-dir .
+```
+
+Do not run this on sample proof or internal-only proof. The generator writes `customer-proof/<slug>/index.html` files with canonical metadata, Review/FAQPage/BreadcrumbList JSON-LD, POS and city internal links, a Formspree POS-fit CTA, attribution fields, and no `noindex` tag. After publishing, run the generated `tracker_command` from the queue or draft pack to mark `Pilot restaurant testimonial` live with the canonical proof URL.
+
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
 Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `authority_opportunity`, and `partner_authority_opportunity`. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.

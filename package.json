@@ -26,6 +26,7 @@
     "leads:customer-proof:evidence": "node scripts/export-customer-proof-evidence.js",
     "leads:customer-proof:publish": "node scripts/export-customer-proof-publishing-queue.js",
     "leads:customer-proof:drafts": "node scripts/export-customer-proof-page-drafts.js",
+    "leads:customer-proof:pages": "node scripts/generate-customer-proof-pages.js",
     "leads:page-performance": "node scripts/export-lead-page-performance.js",
     "leads:sample:score": "node scripts/score-formspree-leads.js docs/sample-formspree-leads.csv --out docs/sample-scored-leads.csv",
     "leads:sample:demo": "node scripts/export-serviio-demo-leads.js docs/sample-formspree-leads.csv --out docs/sample-demo-leads.csv",
