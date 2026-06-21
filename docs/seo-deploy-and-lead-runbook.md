@@ -152,7 +152,7 @@ To export POS consultants, restaurant technology partners, and resource-listing 
 npm run leads:partner-pipeline -- path/to/formspree-export.csv --out partner-pipeline-leads.csv
 ```
 
-This writes a partner follow-up CSV for `partner_pipeline` leads. The output includes `partner_website`, `partner_authority_opportunity`, `authority_next_step`, `partner_pitch`, `authority_tracker_target=POS consultants`, `authority_tracker_note`, and `authority_tracker_command_template` so referral conversations and backlink/resource-listing asks can be tracked as ranking authority work.
+This writes a partner follow-up CSV for `partner_pipeline` leads. The output includes `partner_website`, `partner_type`, `monthly_referrals_estimate`, `partner_referral_volume_tier`, `partner_authority_opportunity`, `authority_next_step`, `partner_pitch`, `authority_tracker_target=POS consultants`, `authority_tracker_note`, and `authority_tracker_command_template` so referral conversations and backlink/resource-listing asks can be tracked as ranking authority work.
 
 To export POS-ready demo leads that should later be asked for customer proof:
 
@@ -204,7 +204,7 @@ Do not run this on sample proof. The generator writes `customer-proof/index.html
 
 Every lead export includes `lead_acquisition_channel` so SEO and authority work can be tied back to qualified lead quality. Current channel values are `business_profile`, `partner_referral`, `customer_proof`, `calculator`, `directory_or_listing`, `community_or_association`, `indexing_or_webmaster`, `seo_landing_page`, and `direct_or_unknown`.
 
-Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `authority_opportunity`, and `partner_authority_opportunity`. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.
+Partner referral leads from `/restaurant-pos-partner-referral/` also include `partner_website`, `partner_type`, `monthly_referrals_estimate`, `partner_referral_volume_tier`, `authority_opportunity`, and `partner_authority_opportunity`. Use `partner_referral_volume_tier` to prioritize high-volume POS consultants, restaurant website agencies, ordering providers, and Chinese restaurant community partners before low-volume or unknown-volume partner leads. When `partner_authority_opportunity=yes`, follow up on referral economics and ask for a resource listing or backlink from the partner site. Treat that link as authority evidence only after a live URL, screenshot, or owner/account confirmation is recorded in the authority tracker.
 
 Calculator-origin demo leads from `/restaurant-missed-call-revenue-calculator/` include the calculator assumptions and estimate fields in the demo queue:
 - `calculator_missed_calls_per_week`

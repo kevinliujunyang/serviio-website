@@ -603,6 +603,8 @@ function validatePartnerReferralWorkflow() {
   const html = fs.readFileSync(page, 'utf8');
   const requiredSnippets = [
     'name="partner_website"',
+    'name="partner_type"',
+    'name="monthly_referrals_estimate"',
     'name="authority_opportunity"',
     'resource listing',
     'backlink',
@@ -1233,7 +1235,7 @@ function validateLeadScoringWorkflow() {
   if (packageJson.scripts?.['leads:test'] !== 'node scripts/test-lead-scoring.js') {
     errors.push('package.json: missing leads:test script');
   }
-  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal', 'pos_purchase_timeline_urgency', 'classifyPosPurchaseTimeline', 'partner_authority_opportunity', 'authority_opportunity']) {
+  for (const snippet of ['pain_signal', 'urgent_pain_signal', 'classifyPainSignal', 'pos_purchase_timeline_urgency', 'classifyPosPurchaseTimeline', 'partner_authority_opportunity', 'authority_opportunity', 'partner_referral_volume_tier', 'classifyPartnerReferralVolume']) {
     if (!scorer.includes(snippet)) {
       errors.push(`scripts/score-formspree-leads.js: missing ${snippet}`);
     }
@@ -1250,7 +1252,7 @@ function validateLeadScoringWorkflow() {
   if (!runbook.includes('pos_purchase_timeline_urgency')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing POS purchase timeline urgency workflow');
   }
-  if (!runbook.includes('partner_authority_opportunity') || !runbook.includes('resource listing or backlink')) {
+  if (!runbook.includes('partner_authority_opportunity') || !runbook.includes('partner_referral_volume_tier') || !runbook.includes('resource listing or backlink')) {
     errors.push('docs/seo-deploy-and-lead-runbook.md: missing partner authority opportunity workflow');
   }
   if (!test.includes('buildDemoQueueRows') || !test.includes('export-serviio-demo-leads')) {

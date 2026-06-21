@@ -58,6 +58,24 @@ const FIELD_ALIASES = {
     'company website',
     'website',
   ],
+  partnerType: [
+    'partner_type',
+    'partner type',
+    'partner_category',
+    'partner category',
+    'company_type',
+    'company type',
+  ],
+  monthlyReferralsEstimate: [
+    'monthly_referrals_estimate',
+    'monthly referrals estimate',
+    'monthly_referrals',
+    'monthly referrals',
+    'referrals_per_month',
+    'referrals per month',
+    'restaurant_referrals_per_month',
+    'restaurant referrals per month',
+  ],
   authorityOpportunity: [
     'authority_opportunity',
     'authority opportunity',
@@ -180,6 +198,19 @@ function classifyPosPurchaseTimeline(value) {
   return 'later';
 }
 
+function classifyPartnerReferralVolume(value) {
+  const text = String(value || '').trim();
+  if (!text) return 'unknown';
+
+  const numbers = text.match(/\d+/g)?.map(Number) || [];
+  const maxNumber = Math.max(0, ...numbers);
+
+  if (/10\+|10\s*plus|many|high|\u591a/i.test(text) || maxNumber >= 6) return 'high';
+  if (/3\s*-\s*5|3\s*to\s*5|medium|\u4e2d/i.test(text) || maxNumber >= 3) return 'medium';
+  if (/0\s*-\s*1|1\s*-\s*2|1\s*to\s*2|low|\u5c11/i.test(text) || maxNumber >= 1) return 'low';
+  return 'unknown';
+}
+
 function yesNo(value) {
   return value ? 'yes' : 'no';
 }
@@ -193,6 +224,7 @@ function buildBuyerProfile({
   partnerReferralPriority,
   posTimelineUrgency,
   painSignal,
+  partnerReferralVolumeTier,
   values,
 }) {
   const parts = [posReadiness, `${volume}_phone_volume`];
@@ -204,6 +236,8 @@ function buildBuyerProfile({
   if (posTimelineUrgency && posTimelineUrgency !== 'not_applicable') parts.push(`pos_timeline_urgency:${posTimelineUrgency}`);
   if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
+  if (values.partnerType) parts.push(`partner_type:${values.partnerType}`);
+  if (partnerReferralVolumeTier && partnerReferralVolumeTier !== 'none') parts.push(`partner_volume:${partnerReferralVolumeTier}`);
   if (values.conversionOffer) parts.push(`offer:${values.conversionOffer}`);
   if (values.posPurchaseTimeline) parts.push(`pos_timeline:${values.posPurchaseTimeline}`);
   if (values.partnerAuthorityOpportunity) parts.push('authority_opportunity');
@@ -628,12 +662,18 @@ function scoreLead(record) {
   const leadAcquisitionChannel = classifyLeadAcquisitionChannel(values);
   const partnerAuthorityOpportunity = partnerInquiry &&
     PARTNER_AUTHORITY_OPPORTUNITY_PATTERN.test(values.authorityOpportunity);
+  const partnerReferralVolumeTier = partnerInquiry
+    ? classifyPartnerReferralVolume(values.monthlyReferralsEstimate)
+    : 'none';
   const partnerNextActionBase = posPartnerLead.status === 'partner_referral_needs_consent'
     ? 'Get explicit partner-sharing consent before sending this no-POS lead to POS providers or consultants.'
     : partnerReferral.partnerNextAction;
-  const partnerNextAction = partnerAuthorityOpportunity
-    ? `${partnerNextActionBase} Also ask for a resource listing or backlink from ${values.partnerWebsite || 'the partner site'}.`
+  const partnerVolumeAction = partnerInquiry && values.monthlyReferralsEstimate
+    ? `${partnerNextActionBase} Expected referral volume: ${values.monthlyReferralsEstimate}.`
     : partnerNextActionBase;
+  const partnerNextAction = partnerAuthorityOpportunity
+    ? `${partnerVolumeAction} Also ask for a resource listing or backlink from ${values.partnerWebsite || 'the partner site'}.`
+    : partnerVolumeAction;
 
   let score = 0;
   const reasons = [];
@@ -664,6 +704,13 @@ function scoreLead(record) {
   if (partnerAuthorityOpportunity) {
     score += 8;
     reasons.push('partner authority opportunity');
+  }
+  if (partnerReferralVolumeTier === 'high') {
+    score += 8;
+    reasons.push('high partner referral volume');
+  } else if (partnerReferralVolumeTier === 'medium') {
+    score += 4;
+    reasons.push('medium partner referral volume');
   }
   if (hasUsLocation) {
     score += 5;
@@ -741,6 +788,7 @@ function scoreLead(record) {
       partnerReferralPriority: partnerReferral.partnerReferralPriority,
       posTimelineUrgency,
       painSignal,
+      partnerReferralVolumeTier,
       values: {
         ...values,
         partnerAuthorityOpportunity,
@@ -751,6 +799,9 @@ function scoreLead(record) {
     partner_next_action: partnerNextAction,
     partner_authority_opportunity: yesNo(partnerAuthorityOpportunity),
     partner_website: values.partnerWebsite,
+    partner_type: values.partnerType,
+    monthly_referrals_estimate: values.monthlyReferralsEstimate,
+    partner_referral_volume_tier: partnerReferralVolumeTier,
     pos_partner_sharing_consent: yesNo(posPartnerSharingConsent),
     lead_acquisition_channel: leadAcquisitionChannel,
     pos_partner_lead_status: posPartnerLead.status,
@@ -879,6 +930,9 @@ function main() {
     'partner_next_action',
     'partner_authority_opportunity',
     'partner_website',
+    'partner_type',
+    'monthly_referrals_estimate',
+    'partner_referral_volume_tier',
     'pos_partner_sharing_consent',
     'lead_acquisition_channel',
     'pos_partner_lead_status',
@@ -925,6 +979,7 @@ module.exports = {
   classifyPhoneVolume,
   classifyPainSignal,
   classifyPosPurchaseTimeline,
+  classifyPartnerReferralVolume,
   classifyLeadAcquisitionChannel,
   hasKnownPos,
   parseCsv,

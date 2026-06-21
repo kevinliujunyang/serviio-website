@@ -17,6 +17,9 @@ const PARTNER_HEADERS = [
   'contact_email',
   'contact_phone',
   'partner_website',
+  'partner_type',
+  'monthly_referrals_estimate',
+  'partner_referral_volume_tier',
   'pos_focus',
   'phone_orders_per_week',
   'main_pain',
@@ -103,8 +106,11 @@ function partnerPitch(row) {
   const location = [row.restaurant_city, row.restaurant_state].filter(Boolean).join(', ') || 'their market';
   const pain = row.main_pain || 'restaurant phone-order pressure';
   const posFocus = row.pos_system || row.pos_focus || 'multiple POS systems';
+  const partnerType = row.partner_type || 'restaurant technology partner';
+  const referralVolume = row.monthly_referrals_estimate || 'unknown monthly referral volume';
   return [
-    `${partner} in ${location} is a strategic restaurant technology partner lead.`,
+    `${partner} in ${location} is a strategic ${partnerType} lead.`,
+    `Expected referral flow: ${referralVolume}.`,
     `Their POS focus is ${posFocus}, and their referred restaurants report ${row.phone_orders_per_week || 'unknown'} weekly phone orders.`,
     `Use the partner conversation to discuss referrals for Chinese restaurants and takeout-heavy operators using 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, or similar systems.`,
     `Pain signal: ${pain}.`,
@@ -134,6 +140,9 @@ function buildPartnerPipelineRows(scoredRows) {
       contact_email: row.contact_email,
       contact_phone: row.contact_phone,
       partner_website: row.partner_website,
+      partner_type: row.partner_type,
+      monthly_referrals_estimate: row.monthly_referrals_estimate,
+      partner_referral_volume_tier: row.partner_referral_volume_tier,
       pos_focus: row.pos_system || row.pos_focus,
       phone_orders_per_week: row.phone_orders_per_week,
       main_pain: row.main_pain,

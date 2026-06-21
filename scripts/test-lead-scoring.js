@@ -399,6 +399,8 @@ const partnerInquiry = scoreLead({
   main_pain: 'Our restaurant clients miss calls during rush and need less manual POS entry.',
   conversion_offer: 'pos_recommendation_fit_check',
   pos_recommendation_interest: 'Yes, route no-POS leads for POS recommendations',
+  partner_type: 'POS consultant',
+  monthly_referrals_estimate: '6-10 restaurants per month',
   partner_website: 'https://partner.example.com/resources',
   authority_opportunity: 'Yes, we can add Serviio to our restaurant technology resource page',
 });
@@ -407,15 +409,21 @@ assert.strictEqual(partnerInquiry.lead_route, 'partner_pipeline');
 assert.strictEqual(partnerInquiry.partner_inquiry, 'yes');
 assert.strictEqual(partnerInquiry.partner_authority_opportunity, 'yes');
 assert.strictEqual(partnerInquiry.partner_website, 'https://partner.example.com/resources');
+assert.strictEqual(partnerInquiry.partner_type, 'POS consultant');
+assert.strictEqual(partnerInquiry.monthly_referrals_estimate, '6-10 restaurants per month');
+assert.strictEqual(partnerInquiry.partner_referral_volume_tier, 'high');
 assert.strictEqual(partnerInquiry.monetization_route, 'partner_relationship');
 assert.strictEqual(partnerInquiry.partner_referral_priority, 'strategic');
 assert.match(partnerInquiry.recommended_pos_partner_targets, /POS consultants/);
 assert.match(partnerInquiry.recommended_pos_partner_targets, /MenuSifu/);
 assert.match(partnerInquiry.lead_next_action, /partner\/referral opportunity/);
 assert.match(partnerInquiry.partner_next_action, /referral economics/);
+assert.match(partnerInquiry.partner_next_action, /6-10 restaurants per month/);
 assert.match(partnerInquiry.partner_next_action, /resource listing or backlink/);
 assert.match(partnerInquiry.lead_reason, /partner\/referral inquiry/);
 assert.match(partnerInquiry.buyer_profile, /authority_opportunity/);
+assert.match(partnerInquiry.buyer_profile, /partner_type:POS consultant/);
+assert.match(partnerInquiry.buyer_profile, /partner_volume:high/);
 assert.match(partnerInquiry.buyer_profile, /partner_referral:strategic/);
 
 const posIntegrationOfferDemo = scoreLead({
@@ -778,15 +786,21 @@ assert.deepStrictEqual(partnerPipelineRows.map((row) => row.partner_name), [
 ]);
 assert.strictEqual(partnerPipelineRows[0].pipeline_priority, 'P0');
 assert.strictEqual(partnerPipelineRows[0].partner_website, 'https://partner.example.com/resources');
+assert.strictEqual(partnerPipelineRows[0].partner_type, 'POS consultant');
+assert.strictEqual(partnerPipelineRows[0].monthly_referrals_estimate, '6-10 restaurants per month');
+assert.strictEqual(partnerPipelineRows[0].partner_referral_volume_tier, 'high');
 assert.strictEqual(partnerPipelineRows[0].partner_authority_opportunity, 'yes');
 assert.match(partnerPipelineRows[0].authority_next_step, /resource listing or backlink/);
 assert.match(partnerPipelineRows[0].partner_pitch, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus/);
+assert.match(partnerPipelineRows[0].partner_pitch, /6-10 restaurants per month/);
 assert.match(partnerPipelineRows[0].partner_pitch, /Restaurant Tech Partner/);
 assert.match(partnerPipelineRows[0].authority_tracker_command_template, /Restaurant Tech Partner/);
 assert.match(partnerPipelineRows[0].authority_tracker_command_template, /status submitted/);
 const partnerPipelineCsv = partnerPipelineToCsv(partnerPipelineRows);
 assert.match(partnerPipelineCsv, /pipeline_priority,partner_name/);
 assert.match(partnerPipelineCsv, /partner_website/);
+assert.match(partnerPipelineCsv, /partner_type/);
+assert.match(partnerPipelineCsv, /monthly_referrals_estimate/);
 assert.match(partnerPipelineCsv, /authority_next_step/);
 assert.match(partnerPipelineCsv, /authority_tracker_command_template/);
 assert.match(partnerPipelineCsv, /Restaurant Tech Partner/);
