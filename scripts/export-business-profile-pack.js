@@ -216,6 +216,30 @@ function renderPlatformFieldMappings() {
   ];
 }
 
+function renderProductEvidenceFields(product) {
+  return [
+    '- Product evidence fields to record:',
+    `  - product_name: ${product.name}`,
+    '  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect',
+    '  - product_card_url: live product/service/showcase URL if the platform exposes one',
+    `  - product_destination_url: ${product.url}`,
+    '  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence',
+    '  - expected_lead_acquisition_channel: business_profile',
+  ];
+}
+
+function renderPostEvidenceFields(post) {
+  return [
+    '- Post evidence fields to record:',
+    `  - post_title: ${post.title}`,
+    '  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect',
+    '  - profile_post_url: live update/post/showcase URL if the platform exposes one',
+    `  - post_destination_url: ${post.url}`,
+    '  - screenshot_or_dashboard_confirmation: required before using the post as authority evidence',
+    '  - expected_lead_acquisition_channel: business_profile',
+  ];
+}
+
 function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
   const profiles = businessProfileRows(rows);
   const lines = [
@@ -269,6 +293,7 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
       `- Description: ${product.description}`,
       '- Price: No monthly fee; 2% per completed order',
       `- URL: ${product.url}`,
+      ...renderProductEvidenceFields(product),
       '',
     ]),
     '## Profile Q&A answers',
@@ -295,6 +320,7 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
       `- Body: ${post.body}`,
       `- CTA: ${post.cta}`,
       `- URL: ${post.url}`,
+      ...renderPostEvidenceFields(post),
       '',
     ]),
   ];

@@ -86,42 +86,91 @@ Use these as Google Business Profile products, Apple showcases, or service items
 - Description: AI phone ordering workflow for Chinese restaurants using 39 Miles POS.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: 39 Miles AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 2. Square AI phone ordering
 
 - Description: AI phone ordering workflow for restaurants using Square POS.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: Square AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/square-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 3. Toast AI phone ordering
 
 - Description: AI phone ordering workflow for restaurants using Toast POS.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: Toast AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/toast-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 4. Clover AI phone ordering
 
 - Description: AI phone ordering workflow for restaurants using Clover POS.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: Clover AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/clover-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 5. MenuSifu AI phone ordering
 
 - Description: AI phone ordering workflow for Chinese restaurants using MenuSifu POS.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: MenuSifu AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 6. Chowbus AI phone ordering
 
 - Description: AI phone ordering workflow for restaurants using Chowbus.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: Chowbus AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/chowbus-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 7. Mealkeyway AI phone ordering
 
 - Description: AI phone ordering workflow for restaurants using Mealkeyway.
 - Price: No monthly fee; 2% per completed order
 - URL: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Product evidence fields to record:
+  - product_name: Mealkeyway AI phone ordering
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - product_card_url: live product/service/showcase URL if the platform exposes one
+  - product_destination_url: https://serviio.ai/pos/mealkeyway-ai-phone-ordering/?utm_source=business_profile_product&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before counting the product as profile evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ## Profile Q&A answers
 
@@ -164,18 +213,39 @@ Use these as Google Business Profile updates, Bing Places posts if available, Ap
 - Body: Serviio helps restaurants answer phone orders 24/7, capture pickup details, and evaluate POS-ready workflows for systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
 - CTA: Check POS fit
 - URL: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Post evidence fields to record:
+  - post_title: AI phone ordering for POS-ready restaurants
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - profile_post_url: live update/post/showcase URL if the platform exposes one
+  - post_destination_url: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before using the post as authority evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 2. Bilingual phone answering for Chinese restaurants
 
 - Body: For Chinese restaurants with lunch and dinner rush phone volume, Serviio can answer in English and Chinese, ask about modifiers, confirm pickup details, and reduce missed-call pressure on staff.
 - CTA: Check Chinese restaurant fit
 - URL: https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Post evidence fields to record:
+  - post_title: Bilingual phone answering for Chinese restaurants
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - profile_post_url: live update/post/showcase URL if the platform exposes one
+  - post_destination_url: https://serviio.ai/chinese-restaurant-ai-phone-ordering/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before using the post as authority evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ### 3. Estimate missed-call revenue before a demo
 
 - Body: Use the restaurant missed-call revenue calculator to estimate how much weekly takeout revenue may be lost when staff miss calls or manually re-enter phone orders during rush hours.
 - CTA: Estimate missed-call revenue
 - URL: https://serviio.ai/restaurant-missed-call-revenue-calculator/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Post evidence fields to record:
+  - post_title: Estimate missed-call revenue before a demo
+  - profile_platform: Google Business Profile, Bing Places, or Apple Business Connect
+  - profile_post_url: live update/post/showcase URL if the platform exposes one
+  - post_destination_url: https://serviio.ai/restaurant-missed-call-revenue-calculator/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+  - screenshot_or_dashboard_confirmation: required before using the post as authority evidence
+  - expected_lead_acquisition_channel: business_profile
 
 ## 1. Google Business Profile
 
