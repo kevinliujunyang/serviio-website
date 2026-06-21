@@ -840,6 +840,8 @@ assert.match(weeklyAuthoritySprint, /Features: MenuSifu restaurant owner qualifi
 assert.match(weeklyAuthoritySprint, /Pricing: 2% per completed order\. No monthly fees and no setup costs\./);
 assert.match(weeklyAuthoritySprint, /Contact email: info@serviio\.ai/);
 assert.match(weeklyAuthoritySprint, /Contact phone: \(408\) 409-9079/);
+assert.match(weeklyAuthoritySprint, /Authority media kit: https:\/\/serviio\.ai\/authority-media-kit\//);
+assert.match(weeklyAuthoritySprint, /Customer proof request: https:\/\/serviio\.ai\/customer-proof-request\//);
 assert.match(weeklyAuthoritySprint, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
 assert.match(weeklyAuthoritySprint, /Follow-up date: 2026-06-17/);
 assert.match(weeklyAuthoritySprint, /npm run marketing:mark -- --target "MenuSifu restaurant consultants" --status "submitted" --date 2026-06-10/);

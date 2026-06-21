@@ -9,6 +9,8 @@ const DEFAULT_OUT = 'docs/weekly-authority-sprint.md';
 const DEFAULT_SUBMISSION_TARGET = 15;
 const DEFAULT_LIVE_TARGET = 5;
 const DEFAULT_HIGH_FIT_TARGET = 8;
+const AUTHORITY_MEDIA_KIT_URL = 'https://serviio.ai/authority-media-kit/';
+const CUSTOMER_PROOF_REQUEST_URL = 'https://serviio.ai/customer-proof-request/';
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -109,6 +111,8 @@ function renderSubmissionFieldChecklist(packet, row) {
     ['Pricing', packet.pricing],
     ['Contact email', 'info@serviio.ai'],
     ['Contact phone', '(408) 409-9079'],
+    ['Authority media kit', AUTHORITY_MEDIA_KIT_URL],
+    ['Customer proof request', CUSTOMER_PROOF_REQUEST_URL],
   ].filter(([, value]) => value);
 
   const lines = [

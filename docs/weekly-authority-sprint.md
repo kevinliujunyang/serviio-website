@@ -159,6 +159,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -195,6 +197,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -231,6 +235,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -267,6 +273,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -315,6 +323,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -374,6 +384,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -433,6 +445,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -492,6 +506,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -551,6 +567,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -587,6 +605,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -635,6 +655,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -683,6 +705,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -742,6 +766,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -801,6 +827,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -860,6 +888,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -900,6 +930,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -940,6 +972,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -980,6 +1014,8 @@ Field checklist:
 - Pricing: 2% per completed order. No monthly fees and no setup costs.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
@@ -1016,6 +1052,8 @@ Field checklist:
 - Pricing: Free proof request for Serviio demo, pilot, or customer follow-up.
 - Contact email: info@serviio.ai
 - Contact phone: (408) 409-9079
+- Authority media kit: https://serviio.ai/authority-media-kit/
+- Customer proof request: https://serviio.ai/customer-proof-request/
 
 Copy:
 
