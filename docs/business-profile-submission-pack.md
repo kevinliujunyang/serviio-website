@@ -1,6 +1,6 @@
 # Serviio Business Profile Submission Pack
 
-Generated: 2026-06-20
+Generated: 2026-06-21
 
 Use this pack to create or claim Serviio profiles on Google Business Profile, Bing Places for Business, and Apple Business Connect when eligible.
 
@@ -32,6 +32,42 @@ Use this pack to create or claim Serviio profiles on Google Business Profile, Bi
 - Bing Places for Business: mirror Google NAP and service details; import from Google only after Google fields are accurate, then verify website, category, and service-area text.
 - Apple Business Connect: add action link to POS fit check; upload logo/cover image, service-area description, website, phone, and a showcase pointing to a POS or Chinese restaurant fit page.
 - Do not mark submitted or live until profile evidence is captured: account/login used, screenshot or dashboard confirmation, submitted date, and live URL when available.
+
+## Platform field mapping
+
+Use this section while creating each profile so the authority work is consistent across Google, Bing, and Apple.
+
+### Google Business Profile
+
+- Primary category: Software company
+- Additional categories: Business service; Restaurant technology; Marketing service
+- Business description: Serviio is an AI phone ordering system for restaurants. It answers calls 24/7, takes orders in natural conversation, supports English and Chinese, and helps restaurants connect phone orders to POS-ready kitchen workflows.
+- Service areas: United States service-area business; prioritize New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, and Philadelphia
+- Website field: https://serviio.ai/ (use clean URL if Google rejects UTM parameters)
+- Services field: Add POS-integrated AI phone ordering, Chinese restaurant AI phone answering, restaurant phone order taker AI, and Mandarin and English phone ordering support
+- Products field: Add POS-specific products for 39 Miles, MenuSifu, Square, Toast, Clover, Chowbus, and Mealkeyway when available
+- First update post: Use the AI phone ordering for POS-ready restaurants post draft and link to https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=business_profile_post&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Evidence before tracker update: dashboard confirmation screenshot, account email, submitted date, and verification or review status
+
+### Bing Places for Business
+
+- Import source: import from Google only after the Google profile fields are accurate
+- Primary category: Software company
+- Business description: AI phone ordering for restaurants using POS systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.
+- Website field: https://serviio.ai/?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Service areas: Mirror the Google service-area markets and keep NAP consistent
+- Services field: Mirror the Google services list and include Chinese restaurant AI phone answering
+- Evidence before tracker update: profile dashboard screenshot, account email, submitted date, and verification or sync status
+
+### Apple Business Connect
+
+- Primary category: Software company
+- Business description: Serviio helps restaurants answer phone orders with AI, qualify POS-ready workflows, and reduce missed calls during rush hours.
+- Website field: https://serviio.ai/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Action link: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing
+- Showcase: use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase
+- Service areas: United States service-area business focused on POS-ready restaurant owners
+- Evidence before tracker update: Business Connect dashboard screenshot, account email, submitted date, and verification status
 
 ## Profile services to add
 
@@ -187,13 +223,13 @@ Evidence to capture:
 Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-21 --note "Created or claimed business profile; record verification status and live profile URL when available."
 ```
 
 Tracker update command after the profile is live:
 
 ```bash
-npm run marketing:mark -- --target "Google Business Profile" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
+npm run marketing:mark -- --target "Google Business Profile" --status live --date 2026-06-21 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 ## 2. Bing Places for Business
@@ -242,13 +278,13 @@ Evidence to capture:
 Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Bing Places for Business" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Bing Places for Business" --status submitted --date 2026-06-21 --note "Created or claimed business profile; record verification status and live profile URL when available."
 ```
 
 Tracker update command after the profile is live:
 
 ```bash
-npm run marketing:mark -- --target "Bing Places for Business" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
+npm run marketing:mark -- --target "Bing Places for Business" --status live --date 2026-06-21 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 ## 3. Apple Business Connect
@@ -297,13 +333,13 @@ Evidence to capture:
 Tracker update command after profile creation or claim:
 
 ```bash
-npm run marketing:mark -- --target "Apple Business Connect" --status submitted --date 2026-06-20 --note "Created or claimed business profile; record verification status and live profile URL when available."
+npm run marketing:mark -- --target "Apple Business Connect" --status submitted --date 2026-06-21 --note "Created or claimed business profile; record verification status and live profile URL when available."
 ```
 
 Tracker update command after the profile is live:
 
 ```bash
-npm run marketing:mark -- --target "Apple Business Connect" --status live --date 2026-06-20 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
+npm run marketing:mark -- --target "Apple Business Connect" --status live --date 2026-06-21 --url "https://PROFILE-URL-HERE" --note "Published business profile; replace placeholder URL with live profile URL and keep verification screenshot or dashboard confirmation."
 ```
 
 Generated 3 business profile actions from docs/free-search-marketing-tracker.csv.

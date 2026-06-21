@@ -326,6 +326,18 @@ assert.match(businessProfilePack, /Google Business Profile: use clean homepage i
 assert.match(businessProfilePack, /Bing Places for Business: mirror Google NAP and service details/);
 assert.match(businessProfilePack, /Apple Business Connect: add action link to POS fit check/);
 assert.match(businessProfilePack, /Do not mark submitted or live until profile evidence is captured/);
+assert.match(businessProfilePack, /## Platform field mapping/);
+assert.match(businessProfilePack, /### Google Business Profile/);
+assert.match(businessProfilePack, /- Primary category: Software company/);
+assert.match(businessProfilePack, /- Service areas: United States service-area business; prioritize New York City, Los Angeles, San Francisco Bay Area, Seattle, Houston, Chicago, Boston, and Philadelphia/);
+assert.match(businessProfilePack, /- Website field: https:\/\/serviio\.ai\/ \(use clean URL if Google rejects UTM parameters\)/);
+assert.match(businessProfilePack, /- Evidence before tracker update: dashboard confirmation screenshot, account email, submitted date, and verification or review status/);
+assert.match(businessProfilePack, /### Bing Places for Business/);
+assert.match(businessProfilePack, /- Import source: import from Google only after the Google profile fields are accurate/);
+assert.match(businessProfilePack, /- Website field: https:\/\/serviio\.ai\/\?utm_source=bing_places&utm_medium=organic_listing&utm_campaign=free_search_marketing/);
+assert.match(businessProfilePack, /### Apple Business Connect/);
+assert.match(businessProfilePack, /- Action link: https:\/\/serviio\.ai\/chinese-restaurant-pos-ai-phone-agent\/\?utm_source=apple_business_connect/);
+assert.match(businessProfilePack, /- Showcase: use 39 Miles AI phone ordering or MenuSifu AI phone ordering as the first POS-specific showcase/);
 assert.match(businessProfilePack, /Profile services to add/);
 assert.match(businessProfilePack, /POS-integrated AI phone ordering/);
 assert.match(businessProfilePack, /Chinese restaurant AI phone answering/);
