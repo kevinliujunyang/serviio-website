@@ -25,6 +25,8 @@ const {
 } = require('./export-partner-outreach-sprint');
 const {
   buildBusinessProfilePack,
+  buildBusinessProfileEvidenceLogRows,
+  evidenceLogToCsv: businessProfileEvidenceLogToCsv,
   parseArgs: parseBusinessProfileArgs,
 } = require('./export-business-profile-pack');
 const {
@@ -86,6 +88,10 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:submission-preflight:first-hour:export'],
   'node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv --out docs/authority-evidence-preflight.md',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:profile-evidence:export'],
+  'node scripts/export-business-profile-pack.js --evidence-log --out docs/business-profile-evidence-log.csv',
 );
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
@@ -399,9 +405,25 @@ assert.match(businessProfilePack, /Evidence to capture/);
 assert.match(businessProfilePack, /verification screenshot or dashboard confirmation/);
 assert.match(businessProfilePack, /npm run marketing:mark -- --target "Google Business Profile" --status live --date 2026-06-06 --url/);
 assert.match(businessProfilePack, /npm run marketing:mark -- --target "Google Business Profile" --status submitted --date 2026-06-06/);
+const businessProfileEvidenceRows = buildBusinessProfileEvidenceLogRows(trackerRows);
+assert.ok(businessProfileEvidenceRows.some((row) =>
+  row.profile_item_type === 'profile_core' &&
+  row.profile_platform === 'Bing Places for Business' &&
+  /utm_source=bing_places/.test(row.destination_url)
+));
+assert.ok(businessProfileEvidenceRows.some((row) =>
+  row.profile_item_type === 'product_card' &&
+  row.profile_platform === 'Apple Business Connect' &&
+  row.item_name === 'MenuSifu AI phone ordering'
+));
+const businessProfileEvidenceCsv = businessProfileEvidenceLogToCsv(businessProfileEvidenceRows);
+assert.match(businessProfileEvidenceCsv, /^profile_item_type,profile_platform,item_name,destination_url,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,submitted_date,live_date,follow_up_date/m);
+assert.match(businessProfileEvidenceCsv, /profile_core,Bing Places for Business,Serviio profile,https:\/\/serviio\.ai\/\?utm_source=bing_places/);
+assert.match(businessProfileEvidenceCsv, /product_card,Apple Business Connect,MenuSifu AI phone ordering,https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=business_profile_product/);
 assert.deepStrictEqual(parseBusinessProfileArgs(['--out', 'docs/profiles.md', '--today', '2026-06-06']), {
   out: 'docs/profiles.md',
   today: '2026-06-06',
+  evidenceLog: false,
   help: false,
 });
 

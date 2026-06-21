@@ -6,6 +6,19 @@ const {
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/business-profile-submission-pack.md';
+const DEFAULT_EVIDENCE_LOG_OUT = 'docs/business-profile-evidence-log.csv';
+const EVIDENCE_LOG_HEADERS = [
+  'profile_item_type',
+  'profile_platform',
+  'item_name',
+  'destination_url',
+  'evidence_url',
+  'account_or_login',
+  'screenshot_or_dashboard_confirmation',
+  'submitted_date',
+  'live_date',
+  'follow_up_date',
+];
 const PRIORITY_SERVICE_AREAS = [
   'New York City',
   'Los Angeles',
@@ -164,6 +177,7 @@ function parseArgs(argv) {
   const args = {
     out: DEFAULT_OUT,
     today: todayIso(),
+    evidenceLog: false,
     help: false,
   };
 
@@ -171,6 +185,11 @@ function parseArgs(argv) {
     const arg = argv[index];
     if (arg === '--help' || arg === '-h') {
       args.help = true;
+    } else if (arg === '--evidence-log') {
+      args.evidenceLog = true;
+      if (args.out === DEFAULT_OUT) {
+        args.out = DEFAULT_EVIDENCE_LOG_OUT;
+      }
     } else if (arg === '--out') {
       args.out = argv[index + 1] || DEFAULT_OUT;
       index += 1;
@@ -240,16 +259,49 @@ function renderPostEvidenceFields(post) {
   ];
 }
 
-function renderBusinessProfileEvidenceLogTemplate(rows) {
-  const platforms = businessProfileRows(rows).map((row) => ({
+function businessProfileEvidencePlatforms(rows) {
+  return businessProfileRows(rows).map((row) => ({
     name: row.target,
     profileUrl: row.utm_url || row.landing_url,
   }));
-  const templateRows = platforms.flatMap((platform) => [
+}
+
+function buildBusinessProfileEvidenceLogRows(rows) {
+  return businessProfileEvidencePlatforms(rows).flatMap((platform) => [
     ['profile_core', platform.name, 'Serviio profile', platform.profileUrl],
     ...PROFILE_PRODUCTS.map((product) => ['product_card', platform.name, product.name, product.url]),
     ...PROFILE_POSTS.map((post) => ['profile_post', platform.name, post.title, post.url]),
-  ]);
+  ]).map(([profileItemType, profilePlatform, itemName, destinationUrl]) => ({
+    profile_item_type: profileItemType,
+    profile_platform: profilePlatform,
+    item_name: itemName,
+    destination_url: destinationUrl,
+    evidence_url: '',
+    account_or_login: '',
+    screenshot_or_dashboard_confirmation: '',
+    submitted_date: '',
+    live_date: '',
+    follow_up_date: '',
+  }));
+}
+
+function csvEscape(value) {
+  const text = String(value ?? '');
+  if (/[",\r\n]/.test(text)) {
+    return `"${text.replace(/"/g, '""')}"`;
+  }
+  return text;
+}
+
+function evidenceLogToCsv(rows) {
+  return [
+    EVIDENCE_LOG_HEADERS.join(','),
+    ...rows.map((row) => EVIDENCE_LOG_HEADERS.map((header) => csvEscape(row[header])).join(',')),
+  ].join('\n');
+}
+
+function renderBusinessProfileEvidenceLogTemplate(rows) {
+  const templateRows = buildBusinessProfileEvidenceLogRows(rows);
 
   return [
     '## Business Profile Evidence Log Template',
@@ -258,7 +310,7 @@ function renderBusinessProfileEvidenceLogTemplate(rows) {
     '',
     '| profile_item_type | profile_platform | item_name | destination_url | evidence_url | account_or_login | screenshot_or_dashboard_confirmation | submitted_date | live_date | follow_up_date |',
     '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
-    ...templateRows.map((row) => `| ${row.join(' | ')} |  |  |  |  |  |  |`),
+    ...templateRows.map((row) => `| ${EVIDENCE_LOG_HEADERS.map((header) => row[header]).join(' | ')} |`),
     '',
   ];
 }
@@ -410,12 +462,15 @@ function buildBusinessProfilePack(rows, { today = todayIso() } = {}) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
-    console.log('Usage: node scripts/export-business-profile-pack.js [--out docs/business-profile-submission-pack.md] [--today YYYY-MM-DD]');
+    console.log('Usage: node scripts/export-business-profile-pack.js [--out docs/business-profile-submission-pack.md] [--today YYYY-MM-DD] [--evidence-log]');
     return;
   }
 
   const rows = parseCsv(fs.readFileSync(CSV_PATH, 'utf8'));
-  fs.writeFileSync(args.out, buildBusinessProfilePack(rows, { today: args.today }));
+  const output = args.evidenceLog
+    ? `${evidenceLogToCsv(buildBusinessProfileEvidenceLogRows(rows))}\n`
+    : buildBusinessProfilePack(rows, { today: args.today });
+  fs.writeFileSync(args.out, output);
   console.log(`Wrote ${args.out}`);
 }
 
@@ -424,6 +479,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  buildBusinessProfileEvidenceLogRows,
   buildBusinessProfilePack,
+  evidenceLogToCsv,
   parseArgs,
 };

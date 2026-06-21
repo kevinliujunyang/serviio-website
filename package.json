@@ -45,6 +45,7 @@
     "marketing:packets": "node scripts/print-free-search-submission-packets.js",
     "marketing:outreach-csv": "node scripts/export-free-search-outreach-csv.js",
     "marketing:profiles": "node scripts/export-business-profile-pack.js",
+    "marketing:profile-evidence:export": "node scripts/export-business-profile-pack.js --evidence-log --out docs/business-profile-evidence-log.csv",
     "marketing:directories": "node scripts/export-directory-submission-pack.js",
     "marketing:submission-log": "node scripts/export-authority-submission-log.js",
     "marketing:submission-log:first-hour": "node scripts/export-authority-submission-log.js --first-hour",
