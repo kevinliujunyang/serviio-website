@@ -90,6 +90,14 @@ npm run marketing:first-hour-authority
 
 This writes `docs/first-hour-authority-execution.csv` with Google Business Profile, MenuSifu, 39 Miles, and customer-proof actions in order. Use it during the manual submission block, then update evidence only after the real external action is submitted or published.
 
+Generate the live-listing optimization CSV when an existing public listing needs claim/update proof, such as Product Hunt:
+
+```bash
+npm run marketing:live-listings
+```
+
+This writes `docs/live-listing-optimization.csv` with the live URL, website URL, listing copy, required POS/Chinese-restaurant mentions, proof fields, and tracker command. Do not treat the optimization as complete until owner/account confirmation or an updated listing screenshot is captured.
+
 For the customer-proof milestone, send early pilots or customers to:
 
 ```text

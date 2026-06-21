@@ -780,6 +780,9 @@ function validateFreeSearchTracker() {
   if (!fs.existsSync('scripts/export-first-hour-authority-csv.js')) {
     errors.push('scripts/export-first-hour-authority-csv.js: missing first-hour authority execution export');
   }
+  if (!fs.existsSync('scripts/export-live-listing-optimization-csv.js')) {
+    errors.push('scripts/export-live-listing-optimization-csv.js: missing live listing optimization export');
+  }
   if (!fs.existsSync('scripts/sync-authority-submission-log.js')) {
     errors.push('scripts/sync-authority-submission-log.js: missing authority submission log sync');
   }
@@ -794,6 +797,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('docs/first-hour-authority-execution.csv')) {
     errors.push('docs/first-hour-authority-execution.csv: missing first-hour authority execution CSV');
+  }
+  if (!fs.existsSync('docs/live-listing-optimization.csv')) {
+    errors.push('docs/live-listing-optimization.csv: missing live listing optimization CSV');
   }
   const checklist = fs.readFileSync('docs/free-search-marketing-checklist.md', 'utf8');
   if (!checklist.includes('npm run marketing:next')) {
@@ -816,6 +822,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:first-hour-authority') || !checklist.includes('docs/first-hour-authority-execution.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing first-hour authority execution workflow');
+  }
+  if (!checklist.includes('npm run marketing:live-listings') || !checklist.includes('docs/live-listing-optimization.csv')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing live listing optimization workflow');
   }
   if (!checklist.includes('npm run marketing:submission-sync') || !checklist.includes('action_status=submitted')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-sync workflow');

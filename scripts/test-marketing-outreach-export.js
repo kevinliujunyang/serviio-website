@@ -66,6 +66,11 @@ const {
   toCsv: firstHourAuthorityToCsv,
 } = require('./export-first-hour-authority-csv');
 const {
+  buildLiveListingOptimizationRows,
+  parseArgs: parseLiveListingArgs,
+  toCsv: liveListingToCsv,
+} = require('./export-live-listing-optimization-csv');
+const {
   buildWeeklyAuthoritySprint,
   parseArgs: parseWeeklyAuthoritySprintArgs,
 } = require('./export-weekly-authority-sprint');
@@ -139,6 +144,25 @@ assert.strictEqual(productHuntRow.url, 'https://www.producthunt.com/products/ser
 assert.strictEqual(productHuntRow.date_live, '2026-06-20');
 assert.match(productHuntRow.notes, /Product Hunt product page verified live/);
 assert.ok(!readyRows.some((row) => row.target === 'Product Hunt Serviio listing'));
+const liveListingRows = buildLiveListingOptimizationRows(trackerRows, { today: '2026-06-21' });
+assert.deepStrictEqual(liveListingRows.map((row) => row.target), ['Product Hunt Serviio listing']);
+assert.strictEqual(liveListingRows[0].action_type, 'optimize_live_listing');
+assert.strictEqual(liveListingRows[0].live_url, 'https://www.producthunt.com/products/serviio');
+assert.match(liveListingRows[0].update_checklist, /Confirm the listing mentions Chinese restaurants/);
+assert.match(liveListingRows[0].update_checklist, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus/);
+assert.match(liveListingRows[0].proof_fields, /owner confirmation/);
+assert.match(liveListingRows[0].tracker_command, /--target "Product Hunt Serviio listing" --status "live" --date 2026-06-21/);
+const liveListingCsv = liveListingToCsv(liveListingRows);
+assert.match(liveListingCsv, /action_type,priority,channel,target,live_url/);
+assert.match(liveListingCsv, /AI phone ordering for restaurants using POS systems/);
+assert.match(liveListingCsv, /assets\/og-image\.png/);
+assert.deepStrictEqual(parseLiveListingArgs(['--today', '2026-06-21', '--out', 'docs/live.csv']), {
+  out: 'docs/live.csv',
+  today: '2026-06-21',
+  limit: 10,
+  help: false,
+});
+assert.throws(() => parseLiveListingArgs(['--limit', '0']), /--limit must be a positive integer/);
 const customerProofReadyRow = readyRows.find((row) => row.target === 'Pilot restaurant testimonial');
 assert.ok(customerProofReadyRow);
 assert.strictEqual(customerProofReadyRow.channel, 'Customer proof');

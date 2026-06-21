@@ -56,6 +56,7 @@
     "marketing:submission-log": "node scripts/export-authority-submission-log.js",
     "marketing:submission-log:first-hour": "node scripts/export-authority-submission-log.js --first-hour",
     "marketing:first-hour-authority": "node scripts/export-first-hour-authority-csv.js",
+    "marketing:live-listings": "node scripts/export-live-listing-optimization-csv.js",
     "marketing:submission-sync": "node scripts/sync-authority-submission-log.js",
     "marketing:submission-preflight:first-hour": "node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv",
     "marketing:submission-preflight:first-hour:export": "node scripts/sync-authority-submission-log.js --preflight --log docs/authority-first-hour-submission-log.csv --out docs/authority-evidence-preflight.md",
