@@ -50,6 +50,7 @@ for (const snippet of [
   'pos_readiness_signal',
   'lead_route_hint',
   'monetization_route_hint',
+  'recommended_pos_partner_targets',
   'lead_acquisition_channel',
   'directory_or_listing',
   'pos_referral_candidate',
@@ -158,7 +159,27 @@ form.submit();
 assert.strictEqual(form.querySelector('input[name="pos_readiness_signal"]').value, 'pos_ready');
 assert.strictEqual(form.querySelector('input[name="lead_route_hint"]').value, 'serviio_demo');
 assert.strictEqual(form.querySelector('input[name="monetization_route_hint"]').value, 'serviio_demo');
+assert.strictEqual(form.querySelector('input[name="recommended_pos_partner_targets"]').value, 'none');
 assert.strictEqual(form.querySelector('input[name="lead_acquisition_channel"]').value, 'directory_or_listing');
+
+const noPosForm = createForm();
+noPosForm.fields.push(createField('lead_source', 'homepage'));
+runAttributionScript({
+  href: 'https://serviio.ai/restaurant-pos-partner-referral/?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing',
+  pathname: '/restaurant-pos-partner-referral/',
+  search: '?utm_source=chinese_pos_workflow_partner&utm_medium=partner_referral&utm_campaign=free_search_marketing',
+  form: noPosForm,
+});
+noPosForm.querySelector('[name="pos_system"]').value = 'No POS yet';
+noPosForm.querySelector('[name="pos_recommendation_interest"]').value = 'Yes, I want POS recommendations';
+noPosForm.submit();
+assert.strictEqual(noPosForm.querySelector('input[name="pos_readiness_signal"]').value, 'pos_referral_candidate');
+assert.strictEqual(noPosForm.querySelector('input[name="lead_route_hint"]').value, 'pos_partner_referral');
+assert.strictEqual(noPosForm.querySelector('input[name="monetization_route_hint"]').value, 'pos_partner_referral');
+assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /39_miles/);
+assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /menusifu/);
+assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /chowbus/);
+assert.strictEqual(noPosForm.querySelector('input[name="lead_acquisition_channel"]').value, 'partner_referral');
 
 const returnVisitForm = createForm();
 returnVisitForm.fields.push(createField('lead_source', 'homepage'));

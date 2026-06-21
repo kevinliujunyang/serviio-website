@@ -124,6 +124,11 @@
     return 'unknown';
   }
 
+  function recommendedPosPartnerTargets(posReadiness) {
+    if (posReadiness !== 'pos_referral_candidate') return 'none';
+    return 'chinese_restaurant_pos_consultants,39_miles,menusifu,chowbus,clover,square,toast';
+  }
+
   function classifyLeadAcquisitionChannel(form) {
     var sourceText = [
       fieldValue(form, 'lead_source'),
@@ -161,6 +166,7 @@
     ensureHiddenField(form, 'pos_readiness_signal', posReadiness, true);
     ensureHiddenField(form, 'lead_route_hint', leadRouteHint(posReadiness), true);
     ensureHiddenField(form, 'monetization_route_hint', monetizationRouteHint(posReadiness), true);
+    ensureHiddenField(form, 'recommended_pos_partner_targets', recommendedPosPartnerTargets(posReadiness), true);
     ensureHiddenField(form, 'lead_acquisition_channel', classifyLeadAcquisitionChannel(form), true);
   }
 
