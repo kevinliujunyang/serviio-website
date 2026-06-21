@@ -967,8 +967,9 @@ function validateFreeSearchTracker() {
   } else {
     const profileExecutionQueue = fs.readFileSync('docs/business-profile-execution-queue.csv', 'utf8');
     for (const required of [
-      'position,profile_platform,profile_item_type,item_name,destination_url,authority_reason,lead_route,expected_lead_acquisition_channel,next_step,copy_paste_payload,evidence_needed,tracker_command',
+      'position,profile_platform,profile_item_type,item_name,destination_url,authority_reason,authority_media_kit_url,lead_route,expected_lead_acquisition_channel,next_step,copy_paste_payload,evidence_needed,tracker_command',
       '1,Google Business Profile,profile_core,Serviio profile',
+      'https://serviio.ai/authority-media-kit/',
       '2,Google Business Profile,product_card,39 Miles AI phone ordering',
       '3,Google Business Profile,product_card,MenuSifu AI phone ordering',
       'Bing Places for Business,profile_core,Serviio profile',

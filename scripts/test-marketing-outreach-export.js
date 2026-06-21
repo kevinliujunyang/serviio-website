@@ -573,9 +573,11 @@ assert.deepStrictEqual(businessProfileExecutionRows.slice(0, 6).map((row) => `${
   '6:Google Business Profile:Estimate missed-call revenue before a demo',
 ]);
 assert.strictEqual(businessProfileExecutionRows[0].authority_reason, 'P0 profile authority and inbound restaurant-owner lead source');
+assert.strictEqual(businessProfileExecutionRows[0].authority_media_kit_url, 'https://serviio.ai/authority-media-kit/');
 assert.strictEqual(businessProfileExecutionRows[0].lead_route, 'Ask every inbound owner which POS system they use; prioritize 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway users.');
 assert.strictEqual(businessProfileExecutionRows[0].expected_lead_acquisition_channel, 'business_profile');
 assert.match(businessProfileExecutionRows[0].copy_paste_payload, /Serviio is an AI phone ordering system for restaurants/);
+assert.match(businessProfileExecutionRows[0].copy_paste_payload, /Authority media kit: https:\/\/serviio\.ai\/authority-media-kit\//);
 assert.match(businessProfileExecutionRows[0].evidence_needed, /dashboard confirmation screenshot/);
 assert.match(businessProfileExecutionRows[0].tracker_command, /--target "Google Business Profile" --status submitted --date 2026-06-10/);
 assert.match(businessProfileExecutionRows[1].copy_paste_payload, /AI phone ordering workflow for Chinese restaurants using 39 Miles POS/);
@@ -594,8 +596,9 @@ assert.ok(businessProfileExecutionRows.some((row) =>
   /Action link: https:\/\/serviio\.ai\/chinese-restaurant-pos-ai-phone-agent/.test(row.copy_paste_payload)
 ));
 const businessProfileExecutionCsv = businessProfileExecutionToCsv(businessProfileExecutionRows);
-assert.match(businessProfileExecutionCsv, /^position,profile_platform,profile_item_type,item_name,destination_url,authority_reason,lead_route,expected_lead_acquisition_channel,next_step,copy_paste_payload,evidence_needed,tracker_command/m);
+assert.match(businessProfileExecutionCsv, /^position,profile_platform,profile_item_type,item_name,destination_url,authority_reason,authority_media_kit_url,lead_route,expected_lead_acquisition_channel,next_step,copy_paste_payload,evidence_needed,tracker_command/m);
 assert.match(businessProfileExecutionCsv, /Google Business Profile,profile_core,Serviio profile/);
+assert.match(businessProfileExecutionCsv, /https:\/\/serviio\.ai\/authority-media-kit\//);
 assert.match(businessProfileExecutionCsv, /Google Business Profile,product_card,39 Miles AI phone ordering/);
 assert.match(businessProfileExecutionCsv, /Apple Business Connect,profile_core,Serviio profile/);
 assert.deepStrictEqual(parseBusinessProfileExecutionArgs(['--today', '2026-06-10', '--out', 'docs/profile-queue.csv', '--limit', '9']), {

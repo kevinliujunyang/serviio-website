@@ -8,6 +8,7 @@ const {
 
 const CSV_PATH = 'docs/free-search-marketing-tracker.csv';
 const DEFAULT_OUT = 'docs/business-profile-execution-queue.csv';
+const AUTHORITY_MEDIA_KIT_URL = 'https://serviio.ai/authority-media-kit/';
 
 const HEADERS = [
   'position',
@@ -16,6 +17,7 @@ const HEADERS = [
   'item_name',
   'destination_url',
   'authority_reason',
+  'authority_media_kit_url',
   'lead_route',
   'expected_lead_acquisition_channel',
   'next_step',
@@ -71,17 +73,20 @@ const PLATFORM_CORE_COPY = {
     'Primary category: Software company',
     'Services: POS-integrated AI phone ordering; Chinese restaurant AI phone answering; restaurant phone order taker AI; Mandarin and English phone ordering support',
     'Website: https://serviio.ai/ unless Google accepts the UTM profile URL',
+    `Authority media kit: ${AUTHORITY_MEDIA_KIT_URL}`,
   ].join(' '),
   'Bing Places for Business': [
     'Import from Google only after Google profile fields are accurate.',
     'Business description: AI phone ordering for restaurants using POS systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
     'Mirror Google services and include Chinese restaurant AI phone answering.',
     'Website: use the Bing Places UTM URL if accepted.',
+    `Authority media kit: ${AUTHORITY_MEDIA_KIT_URL}`,
   ].join(' '),
   'Apple Business Connect': [
     'Business description: Serviio helps restaurants answer phone orders with AI, qualify POS-ready workflows, and reduce missed calls during rush hours.',
     'Action link: https://serviio.ai/chinese-restaurant-pos-ai-phone-agent/?utm_source=apple_business_connect&utm_medium=organic_listing&utm_campaign=free_search_marketing',
     'Showcase: start with 39 Miles AI phone ordering or MenuSifu AI phone ordering.',
+    `Authority media kit: ${AUTHORITY_MEDIA_KIT_URL}`,
   ].join(' '),
 };
 
@@ -205,6 +210,7 @@ function buildBusinessProfileExecutionRows(rows, { today = todayIso(), limit = 1
     authority_reason: row.profile_item_type === 'profile_core'
       ? 'P0 profile authority and inbound restaurant-owner lead source'
       : 'POS-specific profile content that reinforces restaurant AI phone ordering relevance',
+    authority_media_kit_url: AUTHORITY_MEDIA_KIT_URL,
     lead_route: 'Ask every inbound owner which POS system they use; prioritize 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway users.',
     expected_lead_acquisition_channel: 'business_profile',
     next_step: nextStep(row),
