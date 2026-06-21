@@ -739,6 +739,9 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:profiles'] !== 'node scripts/export-business-profile-pack.js') {
     errors.push('package.json: missing marketing:profiles script');
   }
+  if (packageJson.scripts?.['marketing:profile-evidence:export'] !== 'node scripts/export-business-profile-pack.js --evidence-log --out docs/business-profile-evidence-log.csv') {
+    errors.push('package.json: missing marketing:profile-evidence:export script');
+  }
   if (packageJson.scripts?.['marketing:directories'] !== 'node scripts/export-directory-submission-pack.js') {
     errors.push('package.json: missing marketing:directories script');
   }
@@ -762,6 +765,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-business-profile-pack.js')) {
     errors.push('scripts/export-business-profile-pack.js: missing business profile export');
+  }
+  if (!fs.existsSync('docs/business-profile-evidence-log.csv')) {
+    errors.push('docs/business-profile-evidence-log.csv: missing business profile evidence CSV');
   }
   if (!fs.existsSync('scripts/export-directory-submission-pack.js')) {
     errors.push('scripts/export-directory-submission-pack.js: missing directory submission pack export');
@@ -790,6 +796,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:profiles')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:profiles workflow');
+  }
+  if (!checklist.includes('npm run marketing:profile-evidence:export')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing marketing:profile-evidence:export workflow');
   }
   if (!checklist.includes('npm run marketing:directories')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:directories workflow');
@@ -831,6 +840,20 @@ function validateFreeSearchTracker() {
     }
     if (!authoritySprint.includes('## Execution Queue') || !authoritySprint.includes('Evidence needed')) {
       errors.push('docs/weekly-authority-sprint.md: missing execution queue evidence requirements');
+    }
+  }
+  if (fs.existsSync('docs/business-profile-evidence-log.csv')) {
+    const profileEvidenceLog = fs.readFileSync('docs/business-profile-evidence-log.csv', 'utf8');
+    for (const required of [
+      'profile_item_type,profile_platform,item_name,destination_url,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,submitted_date,live_date,follow_up_date',
+      'profile_core,Google Business Profile,Serviio profile,https://serviio.ai/?utm_source=google_business_profile',
+      'profile_core,Bing Places for Business,Serviio profile,https://serviio.ai/?utm_source=bing_places',
+      'profile_core,Apple Business Connect,Serviio profile,https://serviio.ai/?utm_source=apple_business_connect',
+      'product_card,Apple Business Connect,MenuSifu AI phone ordering,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=business_profile_product',
+    ]) {
+      if (!profileEvidenceLog.includes(required)) {
+        errors.push(`docs/business-profile-evidence-log.csv: missing ${required}`);
+      }
     }
   }
 

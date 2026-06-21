@@ -1,6 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
-const { validateSitemap } = require('./validate-seo');
+const { runValidation, validateSitemap } = require('./validate-seo');
 
 assert.strictEqual(typeof validateSitemap, 'function');
 
@@ -26,6 +26,25 @@ trailing garbage`;
   assert.ok(
     result.errors.some((error) => /trailing content after closing urlset/.test(error)),
     `expected trailing sitemap content error, got: ${result.errors.join('; ')}`
+  );
+} finally {
+  fs.readFileSync = originalReadFileSync;
+}
+
+try {
+  fs.readFileSync = (file, ...args) => {
+    if (file === 'package.json') {
+      const packageJson = JSON.parse(originalReadFileSync(file, ...args));
+      delete packageJson.scripts['marketing:profile-evidence:export'];
+      return JSON.stringify(packageJson);
+    }
+    return originalReadFileSync(file, ...args);
+  };
+
+  const result = runValidation();
+  assert.ok(
+    result.errors.some((error) => /missing marketing:profile-evidence:export script/.test(error)),
+    `expected missing profile evidence export script error, got: ${result.errors.join('; ')}`
   );
 } finally {
   fs.readFileSync = originalReadFileSync;

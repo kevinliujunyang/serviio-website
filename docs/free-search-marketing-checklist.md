@@ -142,6 +142,14 @@ npm run marketing:profiles
 
 Use this before creating or claiming profiles. It includes shared business details, description copy, category candidates, UTM links, and the tracker update command for each profile.
 
+Export the business profile evidence worksheet before adding products, showcases, or update posts:
+
+```bash
+npm run marketing:profile-evidence:export
+```
+
+This writes `docs/business-profile-evidence-log.csv` with Google Business Profile, Bing Places, and Apple Business Connect rows for the core profile, POS product cards, and profile posts. Fill in `evidence_url`, `account_or_login`, `screenshot_or_dashboard_confirmation`, `submitted_date`, `live_date`, and `follow_up_date` only after the external profile item exists.
+
 Export the free directory submission pack for the next authority-building block:
 
 ```bash
