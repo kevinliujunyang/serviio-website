@@ -7,6 +7,7 @@ const requiredMarkerGroups = [
   ['name="restaurant_state"'],
   ['name="pos_system"', 'name="pos_status"'],
   ['name="phone_orders_per_week"'],
+  ['name="language_need"'],
   ['name="main_pain"'],
   ['name="pos_recommendation_interest"'],
   ['name="pos_purchase_timeline"'],

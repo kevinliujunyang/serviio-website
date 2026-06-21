@@ -55,6 +55,7 @@ const {
   classifyPainSignal,
   classifyPhoneVolume,
   classifyLeadAcquisitionChannel,
+  classifyLanguageNeed,
   classifyPosPurchaseTimeline,
   parseCsv,
   hasKnownPos,
@@ -335,6 +336,7 @@ const businessProfileProductLead = scoreLead({
   pos_system: 'MenuSifu',
   phone_orders_per_week: '25-75',
   main_pain: 'Bilingual calls and manual POS entry during dinner rush',
+  language_need: 'Mandarin and Cantonese',
   conversion_offer: 'named_pos_fit_check',
   pos_recommendation_interest: 'Not applicable, I already have a POS',
   utm_source: 'business_profile_product',
@@ -344,8 +346,12 @@ assert.strictEqual(businessProfileProductLead.lead_acquisition_channel, 'busines
 assert.strictEqual(businessProfileProductLead.lead_priority, 'high');
 assert.strictEqual(businessProfileProductLead.lead_route, 'call_now');
 assert.strictEqual(businessProfileProductLead.serviio_fit_status, 'serviio_demo_fit');
+assert.strictEqual(businessProfileProductLead.language_need, 'Mandarin and Cantonese');
+assert.strictEqual(businessProfileProductLead.language_need_signal, 'chinese_bilingual');
 assert.match(businessProfileProductLead.buyer_profile, /offer:named_pos_fit_check/);
+assert.match(businessProfileProductLead.buyer_profile, /language:chinese_bilingual/);
 assert.match(businessProfileProductLead.lead_reason, /urgent pain: rush_hour\+bilingual_calls\+manual_entry/);
+assert.match(businessProfileProductLead.lead_reason, /language need: chinese_bilingual/);
 
 const submittedChannelLead = scoreLead({
   ...baseLead,
@@ -509,6 +515,9 @@ assert.strictEqual(calculatorDemoLead.lead_acquisition_channel, 'calculator');
 assert.strictEqual(classifyPainSignal('Need Mandarin and Cantonese call handling'), 'bilingual_calls');
 assert.strictEqual(classifyPainSignal('General question'), 'other');
 assert.strictEqual(classifyPainSignal(''), 'unknown');
+assert.strictEqual(classifyLanguageNeed('Mandarin and Cantonese'), 'chinese_bilingual');
+assert.strictEqual(classifyLanguageNeed('English and Spanish'), 'multilingual');
+assert.strictEqual(classifyLanguageNeed('English only'), 'english_only');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'business_profile_post', utmMedium: 'organic_listing' }), 'business_profile');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'business_profile_product', utmMedium: 'organic_listing' }), 'business_profile');
 assert.strictEqual(classifyLeadAcquisitionChannel({ utmSource: 'product_hunt', utmMedium: 'organic_listing' }), 'directory_or_listing');
@@ -891,8 +900,8 @@ const sampleScoredRows = sampleLeadRecords.map(scoreLead);
 assert.strictEqual(sampleScoredRows.length, 7);
 assert.deepStrictEqual(buildDemoQueueRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
-  'Boston Wok',
   'Business Profile MenuSifu Wok',
+  'Boston Wok',
 ]);
 assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'New Noodle Shop',
@@ -900,8 +909,8 @@ assert.deepStrictEqual(buildPosPartnerRows(sampleScoredRows).map((row) => row.re
 ]);
 assert.deepStrictEqual(buildCustomerProofRows(sampleScoredRows).map((row) => row.restaurant_name), [
   'Golden Dragon Chinese Restaurant',
-  'Boston Wok',
   'Business Profile MenuSifu Wok',
+  'Boston Wok',
 ]);
 assert.deepStrictEqual(buildCustomerProofEvidenceRows(sampleLeadRecords).map((row) => row.restaurant_name), [
   'San Jose Wok Proof',

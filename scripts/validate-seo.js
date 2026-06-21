@@ -12,6 +12,7 @@ const REQUIRED_QUALIFICATION_FIELDS = [
   'restaurant_city',
   'restaurant_state',
   'phone_orders_per_week',
+  'language_need',
   'main_pain',
   'pos_recommendation_interest',
   'pos_purchase_timeline',

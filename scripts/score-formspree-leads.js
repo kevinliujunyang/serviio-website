@@ -17,6 +17,15 @@ const FIELD_ALIASES = {
   pos: ['pos_system', 'pos system', 'pos_status', 'pos status', 'current_pos', 'current pos'],
   posFocus: ['pos_focus', 'pos focus', 'target_pos', 'target pos'],
   phoneOrders: ['phone_orders_per_week', 'phone orders per week', 'weekly_phone_orders', 'weekly phone orders'],
+  languageNeed: [
+    'language_need',
+    'language need',
+    'call_language',
+    'call language',
+    'phone_language',
+    'phone language',
+    'languages',
+  ],
   pain: [
     'main_pain',
     'main pain',
@@ -117,6 +126,8 @@ const PAIN_PATTERNS = [
   ['after_hours', /after\s*hours|closed|night|late|24\/7|voicemail|下班|关门/i],
 ];
 const URGENT_PAIN_SIGNALS = new Set(['missed_calls', 'rush_hour', 'manual_entry', 'after_hours']);
+const CHINESE_LANGUAGE_PATTERN = /mandarin|cantonese|chinese|bilingual|english\s+and\s+chinese|普通话|国语|粤语|中文|双语/i;
+const MULTILINGUAL_LANGUAGE_PATTERN = /spanish|japanese|hindi|french|italian|multilingual|multiple|other/i;
 const LEAD_ACQUISITION_CHANNELS = new Set([
   'business_profile',
   'partner_referral',
@@ -235,6 +246,7 @@ function buildBuyerProfile({
   if (partnerReferralPriority !== 'none') parts.push(`partner_referral:${partnerReferralPriority}`);
   if (posTimelineUrgency && posTimelineUrgency !== 'not_applicable') parts.push(`pos_timeline_urgency:${posTimelineUrgency}`);
   if (painSignal !== 'unknown') parts.push(`pain:${painSignal}`);
+  if (values.languageNeedSignal && values.languageNeedSignal !== 'unknown') parts.push(`language:${values.languageNeedSignal}`);
   if (values.posFocus) parts.push(`pos_focus:${values.posFocus}`);
   if (values.partnerType) parts.push(`partner_type:${values.partnerType}`);
   if (partnerReferralVolumeTier && partnerReferralVolumeTier !== 'none') parts.push(`partner_volume:${partnerReferralVolumeTier}`);
@@ -263,6 +275,7 @@ function classifyLeadAcquisitionChannel(values) {
     values.utmSource,
     values.utmMedium,
     values.utmCampaign,
+    values.languageNeed,
   ].join(' ');
 
   if (/business[_\s-]?profile|google_business_profile|bing_places|apple_business_connect/i.test(sourceText)) return 'business_profile';
@@ -580,6 +593,15 @@ function classifyPainSignal(value) {
   return matches.length ? matches.join('+') : 'other';
 }
 
+function classifyLanguageNeed(value) {
+  const text = String(value || '').trim();
+  if (!text) return 'unknown';
+  if (CHINESE_LANGUAGE_PATTERN.test(text)) return 'chinese_bilingual';
+  if (MULTILINGUAL_LANGUAGE_PATTERN.test(text)) return 'multilingual';
+  if (/english/i.test(text)) return 'english_only';
+  return 'other';
+}
+
 function hasKnownPos(value) {
   const text = String(value || '');
   return NAMED_POS_PATTERN.test(text) || OTHER_POS_PATTERN.test(text);
@@ -613,6 +635,7 @@ function scoreLead(record) {
   const highVolume = volume === 'high';
   const mediumVolume = volume === 'medium';
   const painSignal = classifyPainSignal(values.pain);
+  const languageNeedSignal = classifyLanguageNeed(values.languageNeed);
   const posTimelineUrgency = classifyPosPurchaseTimeline(values.posPurchaseTimeline);
   const urgentPain = painSignal
     .split('+')
@@ -742,6 +765,13 @@ function scoreLead(record) {
     score += 5;
     reasons.push(`pain: ${painSignal}`);
   }
+  if (languageNeedSignal === 'chinese_bilingual') {
+    score += 8;
+    reasons.push('language need: chinese_bilingual');
+  } else if (languageNeedSignal === 'multilingual') {
+    score += 4;
+    reasons.push('language need: multilingual');
+  }
 
   let priority = 'review';
   if (posReady && (highVolume || urgentPain) && (chineseIntent || prioritySource)) {
@@ -792,6 +822,7 @@ function scoreLead(record) {
       values: {
         ...values,
         partnerAuthorityOpportunity,
+        languageNeedSignal,
       },
     }),
     monetization_route: partnerReferral.monetizationRoute,
@@ -818,6 +849,8 @@ function scoreLead(record) {
     pos_focus: values.posFocus,
     pos_system: values.pos,
     phone_orders_per_week: values.phoneOrders,
+    language_need: values.languageNeed,
+    language_need_signal: languageNeedSignal,
     main_pain: values.pain,
     conversion_offer: values.conversionOffer,
     pos_recommendation_interest: values.posRecommendationInterest,
@@ -949,6 +982,8 @@ function main() {
     'pos_focus',
     'pos_system',
     'phone_orders_per_week',
+    'language_need',
+    'language_need_signal',
     'main_pain',
     'conversion_offer',
     'pos_recommendation_interest',
@@ -977,6 +1012,7 @@ if (require.main === module) {
 
 module.exports = {
   classifyPhoneVolume,
+  classifyLanguageNeed,
   classifyPainSignal,
   classifyPosPurchaseTimeline,
   classifyPartnerReferralVolume,

@@ -14,6 +14,7 @@ const completeHtml = `
   <input name="restaurant_state">
   <select name="pos_system"></select>
   <select name="phone_orders_per_week"></select>
+  <select name="language_need"></select>
   <select name="main_pain"></select>
   <select name="pos_recommendation_interest"></select>
   <select name="pos_purchase_timeline"></select>
@@ -33,6 +34,7 @@ assert.deepStrictEqual(
     'missing name="restaurant_state"',
     'missing name="pos_system" or name="pos_status"',
     'missing name="phone_orders_per_week"',
+    'missing name="language_need"',
     'missing name="pos_recommendation_interest"',
     'missing name="pos_purchase_timeline"',
   ],
@@ -41,6 +43,7 @@ assert.deepStrictEqual(
 assert.ok(requiredMarkers.includes('name="pos_system"'));
 assert.ok(requiredMarkerGroups.some((group) => group.includes('name="pos_system"') && group.includes('name="pos_status"')));
 assert.ok(requiredMarkers.includes('name="phone_orders_per_week"'));
+assert.ok(requiredMarkers.includes('name="language_need"'));
 assert.ok(requiredMarkers.includes('name="pos_recommendation_interest"'));
 assert.strictEqual(resolveBaseUrl('https://serviio.ai/'), 'https://serviio.ai');
 assert.strictEqual(resolveBaseUrl(), 'https://serviio.ai');
