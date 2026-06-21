@@ -30,6 +30,11 @@ const {
   parseArgs: parseBusinessProfileArgs,
 } = require('./export-business-profile-pack');
 const {
+  buildBusinessProfileExecutionRows,
+  parseArgs: parseBusinessProfileExecutionArgs,
+  toCsv: businessProfileExecutionToCsv,
+} = require('./export-business-profile-execution-queue');
+const {
   buildDirectorySubmissionPack,
   directoryRows,
   parseArgs: parseDirectoryPackArgs,
@@ -102,6 +107,10 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:profile-evidence:export'],
   'node scripts/export-business-profile-pack.js --evidence-log --out docs/business-profile-evidence-log.csv',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:profile-execution:export'],
+  'node scripts/export-business-profile-execution-queue.js --out docs/business-profile-execution-queue.csv',
 );
 
 const rows = parseCsv(`priority,channel,target,url,status,owner,date_submitted,date_live,landing_url,utm_url,anchor_or_listing_phrase,notes
@@ -449,6 +458,49 @@ const businessProfileEvidenceCsv = businessProfileEvidenceLogToCsv(businessProfi
 assert.match(businessProfileEvidenceCsv, /^profile_item_type,profile_platform,item_name,destination_url,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,submitted_date,live_date,follow_up_date/m);
 assert.match(businessProfileEvidenceCsv, /profile_core,Bing Places for Business,Serviio profile,https:\/\/serviio\.ai\/\?utm_source=bing_places/);
 assert.match(businessProfileEvidenceCsv, /product_card,Apple Business Connect,MenuSifu AI phone ordering,https:\/\/serviio\.ai\/pos\/menusifu-ai-phone-ordering\/\?utm_source=business_profile_product/);
+const businessProfileExecutionRows = buildBusinessProfileExecutionRows(trackerRows, { today: '2026-06-10' });
+assert.strictEqual(businessProfileExecutionRows.length, 15);
+assert.deepStrictEqual(businessProfileExecutionRows.slice(0, 6).map((row) => `${row.position}:${row.profile_platform}:${row.item_name}`), [
+  '1:Google Business Profile:Serviio profile',
+  '2:Google Business Profile:39 Miles AI phone ordering',
+  '3:Google Business Profile:MenuSifu AI phone ordering',
+  '4:Google Business Profile:AI phone ordering for POS-ready restaurants',
+  '5:Google Business Profile:Bilingual phone answering for Chinese restaurants',
+  '6:Google Business Profile:Estimate missed-call revenue before a demo',
+]);
+assert.strictEqual(businessProfileExecutionRows[0].authority_reason, 'P0 profile authority and inbound restaurant-owner lead source');
+assert.strictEqual(businessProfileExecutionRows[0].lead_route, 'Ask every inbound owner which POS system they use; prioritize 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway users.');
+assert.strictEqual(businessProfileExecutionRows[0].expected_lead_acquisition_channel, 'business_profile');
+assert.match(businessProfileExecutionRows[0].copy_paste_payload, /Serviio is an AI phone ordering system for restaurants/);
+assert.match(businessProfileExecutionRows[0].evidence_needed, /dashboard confirmation screenshot/);
+assert.match(businessProfileExecutionRows[0].tracker_command, /--target "Google Business Profile" --status submitted --date 2026-06-10/);
+assert.match(businessProfileExecutionRows[1].copy_paste_payload, /AI phone ordering workflow for Chinese restaurants using 39 Miles POS/);
+assert.match(businessProfileExecutionRows[1].evidence_needed, /product_card_url/);
+assert.match(businessProfileExecutionRows[2].destination_url, /menusifu-ai-phone-ordering/);
+assert.match(businessProfileExecutionRows[3].copy_paste_payload, /Serviio helps restaurants answer phone orders 24\/7/);
+assert.match(businessProfileExecutionRows[3].evidence_needed, /profile_post_url/);
+assert.ok(businessProfileExecutionRows.some((row) =>
+  row.profile_platform === 'Bing Places for Business' &&
+  row.item_name === 'Serviio profile' &&
+  /Import from Google only after Google profile fields are accurate/.test(row.copy_paste_payload)
+));
+assert.ok(businessProfileExecutionRows.some((row) =>
+  row.profile_platform === 'Apple Business Connect' &&
+  row.item_name === 'Serviio profile' &&
+  /Action link: https:\/\/serviio\.ai\/chinese-restaurant-pos-ai-phone-agent/.test(row.copy_paste_payload)
+));
+const businessProfileExecutionCsv = businessProfileExecutionToCsv(businessProfileExecutionRows);
+assert.match(businessProfileExecutionCsv, /^position,profile_platform,profile_item_type,item_name,destination_url,authority_reason,lead_route,expected_lead_acquisition_channel,next_step,copy_paste_payload,evidence_needed,tracker_command/m);
+assert.match(businessProfileExecutionCsv, /Google Business Profile,profile_core,Serviio profile/);
+assert.match(businessProfileExecutionCsv, /Google Business Profile,product_card,39 Miles AI phone ordering/);
+assert.match(businessProfileExecutionCsv, /Apple Business Connect,profile_core,Serviio profile/);
+assert.deepStrictEqual(parseBusinessProfileExecutionArgs(['--today', '2026-06-10', '--out', 'docs/profile-queue.csv', '--limit', '9']), {
+  out: 'docs/profile-queue.csv',
+  today: '2026-06-10',
+  limit: 9,
+  help: false,
+});
+assert.throws(() => parseBusinessProfileExecutionArgs(['--limit', '0']), /--limit must be a positive integer/);
 assert.deepStrictEqual(parseBusinessProfileArgs(['--out', 'docs/profiles.md', '--today', '2026-06-06']), {
   out: 'docs/profiles.md',
   today: '2026-06-06',

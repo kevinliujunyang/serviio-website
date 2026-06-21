@@ -98,6 +98,14 @@ npm run marketing:live-listings
 
 This writes `docs/live-listing-optimization.csv` with the live URL, website URL, listing copy, required POS/Chinese-restaurant mentions, proof fields, and tracker command. Do not treat the optimization as complete until owner/account confirmation or an updated listing screenshot is captured.
 
+Generate the business profile execution queue before creating or updating Google Business Profile, Bing Places, and Apple Business Connect:
+
+```bash
+npm run marketing:profile-execution:export
+```
+
+This writes `docs/business-profile-execution-queue.csv` with the ordered profile work: core Google profile first, priority 39 Miles and MenuSifu product/service cards, profile posts, then Bing and Apple mirror/setup rows. Use it during the manual profile block and keep `docs/business-profile-evidence-log.csv` as the evidence capture sheet.
+
 For the customer-proof milestone, send early pilots or customers to:
 
 ```text
