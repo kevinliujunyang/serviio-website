@@ -7,6 +7,8 @@ Generated: 2026-06-21
 - Current authority score: 6/100
 - First-hour projected score after ordered completion: 47/100
 - First-hour projected delta: +41
+- 15-action projected score after ordered completion: 66/100
+- 15-action projected delta: +60
 - Evidence-qualified submitted or follow-up rows: 0
 - Evidence-qualified live authority rows: 1
 - High-fit partner/POS/association rows started: 0
@@ -19,6 +21,28 @@ Generated: 2026-06-21
 | 2 | MenuSifu restaurant consultants | 8 | 14 | 15 | 21 |
 | 3 | 39 Miles restaurant consultants | 8 | 14 | 23 | 29 |
 | 4 | Pilot restaurant testimonial | 18 | 24 | 41 | 47 |
+
+## 15-Submission Milestone Queue
+
+Use this queue after the first-hour block to reach the 15 submitted/contacted authority-target milestone. Keep tracker rows unchanged until external proof exists.
+
+| Position | Target | Score | Channel | Evidence needed |
+| ---: | --- | ---: | --- | --- |
+| 1 | Product Hunt Serviio listing | 66 | Startup directory | Product Hunt claimed profile, updated listing screenshot, or owner/account confirmation URL. |
+| 2 | Google Business Profile | 92 | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 3 | Bing Places for Business | 74 | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 4 | Apple Business Connect | 74 | Business profile | Published profile URL, verification screenshot, or dashboard confirmation. |
+| 5 | Chinese restaurant POS consultants | 100 | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 6 | 39 Miles restaurant consultants | 100 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 7 | Chowbus restaurant consultants | 100 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 8 | Mealkeyway restaurant consultants | 100 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 9 | MenuSifu restaurant consultants | 100 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 10 | Restaurant POS and automation directories | 96 | Restaurant technology directory | Submission confirmation URL or live directory listing URL. |
+| 11 | POS consultants | 88 | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 12 | Restaurant website agencies | 88 | Partner outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 13 | Clover restaurant consultants | 88 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 14 | Square restaurant consultants | 88 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
+| 15 | Toast restaurant consultants | 88 | POS-specific outreach | Partner reply, referral-page URL, submitted form confirmation, or sent-message URL. |
 
 ## Immediate Execution Details
 

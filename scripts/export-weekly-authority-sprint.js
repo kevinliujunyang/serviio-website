@@ -447,6 +447,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  actionRows,
   buildWeeklyAuthoritySprint,
+  executionRowsForSprint,
   parseArgs,
 };

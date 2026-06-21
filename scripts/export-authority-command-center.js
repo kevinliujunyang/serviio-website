@@ -3,6 +3,7 @@ const path = require('path');
 const { authorityScore, nextMilestones } = require('./audit-seo-authority');
 const { parseCsv } = require('./print-free-search-submission-packets');
 const { buildFirstHourAuthorityRows } = require('./export-first-hour-authority-csv');
+const { actionRows, executionRowsForSprint } = require('./export-weekly-authority-sprint');
 const { buildEvidencePreflightRows } = require('./sync-authority-submission-log');
 const { buildLiveListingPreflightRows } = require('./sync-live-listing-optimization-log');
 
@@ -10,6 +11,7 @@ const TRACKER_PATH = 'docs/free-search-marketing-tracker.csv';
 const FIRST_HOUR_LOG_PATH = 'docs/authority-first-hour-submission-log.csv';
 const LIVE_LISTING_PATH = 'docs/live-listing-optimization.csv';
 const DEFAULT_OUT = 'docs/authority-command-center.md';
+const SUBMISSION_MILESTONE_TARGET = 15;
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -66,6 +68,68 @@ function firstHourProjection(firstHourRows) {
   };
 }
 
+function projectMilestoneRows(trackerRows, milestoneRows, { today = todayIso() } = {}) {
+  const targets = new Set(milestoneRows.map((row) => row.target));
+  return trackerRows.map((row) => {
+    if (!targets.has(row.target)) return row;
+    const milestoneRow = milestoneRows.find((candidate) => candidate.target === row.target);
+    if (milestoneRow.action_type === 'optimize_live_listing') {
+      return {
+        ...row,
+        status: 'live',
+        owner: row.owner || 'Serviio',
+        date_submitted: row.date_submitted || today,
+        date_live: row.date_live || today,
+        notes: row.notes || 'Projected live listing optimization.',
+      };
+    }
+    if (milestoneRow.action_type === 'submit_or_contact') {
+      return {
+        ...row,
+        status: 'submitted',
+        owner: row.owner || 'Serviio',
+        date_submitted: row.date_submitted || today,
+        notes: row.notes || 'Projected authority submission.',
+      };
+    }
+    return row;
+  });
+}
+
+function milestoneProjection(trackerRows, milestoneRows, { today = todayIso() } = {}) {
+  const current = authorityScore(trackerRows).score;
+  const projectedRows = projectMilestoneRows(trackerRows, milestoneRows, { today });
+  const projected = authorityScore(projectedRows).score;
+  return {
+    projectedScore: projected,
+    projectedDelta: projected - current,
+  };
+}
+
+function milestoneActionRows(trackerRows, { today = todayIso() } = {}) {
+  return executionRowsForSprint(actionRows(trackerRows, {
+    today,
+    submissionTarget: SUBMISSION_MILESTONE_TARGET,
+  }), SUBMISSION_MILESTONE_TARGET).slice(0, SUBMISSION_MILESTONE_TARGET);
+}
+
+function renderMilestoneQueue(rows) {
+  const lines = [
+    '## 15-Submission Milestone Queue',
+    '',
+    'Use this queue after the first-hour block to reach the 15 submitted/contacted authority-target milestone. Keep tracker rows unchanged until external proof exists.',
+    '',
+    '| Position | Target | Score | Channel | Evidence needed |',
+    '| ---: | --- | ---: | --- | --- |',
+  ];
+
+  rows.forEach((row, index) => {
+    lines.push(`| ${index + 1} | ${row.target} | ${row.opportunity_score} | ${row.channel} | ${row.evidence_needed} |`);
+  });
+
+  return lines;
+}
+
 function renderImmediateExecutionDetails(firstHourRows) {
   const lines = [
     '## Immediate Execution Details',
@@ -107,6 +171,8 @@ function buildAuthorityCommandCenter({
 }) {
   const summary = authorityScore(trackerRows);
   const projection = firstHourProjection(firstHourRows);
+  const milestoneRows = milestoneActionRows(trackerRows, { today });
+  const milestone = milestoneProjection(trackerRows, milestoneRows, { today });
   const lines = [
     '# Serviio Authority Command Center',
     '',
@@ -117,6 +183,8 @@ function buildAuthorityCommandCenter({
     `- Current authority score: ${summary.score}/100`,
     `- First-hour projected score after ordered completion: ${projection.projectedScore}/100`,
     `- First-hour projected delta: +${projection.projectedDelta}`,
+    `- 15-action projected score after ordered completion: ${milestone.projectedScore}/100`,
+    `- 15-action projected delta: +${milestone.projectedDelta}`,
     `- Evidence-qualified submitted or follow-up rows: ${summary.submittedRows.length}`,
     `- Evidence-qualified live authority rows: ${summary.liveRows.length}`,
     `- High-fit partner/POS/association rows started: ${summary.highFitStartedRows.length}`,
@@ -132,6 +200,8 @@ function buildAuthorityCommandCenter({
   }
 
   lines.push(
+    '',
+    ...renderMilestoneQueue(milestoneRows),
     '',
     ...renderImmediateExecutionDetails(firstHourRows),
     '',
