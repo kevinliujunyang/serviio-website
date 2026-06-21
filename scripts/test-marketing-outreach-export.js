@@ -859,8 +859,16 @@ assert.match(firstHourExecutionRows[2].copy_paste_payload, /already using 39 Mil
 assert.match(firstHourExecutionRows[3].copy_paste_payload, /city, restaurant type, POS system, weekly phone-order volume/);
 assert.match(firstHourExecutionRows[1].tracker_command, /--target "MenuSifu restaurant consultants" --status submitted --date 2026-06-10/);
 assert.match(firstHourExecutionRows[3].proof_fields, /written customer approval note/);
+assert.strictEqual(firstHourExecutionRows[0].projected_authority_delta, 7);
+assert.strictEqual(firstHourExecutionRows[0].projected_authority_score, 13);
+assert.strictEqual(firstHourExecutionRows[1].projected_authority_delta, 8);
+assert.strictEqual(firstHourExecutionRows[1].projected_authority_score, 14);
+assert.strictEqual(firstHourExecutionRows[2].projected_authority_delta, 8);
+assert.strictEqual(firstHourExecutionRows[2].projected_authority_score, 14);
+assert.strictEqual(firstHourExecutionRows[3].projected_authority_delta, 18);
+assert.strictEqual(firstHourExecutionRows[3].projected_authority_score, 24);
 const firstHourAuthorityCsv = firstHourAuthorityToCsv(firstHourExecutionRows);
-assert.match(firstHourAuthorityCsv, /position,action_type,priority,channel,target,contact_url/);
+assert.match(firstHourAuthorityCsv, /position,action_type,priority,channel,target,projected_authority_delta,projected_authority_score,contact_url/);
 assert.match(firstHourAuthorityCsv, /Google Business Profile/);
 assert.match(firstHourAuthorityCsv, /MenuSifu AI phone ordering/);
 assert.match(firstHourAuthorityCsv, /Pilot restaurant testimonial/);

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { authorityScore } = require('./audit-seo-authority');
 const { packetFor, parseCsv } = require('./print-free-search-submission-packets');
 const {
   evidenceNeeded,
@@ -27,6 +28,8 @@ const HEADERS = [
   'priority',
   'channel',
   'target',
+  'projected_authority_delta',
+  'projected_authority_score',
   'contact_url',
   'landing_url',
   'utm_url',
@@ -101,6 +104,25 @@ function copyPastePayload(row) {
   ].filter(Boolean).join('\n\n');
 }
 
+function projectedAuthorityImpact(rows, target, { today = todayIso() } = {}) {
+  const current = authorityScore(rows).score;
+  const projectedRows = rows.map((row) => {
+    if (row.target !== target) return { ...row };
+    return {
+      ...row,
+      status: 'submitted',
+      owner: row.owner || 'Serviio',
+      date_submitted: row.date_submitted || today,
+      notes: row.notes || 'Projected first-hour authority submission.',
+    };
+  });
+  const projected = authorityScore(projectedRows).score;
+  return {
+    projected_authority_delta: projected - current,
+    projected_authority_score: projected,
+  };
+}
+
 function buildFirstHourAuthorityRows(rows, { today = todayIso() } = {}) {
   const followUpDate = addDaysIso(today, 7);
   return FIRST_HOUR_TARGETS.map((target, index) => {
@@ -109,12 +131,15 @@ function buildFirstHourAuthorityRows(rows, { today = todayIso() } = {}) {
       throw new Error(`Missing first-hour authority target: ${target}`);
     }
     const packet = packetFor(row);
+    const projected = projectedAuthorityImpact(rows, row.target, { today });
     return {
       position: index + 1,
       action_type: 'submit_or_contact',
       priority: row.priority,
       channel: row.channel,
       target: row.target,
+      projected_authority_delta: projected.projected_authority_delta,
+      projected_authority_score: projected.projected_authority_score,
       contact_url: row.url,
       landing_url: row.landing_url,
       utm_url: row.utm_url,
