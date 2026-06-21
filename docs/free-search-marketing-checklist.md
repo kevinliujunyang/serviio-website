@@ -98,6 +98,20 @@ npm run marketing:live-listings
 
 This writes `docs/live-listing-optimization.csv` with the live URL, website URL, listing copy, required POS/Chinese-restaurant mentions, proof fields, and tracker command. Do not treat the optimization as complete until owner/account confirmation or an updated listing screenshot is captured.
 
+Before syncing a claimed or updated live listing into the authority tracker, run the live-listing preflight:
+
+```bash
+npm run marketing:live-listings-preflight
+```
+
+After a real listing row has `action_status=live`, `completed_date`, a live `evidence_url`, and confirmation evidence, sync it into the tracker:
+
+```bash
+npm run marketing:live-listings-sync -- --apply
+```
+
+This updates `docs/free-search-marketing-tracker.csv` from `docs/live-listing-optimization.csv` and projects the authority-score impact before applying. Do not sync blank, sample, or unclaimed listing rows.
+
 Generate the business profile execution queue before creating or updating Google Business Profile, Bing Places, and Apple Business Connect:
 
 ```bash

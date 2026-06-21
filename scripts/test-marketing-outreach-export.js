@@ -76,6 +76,14 @@ const {
   toCsv: liveListingToCsv,
 } = require('./export-live-listing-optimization-csv');
 const {
+  applyActions: applyLiveListingActions,
+  buildLiveListingPreflightRows,
+  buildSyncActions: buildLiveListingSyncActions,
+  parseArgs: parseLiveListingSyncArgs,
+  renderPreflightReport: renderLiveListingPreflightReport,
+  renderReport: renderLiveListingSyncReport,
+} = require('./sync-live-listing-optimization-log');
+const {
   buildWeeklyAuthoritySprint,
   parseArgs: parseWeeklyAuthoritySprintArgs,
 } = require('./export-weekly-authority-sprint');
@@ -123,6 +131,14 @@ assert.strictEqual(
 assert.strictEqual(
   packageJson.scripts['marketing:profile-evidence-sync'],
   'node scripts/sync-business-profile-evidence-log.js',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:live-listings-sync'],
+  'node scripts/sync-live-listing-optimization-log.js',
+);
+assert.strictEqual(
+  packageJson.scripts['marketing:live-listings-preflight'],
+  'node scripts/sync-live-listing-optimization-log.js --preflight',
 );
 assert.strictEqual(
   packageJson.scripts['marketing:profile-evidence-preflight'],
@@ -176,11 +192,75 @@ assert.strictEqual(liveListingRows[0].live_url, 'https://www.producthunt.com/pro
 assert.match(liveListingRows[0].update_checklist, /Confirm the listing mentions Chinese restaurants/);
 assert.match(liveListingRows[0].update_checklist, /39 Miles, Square, Toast, Clover, MenuSifu, Chowbus/);
 assert.match(liveListingRows[0].proof_fields, /owner confirmation/);
+assert.strictEqual(liveListingRows[0].action_status, '');
+assert.strictEqual(liveListingRows[0].evidence_url, '');
+assert.strictEqual(liveListingRows[0].completed_date, '');
 assert.match(liveListingRows[0].tracker_command, /--target "Product Hunt Serviio listing" --status "live" --date 2026-06-21/);
 const liveListingCsv = liveListingToCsv(liveListingRows);
 assert.match(liveListingCsv, /action_type,priority,channel,target,live_url/);
+assert.match(liveListingCsv, /action_status,evidence_url,account_or_login,screenshot_or_dashboard_confirmation,confirmation_note,completed_date/);
 assert.match(liveListingCsv, /AI phone ordering for restaurants using POS systems/);
 assert.match(liveListingCsv, /assets\/og-image\.png/);
+const pendingLiveListingPreflight = buildLiveListingPreflightRows(liveListingRows);
+assert.strictEqual(pendingLiveListingPreflight[0].ready_for_sync, false);
+assert.deepStrictEqual(pendingLiveListingPreflight[0].required_fields, [
+  '`action_status`',
+  '`completed_date`',
+  '`evidence_url` live URL',
+  'confirmation evidence',
+]);
+assert.match(renderLiveListingPreflightReport(pendingLiveListingPreflight), /Rows still pending evidence: 1/);
+const completedLiveListingRows = [{
+  ...liveListingRows[0],
+  action_status: 'live',
+  evidence_url: 'https://www.producthunt.com/products/serviio',
+  account_or_login: 'Product Hunt maker account',
+  screenshot_or_dashboard_confirmation: 'Updated Product Hunt screenshot captured',
+  confirmation_note: 'Updated listing copy to mention Chinese restaurants and POS-ready phone orders.',
+  completed_date: '2026-06-22',
+}];
+const liveListingActions = buildLiveListingSyncActions(completedLiveListingRows, { today: '2026-06-22' });
+assert.strictEqual(liveListingActions.length, 1);
+assert.deepStrictEqual(liveListingActions[0].issues, []);
+assert.strictEqual(liveListingActions[0].updateArgs.target, 'Product Hunt Serviio listing');
+assert.strictEqual(liveListingActions[0].updateArgs.status, 'live');
+assert.strictEqual(liveListingActions[0].updateArgs.date, '2026-06-22');
+assert.strictEqual(liveListingActions[0].updateArgs.liveDate, '2026-06-22');
+assert.strictEqual(liveListingActions[0].updateArgs.url, 'https://www.producthunt.com/products/serviio');
+assert.match(liveListingActions[0].updateArgs.note, /Live listing optimization/);
+assert.match(liveListingActions[0].updateArgs.note, /Chinese restaurants and POS-ready phone orders/);
+assert.match(liveListingActions[0].updateArgs.note, /Updated Product Hunt screenshot captured/);
+const completedLiveListingPreflight = buildLiveListingPreflightRows(completedLiveListingRows);
+assert.strictEqual(completedLiveListingPreflight[0].ready_for_sync, true);
+assert.match(renderLiveListingSyncReport(liveListingActions, {
+  trackerText: fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'),
+}), /Projected authority score after valid live listing updates/);
+const syncedLiveListingTracker = applyLiveListingActions(
+  fs.readFileSync('docs/free-search-marketing-tracker.csv', 'utf8'),
+  liveListingActions,
+);
+const syncedProductHuntRow = parseCsv(syncedLiveListingTracker)
+  .find((row) => row.target === 'Product Hunt Serviio listing');
+assert.match(syncedProductHuntRow.notes, /Live listing optimization/);
+assert.match(syncedProductHuntRow.notes, /Product Hunt maker account/);
+assert.deepStrictEqual(parseLiveListingSyncArgs(['--log', 'docs/live.csv', '--today', '2026-06-22', '--apply']), {
+  log: 'docs/live.csv',
+  tracker: 'docs/free-search-marketing-tracker.csv',
+  out: 'docs/free-search-marketing-tracker.csv',
+  today: '2026-06-22',
+  apply: true,
+  preflight: false,
+  help: false,
+});
+assert.deepStrictEqual(parseLiveListingSyncArgs(['--preflight', '--out', 'docs/live-preflight.md']), {
+  log: 'docs/live-listing-optimization.csv',
+  tracker: 'docs/free-search-marketing-tracker.csv',
+  out: 'docs/live-preflight.md',
+  today: parseLiveListingSyncArgs([]).today,
+  apply: false,
+  preflight: true,
+  help: false,
+});
 assert.deepStrictEqual(parseLiveListingArgs(['--today', '2026-06-21', '--out', 'docs/live.csv']), {
   out: 'docs/live.csv',
   today: '2026-06-21',

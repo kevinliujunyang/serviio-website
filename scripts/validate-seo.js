@@ -753,6 +753,12 @@ function validateFreeSearchTracker() {
   if (packageJson.scripts?.['marketing:profile-evidence-preflight'] !== 'node scripts/sync-business-profile-evidence-log.js --preflight') {
     errors.push('package.json: missing marketing:profile-evidence-preflight script');
   }
+  if (packageJson.scripts?.['marketing:live-listings-sync'] !== 'node scripts/sync-live-listing-optimization-log.js') {
+    errors.push('package.json: missing marketing:live-listings-sync script');
+  }
+  if (packageJson.scripts?.['marketing:live-listings-preflight'] !== 'node scripts/sync-live-listing-optimization-log.js --preflight') {
+    errors.push('package.json: missing marketing:live-listings-preflight script');
+  }
   if (packageJson.scripts?.['marketing:directories'] !== 'node scripts/export-directory-submission-pack.js') {
     errors.push('package.json: missing marketing:directories script');
   }
@@ -791,6 +797,9 @@ function validateFreeSearchTracker() {
   }
   if (!fs.existsSync('scripts/export-live-listing-optimization-csv.js')) {
     errors.push('scripts/export-live-listing-optimization-csv.js: missing live listing optimization export');
+  }
+  if (!fs.existsSync('scripts/sync-live-listing-optimization-log.js')) {
+    errors.push('scripts/sync-live-listing-optimization-log.js: missing live listing optimization sync');
   }
   if (!fs.existsSync('scripts/sync-authority-submission-log.js')) {
     errors.push('scripts/sync-authority-submission-log.js: missing authority submission log sync');
@@ -843,6 +852,9 @@ function validateFreeSearchTracker() {
   }
   if (!checklist.includes('npm run marketing:live-listings') || !checklist.includes('docs/live-listing-optimization.csv')) {
     errors.push('docs/free-search-marketing-checklist.md: missing live listing optimization workflow');
+  }
+  if (!checklist.includes('npm run marketing:live-listings-preflight') || !checklist.includes('npm run marketing:live-listings-sync -- --apply')) {
+    errors.push('docs/free-search-marketing-checklist.md: missing live listing optimization sync workflow');
   }
   if (!checklist.includes('npm run marketing:submission-sync') || !checklist.includes('action_status=submitted')) {
     errors.push('docs/free-search-marketing-checklist.md: missing marketing:submission-sync workflow');

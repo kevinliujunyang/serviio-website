@@ -31,6 +31,12 @@ const HEADERS = [
   'primary_kpi',
   'expected_lead_acquisition_channel',
   'tracker_command',
+  'action_status',
+  'evidence_url',
+  'account_or_login',
+  'screenshot_or_dashboard_confirmation',
+  'confirmation_note',
+  'completed_date',
 ];
 
 function todayIso() {
@@ -110,6 +116,12 @@ function productHuntFields(row, today) {
     primary_kpi: primaryKpi(row),
     expected_lead_acquisition_channel: leadAcquisitionChannel(row),
     tracker_command: `npm run marketing:mark -- --target ${quoteShell(row.target)} --status "live" --date ${today} --note "Claimed or updated live listing; recorded proof or owner/account confirmation."`,
+    action_status: '',
+    evidence_url: '',
+    account_or_login: '',
+    screenshot_or_dashboard_confirmation: '',
+    confirmation_note: '',
+    completed_date: '',
   };
 }
 
@@ -133,6 +145,12 @@ function genericLiveListingFields(row, today) {
     primary_kpi: primaryKpi(row),
     expected_lead_acquisition_channel: leadAcquisitionChannel(row),
     tracker_command: `npm run marketing:mark -- --target ${quoteShell(row.target)} --status "live" --date ${today} --note "Claimed or updated live listing; recorded proof or owner/account confirmation."`,
+    action_status: '',
+    evidence_url: '',
+    account_or_login: '',
+    screenshot_or_dashboard_confirmation: '',
+    confirmation_note: '',
+    completed_date: '',
   };
 }
 
