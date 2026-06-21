@@ -1,0 +1,89 @@
+position,action_type,priority,channel,target,contact_url,landing_url,utm_url,anchor_or_listing_phrase,subject,copy_paste_payload,execution_checklist,proof_fields,lead_priority,lead_route,primary_kpi,expected_lead_acquisition_channel,tracker_command
+1,submit_or_contact,P0,Business profile,Google Business Profile,https://www.google.com/business/,https://serviio.ai/,https://serviio.ai/?utm_source=google_business_profile&utm_medium=organic_listing&utm_campaign=free_search_marketing,AI phone ordering for restaurants,Serviio,"Title: Serviio
+
+Tagline: AI phone ordering for restaurants.
+
+Short description: Serviio is an AI phone ordering system for restaurants. It answers calls 24/7, takes orders in natural conversation, supports English and Chinese, and helps restaurants connect phone orders to POS-ready kitchen workflows.
+
+Serviio helps restaurants reduce missed calls and capture takeout orders during lunch, dinner, weekends, and holidays. It is built for restaurants with phone-order volume, including Chinese restaurants using systems such as 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.","Use clean homepage URL if Google rejects UTM parameters. Add service-area business details, phone, website, logo, restaurant technology category, services, products, Q&A, and one update post. Capture verification screenshot or dashboard confirmation, account/login used, submitted date, and pending review status.","Published profile URL, verification screenshot, or dashboard confirmation.",P0 inbound restaurant-owner lead source,Ask every inbound owner which POS system they use; prioritize POS-ready Chinese restaurants and keep no-POS owners for POS partner referral.,verified profile plus POS-qualified inbound leads,business_profile,"npm run marketing:mark -- --target ""Google Business Profile"" --status submitted --date 2026-06-21 --note ""Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."""
+2,submit_or_contact,P1,POS-specific outreach,MenuSifu restaurant consultants,https://forms.menusifu.com/pages/demo-request,https://serviio.ai/pos/menusifu-ai-phone-ordering/,https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,MenuSifu AI phone ordering,AI phone ordering add-on for MenuSifu restaurants,"Subject: AI phone ordering add-on for MenuSifu restaurants
+
+Title: MenuSifu AI phone ordering partner referral
+
+Tagline: AI phone ordering for restaurants using MenuSifu.
+
+Short description: Serviio helps MenuSifu restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+
+Hi [Name],
+
+Serviio helps restaurants answer phone calls with AI, capture structured takeout order details, and evaluate how confirmed orders can move into the restaurant POS or kitchen workflow.
+
+We are especially focused on Chinese restaurants and takeout-heavy operators already using MenuSifu. These restaurants often still receive high phone volume during lunch and dinner rush, even when online ordering is available.
+
+Would you be open to a short partner/referral conversation? We can route POS-ready restaurants to an AI phone-ordering demo, and no-POS restaurants can be qualified separately for POS recommendations before they are a fit for Serviio.
+
+Relevant page:
+https://serviio.ai/pos/menusifu-ai-phone-ordering/?utm_source=menusifu_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio
+
+Follow-up: Hi [Name],
+
+Following up on the note below. The best fit is a restaurant that already uses MenuSifu, receives regular phone orders, and wants fewer missed calls or less manual re-entry during rush hours.
+
+If there is a better person for partner or integration conversations, could you point me in the right direction?
+
+Thanks,
+Serviio","Submit MenuSifu partner or demo form with Serviio POS-ready phone-order copy. Ask for referral or integration contact path for Chinese restaurants using MenuSifu. Capture submitted form confirmation, account/login or email used, submitted date, and seven-day follow-up date.","Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.",P0 POS-ready Chinese restaurant lead source,Route MenuSifu restaurant owners to a POS-specific demo; keep no-POS owners as POS partner referral prospects.,"partner reply, referral path, or sent-message evidence",partner_referral,"npm run marketing:mark -- --target ""MenuSifu restaurant consultants"" --status submitted --date 2026-06-21 --note ""Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."""
+3,submit_or_contact,P1,POS-specific outreach,39 Miles restaurant consultants,https://pos.menuorg.com/en/,https://serviio.ai/pos/39-miles-ai-phone-ordering/,https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing,39 Miles AI phone ordering for Chinese restaurants,AI phone ordering add-on for 39 Miles restaurants,"Subject: AI phone ordering add-on for 39 Miles restaurants
+
+Title: 39 Miles AI phone ordering partner referral
+
+Tagline: AI phone ordering for restaurants using 39 Miles.
+
+Short description: Serviio helps 39 Miles restaurant operators answer phone orders with AI and evaluate POS-ready phone-order workflows.
+
+Hi [Name],
+
+Serviio helps restaurants answer phone calls with AI, capture structured takeout order details, and evaluate how confirmed orders can move into the restaurant POS or kitchen workflow.
+
+We are especially focused on Chinese restaurants and takeout-heavy operators already using 39 Miles. These restaurants often still receive high phone volume during lunch and dinner rush, even when online ordering is available.
+
+Would you be open to a short partner/referral conversation? We can route POS-ready restaurants to an AI phone-ordering demo, and no-POS restaurants can be qualified separately for POS recommendations before they are a fit for Serviio.
+
+Relevant page:
+https://serviio.ai/pos/39-miles-ai-phone-ordering/?utm_source=39_miles_pos_consultant&utm_medium=partner_referral&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio
+
+Follow-up: Hi [Name],
+
+Following up on the note below. The best fit is a restaurant that already uses 39 Miles, receives regular phone orders, and wants fewer missed calls or less manual re-entry during rush hours.
+
+If there is a better person for partner or integration conversations, could you point me in the right direction?
+
+Thanks,
+Serviio","Contact 39 Miles/MENUPO using the official contact path with Serviio POS-ready phone-order copy. Ask for referral, integration, or consultant contact path for Chinese restaurants using 39 Miles. Capture sent-message URL or screenshot, account/login or email used, submitted date, and seven-day follow-up date.","Partner reply, referral-page URL, submitted form confirmation, or sent-message URL.",P0 POS-ready Chinese restaurant lead source,Route 39 Miles restaurant owners to a POS-specific demo; keep no-POS owners as POS partner referral prospects.,"partner reply, referral path, or sent-message evidence",partner_referral,"npm run marketing:mark -- --target ""39 Miles restaurant consultants"" --status submitted --date 2026-06-21 --note ""Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."""
+4,submit_or_contact,P2,Customer proof,Pilot restaurant testimonial,https://serviio.ai/customer-proof-request/,https://serviio.ai/customer-proof-request/,https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing,Chinese restaurant AI phone ordering testimonial,Customer proof request for restaurant AI phone ordering,"Subject: Customer proof request for restaurant AI phone ordering
+
+Title: Chinese restaurant AI phone ordering testimonial
+
+Tagline: Customer proof for POS-ready restaurant phone ordering.
+
+Short description: Request a testimonial or proof note from a POS-ready restaurant after a demo, pilot, or successful setup.
+
+Hi [Name],
+
+Thank you for trying Serviio for restaurant phone ordering. If the pilot or demo was useful, could you share a short proof note we can use for restaurant-owner trust and follow-up conversations?
+
+The most helpful version mentions your city, restaurant type, POS system, weekly phone-order volume, and the main phone-order pain: missed calls, bilingual calls, manual POS entry, after-hours calls, or menu questions.
+
+You can choose whether the proof can be published, anonymized, or kept internal for sales conversations.
+
+Proof form:
+https://serviio.ai/customer-proof-request/?utm_source=customer_testimonial&utm_medium=customer_proof&utm_campaign=free_search_marketing
+
+Thanks,
+Serviio","Send customer proof request link to a pilot, demo, or customer contact. Ask for city, restaurant type, POS system, weekly phone-order volume, phone-order pain, quote, and publication permission. Capture written approval, submitted proof form URL or screenshot, submitted date, and follow-up date.",Published testimonial/case-study URL or written customer approval note.,P2 proof asset for conversion,Use proof in demos and profile/listing submissions to improve conversion from restaurant-owner traffic.,published proof URL,customer_proof,"npm run marketing:mark -- --target ""Pilot restaurant testimonial"" --status submitted --date 2026-06-21 --note ""Submitted/contacted; add confirmation URL and account used. Follow up: 2026-06-28."""

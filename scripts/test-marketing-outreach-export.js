@@ -61,6 +61,11 @@ const {
   toCsv: gtmQueueToCsv,
 } = require('./export-free-search-gtm-queue');
 const {
+  buildFirstHourAuthorityRows,
+  parseArgs: parseFirstHourAuthorityArgs,
+  toCsv: firstHourAuthorityToCsv,
+} = require('./export-first-hour-authority-csv');
+const {
   buildWeeklyAuthoritySprint,
   parseArgs: parseWeeklyAuthoritySprintArgs,
 } = require('./export-weekly-authority-sprint');
@@ -667,6 +672,32 @@ assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_con
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /\| \d+ \| submit_or_contact \| 60 \| Pilot restaurant testimonial \| Customer proof \|/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /### \d+\. Prep & Profit vendor directory/);
 assert.match(weeklyAuthoritySprintWithLiveOptimization, /### \d+\. Pilot restaurant testimonial/);
+const firstHourExecutionRows = buildFirstHourAuthorityRows(trackerRows, { today: '2026-06-10' });
+assert.deepStrictEqual(firstHourExecutionRows.map((row) => row.target), [
+  'Google Business Profile',
+  'MenuSifu restaurant consultants',
+  '39 Miles restaurant consultants',
+  'Pilot restaurant testimonial',
+]);
+assert.strictEqual(firstHourExecutionRows[0].position, 1);
+assert.strictEqual(firstHourExecutionRows[0].action_type, 'submit_or_contact');
+assert.match(firstHourExecutionRows[0].copy_paste_payload, /Serviio is an AI phone ordering system for restaurants/);
+assert.match(firstHourExecutionRows[1].copy_paste_payload, /Chinese restaurants and takeout-heavy operators already using MenuSifu/);
+assert.match(firstHourExecutionRows[2].copy_paste_payload, /already using 39 Miles/);
+assert.match(firstHourExecutionRows[3].copy_paste_payload, /city, restaurant type, POS system, weekly phone-order volume/);
+assert.match(firstHourExecutionRows[1].tracker_command, /--target "MenuSifu restaurant consultants" --status submitted --date 2026-06-10/);
+assert.match(firstHourExecutionRows[3].proof_fields, /written customer approval note/);
+const firstHourAuthorityCsv = firstHourAuthorityToCsv(firstHourExecutionRows);
+assert.match(firstHourAuthorityCsv, /position,action_type,priority,channel,target,contact_url/);
+assert.match(firstHourAuthorityCsv, /Google Business Profile/);
+assert.match(firstHourAuthorityCsv, /MenuSifu AI phone ordering/);
+assert.match(firstHourAuthorityCsv, /Pilot restaurant testimonial/);
+assert.deepStrictEqual(parseFirstHourAuthorityArgs(['--today', '2026-06-10', '--out', 'docs/first-hour.csv']), {
+  out: 'docs/first-hour.csv',
+  today: '2026-06-10',
+  help: false,
+});
+assert.throws(() => parseFirstHourAuthorityArgs(['--today', '06-10-2026']), /--today must use YYYY-MM-DD/);
 assert.deepStrictEqual(parseWeeklyAuthoritySprintArgs(['--out', 'docs/sprint.md', '--today', '2026-06-10', '--submission-target', '12', '--live-target', '4', '--high-fit-target', '6']), {
   out: 'docs/sprint.md',
   today: '2026-06-10',

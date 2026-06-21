@@ -379,5 +379,6 @@ module.exports = {
   nextStep,
   reservedMilestoneRows,
   submissionType,
+  trackerCommand,
   toCsv,
 };

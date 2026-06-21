@@ -82,6 +82,14 @@ npm run marketing:authority-sprint
 
 This writes `docs/weekly-authority-sprint.md` with the current authority score, the exact gap to 15 submitted/contacted authority targets, 5 live authority links or profiles, 8 high-fit POS/partner starts, and the evidence fields needed after each external action.
 
+Generate the first-hour execution CSV when you want the shortest copy/paste queue for the actions that move the authority score fastest:
+
+```bash
+npm run marketing:first-hour-authority
+```
+
+This writes `docs/first-hour-authority-execution.csv` with Google Business Profile, MenuSifu, 39 Miles, and customer-proof actions in order. Use it during the manual submission block, then update evidence only after the real external action is submitted or published.
+
 For the customer-proof milestone, send early pilots or customers to:
 
 ```text
