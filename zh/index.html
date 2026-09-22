@@ -133,60 +133,68 @@
     <!-- JSON-LD: FAQPage -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "inLanguage": "zh-CN",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Serviio 支持我的 POS 系统吗？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "支持。我们直接对接 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "AI 听起来会不会很机械？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "如果 AI 听不懂顾客的订单怎么办？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "可以保留餐厅原有的电话号码吗？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "有合约或取消费用吗？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "顾客数据如何保护？",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。"
-                }
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "zh-CN",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Serviio 能完成点单，还是只能接听电话？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Serviio 可以通过自然对话完成点单，处理口味选择与特殊要求，并在提交前请顾客确认。完成 POS 对接配置后，确认的订单会进入您的后厨流程，顾客直接在电话中就能下单。"
             }
-        ]
-    }
+        },
+        {
+            "@type": "Question",
+            "name": "Serviio 支持我的 POS 系统吗？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "支持。我们直接对接 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "AI 听起来会不会很机械？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "如果 AI 听不懂顾客的订单怎么办？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "可以保留餐厅原有的电话号码吗？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "有合约或取消费用吗？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "顾客数据如何保护？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。"
+            }
+        }
+    ]
+}
     </script>
 
     <!-- JSON-LD: SoftwareApplication -->
@@ -225,6 +233,7 @@
     </script>
 
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -246,10 +255,8 @@
                 <div class="hidden xl:flex items-center space-x-6">
                     <a href="#features" class="text-gray-600 hover:text-gray-900 transition">功能特点</a>
                     <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">使用流程</a>
-                    <a href="/zh/restaurant-phone-answering-service/" class="text-gray-600 hover:text-gray-900 transition">电话接听</a>
-                    <a href="/zh/restaurant-pos-phone-order-integration/" class="text-gray-600 hover:text-gray-900 transition">POS 对接</a>
-                    <a href="/zh/chinese-restaurant-ai-phone-ordering/" class="text-gray-600 hover:text-gray-900 transition">中餐馆方案</a>
-                    <a href="/zh/service-areas/" class="text-gray-600 hover:text-gray-900 transition">服务地区</a>
+                    <a href="#integrations" class="text-gray-600 hover:text-gray-900 transition">POS 对接</a>
+                    <a href="#impact" class="text-gray-600 hover:text-gray-900 transition">业务价值</a>
                     <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">价格方案</a>
                     <!-- Language switcher -->
                     <div class="relative">
@@ -274,10 +281,10 @@
                             </a>
                         </div>
                     </div>
-                    <a href="#contact" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">立即开始</a>
+                    <a href="#message" data-inquiry="trial" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">立即开始</a>
                 </div>
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="xl:hidden p-2">
+                <button id="mobile-menu-btn" aria-label="打开导航菜单" class="xl:hidden p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -289,324 +296,177 @@
             <div class="px-4 py-4 space-y-3">
                 <a href="#features" class="block text-gray-600 hover:text-gray-900">功能特点</a>
                 <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">使用流程</a>
-                <a href="/zh/ai-order-taking-for-restaurants/" class="block text-gray-600 hover:text-gray-900">AI 接单</a>
-                <a href="/zh/restaurant-phone-answering-service/" class="block text-gray-600 hover:text-gray-900">电话接听</a>
-                <a href="/zh/restaurant-pos-phone-order-integration/" class="block text-gray-600 hover:text-gray-900">POS 对接</a>
-                <a href="/zh/chinese-restaurant-ai-phone-ordering/" class="block text-gray-600 hover:text-gray-900">中餐馆方案</a>
-                <a href="/zh/service-areas/" class="block text-gray-600 hover:text-gray-900">服务地区</a>
-                <a href="#pricing" class="block text-gray-600 hover:text-gray-900">价格方案</a>
+                <a href="#integrations" class="block text-gray-600 hover:text-gray-900">POS 对接</a>
+                    <a href="#impact" class="block text-gray-600 hover:text-gray-900">业务价值</a>
+                    <a href="#pricing" class="block text-gray-600 hover:text-gray-900">价格方案</a>
                 <a href="/" hreflang="en" class="block text-gray-600 hover:text-gray-900">English</a>
-                <a href="#contact" class="block gradient-bg text-white px-5 py-2 rounded-full font-medium text-center">立即开始</a>
+                <a href="#message" data-inquiry="trial" class="block gradient-bg text-white px-5 py-2 rounded-full font-medium text-center">立即开始</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center px-4 py-2 bg-primary-50 rounded-full text-primary-600 text-sm font-medium mb-8">
-                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                    支持 7 国语言 · 中餐馆 POS 对接
+    <!-- Hero: outcomes, product example, and immediate contact -->
+    <main id="main-content">
+    <section class="home-hero">
+        <div class="home-wrap home-hero-grid">
+            <div>
+                <p class="home-eyebrow"><span class="home-status-dot" aria-hidden="true"></span> 专为餐厅打造的 AI 电话接单</p>
+                <h1>您专心招待顾客，<br><span class="gradient-text">电话交给 Serviio。</span></h1>
+                <p class="home-intro">饭点忙着上菜，电话又响了？让 Serviio 接听、点单、核对，再把订单送到后厨。您的团队可以专心照顾店里的顾客。</p>
+                <p class="home-support">支持 7 种语言自然对话，可同时接听多路来电，对接您现有的 POS 系统。</p>
+                <div class="home-actions">
+                    <a class="home-button home-primary" href="#message">聊聊您的餐厅 <span aria-hidden="true">→</span></a>
+                    <a class="home-button home-secondary" href="#features">了解产品功能 <span aria-hidden="true">→</span></a>
                 </div>
-                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
-                    <span class="block">您的团队专心待客</span>
-                    <span class="block gradient-text">我们来接每一通电话</span>
-                </h1>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    人工有限，订单不应该有限。Serviio 是专为餐厅打造的 AI 电话接待助手——自动接单、处理定制、识别并切换顾客语言，让您的员工回归餐厅现场，不再被电话绑架。
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                    <a href="#contact" class="gradient-bg text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-lg shadow-primary-500/25">
-                        预约演示
-                    </a>
-                    <a href="#how-it-works" class="bg-gray-100 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-200 transition">
-                        了解工作方式
-                    </a>
-                </div>
+                <a class="home-text-link" href="#message">留下联系方式，我们来联系您。</a>
+                <ul class="home-reassurance" aria-label="收费亮点"><li>每笔完成订单仅收 2%</li><li>无月费</li><li>无开通费</li></ul>
             </div>
-
-            <!-- Hero Visual: simulated conversation -->
-            <div class="mt-16 relative">
-                <div class="bg-gradient-to-b from-primary-50 to-white rounded-3xl p-8 max-w-4xl mx-auto">
-                    <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                </div>
-                                <div class="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-md">
-                                    <p class="text-gray-800">"你好，我想点外带。"</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3 justify-end">
-                                <div class="gradient-bg rounded-2xl rounded-tr-none px-4 py-3 max-w-md">
-                                    <p class="text-white">"好的，欢迎光临！请问您今天想点什么？"</p>
-                                </div>
-                                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                </div>
-                                <div class="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-md">
-                                    <p class="text-gray-800">"来一份宫保鸡丁配炒饭，再加两个春卷。"</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3 justify-end">
-                                <div class="gradient-bg rounded-2xl rounded-tr-none px-4 py-3 max-w-md">
-                                    <p class="text-white">"好的，宫保鸡丁配炒饭加两个春卷。请问鸡丁要微辣、中辣还是重辣？"</p>
-                                </div>
-                                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
+            <figure class="home-phone-example">
+                <div class="home-phone">
+                    <div class="home-phone-top"><span class="home-status-dot" aria-hidden="true"></span><strong>Serviio · 正在接单</strong><span>您的餐厅，您的菜单。</span></div>
+                    <div class="home-chat">
+                        <p class="home-bubble">您好！请问想点些什么？</p>
+                        <p class="home-bubble home-caller">一份宫保鸡丁配炒饭，再加两根春卷，打包自取。</p>
+                        <p class="home-bubble">好的，您想要微辣、中辣还是重辣？</p>
+                        <p class="home-bubble home-caller">中辣，取餐姓名是小陈。</p>
+                        <p class="home-bubble">小陈您好，确认一下：一份中辣宫保鸡丁配炒饭，两根春卷，共 24 美元。现在为您下单吗？</p>
+                        <p class="home-bubble home-caller">对，确认下单。</p>
+                        <div class="home-receipt"><strong>✓ 订单已发送至后厨</strong><p>宫保鸡丁 · 中辣<br>炒饭 · 两根春卷</p><div><span>自取 · 小陈</span><b>$24.00</b></div></div>
                     </div>
                 </div>
-            </div>
+                <figcaption>对话与菜价仅作示例。顾客确认后才提交订单。</figcaption>
+            </figure>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">24/7</div>
-                    <div class="text-gray-600 mt-1">全天候在线</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">7</div>
-                    <div class="text-gray-600 mt-1">支持国家语言</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">&lt;2秒</div>
-                    <div class="text-gray-600 mt-1">响应时间</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">0</div>
-                    <div class="text-gray-600 mt-1">漏接来电</div>
-                </div>
-            </div>
-        </div>
+    <section class="home-product-strip" aria-label="Serviio 服务亮点">
+        <div class="home-wrap"><div><strong>24/7</strong><span>全天候电话服务</span></div><div><strong>7 种语言</strong><span>听懂更多顾客的需求</span></div><div><strong>2%</strong><span>按完成订单收费</span></div><div><strong>$0</strong><span>月费与开通费</span></div></div>
     </section>
 
-    <!-- Call Types Section -->
-    <section id="capabilities" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">不只是<span class="gradient-text">订单</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">餐厅每一通电话都能接得起来——不只是外带订单。Serviio 全面熟悉您的餐厅，能接管顾客可能想要的任何对话。</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Orders -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">接听订单</h3>
-                            <p class="text-gray-600 text-sm">接受外带、外送、堂食的新订单，处理修改、替换与加菜。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reservations -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">预约管理</h3>
-                            <p class="text-gray-600 text-sm">预订、改约、取消桌位，熟悉您的入座规则与人数限制。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wait times -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">查询等位</h3>
-                            <p class="text-gray-600 text-sm">实时告知顾客目前的等位时间、忙碌时段与建议到店时间。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Menu questions -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">菜品咨询</h3>
-                            <p class="text-gray-600 text-sm">食材、过敏原、价格、当日特色——菜单上的任何问题都能回答。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hours & directions -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">营业信息与位置</h3>
-                            <p class="text-gray-600 text-sm">营业时间、节假日安排、地址、停车、配送范围——随时一查即知。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Take messages -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">代为留言</h3>
-                            <p class="text-gray-600 text-sm">当顾客需要找人时，AI 会记录回拨信息并转交给相应员工。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section id="features" class="home-feature-section">
+        <div class="home-wrap">
+        <header class="home-section-heading">
+        <p class="home-eyebrow">产品功能</p>
+        <h2>Serviio 能为您的餐厅做什么？</h2>
+        <p>接听电话、处理顾客需求、对接后厨。按一次来电的流程，了解每项功能。</p>
+        </header>
+        <nav class="home-feature-nav" aria-label="功能分类">
+        <a href="#capabilities">顾客需求 <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#call-management">电话接听 <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#order-followup">订单与后续 <span aria-hidden="true">↓</span>
+        </a>
+        </nav>
+        <div class="home-feature-group" id="capabilities">
+        <div class="home-feature-group-heading">
+        <span>01</span>
+        <div>
+        <h3>顾客来电，可以办什么？</h3>
+        <p>从点餐到日常咨询，让顾客在电话里把事情办好。</p>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">让订单<span class="gradient-text">增长</span>，不再受限于人手</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">强大的 AI 能够处理复杂订单、定制需求、菜品咨询——接起每一通电话，不错过任何一单。</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">永不请假，24/7 全天候工作</h3>
-                    <p class="text-gray-600 text-sm">不再担心员工请病假、临时离职、节假日空班。Serviio 全年无休，每一通电话都有人接，每一笔订单都不漏。</p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">灵活切换，人机自由协作</h3>
-                    <p class="text-gray-600 text-sm">可灵活配置人工与 AI 的协作模式——忙时 AI 顶上、闲时人工接听，主导权完全在您手上。</p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">数据驱动的智能推荐</h3>
-                    <p class="text-gray-600 text-sm">实时分析销售数据，自动识别热销菜品。在通话中智能推荐高客单菜品，帮您提升单笔订单价值。</p>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">支持 7 国语言，方言无忧</h3>
-                    <p class="text-gray-600 text-sm">流畅切换英语、西班牙语、中文、日语、印地语、法语、意大利语，并能识别粤语、闽南话等方言。顾客怎么说，Serviio 就怎么听。</p>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">POS 系统直连</h3>
-                    <p class="text-gray-600 text-sm">订单直送主流 POS 终端——支持 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 以及任何提供 API 的 POS 系统。无需手动输入，自动出单，零延迟。</p>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">随心问答，菜品详尽介绍</h3>
-                    <p class="text-gray-600 text-sm">顾客想问什么就问什么——食材、配料、过敏原、搭配建议，AI 都能轻松应答，不卡壳，不漏问。</p>
-                </div>
-
-                <!-- Feature 7 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">个性定制，按需配置</h3>
-                    <p class="text-gray-600 text-sm">根据您的业务规则、推荐策略、促销活动，全部可按您的需求量身定制。</p>
-                </div>
-
-                <!-- Feature 8 -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">稳定接听，抗噪无忧</h3>
-                    <p class="text-gray-600 text-sm">后场再吵也能听清每一个字，再忙也不会漏掉任何一通电话——这是 Serviio 对每一家餐厅的基本承诺。</p>
-                </div>
-            </div>
         </div>
-    </section>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>接听订单</h4>
+        <p>接受外带、外送、堂食的新订单，处理修改、替换与加菜。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>预约管理</h4>
+        <p>预订、改约、取消桌位，熟悉您的入座规则与人数限制。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>查询等位</h4>
+        <p>实时告知顾客目前的等位时间、忙碌时段与建议到店时间。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>菜品咨询</h4>
+        <p>食材、过敏原、价格、当日特色——菜单上的任何问题都能回答。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>营业信息与位置</h4>
+        <p>营业时间、节假日安排、地址、停车、配送范围——随时一查即知。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>代为留言</h4>
+        <p>当顾客需要找人时，AI 会记录回拨信息并转交给相应员工。</p>
+        </article>
+        </div>
+        </div>
+        <div class="home-feature-group" id="call-management">
+        <div class="home-feature-group-heading">
+        <span>02</span>
+        <div>
+        <h3>电话接进来，如何处理？</h3>
+        <p>语言、菜单与接听方式，都围绕您的餐厅来配置。</p>
+        </div>
+        </div>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>永不请假，24/7 全天候工作</h4>
+        <p>不再担心员工请病假、临时离职、节假日空班。Serviio 全年无休，每一通电话都有人接，每一笔订单都不漏。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>灵活切换，人机自由协作</h4>
+        <p>可灵活配置人工与 AI 的协作模式——忙时 AI 顶上、闲时人工接听，主导权完全在您手上。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>数据驱动的智能推荐</h4>
+        <p>实时分析销售数据，自动识别热销菜品。在通话中智能推荐高客单菜品，帮您提升单笔订单价值。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>支持 7 国语言，方言无忧</h4>
+        <p>流畅切换英语、西班牙语、中文、日语、印地语、法语、意大利语，并能识别粤语、闽南话等方言。顾客怎么说，Serviio 就怎么听。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>随心问答，菜品详尽介绍</h4>
+        <p>顾客想问什么就问什么——食材、配料、过敏原、搭配建议，AI 都能轻松应答，不卡壳，不漏问。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>个性定制，按需配置</h4>
+        <p>根据您的业务规则、推荐策略、促销活动，全部可按您的需求量身定制。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>稳定接听，抗噪无忧</h4>
+        <p>后场再吵也能听清每一个字，再忙也不会漏掉任何一通电话——这是 Serviio 对每一家餐厅的基本承诺。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>多路来电同时接听</h4>
+        <p>高峰期可同时处理多通电话，减少占线，让顾客不必因为前台忙碌而等待。</p>
+        </article>
+        </div>
+        </div>
+        <div class="home-feature-group" id="order-followup">
+        <div class="home-feature-group-heading">
+        <span>03</span>
+        <div>
+        <h3>订单与后续，如何衔接？</h3>
+        <p>把确认的订单送到后厨，让顾客收到确认，也让您看清服务情况。</p>
+        </div>
+        </div>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>POS 系统直连</h4>
+        <p>订单直送主流 POS 终端——支持 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 以及任何提供 API 的 POS 系统。无需手动输入，自动出单，零延迟。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>短信订单确认</h4>
+        <p>顾客收到包含订单明细与预计取餐时间的短信确认。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>需要时转接人工</h4>
+        <p>遇到需要员工处理的情况，可转接餐厅人员或记录回拨信息。</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>通话录音与数据</h4>
+        <p>查看通话录音与业务数据，了解来电、订单和日常服务情况。</p>
+        </article>
+        </div>
+        </div>
+        <a href="#message" data-inquiry="demo" class="home-button home-primary">看看我的餐厅如何使用 →</a>
+        </div>
+        </section>
 
-    <!-- How It Works Section -->
     <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -655,7 +515,6 @@
         </div>
     </section>
 
-    <!-- POS Integrations Logo Wall -->
     <section id="integrations" class="py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -694,8 +553,372 @@
         </div>
     </section>
 
-    <!-- Chinese Restaurant SEO Landing Link -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section class="home-impact" id="impact">
+        <div class="home-wrap">
+            <div class="home-section-heading"><p class="home-eyebrow">少接一通电话，多照顾一桌顾客。</p><h2>把接电话的时间<br>留给店里的生意。</h2><p>迎接进门的顾客，看看哪桌需要添水，让后厨有条不紊。Serviio 处理电话沟通，让您的团队把精力放在眼前的顾客身上。</p></div>
+            <p class="home-eyebrow">普通规模餐厅 · 每月业务规划估算</p>
+            <div class="home-metrics" aria-label="餐厅每月业务规划示例">
+                <div><strong>1,090</strong><span>每月 AI 处理来电</span></div>
+                <div><strong>16.85 <small>小时</small></strong><span>每月代为处理的通话时长</span></div>
+                <div><strong>$10,866.70</strong><span>每月处理订单金额</span></div>
+            </div>
+            <p class="home-metric-note">以下为每月业务规划示例，实际效果取决于来电量、菜单及配置。通话时长指 AI 代为处理的电话时间，不等同于已验证的员工工时节省。</p>
+            <div class="home-impact-bottom"><p><strong>漏接电话，让您错过了多少生意？</strong><br>输入您的来电量和客单价，看看可能找回多少订单收入。</p><a class="home-button home-secondary" href="/restaurant-missed-call-revenue-calculator/">算算我的餐厅（英文工具）→</a></div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">简单透明，<span class="gradient-text">按单计费</span></h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">只有顾客真正下单成交，我们才收费。咨询、查询、未成交的来电——一律免费。</p>
+            </div>
+
+            <div class="max-w-lg mx-auto">
+                <div class="bg-white rounded-3xl border-2 border-primary-500 p-8 shadow-xl shadow-primary-500/10">
+                    <div class="text-center">
+                        <div class="inline-flex items-center px-4 py-1 bg-primary-100 rounded-full text-primary-600 text-sm font-medium mb-4">
+                            按单计费
+                        </div>
+                        <div class="flex items-baseline justify-center gap-2 mb-2">
+                            <span class="text-6xl font-bold">2%</span>
+                        </div>
+                        <p class="text-gray-600 mb-8">每笔成交订单</p>
+
+                        <ul class="text-left space-y-4 mb-8">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>未成交来电一律免费</strong>——零风险</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>无月租费、无安装费</strong>，无隐藏收费</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>无限来电</strong>，多线并发处理</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>支持 7 国语言与方言</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>通话录音与数据分析</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>主流 POS 无缝对接</strong>（39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等）</span>
+                            </li>
+                        </ul>
+
+                        <a href="#message" data-inquiry="trial" class="block w-full gradient-bg text-white py-4 rounded-full font-semibold text-lg hover:opacity-90 transition">
+                            立即开始 14 天免费试用
+                        </a>
+                        <p class="text-gray-500 text-sm mt-4">14 天免费试用，无需信用卡。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Example -->
+            <div class="mt-12 max-w-2xl mx-auto bg-gray-50 rounded-2xl p-6">
+                <h3 class="font-semibold mb-4 text-center">2% 究竟是多少？</h3>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold">$20</div>
+                        <div class="text-gray-500 text-sm">订单</div>
+                        <div class="text-primary-600 font-medium mt-1">$0.40 服务费</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">$50</div>
+                        <div class="text-gray-500 text-sm">订单</div>
+                        <div class="text-primary-600 font-medium mt-1">$1.00 服务费</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">$100</div>
+                        <div class="text-gray-500 text-sm">订单</div>
+                        <div class="text-primary-600 font-medium mt-1">$2.00 服务费</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brochure download -->
+            <div class="mt-8 text-center">
+                <a href="../assets/serviio-brochure-cn.pdf" download class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    下载中文版宣传册（PDF）
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-demo" id="demo">
+        <div class="home-wrap home-demo-grid">
+            <div><p class="home-eyebrow">听听效果，看看流程，聊聊需求。</p><h2>带上您的菜单，<br>我们带您看实际流程。</h2><p>从接听电话、确认订单到发送后厨，一起看看 Serviio 如何配合您餐厅现有的工作方式。</p><div class="home-actions"><a class="home-button home-primary" href="#message" data-inquiry="demo">预约演示 →</a><a class="home-text-link" href="mailto:info@serviio.ai">也可发邮件至 info@serviio.ai</a></div></div>
+            <ol class="home-demo-list"><li><span>01</span><div><h3>体验完整点单对话</h3><p>了解菜单问答、口味调整、多语言沟通，以及下单前的顾客确认。</p></div></li><li><span>02</span><div><h3>确认 POS 对接方式</h3><p>聊聊订单如何送到后厨，以及您现有系统需要哪些配置。</p></div></li><li><span>03</span><div><h3>了解日常使用与开通流程</h3><p>了解通话录音与数据、短信确认、转接人工，以及开通步骤。</p></div></li></ol>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">常见<span class="gradient-text">问题</span></h2>
+                <p class="text-xl text-gray-600">餐厅老板在合作前最想了解的问题。</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-white rounded-xl border border-gray-200 p-6 mb-4"><summary class="font-semibold cursor-pointer">Serviio 能完成点单，还是只能接听电话？</summary><p class="text-gray-600 mt-4">Serviio 可以通过自然对话完成点单，处理口味选择与特殊要求，并在提交前请顾客确认。完成 POS 对接配置后，确认的订单会进入您的后厨流程，顾客直接在电话中就能下单。</p></details>
+<details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Serviio 支持我的 POS 系统吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        支持。我们直接对接 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>AI 听起来会不会很机械？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>如果 AI 听不懂顾客的订单怎么办？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>可以保留餐厅原有的电话号码吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>有合约或取消费用吗？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>顾客数据如何保护？</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-message" id="message">
+        <div class="home-wrap home-message-grid">
+            <div><p class="home-eyebrow">从一次交流开始</p><h2>聊聊您餐厅的<br>电话烦恼。</h2><p>忙得漏接订单？前台分身乏术？来电语言听不懂？告诉我们您最想解决的问题，不必准备好所有资料。</p><p class="home-followup">在表单中留下联系方式，我们会与您沟通需求、解答问题，并协助安排下一步。</p><a class="home-text-link" href="mailto:info@serviio.ai">也可发邮件：info@serviio.ai →</a><p class="home-small">准备好开始了？ <a href="#message" data-inquiry="trial">申请 14 天免费试用。</a></p></div>
+            <form id="message-form" class="home-message-form" action="https://formspree.io/f/xeeezpzn" method="POST">
+                <h3>一起聊聊您的餐厅。</h3><p>留下联系方式，我们来联系您。</p>
+                <input type="hidden" name="_subject" value="New Restaurant Inquiry from Serviio.ai (中文)">
+                <input type="hidden" name="_next" value="https://serviio.ai/zh/#thank-you">
+                <input type="hidden" name="lead_source" value="zh_homepage_message">
+                <input type="hidden" name="_language" value="zh">
+                <input type="hidden" name="ideal_customer_profile" value="Restaurant owner exploring AI phone ordering">
+                <input type="hidden" name="conversion_offer" value="homepage_message">
+                <label for="message-name">您的姓名</label><input id="message-name" name="name" autocomplete="name" required>
+                <label for="message-email">电子邮箱</label><input id="message-email" name="email" type="email" autocomplete="email" required>
+                <label for="message-phone">电话号码 <span>（选填，方便回电）</span></label><input id="message-phone" name="phone" type="tel" autocomplete="tel">
+                <label for="message-intent">您希望了解什么？</label><select id="message-intent" name="inquiry_type"><option value="question">进一步了解 Serviio</option><option value="demo">预约产品演示</option><option value="trial">申请 14 天免费试用</option></select>
+                <label for="message-body">还有什么想告诉我们？ <span>（选填）</span></label><textarea id="message-body" name="message" rows="3" placeholder="可填写餐厅名称、想咨询的问题，或方便联系您的时间。"></textarea>
+                <button class="home-button home-primary" type="submit">提交联系方式 →</button><p class="home-small">我们会使用这些信息回复您的咨询。也可直接发邮件： <a href="mailto:info@serviio.ai">info@serviio.ai</a></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-white mb-4">已经在规划开通了？</h2>
+                    <p class="text-xl text-gray-400 mb-8">填写菜单、语言及 POS 需求，方便我们提前准备演示或 14 天免费试用。只想简单咨询，填写上方的简短表单即可。</p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>免费配置与开通</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>随时取消，无合约绑定</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>专属客服支持</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Contact Info -->
+                    <div class="mt-10 pt-8 border-t border-gray-700">
+                        <p class="text-gray-400 mb-4">或直接联系我们：</p>
+                        <div class="space-y-3">
+                            <a href="mailto:info@serviio.ai" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                info@serviio.ai
+                            </a>
+                            <a href="tel:+14084099079" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                (408) 409-9079
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8">
+                    <form id="contact-form" action="https://formspree.io/f/xeeezpzn" method="POST" class="space-y-6">
+                        <input type="hidden" name="_subject" value="New Demo Request from Serviio.ai (中文)">
+                        <input type="hidden" name="_next" value="https://serviio.ai/zh/#thank-you">
+                        <input type="hidden" name="lead_source" value="zh_homepage">
+                        <input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
+                        <input type="hidden" name="conversion_offer" value="homepage_pos_fit_check">
+                        <input type="hidden" name="_language" value="zh">
+                        <div><label for="inquiry-type" class="block text-sm font-medium text-gray-700 mb-2">我希望</label><select id="inquiry-type" name="inquiry_type" class="w-full px-4 py-3 rounded-lg border border-gray-300"><option value="demo">预约产品演示</option><option value="trial">申请 14 天免费试用</option></select></div>
+                        <p class="text-sm text-gray-600">这些信息有助于我们提前了解您的餐厅。只想简单咨询？<a href="#message" class="home-text-link">留下联系方式即可。</a></p>
+                        <div>
+                            <label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">餐厅名称</label>
+                            <input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="金龙餐厅">
+                        </div>
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">您的姓名</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="张先生">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">电子邮箱</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="you@restaurant.com">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">联系电话</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
+                        </div>
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">城市</label>
+                            <input type="text" id="city" name="restaurant_city" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="San Francisco" required>
+                        </div>
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">州</label>
+                            <input type="text" id="state" name="restaurant_state" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="CA" required>
+                        </div>
+                        <div>
+                            <label for="pos_system" class="block text-sm font-medium text-gray-700 mb-2">当前使用的 POS 系统</label>
+                            <select id="pos_system" name="pos_system" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+                                <option value="">请选择 POS</option>
+                                <option>39 Miles</option>
+                                <option>Square</option>
+                                <option>Toast</option>
+                                <option>Clover</option>
+                                <option>MenuSifu</option>
+                                <option>Chowbus</option>
+                                <option>Mealkeyway</option>
+                                <option>其他 POS</option>
+                                <option>暂时没有 POS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="phone_orders" class="block text-sm font-medium text-gray-700 mb-2">每周大约电话订单量</label>
+                            <select id="phone_orders" name="phone_orders_per_week" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">请选择范围</option>
+                                <option>少于 25 单</option>
+                                <option>25-75 单</option>
+                                <option>76-150 单</option>
+                                <option>150 单以上</option>
+                            </select>
+                        </div>
+                        <div><label for="language_need" class="block text-sm font-medium text-gray-700 mb-2">需要接听的电话语言</label><select id="language_need" name="language_need" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"><option value="">请选择语言</option><option>仅英文</option><option>普通话</option><option>粤语</option><option>普通话和粤语</option><option>英文和中文</option><option>西班牙语或其他语言</option></select></div><div>
+                            <label for="main_pain" class="block text-sm font-medium text-gray-700 mb-2">主要电话订单痛点</label>
+                            <select id="main_pain" name="main_pain" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">请选择主要痛点</option>
+                                <option>高峰期漏接电话</option>
+                                <option>普通话/粤语/英文双语电话</option>
+                                <option>手动录入 POS</option>
+                                <option>下班后电话</option>
+                                <option>菜单问题或订单修改</option>
+                                <option>其他</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pos_interest" class="block text-sm font-medium text-gray-700 mb-2">如果还没有 POS，是否希望了解 POS 推荐？</label>
+                            <select id="pos_interest" name="pos_recommendation_interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">请选择</option>
+                                <option>希望了解 POS 推荐</option>
+                                <option>暂时只想了解 AI 电话接单</option>
+                                <option>不适用，我已经有 POS</option>
+                            </select>
+                        </div>
+                        <div><label class="flex gap-3 text-sm text-gray-700"><input type="checkbox" id="pos_partner_consent" name="pos_partner_consent" value="Yes, Serviio may share my request with POS providers or consultants" class="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"><span>如果我需要 POS 推荐，我同意 Serviio 可以把需求分享给 POS 服务商或顾问跟进。</span></label></div><div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">如果需要 POS 推荐，计划什么时候选择 POS？</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">选择时间</option><option>马上</option><option>1 个月内</option><option>1-3 个月</option><option>3-6 个月</option><option>还不确定</option><option>不适用，已经有 POS</option></select></div><button type="submit" class="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">
+                            提交申请 →
+                        </button>
+                        <p class="text-sm text-gray-500">我们会联系您安排演示或试用开通。提交表单不会开始计费。</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="home-wrap"><details class="home-resources"><summary>餐厅指南与 POS 相关资料</summary>
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl font-bold mb-4">您的中餐馆正在使用 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus 或 Mealkeyway 吗？</h2>
             <p class="text-lg text-gray-600 mb-8">Serviio 为美国中餐馆提供专门的中英文 AI 电话接单与 POS 对接方案，帮助减少漏接电话和人工录单。</p>
@@ -771,326 +994,9 @@
             </div>
         </div>
     </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">简单透明，<span class="gradient-text">按单计费</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">只有顾客真正下单成交，我们才收费。咨询、查询、未成交的来电——一律免费。</p>
-            </div>
-
-            <div class="max-w-lg mx-auto">
-                <div class="bg-white rounded-3xl border-2 border-primary-500 p-8 shadow-xl shadow-primary-500/10">
-                    <div class="text-center">
-                        <div class="inline-flex items-center px-4 py-1 bg-primary-100 rounded-full text-primary-600 text-sm font-medium mb-4">
-                            按单计费
-                        </div>
-                        <div class="flex items-baseline justify-center gap-2 mb-2">
-                            <span class="text-6xl font-bold">2%</span>
-                        </div>
-                        <p class="text-gray-600 mb-8">每笔成交订单</p>
-
-                        <ul class="text-left space-y-4 mb-8">
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>未成交来电一律免费</strong>——零风险</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>无月租费、无安装费</strong>，无隐藏收费</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>无限来电</strong>，多线并发处理</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>支持 7 国语言与方言</strong></span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>通话录音与数据分析</strong></span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>主流 POS 无缝对接</strong>（39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等）</span>
-                            </li>
-                        </ul>
-
-                        <a href="#contact" class="block w-full gradient-bg text-white py-4 rounded-full font-semibold text-lg hover:opacity-90 transition">
-                            立即开始 14 天免费试用
-                        </a>
-                        <p class="text-gray-500 text-sm mt-4">14 天免费试用，无需信用卡。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pricing Example -->
-            <div class="mt-12 max-w-2xl mx-auto bg-gray-50 rounded-2xl p-6">
-                <h3 class="font-semibold mb-4 text-center">2% 究竟是多少？</h3>
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div class="text-2xl font-bold">$20</div>
-                        <div class="text-gray-500 text-sm">订单</div>
-                        <div class="text-primary-600 font-medium mt-1">$0.40 服务费</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">$50</div>
-                        <div class="text-gray-500 text-sm">订单</div>
-                        <div class="text-primary-600 font-medium mt-1">$1.00 服务费</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">$100</div>
-                        <div class="text-gray-500 text-sm">订单</div>
-                        <div class="text-primary-600 font-medium mt-1">$2.00 服务费</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Brochure download -->
-            <div class="mt-8 text-center">
-                <a href="../assets/serviio-brochure-cn.pdf" download class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    下载中文版宣传册（PDF）
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4">常见<span class="gradient-text">问题</span></h2>
-                <p class="text-xl text-gray-600">餐厅老板在合作前最想了解的问题。</p>
-            </div>
-
-            <div class="space-y-4">
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>Serviio 支持我的 POS 系统吗？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        支持。我们直接对接 39 Miles、Square、Toast、Clover、MenuSifu、Chowbus、Mealkeyway 等主流 POS，以及任何提供 API 的 POS 平台。订单从电话端直接传到厨房显示屏，无需手动录入。
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>AI 听起来会不会很机械？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        不会。Serviio 采用自然对话 AI，可以流畅应答、处理打断，并能识别口音和方言。多数顾客在被告知前都不会察觉是在跟 AI 通话。
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>如果 AI 听不懂顾客的订单怎么办？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        当 AI 无法确定时，会像真人一样追问澄清。遇到复杂情况，可以转接给员工或留言回拨。我们也会持续监控不确定的对话，不断优化准确率。
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>可以保留餐厅原有的电话号码吗？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        可以。我们会把您现有号码转接到 Serviio，顾客感知不到任何变化。如果您希望换号，我们也可以为您分配新号码。无论哪种方式，配置都只需几分钟。
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>有合约或取消费用吗？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        无合约、无取消费。您只需为成交订单支付 2%，可随时取消。我们会在 24 小时内把号码转回您原来的线路。
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>顾客数据如何保护？</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        通话录音和订单数据在传输和存储过程中均经过加密。我们不会与第三方共享顾客信息。您对所有数据拥有完整所有权，可随时导出或删除。
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-4xl font-bold text-white mb-4">不再错过任何一笔订单</h2>
-                    <p class="text-xl text-gray-400 mb-8">立即开始 14 天免费试用，无需信用卡。一周内即可完成对接、正式上线。</p>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>免费配置与开通</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>随时取消，无合约绑定</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>专属客服支持</span>
-                        </div>
-                    </div>
-
-                    <!-- Direct Contact Info -->
-                    <div class="mt-10 pt-8 border-t border-gray-700">
-                        <p class="text-gray-400 mb-4">或直接联系我们：</p>
-                        <div class="space-y-3">
-                            <a href="mailto:info@serviio.ai" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
-                                info@serviio.ai
-                            </a>
-                            <a href="tel:+14084099079" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                </svg>
-                                (408) 409-9079
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-8">
-                    <form id="contact-form" action="https://formspree.io/f/xeeezpzn" method="POST" class="space-y-6">
-                        <input type="hidden" name="_subject" value="New Demo Request from Serviio.ai (中文)">
-                        <input type="hidden" name="_next" value="https://serviio.ai/zh/#thank-you">
-                        <input type="hidden" name="lead_source" value="zh_homepage">
-                        <input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
-                        <input type="hidden" name="conversion_offer" value="homepage_pos_fit_check">
-                        <input type="hidden" name="_language" value="zh">
-                        <div>
-                            <label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">餐厅名称</label>
-                            <input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="金龙餐厅">
-                        </div>
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">您的姓名</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="张先生">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">电子邮箱</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="you@restaurant.com">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">联系电话</label>
-                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
-                        </div>
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">城市</label>
-                            <input type="text" id="city" name="restaurant_city" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="San Francisco" required>
-                        </div>
-                        <div>
-                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">州</label>
-                            <input type="text" id="state" name="restaurant_state" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="CA" required>
-                        </div>
-                        <div>
-                            <label for="pos_system" class="block text-sm font-medium text-gray-700 mb-2">当前使用的 POS 系统</label>
-                            <select id="pos_system" name="pos_system" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
-                                <option value="">请选择 POS</option>
-                                <option>39 Miles</option>
-                                <option>Square</option>
-                                <option>Toast</option>
-                                <option>Clover</option>
-                                <option>MenuSifu</option>
-                                <option>Chowbus</option>
-                                <option>Mealkeyway</option>
-                                <option>其他 POS</option>
-                                <option>暂时没有 POS</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="phone_orders" class="block text-sm font-medium text-gray-700 mb-2">每周大约电话订单量</label>
-                            <select id="phone_orders" name="phone_orders_per_week" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">请选择范围</option>
-                                <option>少于 25 单</option>
-                                <option>25-75 单</option>
-                                <option>76-150 单</option>
-                                <option>150 单以上</option>
-                            </select>
-                        </div>
-                        <div><label for="language_need" class="block text-sm font-medium text-gray-700 mb-2">需要接听的电话语言</label><select id="language_need" name="language_need" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"><option value="">请选择语言</option><option>仅英文</option><option>普通话</option><option>粤语</option><option>普通话和粤语</option><option>英文和中文</option><option>西班牙语或其他语言</option></select></div><div>
-                            <label for="main_pain" class="block text-sm font-medium text-gray-700 mb-2">主要电话订单痛点</label>
-                            <select id="main_pain" name="main_pain" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">请选择主要痛点</option>
-                                <option>高峰期漏接电话</option>
-                                <option>普通话/粤语/英文双语电话</option>
-                                <option>手动录入 POS</option>
-                                <option>下班后电话</option>
-                                <option>菜单问题或订单修改</option>
-                                <option>其他</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="pos_interest" class="block text-sm font-medium text-gray-700 mb-2">如果还没有 POS，是否希望了解 POS 推荐？</label>
-                            <select id="pos_interest" name="pos_recommendation_interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">请选择</option>
-                                <option>希望了解 POS 推荐</option>
-                                <option>暂时只想了解 AI 电话接单</option>
-                                <option>不适用，我已经有 POS</option>
-                            </select>
-                        </div>
-                        <div><label class="flex gap-3 text-sm text-gray-700"><input type="checkbox" id="pos_partner_consent" name="pos_partner_consent" value="Yes, Serviio may share my request with POS providers or consultants" class="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"><span>如果我需要 POS 推荐，我同意 Serviio 可以把需求分享给 POS 服务商或顾问跟进。</span></label></div><div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">如果需要 POS 推荐，计划什么时候选择 POS？</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">选择时间</option><option>马上</option><option>1 个月内</option><option>1-3 个月</option><option>3-6 个月</option><option>还不确定</option><option>不适用，已经有 POS</option></select></div><button type="submit" class="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">
-                            预约演示
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+</details></div>
+    </main>
+    <div class="home-mobile-contact" aria-label="快捷联系"><a href="#message">留下联系方式，我们来联系您 →</a></div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
@@ -1124,6 +1030,16 @@
     </footer>
 
     <script>
+        // Select the visitor's intent without submitting a form.
+        document.querySelectorAll('[data-inquiry]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                ['message-intent', 'inquiry-type'].forEach(function (id) {
+                    const intent = document.getElementById(id);
+                    if (intent) intent.value = link.dataset.inquiry;
+                });
+            });
+        });
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
@@ -1160,7 +1076,8 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+                    // Close mobile menu if open
                     document.getElementById('mobile-menu').classList.add('hidden');
                 }
             });
@@ -1168,7 +1085,10 @@
 
         // Check for thank you state
         if (window.location.hash === '#thank-you') {
-            document.getElementById('contact-form').innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">感谢您的咨询！</h3><p class="text-gray-600">我们已收到您的请求，将在 24 小时内与您联系。</p></div>';
+            const submittedForm = document.getElementById('message-form');
+            submittedForm.id = 'thank-you';
+            submittedForm.innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">感谢您的咨询！</h3><p class="text-gray-600">我们已收到您的请求，将在 24 小时内与您联系。</p></div>';
+            submittedForm.scrollIntoView({ block: 'center' });
         }
     </script>
     <script src="/assets/js/form-attribution.js"></script>

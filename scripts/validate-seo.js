@@ -23,6 +23,7 @@ const ALLOWED_CONVERSION_OFFERS = new Set([
   'ai_phone_order_fit_check',
   'chinese_restaurant_fit_check',
   'homepage_pos_fit_check',
+  'homepage_message',
   'local_pos_fit_check',
   'named_pos_fit_check',
   'pos_integration_fit_check',
@@ -516,28 +517,22 @@ function validateHomepagePriorityNavLinks() {
 function validateHomepageAuthorityHubLinks() {
   const errors = [];
   const html = fs.readFileSync('index.html', 'utf8');
+  // Keep useful POS links and sitemap discovery without requiring a keyword wall.
   const requiredAnchors = [
-    { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles POS AI phone agent' },
-    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu AI phone ordering' },
-    { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chowbus POS AI phone agent' },
-    { href: '/pos/mealkeyway-ai-phone-ordering/', text: 'Mealkeyway POS AI phone agent' },
-    { href: '/pos/square-ai-phone-ordering/', text: 'AI phone agent Square POS' },
-    { href: '/pos/toast-ai-phone-ordering/', text: 'AI phone agent Toast POS' },
-    { href: '/pos/clover-ai-phone-ordering/', text: 'AI phone agent Clover POS' },
-    { href: '/takeout-pos-system/', text: 'POS system for takeout restaurant' },
-    { href: '/chinese-takeout-pos-system/', text: 'Chinese takeout order POS' },
-    { href: '/guides/connect-phone-orders-to-pos/', text: 'Connect phone orders to POS' },
-    { href: '/chinese-restaurant-phone-answering-service/', text: 'Chinese restaurant phone answering service' },
-    { href: '/restaurant-tech-ai-phone-ordering/', text: 'Restaurant tech AI phone ordering' },
-    { href: '/restaurant-call-answering-ai/', text: 'Restaurant call answering AI' },
-    { href: '/restaurant-phone-order-automation/', text: 'Restaurant phone order automation' },
-    { href: '/restaurant-pos-phone-order-integration/', text: 'Restaurant POS phone order integration' },
+    { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles' },
+    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu' },
+    { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chowbus' },
+    { href: '/pos/mealkeyway-ai-phone-ordering/', text: 'Mealkeyway' },
+    { href: '/pos/square-ai-phone-ordering/', text: 'Square' },
+    { href: '/pos/toast-ai-phone-ordering/', text: 'Toast' },
+    { href: '/pos/clover-ai-phone-ordering/', text: 'Clover' },
+    { href: '/site-map/', text: 'Sitemap' },
   ];
 
   for (const { href, text } of requiredAnchors) {
     const linkPattern = new RegExp(`<a\\b[^>]*href="${href.replace(/\//g, '\\/')}"[^>]*>[\\s\\S]*?${text}[\\s\\S]*?<\\/a>`);
     if (!linkPattern.test(html)) {
-      errors.push(`index.html: homepage authority hub missing anchor "${text}" to ${href}`);
+      errors.push(`index.html: homepage discovery links missing anchor "${text}" to ${href}`);
     }
   }
 
@@ -1658,7 +1653,7 @@ function runValidation() {
       `${organizationAuthority.homepageCount} Organization authority schemas validated`,
       `${homepageSoftwareApplication.homepageCount} SoftwareApplication schemas validated`,
       `${homepagePriorityNavLinks.homepageCount} homepage priority navs validated`,
-      `${homepageAuthorityHubLinks.anchorCount} homepage authority hub anchors validated`,
+      `${homepageAuthorityHubLinks.anchorCount} homepage POS and sitemap links validated`,
       `${homepageConversionOffers.homepageCount} homepage conversion offers validated`,
       `${posFocusFields.posPageCount} POS focus fields validated`,
       `${posPartnerConsentFields.leadFormPageCount} POS partner consent fields validated`,

@@ -132,59 +132,67 @@
     <!-- JSON-LD: FAQPage -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Does Serviio work with my POS system?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes — we integrate directly with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS that exposes an API. Orders flow straight from the phone call to your kitchen display with no manual entry needed."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Will the AI sound robotic to my customers?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. Serviio uses natural conversational AI that speaks fluently, handles interruptions, and adjusts to local accents. Most customers don't realize they're talking to an AI unless you tell them."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What happens if the AI doesn't understand a customer?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "When the AI is uncertain, it asks clarifying questions just like a human would. For complex situations, it can transfer the call to a staff member or take a callback message. We monitor unclear interactions and continuously improve accuracy."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I keep my existing restaurant phone number?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. We forward your existing number to Serviio so customers see no change. If you'd rather get a new number, we'll provision one for you. Either way, the setup takes minutes."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Are there contracts or cancellation fees?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No contracts, no cancellation fees. You only pay 2% on completed orders, and you can cancel anytime. We'll forward your number back to your old line within 24 hours."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How is customer data handled?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Call recordings and order data are encrypted in transit and at rest. We don't share customer information with third parties. You retain full ownership of your customer data and can export or delete it at any time."
-                }
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Does Serviio take the full order, or just answer the phone?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Serviio takes the order through conversation, handles menu options and special requests, and asks the customer to confirm before submitting. With your POS integration configured, the confirmed order goes into your kitchen workflow. Customers can order directly on the call."
             }
-        ]
-    }
+        },
+        {
+            "@type": "Question",
+            "name": "Does Serviio work with my POS system?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — we integrate directly with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS that exposes an API. Orders flow straight from the phone call to your kitchen display with no manual entry needed."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Will the AI sound robotic to my customers?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Serviio uses natural conversational AI that speaks fluently, handles interruptions, and adjusts to local accents. Most customers don't realize they're talking to an AI unless you tell them."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What happens if the AI doesn't understand a customer?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "When the AI is uncertain, it asks clarifying questions just like a human would. For complex situations, it can transfer the call to a staff member or take a callback message. We monitor unclear interactions and continuously improve accuracy."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I keep my existing restaurant phone number?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We forward your existing number to Serviio so customers see no change. If you'd rather get a new number, we'll provision one for you. Either way, the setup takes minutes."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Are there contracts or cancellation fees?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No contracts, no cancellation fees. You only pay 2% on completed orders, and you can cancel anytime. We'll forward your number back to your old line within 24 hours."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How is customer data handled?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Call recordings and order data are encrypted in transit and at rest. We don't share customer information with third parties. You retain full ownership of your customer data and can export or delete it at any time."
+            }
+        }
+    ]
+}
     </script>
 
     <!-- JSON-LD: SoftwareApplication -->
@@ -223,6 +231,7 @@
     </script>
 
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -239,11 +248,9 @@
                 </div>
                 <div class="hidden xl:flex items-center space-x-6">
                     <a href="#features" class="text-gray-600 hover:text-gray-900 transition">Features</a>
-                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">How It Works</a>
-                    <a href="/restaurant-phone-answering-service/" class="text-gray-600 hover:text-gray-900 transition">Phone Answering</a>
-                    <a href="/restaurant-pos-phone-order-integration/" class="text-gray-600 hover:text-gray-900 transition">POS Integration</a>
-                    <a href="/chinese-restaurant-ai-phone-ordering/" class="text-gray-600 hover:text-gray-900 transition">Chinese Restaurants</a>
-                    <a href="/service-areas/" class="text-gray-600 hover:text-gray-900 transition">Service Areas</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 transition">Setup</a>
+                    <a href="#integrations" class="text-gray-600 hover:text-gray-900 transition">POS Integration</a>
+                    <a href="#impact" class="text-gray-600 hover:text-gray-900 transition">Business Value</a>
                     <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">Pricing</a>
                     <!-- Language switcher -->
                     <div class="relative">
@@ -268,10 +275,10 @@
                             </a>
                         </div>
                     </div>
-                    <a href="#contact" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">Get Started</a>
+                    <a href="#message" class="gradient-bg text-white px-5 py-2 rounded-full font-medium hover:opacity-90 transition">Get Started</a>
                 </div>
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="xl:hidden p-2">
+                <button id="mobile-menu-btn" aria-label="Open navigation menu" class="xl:hidden p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -282,312 +289,166 @@
         <div id="mobile-menu" class="hidden xl:hidden border-t border-gray-100 bg-white">
             <div class="px-4 py-4 space-y-3">
                 <a href="#features" class="block text-gray-600 hover:text-gray-900">Features</a>
-                <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">How It Works</a>
-                <a href="/ai-order-taking-for-restaurants/" class="block text-gray-600 hover:text-gray-900">AI Ordering</a>
-                <a href="/restaurant-phone-answering-service/" class="block text-gray-600 hover:text-gray-900">Phone Answering</a>
-                <a href="/restaurant-pos-phone-order-integration/" class="block text-gray-600 hover:text-gray-900">POS Integration</a>
-                <a href="/chinese-restaurant-ai-phone-ordering/" class="block text-gray-600 hover:text-gray-900">Chinese Restaurants</a>
-                <a href="/service-areas/" class="block text-gray-600 hover:text-gray-900">Service Areas</a>
-                <a href="#pricing" class="block text-gray-600 hover:text-gray-900">Pricing</a>
+                <a href="#how-it-works" class="block text-gray-600 hover:text-gray-900">Setup</a>
+                <a href="#integrations" class="block text-gray-600 hover:text-gray-900">POS Integration</a>
+                    <a href="#impact" class="block text-gray-600 hover:text-gray-900">Business Value</a>
+                    <a href="#pricing" class="block text-gray-600 hover:text-gray-900">Pricing</a>
                 <a href="/zh/" hreflang="zh" class="block text-gray-600 hover:text-gray-900">中文</a>
-                <a href="#contact" class="block gradient-bg text-white px-5 py-2 rounded-full font-medium text-center">Get Started</a>
+                <a href="#message" class="block gradient-bg text-white px-5 py-2 rounded-full font-medium text-center">Get Started</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center px-4 py-2 bg-primary-50 rounded-full text-primary-600 text-sm font-medium mb-8">
-                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                    Supporting 7 languages worldwide · POS-integrated for Chinese restaurants
+    <!-- Hero: outcomes, product example, and immediate contact -->
+    <main id="main-content">
+    <section class="home-hero">
+        <div class="home-wrap home-hero-grid">
+            <div>
+                <p class="home-eyebrow"><span class="home-status-dot" aria-hidden="true"></span> AI phone ordering for restaurants</p>
+                <h1>Your team serves guests.<br><span class="gradient-text">Serviio handles the phone.</span></h1>
+                <p class="home-intro">The dinner rush needs your team. The ringing phone needs Serviio. Turn calls into complete orders, send them to your kitchen, and give guests your full attention.</p>
+                <p class="home-support">Natural conversations in 7 languages. Multiple calls at once. Connected to your existing POS.</p>
+                <div class="home-actions">
+                    <a class="home-button home-primary" href="#message">Let’s talk about your restaurant <span aria-hidden="true">→</span></a>
+                    <a class="home-button home-secondary" href="#features">Explore the features <span aria-hidden="true">→</span></a>
                 </div>
-                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
-                    <span class="block">Your team serves guests.</span>
-                    <span class="block gradient-text">Every call answered by us.</span>
-                    <span class="block">Zero missed.</span>
-                </h1>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                    <a href="#contact" class="gradient-bg text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-lg shadow-primary-500/25">
-                        Start Free Trial
-                    </a>
-                    <a href="#how-it-works" class="bg-gray-100 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-200 transition">
-                        See How It Works
-                    </a>
-                </div>
+                <a class="home-text-link" href="#message">Leave your details. We’ll get in touch.</a>
+                <ul class="home-reassurance" aria-label="Pricing highlights"><li>2% per completed order</li><li>No monthly fees</li><li>No setup costs</li></ul>
             </div>
-
-            <!-- Hero Visual -->
-            <div class="mt-16 relative">
-                <div class="bg-gradient-to-b from-primary-50 to-white rounded-3xl p-8 max-w-4xl mx-auto">
-                    <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
-                        <!-- Simulated conversation -->
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                </div>
-                                <div class="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-md">
-                                    <p class="text-gray-800">"Hi, I'd like to order some food for pickup."</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3 justify-end">
-                                <div class="gradient-bg rounded-2xl rounded-tr-none px-4 py-3 max-w-md">
-                                    <p class="text-white">"Of course! I'd be happy to help you with your order. What would you like today?"</p>
-                                </div>
-                                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                </div>
-                                <div class="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-md">
-                                    <p class="text-gray-800">"Can I get the Kung Pao Chicken with fried rice, and two egg rolls?"</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3 justify-end">
-                                <div class="gradient-bg rounded-2xl rounded-tr-none px-4 py-3 max-w-md">
-                                    <p class="text-white">"Perfect! That's Kung Pao Chicken with fried rice and two egg rolls. Would you like the chicken mild, medium, or spicy?"</p>
-                                </div>
-                                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
+            <figure class="home-phone-example">
+                <div class="home-phone">
+                    <div class="home-phone-top"><span class="home-status-dot" aria-hidden="true"></span><strong>Serviio · Taking an order</strong><span>Your restaurant. Your menu.</span></div>
+                    <div class="home-chat">
+                        <p class="home-bubble">Thanks for calling! What can I get started for you?</p>
+                        <p class="home-bubble home-caller">Kung Pao Chicken with fried rice, and two egg rolls. For pickup.</p>
+                        <p class="home-bubble">Of course. Mild, medium, or spicy?</p>
+                        <p class="home-bubble home-caller">Medium, please. The name is Alex.</p>
+                        <p class="home-bubble">One medium Kung Pao Chicken with fried rice and two egg rolls, for Alex. Your total is $24.00. Shall I place it?</p>
+                        <p class="home-bubble home-caller">Yes, that's right.</p>
+                        <div class="home-receipt"><strong>✓ Order sent to the kitchen</strong><p>Kung Pao Chicken · medium<br>Fried rice · 2 egg rolls</p><div><span>Pickup · Alex</span><b>$24.00</b></div></div>
                     </div>
                 </div>
-            </div>
+                <figcaption>Illustrative conversation and menu prices. Customer confirms before the order is sent.</figcaption>
+            </figure>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">24/7</div>
-                    <div class="text-gray-600 mt-1">Always Available</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">7</div>
-                    <div class="text-gray-600 mt-1">Languages Supported</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">&lt;2s</div>
-                    <div class="text-gray-600 mt-1">Response Time</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold gradient-text">0</div>
-                    <div class="text-gray-600 mt-1">Missed Calls</div>
-                </div>
-            </div>
-        </div>
+    <section class="home-product-strip" aria-label="Serviio at a glance">
+        <div class="home-wrap"><div><strong>24/7</strong><span>Phone coverage</span></div><div><strong>7 languages</strong><span>More guests understood</span></div><div><strong>2%</strong><span>Per completed order</span></div><div><strong>$0</strong><span>Monthly &amp; setup fees</span></div></div>
     </section>
 
-    <!-- Call Types Section -->
-    <section id="capabilities" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">More than just <span class="gradient-text">orders</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Every restaurant phone call, handled — not just takeout. Serviio knows your restaurant inside out and can take over any conversation a customer might want to have.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Orders -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Place orders</h3>
-                            <p class="text-gray-600 text-sm">Takeout, delivery, or dine-in orders — including modifications, substitutions, and add-ons.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reservations -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Reservations</h3>
-                            <p class="text-gray-600 text-sm">Book, change, or cancel reservations. Knows your seating policies and party size limits.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wait times -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Wait times</h3>
-                            <p class="text-gray-600 text-sm">Tells callers your current wait, busy hours, and the best time to come in.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Menu questions -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Menu questions</h3>
-                            <p class="text-gray-600 text-sm">Ingredients, allergens, prices, today's specials — answers anything on your menu.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hours & directions -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Hours, location, directions</h3>
-                            <p class="text-gray-600 text-sm">Operating hours, holiday schedules, address, parking, delivery zones — all on hand.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Take messages -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition">
-                    <div class="flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-primary-50 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-1">Take messages</h3>
-                            <p class="text-gray-600 text-sm">When a caller needs a person, the AI takes a callback message and routes it to the right staff.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section id="features" class="home-feature-section">
+        <div class="home-wrap">
+        <header class="home-section-heading">
+        <p class="home-eyebrow">Features</p>
+        <h2>What can Serviio do for your restaurant?</h2>
+        <p>Answer the phone, handle the request, and connect the order to your kitchen. Here are the features behind each step.</p>
+        </header>
+        <nav class="home-feature-nav" aria-label="Feature categories">
+        <a href="#capabilities">Customer requests <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#call-management">Call handling <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#order-followup">Orders & follow-up <span aria-hidden="true">↓</span>
+        </a>
+        </nav>
+        <div class="home-feature-group" id="capabilities">
+        <div class="home-feature-group-heading">
+        <span>01</span>
+        <div>
+        <h3>What callers can ask for</h3>
+        <p>Help guests place an order or get the information they need, right on the call.</p>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Everything You Need to <span class="gradient-text">Scale Orders</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Powerful AI that handles complex orders, customizations, and questions - just like your best employee, but available 24/7.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Natural Phone Conversations</h3>
-                    <p class="text-gray-600">Customers can speak naturally, interrupt, ask questions, and change their order - just like talking to a real person.</p>
-                </div>
-
-                <!-- Feature: Multi-Line -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Multi-Line Capability</h3>
-                    <p class="text-gray-600">Handle multiple calls simultaneously during rush hours. No more busy signals - every customer gets through instantly.</p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">7 Languages Supported</h3>
-                    <p class="text-gray-600">Fluently handles orders in English, Spanish, Chinese, Japanese, Hindi, French, and Italian - automatically detecting and switching languages.</p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Smart Menu Knowledge</h3>
-                    <p class="text-gray-600">Knows your entire menu, handles customizations, suggests add-ons, and answers questions about ingredients.</p>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Available 24/7</h3>
-                    <p class="text-gray-600">Never miss an order again. Serviio answers every call, even during rush hours, holidays, and late nights.</p>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Direct POS Integration</h3>
-                    <p class="text-gray-600">Works with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS with an API. Orders appear instantly on your kitchen display - no manual entry, no errors, no delays.</p>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300">
-                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">SMS Confirmations</h3>
-                    <p class="text-gray-600">Customers receive instant SMS confirmations with order details and pickup time estimates.</p>
-                </div>
-            </div>
         </div>
-    </section>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>Place orders</h4>
+        <p>Takeout, delivery, or dine-in orders — including modifications, substitutions, and add-ons.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Reservations</h4>
+        <p>Book, change, or cancel reservations. Knows your seating policies and party size limits.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Wait times</h4>
+        <p>Tells callers your current wait, busy hours, and the best time to come in.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Menu questions</h4>
+        <p>Ingredients, allergens, prices, today's specials — answers anything on your menu.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Hours, location, directions</h4>
+        <p>Operating hours, holiday schedules, address, parking, delivery zones — all on hand.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Take messages</h4>
+        <p>When a caller needs a person, the AI takes a callback message and routes it to the right staff.</p>
+        </article>
+        </div>
+        </div>
+        <div class="home-feature-group" id="call-management">
+        <div class="home-feature-group-heading">
+        <span>02</span>
+        <div>
+        <h3>How Serviio handles the call</h3>
+        <p>Language, menu knowledge, and call coverage built around your restaurant.</p>
+        </div>
+        </div>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>Natural Phone Conversations</h4>
+        <p>Customers can speak naturally, interrupt, ask questions, and change their order - just like talking to a real person.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Multi-Line Capability</h4>
+        <p>Handle multiple calls simultaneously during rush hours. No more busy signals - every customer gets through instantly.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>7 Languages Supported</h4>
+        <p>Fluently handles orders in English, Spanish, Chinese, Japanese, Hindi, French, and Italian - automatically detecting and switching languages.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Smart Menu Knowledge</h4>
+        <p>Knows your entire menu, handles customizations, suggests add-ons, and answers questions about ingredients.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Available 24/7</h4>
+        <p>Never miss an order again. Serviio answers every call, even during rush hours, holidays, and late nights.</p>
+        </article>
+        </div>
+        </div>
+        <div class="home-feature-group" id="order-followup">
+        <div class="home-feature-group-heading">
+        <span>03</span>
+        <div>
+        <h3>How orders and follow-up connect</h3>
+        <p>Get confirmed orders to the kitchen, keep customers informed, and see what happened.</p>
+        </div>
+        </div>
+        <div class="home-feature-grid">
+        <article class="home-feature-card">
+        <h4>Direct POS Integration</h4>
+        <p>Works with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS with an API. Orders appear instantly on your kitchen display - no manual entry, no errors, no delays.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>SMS Confirmations</h4>
+        <p>Customers receive instant SMS confirmations with order details and pickup time estimates.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Staff transfers & messages</h4>
+        <p>When a caller needs a person, transfer them to restaurant staff or capture a callback message.</p>
+        </article>
+        <article class="home-feature-card">
+        <h4>Call recordings & analytics</h4>
+        <p>Review recordings and call data to understand incoming calls, orders, and day-to-day service.</p>
+        </article>
+        </div>
+        </div>
+        <a href="#message" data-inquiry="demo" class="home-button home-primary">Show me how this fits my restaurant →</a>
+        </div>
+        </section>
 
-    <!-- How It Works Section -->
     <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -636,7 +497,6 @@
         </div>
     </section>
 
-    <!-- POS Integrations Logo Wall -->
     <section id="integrations" class="py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -676,8 +536,366 @@
         </div>
     </section>
 
-    <!-- Chinese Restaurant SEO Landing Link -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section class="home-impact" id="impact">
+        <div class="home-wrap">
+            <div class="home-section-heading"><p class="home-eyebrow">Less phone duty. More hospitality.</p><h2>What could your team do<br>with that time back?</h2><p>Welcome the next guest. Check on a table. Keep the kitchen moving. Serviio handles phone conversations so your team can focus on the people in front of them.</p></div>
+            <p class="home-eyebrow">Monthly planning estimate for an average-sized restaurant</p>
+            <div class="home-metrics" aria-label="Illustrative monthly restaurant scenario">
+                <div><strong>1,090</strong><span>Calls handled by AI per month</span></div>
+                <div><strong>16.85 <small>hrs</small></strong><span>Phone time handled per month</span></div>
+                <div><strong>$10,866.70</strong><span>Order value handled per month</span></div>
+            </div>
+            <p class="home-metric-note">Illustrative monthly planning figures; actual results depend on call volume, menu, and setup. Phone time represents AI-handled conversations, not verified staff hours saved.</p>
+            <div class="home-impact-bottom"><p><strong>What are missed calls costing your restaurant?</strong><br>Use your own call volume and average order value to explore the opportunity.</p><a class="home-button home-secondary" href="/restaurant-missed-call-revenue-calculator/">Estimate my opportunity →</a></div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Simple, <span class="gradient-text">Fair Pricing</span></h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">We only make money when you make money. No monthly fees, no setup costs, no hidden charges.</p>
+            </div>
+
+            <div class="max-w-lg mx-auto">
+                <div class="bg-white rounded-3xl border-2 border-primary-500 p-8 shadow-xl shadow-primary-500/10">
+                    <div class="text-center">
+                        <div class="inline-flex items-center px-4 py-1 bg-primary-100 rounded-full text-primary-600 text-sm font-medium mb-4">
+                            Pay Per Order
+                        </div>
+                        <div class="flex items-baseline justify-center gap-2 mb-2">
+                            <span class="text-6xl font-bold">2%</span>
+                        </div>
+                        <p class="text-gray-600 mb-8">per completed order</p>
+
+                        <ul class="text-left space-y-4 mb-8">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>No monthly fees</strong> - only pay when orders come in</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>No setup costs</strong> - we handle everything</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>Unlimited calls</strong> - 24/7 availability included</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>Multi-line capability</strong> - handle multiple calls at once</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>7 languages</strong> - English, Spanish, Chinese, Japanese, Hindi, French, Italian</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>Call recordings & analytics</strong> - full visibility</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span><strong>Direct POS integration</strong> - 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and more</span>
+                            </li>
+                        </ul>
+
+                        <a href="#message" data-inquiry="trial" class="block w-full gradient-bg text-white py-4 rounded-full font-semibold text-lg hover:opacity-90 transition">
+                            Start Free Trial
+                        </a>
+                        <p class="text-gray-500 text-sm mt-4">14-day free trial. No credit card required.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Example -->
+            <div class="mt-12 max-w-2xl mx-auto bg-gray-50 rounded-2xl p-6">
+                <h3 class="font-semibold mb-4 text-center">Example: What does 2% look like?</h3>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold">$25</div>
+                        <div class="text-gray-500 text-sm">order</div>
+                        <div class="text-primary-600 font-medium mt-1">$0.50 fee</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">$50</div>
+                        <div class="text-gray-500 text-sm">order</div>
+                        <div class="text-primary-600 font-medium mt-1">$1.00 fee</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">$100</div>
+                        <div class="text-gray-500 text-sm">order</div>
+                        <div class="text-primary-600 font-medium mt-1">$2.00 fee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-demo" id="demo">
+        <div class="home-wrap home-demo-grid">
+            <div><p class="home-eyebrow">Hear it. See it. Ask anything.</p><h2>Bring your menu.<br>We'll show you the rest.</h2><p>See how Serviio fits the way your restaurant actually works. Walk through the call, the order, and the kitchen handoff with us.</p><div class="home-actions"><a class="home-button home-primary" href="#message" data-inquiry="demo">Request my demo →</a><a class="home-text-link" href="mailto:info@serviio.ai">Or email info@serviio.ai</a></div></div>
+            <ol class="home-demo-list"><li><span>01</span><div><h3>Hear a real ordering flow</h3><p>Explore menu questions, modifiers, language needs, and customer confirmation.</p></div></li><li><span>02</span><div><h3>Check your POS fit</h3><p>Discuss how an order reaches your kitchen and what your setup needs.</p></div></li><li><span>03</span><div><h3>See the whole picture</h3><p>Review call recordings and analytics, SMS confirmations, staff transfers, and your onboarding steps.</p></div></li></ol>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p class="text-xl text-gray-600">Everything restaurant owners ask before getting started.</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-white rounded-xl border border-gray-200 p-6 mb-4"><summary class="font-semibold cursor-pointer">Does Serviio take the full order, or just answer the phone?</summary><p class="text-gray-600 mt-4">Serviio takes the order through conversation, handles menu options and special requests, and asks the customer to confirm before submitting. With your POS integration configured, the confirmed order goes into your kitchen workflow. Customers can order directly on the call.</p></details>
+                    <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Does Serviio work with my POS system?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        Yes — we integrate directly with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS that exposes an API. Orders flow straight from the phone call to your kitchen display with no manual entry needed.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Will the AI sound robotic to my customers?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        No. Serviio uses natural conversational AI that speaks fluently, handles interruptions, and adjusts to local accents. Most customers don't realize they're talking to an AI unless you tell them.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>What happens if the AI doesn't understand a customer?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        When the AI is uncertain, it asks clarifying questions just like a human would. For complex situations, it can transfer the call to a staff member or take a callback message. We monitor unclear interactions and continuously improve accuracy.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Can I keep my existing restaurant phone number?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        Yes. We forward your existing number to Serviio so customers see no change. If you'd rather get a new number, we'll provision one for you. Either way, the setup takes minutes.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>Are there contracts or cancellation fees?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        No contracts, no cancellation fees. You only pay 2% on completed orders, and you can cancel anytime. We'll forward your number back to your old line within 24 hours.
+                    </div>
+                </details>
+
+                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
+                        <span>How is customer data handled?</span>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                        Call recordings and order data are encrypted in transit and at rest. We don't share customer information with third parties. You retain full ownership of your customer data and can export or delete it at any time.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-message" id="message">
+        <div class="home-wrap home-message-grid">
+            <div><p class="home-eyebrow">One conversation is all it takes</p><h2>Tell us what keeps<br>your phone ringing.</h2><p>Missed orders? A busy front desk? Calls in several languages? Tell us what you want to solve. You don't need all the answers to get in touch.</p><p class="home-followup">Leave your details in the form. We’ll follow up to answer your questions and help you choose the next step.</p><a class="home-text-link" href="mailto:info@serviio.ai">Prefer email? info@serviio.ai →</a><p class="home-small">Ready to get started? <a href="#message" data-inquiry="trial">Request your free 14-day trial.</a></p></div>
+            <form id="message-form" class="home-message-form" action="https://formspree.io/f/xeeezpzn" method="POST">
+                <h3>Let’s talk about your restaurant.</h3><p>Leave your details. We’ll get in touch.</p>
+                <input type="hidden" name="_subject" value="New Restaurant Inquiry from Serviio.ai">
+                <input type="hidden" name="_next" value="https://serviio.ai/#thank-you">
+                <input type="hidden" name="lead_source" value="homepage_message">
+                <input type="hidden" name="ideal_customer_profile" value="Restaurant owner exploring AI phone ordering">
+                <input type="hidden" name="conversion_offer" value="homepage_message">
+                <label for="message-name">Your name</label><input id="message-name" name="name" autocomplete="name" required>
+                <label for="message-email">Email</label><input id="message-email" name="email" type="email" autocomplete="email" required>
+                <label for="message-phone">Phone <span>(optional, for a callback)</span></label><input id="message-phone" name="phone" type="tel" autocomplete="tel">
+                <label for="message-intent">What would you like to do?</label><select id="message-intent" name="inquiry_type"><option value="question">Learn more about Serviio</option><option value="demo">See a demo</option><option value="trial">Start my free 14-day trial</option></select>
+                <label for="message-body">Anything you’d like us to know? <span>(optional)</span></label><textarea id="message-body" name="message" rows="3" placeholder="Your restaurant name, a question, or a good time to reach you."></textarea>
+                <button class="home-button home-primary" type="submit">Send my details →</button><p class="home-small">We'll use these details to respond to your inquiry. Prefer email? <a href="mailto:info@serviio.ai">info@serviio.ai</a></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-white mb-4">Already planning your setup?</h2>
+                    <p class="text-xl text-gray-400 mb-8">Share your menu, language, and POS needs below so we can prepare for your demo or free 14-day trial. For a quick inquiry, the short form above is all you need.</p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Free setup and onboarding</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Cancel anytime - no contracts</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Dedicated support team</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Contact Info -->
+                    <div class="mt-10 pt-8 border-t border-gray-700">
+                        <p class="text-gray-400 mb-4">Or reach us directly:</p>
+                        <div class="space-y-3">
+                            <a href="mailto:info@serviio.ai" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                info@serviio.ai
+                            </a>
+                            <a href="tel:+14084099079" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                (408) 409-9079
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8">
+                    <form id="contact-form" action="https://formspree.io/f/xeeezpzn" method="POST" class="space-y-6">
+                        <input type="hidden" name="_subject" value="New Demo Request from Serviio.ai">
+                        <input type="hidden" name="_next" value="https://serviio.ai/#thank-you">
+                        <input type="hidden" name="lead_source" value="homepage">
+                        <input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
+                        <input type="hidden" name="conversion_offer" value="homepage_pos_fit_check">
+                        <div><label for="inquiry-type" class="block text-sm font-medium text-gray-700 mb-2">I'd like to</label><select id="inquiry-type" name="inquiry_type" class="w-full px-4 py-3 rounded-lg border border-gray-300"><option value="demo">See a demo</option><option value="trial">Start my free 14-day trial</option></select></div>
+                        <p class="text-sm text-gray-600">These details help us prepare for your restaurant. Just have a question? <a href="#message" class="home-text-link">Send a quick message instead.</a></p>
+                        <div>
+                            <label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">Restaurant Name</label>
+                            <input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Golden Dragon">
+                        </div>
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="John Smith">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="john@restaurant.com">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
+                        </div>
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                            <input type="text" id="city" name="restaurant_city" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="San Francisco" required>
+                        </div>
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                            <input type="text" id="state" name="restaurant_state" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="CA" required>
+                        </div>
+                        <div>
+                            <label for="pos_system" class="block text-sm font-medium text-gray-700 mb-2">Current POS System</label>
+                            <select id="pos_system" name="pos_system" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+                                <option value="">Select your POS</option>
+                                <option>39 Miles</option>
+                                <option>Square</option>
+                                <option>Toast</option>
+                                <option>Clover</option>
+                                <option>MenuSifu</option>
+                                <option>Chowbus</option>
+                                <option>Mealkeyway</option>
+                                <option>Other POS</option>
+                                <option>No POS yet</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="phone_orders" class="block text-sm font-medium text-gray-700 mb-2">Approximate phone orders per week</label>
+                            <select id="phone_orders" name="phone_orders_per_week" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">Select range</option>
+                                <option>Under 25</option>
+                                <option>25-75</option>
+                                <option>76-150</option>
+                                <option>150+</option>
+                            </select>
+                        </div>
+                        <div><label for="language_need" class="block text-sm font-medium text-gray-700 mb-2">Call languages needed</label><select id="language_need" name="language_need" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"><option value="">Select languages</option><option>English only</option><option>Mandarin</option><option>Cantonese</option><option>Mandarin and Cantonese</option><option>English and Chinese</option><option>Spanish or other language</option></select></div><div>
+                            <label for="main_pain" class="block text-sm font-medium text-gray-700 mb-2">Main phone-order pain</label>
+                            <select id="main_pain" name="main_pain" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">Select main pain</option>
+                                <option>Missed calls during rush</option>
+                                <option>Bilingual calls</option>
+                                <option>Manual POS entry</option>
+                                <option>After-hours calls</option>
+                                <option>Menu questions or order changes</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pos_interest" class="block text-sm font-medium text-gray-700 mb-2">If you do not have a POS, do you want POS recommendations?</label>
+                            <select id="pos_interest" name="pos_recommendation_interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
+                                <option value="">Select one</option>
+                                <option>Yes, I want POS recommendations</option>
+                                <option>No, I only want AI phone ordering</option>
+                                <option>Not applicable, I already have a POS</option>
+                            </select>
+                        </div>
+                        <div><label class="flex gap-3 text-sm text-gray-700"><input type="checkbox" id="pos_partner_consent" name="pos_partner_consent" value="Yes, Serviio may share my request with POS providers or consultants" class="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"><span>If I ask for POS recommendations, Serviio may share my request with POS providers or consultants so they can follow up.</span></label></div><div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">If you need POS recommendations, when are you planning to choose a POS?</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">Select timeline</option><option>Immediately</option><option>Within 1 month</option><option>1-3 months</option><option>3-6 months</option><option>Not sure yet</option><option>Not applicable, I already have a POS</option></select></div><button type="submit" class="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">
+                            Send my request →
+                        </button>
+                        <p class="text-sm text-gray-500">We'll contact you to arrange your demo or trial setup. Submitting this form does not start billing.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="home-wrap"><details class="home-resources"><summary>Restaurant guides &amp; POS resources</summary>
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl font-bold mb-4">Run a Chinese restaurant with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, or Mealkeyway?</h2>
             <p class="text-lg text-gray-600 mb-8">Serviio has a focused setup path for Chinese restaurants that need bilingual AI phone ordering connected to their existing POS workflow.</p>
@@ -757,321 +975,10 @@
             </div>
         </div>
     </section>
+</details></div>
+    </main>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Simple, <span class="gradient-text">Fair Pricing</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">We only make money when you make money. No monthly fees, no setup costs, no hidden charges.</p>
-            </div>
-
-            <div class="max-w-lg mx-auto">
-                <div class="bg-white rounded-3xl border-2 border-primary-500 p-8 shadow-xl shadow-primary-500/10">
-                    <div class="text-center">
-                        <div class="inline-flex items-center px-4 py-1 bg-primary-100 rounded-full text-primary-600 text-sm font-medium mb-4">
-                            Pay Per Order
-                        </div>
-                        <div class="flex items-baseline justify-center gap-2 mb-2">
-                            <span class="text-6xl font-bold">2%</span>
-                        </div>
-                        <p class="text-gray-600 mb-8">per completed order</p>
-
-                        <ul class="text-left space-y-4 mb-8">
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>No monthly fees</strong> - only pay when orders come in</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>No setup costs</strong> - we handle everything</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>Unlimited calls</strong> - 24/7 availability included</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>Multi-line capability</strong> - handle multiple calls at once</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>7 languages</strong> - English, Spanish, Chinese, Japanese, Hindi, French, Italian</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>Call recordings & analytics</strong> - full visibility</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <span><strong>Direct POS integration</strong> - 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and more</span>
-                            </li>
-                        </ul>
-
-                        <a href="#contact" class="block w-full gradient-bg text-white py-4 rounded-full font-semibold text-lg hover:opacity-90 transition">
-                            Start Free Trial
-                        </a>
-                        <p class="text-gray-500 text-sm mt-4">14-day free trial. No credit card required.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pricing Example -->
-            <div class="mt-12 max-w-2xl mx-auto bg-gray-50 rounded-2xl p-6">
-                <h3 class="font-semibold mb-4 text-center">Example: What does 2% look like?</h3>
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div class="text-2xl font-bold">$25</div>
-                        <div class="text-gray-500 text-sm">order</div>
-                        <div class="text-primary-600 font-medium mt-1">$0.50 fee</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">$50</div>
-                        <div class="text-gray-500 text-sm">order</div>
-                        <div class="text-primary-600 font-medium mt-1">$1.00 fee</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">$100</div>
-                        <div class="text-gray-500 text-sm">order</div>
-                        <div class="text-primary-600 font-medium mt-1">$2.00 fee</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4">Frequently Asked <span class="gradient-text">Questions</span></h2>
-                <p class="text-xl text-gray-600">Everything restaurant owners ask before getting started.</p>
-            </div>
-
-            <div class="space-y-4">
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>Does Serviio work with my POS system?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        Yes — we integrate directly with 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, Mealkeyway, and any POS that exposes an API. Orders flow straight from the phone call to your kitchen display with no manual entry needed.
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>Will the AI sound robotic to my customers?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        No. Serviio uses natural conversational AI that speaks fluently, handles interruptions, and adjusts to local accents. Most customers don't realize they're talking to an AI unless you tell them.
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>What happens if the AI doesn't understand a customer?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        When the AI is uncertain, it asks clarifying questions just like a human would. For complex situations, it can transfer the call to a staff member or take a callback message. We monitor unclear interactions and continuously improve accuracy.
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>Can I keep my existing restaurant phone number?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        Yes. We forward your existing number to Serviio so customers see no change. If you'd rather get a new number, we'll provision one for you. Either way, the setup takes minutes.
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>Are there contracts or cancellation fees?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        No contracts, no cancellation fees. You only pay 2% on completed orders, and you can cancel anytime. We'll forward your number back to your old line within 24 hours.
-                    </div>
-                </details>
-
-                <details class="group bg-white border border-gray-200 rounded-2xl open:shadow-md transition">
-                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-lg">
-                        <span>How is customer data handled?</span>
-                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600">
-                        Call recordings and order data are encrypted in transit and at rest. We don't share customer information with third parties. You retain full ownership of your customer data and can export or delete it at any time.
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-4xl font-bold text-white mb-4">Ready to Never Miss Another Order?</h2>
-                    <p class="text-xl text-gray-400 mb-8">Start your free 14-day trial today. No credit card required. We'll have you up and running in under an hour.</p>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>Free setup and onboarding</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>Cancel anytime - no contracts</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>Dedicated support team</span>
-                        </div>
-                    </div>
-
-                    <!-- Direct Contact Info -->
-                    <div class="mt-10 pt-8 border-t border-gray-700">
-                        <p class="text-gray-400 mb-4">Or reach us directly:</p>
-                        <div class="space-y-3">
-                            <a href="mailto:info@serviio.ai" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
-                                info@serviio.ai
-                            </a>
-                            <a href="tel:+14084099079" class="flex items-center gap-3 text-white hover:text-primary-400 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                </svg>
-                                (408) 409-9079
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-8">
-                    <form id="contact-form" action="https://formspree.io/f/xeeezpzn" method="POST" class="space-y-6">
-                        <input type="hidden" name="_subject" value="New Demo Request from Serviio.ai">
-                        <input type="hidden" name="_next" value="https://serviio.ai/#thank-you">
-                        <input type="hidden" name="lead_source" value="homepage">
-                        <input type="hidden" name="ideal_customer_profile" value="Chinese restaurant owner with existing POS or POS interest">
-                        <input type="hidden" name="conversion_offer" value="homepage_pos_fit_check">
-                        <div>
-                            <label for="restaurant" class="block text-sm font-medium text-gray-700 mb-2">Restaurant Name</label>
-                            <input type="text" id="restaurant" name="restaurant" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="Golden Dragon">
-                        </div>
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="John Smith">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="john@restaurant.com">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
-                        </div>
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                            <input type="text" id="city" name="restaurant_city" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="San Francisco" required>
-                        </div>
-                        <div>
-                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
-                            <input type="text" id="state" name="restaurant_state" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" placeholder="CA" required>
-                        </div>
-                        <div>
-                            <label for="pos_system" class="block text-sm font-medium text-gray-700 mb-2">Current POS System</label>
-                            <select id="pos_system" name="pos_system" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
-                                <option value="">Select your POS</option>
-                                <option>39 Miles</option>
-                                <option>Square</option>
-                                <option>Toast</option>
-                                <option>Clover</option>
-                                <option>MenuSifu</option>
-                                <option>Chowbus</option>
-                                <option>Mealkeyway</option>
-                                <option>Other POS</option>
-                                <option>No POS yet</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="phone_orders" class="block text-sm font-medium text-gray-700 mb-2">Approximate phone orders per week</label>
-                            <select id="phone_orders" name="phone_orders_per_week" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">Select range</option>
-                                <option>Under 25</option>
-                                <option>25-75</option>
-                                <option>76-150</option>
-                                <option>150+</option>
-                            </select>
-                        </div>
-                        <div><label for="language_need" class="block text-sm font-medium text-gray-700 mb-2">Call languages needed</label><select id="language_need" name="language_need" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"><option value="">Select languages</option><option>English only</option><option>Mandarin</option><option>Cantonese</option><option>Mandarin and Cantonese</option><option>English and Chinese</option><option>Spanish or other language</option></select></div><div>
-                            <label for="main_pain" class="block text-sm font-medium text-gray-700 mb-2">Main phone-order pain</label>
-                            <select id="main_pain" name="main_pain" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">Select main pain</option>
-                                <option>Missed calls during rush</option>
-                                <option>Bilingual calls</option>
-                                <option>Manual POS entry</option>
-                                <option>After-hours calls</option>
-                                <option>Menu questions or order changes</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="pos_interest" class="block text-sm font-medium text-gray-700 mb-2">If you do not have a POS, do you want POS recommendations?</label>
-                            <select id="pos_interest" name="pos_recommendation_interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required>
-                                <option value="">Select one</option>
-                                <option>Yes, I want POS recommendations</option>
-                                <option>No, I only want AI phone ordering</option>
-                                <option>Not applicable, I already have a POS</option>
-                            </select>
-                        </div>
-                        <div><label class="flex gap-3 text-sm text-gray-700"><input type="checkbox" id="pos_partner_consent" name="pos_partner_consent" value="Yes, Serviio may share my request with POS providers or consultants" class="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"><span>If I ask for POS recommendations, Serviio may share my request with POS providers or consultants so they can follow up.</span></label></div><div><label for="pos_purchase_timeline" class="block text-sm font-medium text-gray-700 mb-2">If you need POS recommendations, when are you planning to choose a POS?</label><select id="pos_purchase_timeline" name="pos_purchase_timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" required><option value="">Select timeline</option><option>Immediately</option><option>Within 1 month</option><option>1-3 months</option><option>3-6 months</option><option>Not sure yet</option><option>Not applicable, I already have a POS</option></select></div><button type="submit" class="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">
-                            Request Demo
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="home-mobile-contact" aria-label="Quick contact"><a href="#message">Leave your details · We’ll get in touch →</a></div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
@@ -1104,6 +1011,16 @@
     </footer>
 
     <script>
+        // Select the visitor's intent without submitting a form.
+        document.querySelectorAll('[data-inquiry]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                ['message-intent', 'inquiry-type'].forEach(function (id) {
+                    const intent = document.getElementById(id);
+                    if (intent) intent.value = link.dataset.inquiry;
+                });
+            });
+        });
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
@@ -1140,7 +1057,7 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
                     // Close mobile menu if open
                     document.getElementById('mobile-menu').classList.add('hidden');
                 }
@@ -1149,7 +1066,10 @@
 
         // Check for thank you state
         if (window.location.hash === '#thank-you') {
-            document.getElementById('contact-form').innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3><p class="text-gray-600">We\'ve received your request and will be in touch within 24 hours.</p></div>';
+            const submittedForm = document.getElementById('message-form');
+            submittedForm.id = 'thank-you';
+            submittedForm.innerHTML = '<div class="text-center py-8"><svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3><p class="text-gray-600">We\'ve received your request and will be in touch within 24 hours.</p></div>';
+            submittedForm.scrollIntoView({ block: 'center' });
         }
     </script>
     <script src="/assets/js/form-attribution.js"></script>
