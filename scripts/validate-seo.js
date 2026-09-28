@@ -1201,8 +1201,8 @@ function validateSearchConsoleAnalyzerWorkflow() {
     },
     {
       file: 'chinese-restaurant-phone-answering-service/index.html',
-      title: 'Chinese Restaurant Phone Answering Service - Serviio',
-      description: 'AI phone ordering for Chinese restaurants. Serviio answers calls, captures takeout orders, supports bilingual callers, and checks POS readiness.',
+      title: 'Chinese Restaurant Answering Service: AI Ordering | Serviio',
+      description: 'Chinese and English restaurant phone answering for takeout orders. See the workflow, POS setup checks, and 2% per completed order pricing. No monthly fees.',
     },
   ];
   for (const expectation of snippetExpectations) {
