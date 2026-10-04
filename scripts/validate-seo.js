@@ -1202,7 +1202,7 @@ function validateSearchConsoleAnalyzerWorkflow() {
     {
       file: 'chinese-restaurant-phone-answering-service/index.html',
       title: 'Chinese Restaurant Answering Service: AI Ordering | Serviio',
-      description: 'Chinese and English restaurant phone answering for takeout orders. See the workflow, POS setup checks, and 2% per completed order pricing. No monthly fees.',
+      description: 'Chinese and English restaurant phone answering for takeout orders. See the workflow, POS setup checks, and 2% per submitted order pricing. No monthly fees.',
     },
   ];
   for (const expectation of snippetExpectations) {
