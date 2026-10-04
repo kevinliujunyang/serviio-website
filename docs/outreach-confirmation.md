@@ -1,8 +1,10 @@
 # Outreach interest confirmation
 
-The static page at `/interested.html` uses the existing logo, Inter font,
-homepage color tokens, and solid purple rounded button. It is excluded from
-search indexing and the sitemap. No recipient data or lookup table is published.
+The personalized confirmation in the homepage contact section (`/#message`) uses the existing logo, Inter font,
+homepage color tokens, and solid purple rounded button. It is hidden for ordinary visitors. No recipient data or lookup table is published.
+
+Old `/interested.html` links redirect to the homepage and preserve their parameters.
+New links target `/?t=TOKEN&r=Restaurant&s=System#message`.
 
 Links use `t` (32 lowercase hexadecimal characters), `r` (restaurant display
 name), and `s` (ordering system display name). Display values are untrusted text;

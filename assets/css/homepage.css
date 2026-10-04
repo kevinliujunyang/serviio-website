@@ -205,3 +205,17 @@ nav a.gradient-bg { font-size: 16px; padding: 12px 24px; }
 .home-resources h3 { font-size: 20px; }
 .home-resources p { font-size: 16px; line-height: 1.7; }
 .home-resources a.gradient-bg { font-size: 16px; }
+
+/* Outreach links use the existing homepage contact section. */
+[hidden] { display: none !important; }
+.outreach-confirmation { max-width: 620px; text-align: center; }
+.outreach-confirmation h2 { overflow-wrap: anywhere; }
+.outreach-confirmation .rest { color: var(--home-purple); }
+.outreach-confirmation p { color: var(--home-muted); line-height: 1.7; margin: 14px 0; }
+.outreach-confirmation .eyebrow { color: var(--home-purple); font-size: 12px; font-weight: 800; letter-spacing: .12em; margin-bottom: 20px; }
+.outreach-confirmation .fine { font-size: 13px; }
+.outreach-confirmation .home-button { margin: 20px 0; border: 0; cursor: pointer; font-family: inherit; }
+.outreach-confirmation button:disabled { opacity: .55; cursor: default; }
+.outreach-confirmation .success, .outreach-confirmation .error { display: none; }
+.outreach-confirmation .error { color: #b91c1c; }
+.outreach-confirmation :focus-visible { outline: 3px solid var(--home-purple); outline-offset: 4px; }

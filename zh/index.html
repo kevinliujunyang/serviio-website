@@ -233,7 +233,7 @@
     </script>
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="stylesheet" href="/assets/css/homepage.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css?v=outreach-home-1">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -758,6 +758,28 @@
     </section>
 
     <section class="home-message" id="message">
+<div class="home-wrap outreach-confirmation" id="outreach-confirmation" hidden><div id="confirm-view">
+    <div class="eyebrow">SERVIIO — AI PHONE ORDERING</div>
+    <h2>想试用 Serviio<span class="rest" id="for-rest"></span>?</h2>
+    <p>无需填写信息，点击确认后我们会联系您。</p>
+    <p class="fine" id="next-step"></p>
+    <button class="home-button home-primary" id="confirm-btn" type="button" disabled>好的，请联系我 →</button>
+    <p class="error" id="err" role="alert"></p>
+    <p class="fine">此次确认仅表示您有兴趣，不会开始收费。<br>免费试用将在设置完成并成功测试后开始。</p>
+  </div>
+
+  <div id="success-view" class="success" role="status" tabindex="-1">
+    <div class="check">✓</div>
+    <h2>谢谢！</h2>
+    <p id="success-msg">Kevin will check compatibility and contact you shortly to arrange setup.</p>
+  </div>
+
+  <div id="invalid-view" class="success" style="display:none">
+    <h2>链接信息不完整</h2>
+    <p>This confirmation link is missing or incomplete. Please email us at <a href="mailto:info@serviio.ai">info@serviio.ai</a> and we'll get you set up.</p>
+  </div>
+</div>
+
         <div class="home-wrap home-message-grid">
             <div><p class="home-eyebrow">从一次交流开始</p><h2>聊聊您餐厅的<br>电话烦恼。</h2><p>忙得漏接订单？前台分身乏术？来电语言听不懂？告诉我们您最想解决的问题，不必准备好所有资料。</p><p class="home-followup">在表单中留下联系方式，我们会与您沟通需求、解答问题，并协助安排下一步。</p><a class="home-text-link" href="mailto:info@serviio.ai">也可发邮件：info@serviio.ai →</a><p class="home-small">准备好开始了？ <a href="#message" data-inquiry="trial">申请 3 个月免费试用。</a></p></div>
             <form id="message-form" class="home-message-form" action="https://formspree.io/f/xeeezpzn" method="POST">
@@ -1092,5 +1114,6 @@
         }
     </script>
     <script src="/assets/js/form-attribution.js"></script>
+<script src="/assets/js/outreach-confirmation.js"></script>
 </body>
 </html>

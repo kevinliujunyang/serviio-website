@@ -42,8 +42,8 @@ def main():
         for row in rows:
             token = secrets.token_hex(16)
             writer.writerow({'token': token, **{f: row.get(f, '') for f in FIELDS}})
-            url = 'https://serviio.ai/interested.html?' + urlencode({
-                't': token, 'r': row['restaurant'], 's': row.get('ordering_system', '')})
+            url = 'https://serviio.ai/?' + urlencode({
+                't': token, 'r': row['restaurant'], 's': row.get('ordering_system', '')}) + '#message'
             links.write(f"{row['restaurant']} <{row['email']}>\n{url}\n\n")
     print(f'Generated {len(rows)} recipient links in {output}. Keep both files private and preserve the mapping.')
 

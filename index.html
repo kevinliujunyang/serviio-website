@@ -231,7 +231,7 @@
     </script>
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="stylesheet" href="/assets/css/homepage.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css?v=outreach-home-1">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -737,6 +737,28 @@
     </section>
 
     <section class="home-message" id="message">
+<div class="home-wrap outreach-confirmation" id="outreach-confirmation" hidden><div id="confirm-view">
+    <div class="eyebrow">SERVIIO — AI PHONE ORDERING</div>
+    <h2>Interested in trying Serviio<span class="rest" id="for-rest"></span>?</h2>
+    <p>No typing required — just confirm below and we'll take it from here.</p>
+    <p class="fine" id="next-step"></p>
+    <button class="home-button home-primary" id="confirm-btn" type="button" disabled>Yes, contact me →</button>
+    <p class="error" id="err" role="alert"></p>
+    <p class="fine">No spam, no obligation. This only tells us you're interested —<br>your free trial starts after setup and a successful test call.</p>
+  </div>
+
+  <div id="success-view" class="success" role="status" tabindex="-1">
+    <div class="check">✓</div>
+    <h2>Thanks!</h2>
+    <p id="success-msg">Kevin will check compatibility and contact you shortly to arrange setup.</p>
+  </div>
+
+  <div id="invalid-view" class="success" style="display:none">
+    <h2>That link didn't work</h2>
+    <p>This confirmation link is missing or incomplete. Please email us at <a href="mailto:info@serviio.ai">info@serviio.ai</a> and we'll get you set up.</p>
+  </div>
+</div>
+
         <div class="home-wrap home-message-grid">
             <div><p class="home-eyebrow">One conversation is all it takes</p><h2>Tell us what keeps<br>your phone ringing.</h2><p>Missed orders? A busy front desk? Calls in several languages? Tell us what you want to solve. You don't need all the answers to get in touch.</p><p class="home-followup">Leave your details in the form. We’ll follow up to answer your questions and help you choose the next step.</p><a class="home-text-link" href="mailto:info@serviio.ai">Prefer email? info@serviio.ai →</a><p class="home-small">Ready to get started? <a href="#message" data-inquiry="trial">Request your free 3-month trial.</a></p></div>
             <form id="message-form" class="home-message-form" action="https://formspree.io/f/xeeezpzn" method="POST">
@@ -1073,5 +1095,6 @@
         }
     </script>
     <script src="/assets/js/form-attribution.js"></script>
+<script src="/assets/js/outreach-confirmation.js"></script>
 </body>
 </html>

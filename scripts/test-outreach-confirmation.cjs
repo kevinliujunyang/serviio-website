@@ -1,15 +1,16 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const html=fs.readFileSync('interested.html','utf8');
-const code=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const code=fs.readFileSync('assets/js/outreach-confirmation.js','utf8');
 function page(query, ok=true){
  const nodes={},calls=[]; let resolve;
  const response=new Promise(r=>resolve=r);
- const ctx={URLSearchParams,FormData,AbortController,setTimeout,clearTimeout,window:{location:{search:query}},document:{getElementById(id){return nodes[id]??=( {style:{},disabled:id==='confirm-btn',textContent:'',focus(){this.focused=true},addEventListener(_,fn){this.click=fn}})}},fetch(url,opts){calls.push({url,opts});return response}};
+ const ctx={URLSearchParams,FormData,AbortController,setTimeout,clearTimeout,window:{location:{search:query}},document:{documentElement:{lang:'en'},querySelector(){return {}},getElementById(id){return nodes[id]??=( {style:{},scrollIntoView(){},disabled:id==='confirm-btn',textContent:'',focus(){this.focused=true},addEventListener(_,fn){this.click=fn}})}},fetch(url,opts){calls.push({url,opts});return response}};
  vm.runInNewContext(code,ctx);
  return {nodes,calls,resolve};
 }
 (async()=>{
- for(const query of ['', '?t=invalid']){let p=page(query);assert.equal(p.nodes['invalid-view'].style.display,'block');assert.equal(p.calls.length,0)}
+ for(const query of ['?t=invalid']){let p=page(query);assert.equal(p.nodes['invalid-view'].style.display,'block');assert.equal(p.calls.length,0)}
+ assert.equal(page('').calls.length,0);
  let p=page('?t='+'a'.repeat(32)+'&r=%3Cimg%20src%3Dx%3E&s=Square');
  assert.equal(p.calls.length,0);assert.equal(p.nodes['for-rest'].textContent,' for <img src=x>');
  p.nodes['confirm-btn'].click();p.nodes['confirm-btn'].click();assert.equal(p.calls.length,1);
