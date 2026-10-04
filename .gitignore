@@ -3,3 +3,8 @@ node_modules/
 *.log
 .env
 .env.local
+
+# Private outreach records must never be published
+lead-tokens.csv
+links.txt
+recipients.csv
