@@ -43,7 +43,6 @@ const REQUIRED_ORGANIZATION_TOPICS = [
   'Square POS',
   'Toast POS',
   'Clover POS',
-  'MenuSifu POS',
   'Chowbus POS',
   'Mealkeyway POS',
 ];
@@ -443,7 +442,7 @@ function validateOrganizationAuthority() {
       errors.push(`${file}: Organization JSON-LD offer catalog must include at least 3 offers`);
     }
     const offerText = JSON.stringify([organization.hasOfferCatalog, organization.makesOffer]);
-    for (const phrase of ['2%', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus']) {
+    for (const phrase of ['2%', '39 Miles', 'Square', 'Toast', 'Clover', 'Chowbus']) {
       if (!offerText.includes(phrase)) {
         errors.push(`${file}: Organization JSON-LD offer text missing ${phrase}`);
       }
@@ -457,8 +456,8 @@ function validateHomepageSoftwareApplication() {
   const errors = [];
   const homepageFiles = ['index.html', 'zh/index.html'];
   const featureRequirements = {
-    'index.html': ['AI phone ordering', 'Chinese phone answering', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus', 'Mealkeyway', 'SMS', 'Multi-line'],
-    'zh/index.html': ['餐厅 AI 电话接单', '中英文', '39 Miles', 'Square', 'Toast', 'Clover', 'MenuSifu', 'Chowbus', 'Mealkeyway', '短信', '多线路'],
+    'index.html': ['AI phone ordering', 'Chinese phone answering', '39 Miles', 'Square', 'Toast', 'Clover', 'Chowbus', 'Mealkeyway', 'SMS', 'Multi-line'],
+    'zh/index.html': ['餐厅 AI 电话接单', '中英文', '39 Miles', 'Square', 'Toast', 'Clover', 'Chowbus', 'Mealkeyway', '短信', '多线路'],
   };
 
   for (const file of homepageFiles) {
@@ -520,7 +519,6 @@ function validateHomepageAuthorityHubLinks() {
   // Keep useful POS links and sitemap discovery without requiring a keyword wall.
   const requiredAnchors = [
     { href: '/pos/39-miles-ai-phone-ordering/', text: '39 Miles' },
-    { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu' },
     { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chowbus' },
     { href: '/pos/mealkeyway-ai-phone-ordering/', text: 'Mealkeyway' },
     { href: '/pos/square-ai-phone-ordering/', text: 'Square' },
@@ -637,7 +635,7 @@ function validateAuthorityMediaKit() {
     '"@type":"AboutPage"',
     'https://www.producthunt.com/products/serviio',
     'AI voice assistant that takes restaurant orders by phone',
-    '39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway',
+    '39 Miles, Square, Toast, Clover, Chowbus, and Mealkeyway',
     'info@serviio.ai',
     '(408) 409-9079',
     '/assets/logo.svg',
@@ -1190,14 +1188,9 @@ function validateSearchConsoleAnalyzerWorkflow() {
   }
   const snippetExpectations = [
     {
-      file: 'pos/menusifu-ai-phone-ordering/index.html',
-      title: 'MenuSifu AI Phone Ordering for Restaurants - Serviio',
-      description: 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
-    },
-    {
       file: 'pos/chowbus-ai-phone-ordering/index.html',
       title: 'Chowbus AI Phone Ordering for Restaurants - Serviio',
-      description: 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, MenuSifu, Chowbus, and Mealkeyway.',
+      description: 'Serviio answers restaurant phone orders and qualifies POS-ready workflows for 39 Miles, Square, Toast, Clover, Chowbus, and Mealkeyway.',
     },
     {
       file: 'chinese-restaurant-phone-answering-service/index.html',

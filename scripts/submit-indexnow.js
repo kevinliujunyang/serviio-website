@@ -40,8 +40,6 @@ const TOP_PRIORITY_PATHS = [
   '/restaurant-missed-call-revenue-calculator/',
   '/pos/39-miles-ai-phone-ordering/',
   '/zh/pos/39-miles-ai-phone-ordering/',
-  '/pos/menusifu-ai-phone-ordering/',
-  '/zh/pos/menusifu-ai-phone-ordering/',
   '/pos/chowbus-ai-phone-ordering/',
   '/zh/pos/chowbus-ai-phone-ordering/',
   '/pos/square-ai-phone-ordering/',

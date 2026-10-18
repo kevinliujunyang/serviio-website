@@ -387,8 +387,6 @@ Review clicks, impressions, CTR, and average position for:
 - `/zh/pos/toast-ai-phone-ordering/`
 - `/pos/clover-ai-phone-ordering/`
 - `/zh/pos/clover-ai-phone-ordering/`
-- `/pos/menusifu-ai-phone-ordering/`
-- `/zh/pos/menusifu-ai-phone-ordering/`
 - `/pos/chowbus-ai-phone-ordering/`
 - `/zh/pos/chowbus-ai-phone-ordering/`
 - `/pos/mealkeyway-ai-phone-ordering/`

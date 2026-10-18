@@ -170,7 +170,7 @@
 
   function recommendedPosPartnerTargets(posReadiness) {
     if (posReadiness !== 'pos_referral_candidate') return 'none';
-    return 'chinese_restaurant_pos_consultants,39_miles,menusifu,chowbus,clover,square,toast';
+    return 'chinese_restaurant_pos_consultants,39_miles,chowbus,clover,square,toast';
   }
 
   function classifyLeadAcquisitionChannel(form) {

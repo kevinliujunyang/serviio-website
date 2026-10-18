@@ -1,7 +1,6 @@
 const SITE_ORIGIN = 'https://serviio.ai';
 
 const requiredHomepageAnchors = [
-  { href: '/pos/menusifu-ai-phone-ordering/', text: 'MenuSifu AI phone ordering' },
   { href: '/pos/chowbus-ai-phone-ordering/', text: 'Chowbus POS AI phone agent' },
   { href: '/restaurant-phone-order-automation/', text: 'Restaurant phone order automation' },
 ];
