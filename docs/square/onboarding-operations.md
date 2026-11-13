@@ -30,9 +30,11 @@ Use `config/account-environment.example.json` as a reference, not an importable 
 | `SQUARE_WEBHOOK_URL` | Exact externally configured `APP_ORIGIN/api/account/square/webhook`, including its path and trailing-slash choice. The signature uses this exact URL and unmodified request body. |
 | `SQUARE_WEBHOOK_SIGNATURE_KEY` | Secret from the matching webhook subscription for `oauth.authorization.revoked`. |
 | `TOKEN_ENCRYPTION_KEY` | Independent cryptographically random 32-byte key encoded as base64url. Store in a secret manager and back it up securely. Pages and renewal Worker must use the same key within one environment. |
-| `EMAIL_ACCOUNT_ID` | Cloudflare account with Email Service sending access. DNS hosting alone does not establish sending readiness. |
-| `EMAIL_API_TOKEN` | Server secret with the documented Email Sending permission for that account. |
-| `EMAIL_FROM` | Bare email address on a Cloudflare Email Service onboarded domain, without a display-name wrapper. Confirm SPF, DKIM, DMARC, provider permission and delivery to authorized test addresses. |
+| `EMAIL_PROVIDER` | `resend` for the selected free-tier sender. `cloudflare` or an unset value preserves the original Cloudflare adapter. Unknown values fail closed. |
+| `RESEND_API_KEY` | Resend sending-only server secret, scoped to the verified sending domain when available. Never expose it in the browser. |
+| `EMAIL_ACCOUNT_ID` | Only for the Cloudflare alternative. Account with Email Service sending access. |
+| `EMAIL_API_TOKEN` | Only for the Cloudflare alternative. Server secret with Email Sending permission. |
+| `EMAIL_FROM` | Bare email address on the selected provider's verified domain. For Resend, verify the sending subdomain and keep click/open tracking disabled. Confirm provider permission and actual delivery to the authorized test mailbox. |
 
 Never paste credentials in chat, track `.dev.vars`, dump tokens, or save sign-in links in screenshots or logs. The public site contact `info@serviio.ai` is verified from the website source; it does not prove Email Service onboarding or sending authorization.
 
@@ -53,7 +55,7 @@ The scheduled Worker calls the shared renewal module. A database lease limits co
 
 Square recommends renewing within seven days and detecting tokens older than eight days. Monitor cron execution and its processed, renewed, failed and skipped counts, renewal timestamps, connection status, provider errors and email delivery failures. Configure an operator alert for missed daily runs, failed batches, and any renewable connection older than eight days. Alerting infrastructure is an activation prerequisite; these documents do not create alerts. Do not log tokens, authorization codes, sign-in URLs, cookies, raw email payloads or full webhook bodies.
 
-For email failures, check missing bindings, Email Service onboarding, scoped token permissions, suppression and provider response status through an authorized account view. Customers should see an unavailable or retryable state. Never expose a debug sign-in link to bypass delivery.
+For email failures, check the selected EMAIL_PROVIDER, required server secret, verified sender, quota, suppression and provider response through an authorized account view. Resend acceptance returns a message ID; it does not prove receipt in the mailbox. Resend Free currently allows 100 emails/day and 3,000/month, and quota failures must remain visible and retryable. Cloudflare sending to arbitrary customers requires Workers Paid, so its routing-only free tier is not a substitute for the selected free transactional sender. Customers should see an unavailable or retryable state. Never expose a debug sign-in link to bypass delivery.
 
 For a renewal failure, inspect redacted status and age, correct configuration, and retry through the leased workflow. Revoked or invalid grants require the owner's reconnect. Never restore a token backup over a disconnected merchant. For webhook failures, check the exact URL, raw-body signature and matching subscription key; an unverified event must not change connection ownership or status.
 
@@ -79,3 +81,13 @@ Keep the qualified source/build identity, migration history, binding configurati
 - [Square API versioning](https://developer.squareup.com/docs/build-basics/versioning-overview) explains explicit version pinning.
 
 Provider documentation was reviewed; this does not establish that this Cloudflare account or Square application is configured.
+
+## Resend sources checked 2026-11-13
+
+- https://resend.com/docs/api-reference/emails/send-email
+- https://resend.com/docs/api-reference/introduction
+- https://resend.com/docs/knowledge-base/account-quotas-and-limits
+- https://resend.com/docs/dashboard/domains/introduction
+- https://developers.cloudflare.com/email-service/platform/pricing/
+
+Production D1 activation progress is recorded separately in `service-activation-2026-11-13.md`. Email sign-in remains unqualified until provider configuration and a real authorized mailbox test complete.
