@@ -10,7 +10,7 @@ test('the default deployment build always uses the private-file-safe Pages outpu
 test('account assets revalidate and page references bypass previously cached unversioned assets', () => {
   const headers = readFileSync(new URL('../../_headers', import.meta.url), 'utf8');
   for (const asset of ['js/account.js', 'css/account.css']) {
-    assert.ok(headers.includes(`/assets/${asset}\n  Cache-Control: no-cache`));
+    assert.ok(headers.includes(`/assets/${asset}\n  Cache-Control: no-store`));
     const references = ['account/index.html', 'zh/account/index.html'].map(page => {
       const html = readFileSync(new URL(`../../${page}`, import.meta.url), 'utf8');
       const reference = html.match(new RegExp(`/assets/${asset.replaceAll('.', '\\.')}\\?v=[a-zA-Z0-9-]+`));
