@@ -166,7 +166,13 @@ export async function handleAccount(request, env, options = {}) {
           connection = await store.connection(session.id);
         }
       }
-      return reply({ account: { email: session.email }, restaurant, connection: publicConnection(connection, now) });
+      let squareConfigured = false;
+      try {
+        authorizationUrl(env, 'configuration-check');
+        await encrypt('configuration-check', env.TOKEN_ENCRYPTION_KEY);
+        squareConfigured = true;
+      } catch {}
+      return reply({ account: { email: session.email }, restaurant, connection: publicConnection(connection, now), square_configured: squareConfigured });
     }
     if (route === 'restaurant') {
       const body = await readBody(request);

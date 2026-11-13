@@ -154,3 +154,12 @@ test('a signed revocation arriving during disconnect still converges to disconne
   const final = await f.store.connection(f.account.id);
   assert.equal(final.status, 'disconnected'); assert.equal(final.merchant_id, null);
 });
+
+test('account readiness reports missing Square setup without exposing credentials or calling Square',async()=>{
+ const f=await fixture();
+ assert.equal((await (await f.request('me')).json()).square_configured,true);
+ delete f.env.TOKEN_ENCRYPTION_KEY;
+ const response=await f.request('me');assert.equal(response.status,200);
+ const body=await response.json();assert.equal(body.square_configured,false);assert.equal(f.calls.length,0);
+ assert.ok(!JSON.stringify(body).includes('private-app-secret'));
+});

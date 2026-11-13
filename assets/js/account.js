@@ -4,6 +4,7 @@
   const t = (en, cn) => zh ? cn : en;
   const el = id => document.getElementById(id);
   let session = null;
+  let profileSaving = false;
   let pendingToken = new URLSearchParams(location.hash.slice(1)).get('token');
   // Remove the challenge before fetching or following any links. Landing never consumes it.
   if (location.hash) history.replaceState(null, '', location.pathname + location.search);
@@ -22,6 +23,7 @@
     reconnect_required: t('Square access needs to be renewed. Reconnect your account.', '需要重新授权 Square，请重新连接账户。')
   };
   messages.authentication_required = messages.unauthorized;
+  messages.square_setup = t('Square connection is not available yet. Serviio must finish its Square setup.', 'Square 连接暂不可用，Serviio 尚需完成 Square 配置。');
   messages.configuration_unavailable = messages.unavailable;
   messages.email_unavailable = messages.unavailable;
   messages.service_unavailable = messages.unavailable;
@@ -57,6 +59,7 @@
     try { body = await response.json(); } catch { throw new Error(response.status === 503 ? messages.unavailable : fallback); }
     if (!response.ok) {
       if (response.status === 401) signedOut();
+      if (path.startsWith('square/') && body.error === 'configuration_unavailable') throw new Error(messages.square_setup);
       throw new Error(messages[body.error] || (response.status === 503 ? messages.unavailable : fallback));
     }
     return body;
@@ -67,8 +70,26 @@
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
     notice('');
-    try { await run(); } catch (error) { notice(error.message || fallback, true); }
+    if (buttonId === 'connect-square') el('square-notice').hidden = true;
+    try { await run(); } catch (error) {
+      if (buttonId === 'connect-square') { el('square-notice').textContent = error.message || fallback; el('square-notice').hidden = false; }
+      else notice(error.message || fallback, true);
+    }
     finally { button.disabled = false; button.setAttribute('aria-busy', 'false'); }
+  }
+  function profileValues() {
+    return { name: el('restaurant-name').value.trim(), contact_name: el('contact-name').value.trim(), phone: el('phone').value.trim() };
+  }
+  function profileIsSaved() {
+    const current = profileValues();
+    return Boolean(session?.restaurant) && Object.keys(current).every(key => current[key] === session.restaurant[key]);
+  }
+  function renderProfileState() {
+    const saved = profileIsSaved();
+    const button = el('save-profile');
+    button.disabled = profileSaving || saved;
+    button.textContent = profileSaving ? t('Saving…', '正在保存…') : saved ? t('Saved', '已保存') : session?.restaurant ? t('Save changes', '保存更改') : t('Save restaurant details', '保存餐厅资料');
+    button.setAttribute('data-saved', String(saved && !profileSaving));
   }
   function renderConnection(connection) {
     const status = connection?.status || 'disconnected';
@@ -100,7 +121,9 @@
       }
     }
     el('connection-dates').textContent = dates.join(' · ');
-    el('connect-square').disabled = !session?.restaurant;
+    el('connect-square').disabled = !session?.restaurant || session?.square_configured === false;
+    el('square-notice').textContent = session?.square_configured === false ? messages.square_setup : '';
+    el('square-notice').hidden = session?.square_configured !== false;
   }
   async function loadLocations() {
     el('location').disabled = true;
@@ -138,6 +161,7 @@
       el('contact-name').value = data.restaurant?.contact_name || '';
       el('phone').value = data.restaurant?.phone || '';
     }
+    renderProfileState();
     renderConnection(data.connection);
     if (data.connection?.status === 'connected') await loadLocations();
   }
@@ -153,15 +177,17 @@
     try { await api('verify', { token: pendingToken }); pendingToken = null; await loadAccount(); notice(t('You are signed in.', '登录成功。')); }
     catch (error) { signedOut(); el('confirm-panel').hidden = !pendingToken; throw error; }
   }));
+  el('profile-form').addEventListener('input', renderProfileState);
   el('profile-form').addEventListener('submit', event => {
     event.preventDefault();
     return action('save-profile', async () => {
-      const profile = { name: el('restaurant-name').value.trim(), contact_name: el('contact-name').value.trim(), phone: el('phone').value.trim() };
+      const profile = profileValues();
+      profileSaving = true; renderProfileState();
       await api('restaurant', profile);
       session.restaurant = profile;
-      el('connect-square').disabled = false;
-      notice(t('Restaurant details saved.', '餐厅资料已保存。'));
-    });
+      el('connect-square').disabled = session.square_configured === false;
+      notice(profileIsSaved() ? t('Restaurant details saved.', '餐厅资料已保存。') : t('Earlier changes saved. You have unsaved changes.', '先前的更改已保存，当前仍有未保存的更改。'));
+    }).finally(() => { profileSaving = false; renderProfileState(); });
   });
   el('connect-square').addEventListener('click', () => action('connect-square', async () => {
     const data = await api('square/connect', { locale: zh ? 'zh' : 'en' });

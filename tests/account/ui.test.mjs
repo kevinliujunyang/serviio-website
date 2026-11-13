@@ -32,7 +32,7 @@ test('sign-in uses the localized generic API and retains email on a recoverable 
 test('profile save failure preserves typed values and does not report success',async()=>{
  const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:null,connection:null}},{status:500,body:{error:'internal_error'}}]});await ui.flush();
  ui.element('restaurant-name').value='My restaurant';ui.element('contact-name').value='Owner';ui.element('phone').value='123';
- await ui.submit('profile-form');assert.equal(ui.element('restaurant-name').value,'My restaurant');assert.match(ui.element('notice').textContent,/try again/i);
+ await ui.submit('profile-form');assert.equal(ui.element('restaurant-name').value,'My restaurant');assert.match(ui.element('notice').textContent,/try again/i);assert.equal(ui.element('save-profile').disabled,false);assert.notEqual(ui.element('save-profile').textContent,'Saved');
 });
 test('server content is treated as text and inactive locations cannot be selected',async()=>{
  const ui=setup({responses:[{status:200,body:{account:{email:'<img onerror=alert(1)>'},restaurant:{name:'<script>',contact_name:'Owner',phone:'123'},connection:{status:'connected',location_id:null}}},{status:200,body:{locations:[{id:'active',name:'<b>Branch</b>',status:'ACTIVE',address:'Main St'},{id:'closed',name:'Closed',status:'INACTIVE'}]}}]});await ui.flush();await ui.flush();
@@ -40,7 +40,7 @@ test('server content is treated as text and inactive locations cannot be selecte
  const options=ui.element('location').children;assert.equal(options.length,2);assert.equal(options[1].value,'active');assert.match(options[1].textContent,/<b>Branch<\/b>/);
 });
 test('Square redirect rejects an unrelated or non-HTTPS destination',async()=>{
- const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A',contact_name:'B',phone:'123'},connection:null}},{status:200,body:{url:'https://evil.example/oauth2/authorize'}}]});await ui.flush();await ui.click('connect-square');assert.deepEqual(ui.redirects,[]);assert.match(ui.element('notice').textContent,/try again/i);
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A',contact_name:'B',phone:'123'},connection:null}},{status:200,body:{url:'https://evil.example/oauth2/authorize'}}]});await ui.flush();await ui.click('connect-square');assert.deepEqual(ui.redirects,[]);assert.match(ui.element('square-notice').textContent,/try again/i);
 });
 for(const page of ['account/index.html','zh/account/index.html']) test(`${page} is private, accessible, and contains explicit scope and activation copy`,async()=>{
  const html=await readFile(new URL(`../../${page}`,import.meta.url),'utf8');assert.match(html,/name="robots" content="noindex, nofollow"/);assert.match(html,/name="referrer" content="no-referrer"/);assert.match(html,/role="status"/);assert.match(html,/for="email"/);assert.match(html,/noscript/);assert.match(html,/MERCHANT_PROFILE_READ/);assert.match(html,/account\.js/);
@@ -80,9 +80,39 @@ test('a pending submission prevents duplicate requests and re-enables the button
 for (const lang of ['en', 'zh']) test(`${lang} Square connection sends locale explicitly with no referrer dependency`, async()=>{
  const ui=setup({lang,responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:null}},{status:503,body:{error:'square_unavailable'}}]});await ui.flush();await ui.click('connect-square');
  assert.equal(JSON.parse(ui.calls.at(-1).options.body).locale,lang);
- assert.equal(ui.element('notice').textContent,lang==='zh'?'Square 暂时不可用，请重试。':'Square is temporarily unavailable. Please try again.');
+ assert.equal(ui.element('square-notice').textContent,lang==='zh'?'Square 暂时不可用，请重试。':'Square is temporarily unavailable. Please try again.');
 });
 test('service unavailable remains recoverable and merchant mismatch explains the existing connection',async()=>{
  const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:null}},{status:409,body:{error:'merchant_mismatch'}},{status:503,body:{error:'service_unavailable'}}]});await ui.flush();await ui.click('connect-square');
- assert.match(ui.element('notice').textContent,/disconnect.*existing.*Square/i);await ui.click('connect-square');assert.match(ui.element('notice').textContent,/Account service is temporarily unavailable/);
+ assert.match(ui.element('square-notice').textContent,/disconnect.*existing.*Square/i);await ui.click('connect-square');assert.match(ui.element('square-notice').textContent,/Account service is temporarily unavailable/);
+});
+
+for (const lang of ['en', 'zh']) test(`${lang} restaurant save button reflects saved, edited and restored details`, async () => {
+ const profile={name:'Restaurant',contact_name:'Owner',phone:'4085550100'};
+ const ui=setup({lang,responses:[{status:200,body:{account:{email:'owner@example.test'},restaurant:profile,connection:null}},{status:200,body:{ok:true}}]});await ui.flush();
+ const button=ui.element('save-profile');
+ assert.equal(button.textContent,lang==='zh'?'已保存':'Saved');assert.equal(button.disabled,true);
+ ui.element('restaurant-name').value='Updated';ui.element('profile-form').listeners.input();
+ assert.equal(button.textContent,lang==='zh'?'保存更改':'Save changes');assert.equal(button.disabled,false);
+ await ui.submit('profile-form');assert.equal(button.textContent,lang==='zh'?'已保存':'Saved');assert.equal(button.disabled,true);
+ ui.element('restaurant-name').value='Different';ui.element('profile-form').listeners.input();
+ ui.element('restaurant-name').value='Updated';ui.element('profile-form').listeners.input();assert.equal(button.disabled,true);
+});
+test('editing while a profile save is pending keeps newer edits unsaved',async()=>{
+ let finish;const pending=new Promise(resolve=>{finish=resolve;});
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:null,connection:null}},pending]});await ui.flush();
+ ui.element('restaurant-name').value='First';ui.element('contact-name').value='Owner';ui.element('phone').value='4085550100';
+ const saving=ui.submit('profile-form');assert.equal(ui.element('save-profile').textContent,'Saving…');
+ ui.element('restaurant-name').value='Second';ui.element('profile-form').listeners.input();assert.equal(ui.element('save-profile').disabled,true);
+ finish({status:200,body:{ok:true}});await saving;
+ assert.equal(ui.element('save-profile').textContent,'Save changes');assert.equal(ui.element('save-profile').disabled,false);assert.match(ui.element('notice').textContent,/unsaved changes/i);
+});
+test('missing Square setup is explained beside its disabled button without blocking account access',async()=>{
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A',contact_name:'B',phone:'4085550100'},connection:null,square_configured:false}}]});await ui.flush();
+ assert.equal(ui.element('workspace').hidden,false);assert.equal(ui.element('connect-square').disabled,true);
+ assert.match(ui.element('square-notice').textContent,/Square.*setup/i);assert.equal(ui.element('notice').textContent,'');
+});
+test('Square configuration failure during connect has a specific nearby message',async()=>{
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:null}},{status:503,body:{error:'configuration_unavailable'}}]});await ui.flush();await ui.click('connect-square');
+ assert.match(ui.element('square-notice').textContent,/Square.*setup/i);assert.doesNotMatch(ui.element('notice').textContent,/Account service is temporarily unavailable/);
 });

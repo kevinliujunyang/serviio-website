@@ -52,12 +52,13 @@
 <p>请先保存资料，再连接 Square。您可以随时在此更新。</p>
 <form id="profile-form"><div class="field"><label for="restaurant-name">餐厅名称</label><input id="restaurant-name" name="restaurant-name" type="text" autocomplete="organization" maxlength="160" required></div>
 <div class="field-row"><div class="field"><label for="contact-name">联系人姓名</label><input id="contact-name" name="contact-name" type="text" autocomplete="name" maxlength="160" required></div><div class="field"><label for="phone">联系电话</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required></div></div>
-<button id="save-profile" class="primary" type="submit">保存餐厅资料</button></form></section>
+<button id="save-profile" aria-live="polite" class="primary" type="submit">保存餐厅资料</button></form></section>
 <section class="card" aria-labelledby="square-heading"><div class="section-heading"><span class="section-number">02</span><h2 id="square-heading">Square 连接</h2></div>
 <p id="connection-status" class="status-badge"></p><p id="connection-details"></p><p id="connection-dates" class="fine-print"></p>
 <div class="permission-note"><h3>您将授予的权限</h3><p>Serviio 申请只读访问您的 Square 商家资料和门店（MERCHANT_PROFILE_READ），以便您选择正确的餐厅门店。登录和授权均由 Square 处理。</p><p>此步骤不会申请支付或写入订单的权限。您可以在下方断开连接。</p></div>
 <p class="fine-print">连接不会自动开通语音点餐、支付、厨房打印或订单提交，还需要与 Serviio 完成后续设置。</p>
 <button id="connect-square" class="primary" type="button">连接 Square</button>
+<p id="square-notice" class="fine-print" role="status" hidden></p>
 <p class="fine-print">请先保存上方餐厅资料以启用此步骤。随后将跳转至 Square 授权页面。</p>
 <div id="locations-panel" class="location-section" hidden><h3>选择餐厅门店</h3><p id="selected-location"></p><p id="location-loading" class="fine-print" role="status"></p>
 <form id="location-form"><div class="field"><label for="location">Square 门店</label><select id="location" name="location" required></select></div><button id="save-location" class="primary" type="submit">保存门店</button></form><button id="refresh-locations" class="text-button" type="button">刷新门店</button></div>

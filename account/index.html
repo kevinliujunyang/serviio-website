@@ -52,12 +52,13 @@
 <p>Save your details before connecting Square. You can update them here at any time.</p>
 <form id="profile-form"><div class="field"><label for="restaurant-name">Restaurant name</label><input id="restaurant-name" name="restaurant-name" type="text" autocomplete="organization" maxlength="160" required></div>
 <div class="field-row"><div class="field"><label for="contact-name">Contact name</label><input id="contact-name" name="contact-name" type="text" autocomplete="name" maxlength="160" required></div><div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required></div></div>
-<button id="save-profile" class="primary" type="submit">Save restaurant details</button></form></section>
+<button id="save-profile" aria-live="polite" class="primary" type="submit">Save restaurant details</button></form></section>
 <section class="card" aria-labelledby="square-heading"><div class="section-heading"><span class="section-number">02</span><h2 id="square-heading">Square connection</h2></div>
 <p id="connection-status" class="status-badge"></p><p id="connection-details"></p><p id="connection-dates" class="fine-print"></p>
 <div class="permission-note"><h3>What you are authorizing</h3><p>Serviio requests read-only access to your Square business profile and locations (MERCHANT_PROFILE_READ), so you can select the right restaurant location. Square handles your login and authorization.</p><p>This step does not request payment or order-writing access. You can disconnect below.</p></div>
 <p class="fine-print">Connecting does not activate voice ordering, payments, kitchen printing, or order submission. Further setup with Serviio is required.</p>
 <button id="connect-square" class="primary" type="button">Connect Square</button>
+<p id="square-notice" class="fine-print" role="status" hidden></p>
 <p class="fine-print">Save your restaurant details above to enable this step. You will continue on Square to authorize access.</p>
 <div id="locations-panel" class="location-section" hidden><h3>Choose your restaurant location</h3><p id="selected-location"></p><p id="location-loading" class="fine-print" role="status"></p>
 <form id="location-form"><div class="field"><label for="location">Square location</label><select id="location" name="location" required></select></div><button id="save-location" class="primary" type="submit">Save location</button></form><button id="refresh-locations" class="text-button" type="button">Refresh locations</button></div>
