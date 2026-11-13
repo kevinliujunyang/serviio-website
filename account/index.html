@@ -9,8 +9,8 @@
 <title>Your restaurant account | Serviio</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
 <link rel="stylesheet" href="/assets/css/styles.css">
-<link rel="stylesheet" href="/assets/css/account.css?v=20261113-3">
-<script src="/assets/js/account.js?v=20261113-3" defer></script>
+<link rel="stylesheet" href="/assets/css/account.css?v=20261113-4">
+<script src="/assets/js/account.js?v=20261113-4" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +26,7 @@
 <ol class="steps" aria-label="Setup steps">
 <li><span class="step-number">01</span><div><h2>Sign in with email</h2><p>No password to remember. A secure link gets you in.</p></div></li>
 <li><span class="step-number">02</span><div><h2>Add your restaurant</h2><p>Tell us your restaurant name and how to reach you.</p></div></li>
-<li><span class="step-number">03</span><div><h2>Connect your Square location</h2><p>Authorize read-only access, then choose your location.</p></div></li>
+<li><span class="step-number">03</span><div><h2>Connect your Square location</h2><p>Authorize menu, order, and checkout access, then choose your location.</p></div></li>
 </ol>
 <div class="help-note"><p>Need a hand with setup?</p><a href="mailto:info@serviio.ai">info@serviio.ai <span aria-hidden="true">↗</span></a></div>
 </aside>
@@ -55,13 +55,14 @@
 <button id="save-profile" aria-live="polite" class="primary" type="submit">Save restaurant details</button></form></section>
 <section class="card" aria-labelledby="square-heading"><div class="section-heading"><span class="section-number">02</span><h2 id="square-heading">Square connection</h2></div>
 <p id="connection-status" class="status-badge"></p><p id="connection-details"></p><p id="connection-dates" class="fine-print"></p>
-<div class="permission-note"><h3>What you are authorizing</h3><p>Serviio requests read-only access to your Square business profile and locations (MERCHANT_PROFILE_READ), so you can select the right restaurant location. Square handles your login and authorization.</p><p>This step does not request payment or order-writing access. You can disconnect below.</p></div>
-<p class="fine-print">Connecting does not activate voice ordering, payments, kitchen printing, or order submission. Further setup with Serviio is required.</p>
+<div class="permission-note"><h3>What you are authorizing</h3><p>Serviio requests access to your business profile and locations, menu items and prices, orders, and payments. This supports order submission, Square-hosted checkout, and checking payment status. Square handles your sign-in and approval.</p><p>The permissions allow creating orders and payments. Customers enter payment details on Square’s hosted checkout page. You can disconnect below.</p></div>
+<p class="fine-print">Connecting alone does not place orders or charge payments. Voice ordering and kitchen workflows require separate setup.</p>
 <button id="connect-square" class="primary" type="button">Connect Square</button>
 <p id="square-notice" class="fine-print" role="status" hidden></p>
 <p class="fine-print">Save your restaurant details above to enable this step. You will continue on Square to authorize access.</p>
 <div id="locations-panel" class="location-section" hidden><h3>Choose your restaurant location</h3><p id="selected-location"></p><p id="location-loading" class="fine-print" role="status"></p>
 <form id="location-form"><div class="field"><label for="location">Square location</label><select id="location" name="location" required></select></div><button id="save-location" class="primary" type="submit">Save location</button></form><button id="refresh-locations" class="text-button" type="button">Refresh locations</button></div>
+<section id="access-panel" class="location-section" hidden><h3>Menu, order and checkout access</h3><p id="access-status" role="status"></p><ul><li id="menu-access"></li><li id="orders-access"></li><li id="payments-access"></li></ul><button id="refresh-permissions" class="secondary" type="button">Check API access</button><h3>Square menu</h3><p class="fine-print">Read the menu for your saved location. This does not create an order or payment.</p><button id="load-menu" class="secondary" type="button" disabled>Load menu</button><p id="menu-status" role="status"></p><ul id="menu-items"></ul><button id="more-menu" class="text-button" type="button" hidden>Load more menu items</button></section>
 <button id="disconnect-square" class="text-button danger" type="button" hidden>Disconnect Square</button>
 <div id="disconnect-confirm" class="disconnect-confirm" hidden><h3>Disconnect Square?</h3><p>Serviio will revoke this connection and remove its stored credentials. You can reconnect later.</p><div class="button-row"><button id="confirm-disconnect" class="secondary danger" type="button">Yes, disconnect</button><button id="cancel-disconnect" class="secondary" type="button">Keep connection</button></div></div>
 </section></div>

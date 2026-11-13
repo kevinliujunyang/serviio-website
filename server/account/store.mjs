@@ -53,7 +53,7 @@ export class Store {
     }
   }
   async selectLocation(account, merchant, version, location, now) {
-    const result = await this.query("UPDATE square_connections SET location_id=?,verified_at=? WHERE account_id=? AND merchant_id=? AND version=? AND status='connected'", location, now, account, merchant, version).run();
+    const result = await this.query("UPDATE square_connections SET location_id=?,verified_at=? WHERE account_id=? AND merchant_id=? AND version=? AND status='connected' AND lease_until<=?", location, now, account, merchant, version, now).run();
     return result.meta.changes === 1;
   }
   async markVerified(account, version, now) {
@@ -61,6 +61,12 @@ export class Store {
   }
   async markStatus(account, version, status) {
     await this.query("UPDATE square_connections SET status=? WHERE account_id=? AND version=? AND token_cipher IS NOT NULL AND status!='disconnecting'", status, account, version).run();
+  }
+  claimCheckout(account, version, locationId, sessionHash, lease, now) {
+    return this.query("UPDATE square_connections SET lease=?,lease_until=? WHERE account_id=? AND version=? AND location_id=? AND status='connected' AND lease_until<=? AND EXISTS(SELECT 1 FROM account_sessions WHERE token_hash=? AND account_id=? AND expires_at>?) RETURNING *", lease, now + 120000, account, version, locationId, now, sessionHash, account, now).first();
+  }
+  releaseCheckout(account, lease) {
+    return this.query('UPDATE square_connections SET lease=NULL,lease_until=0 WHERE account_id=? AND lease=?', account, lease).run();
   }
   async claimConnection(account, lease, now) {
     return this.query("UPDATE square_connections SET lease=?,lease_until=?,last_attempt_at=? WHERE account_id=? AND token_cipher IS NOT NULL AND status IN ('connected','renewal_failed','reconnect_required') AND lease_until<=? RETURNING *", lease, now + 120000, now, account, now).first();

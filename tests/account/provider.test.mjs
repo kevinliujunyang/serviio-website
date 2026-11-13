@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
+import * as square from '../../server/account/square.mjs';
 import { authorizationUrl, exchangeCode, refreshTokens, listLocations, revokeToken, verifyWebhook } from '../../server/account/square.mjs';
 const env = { APP_ORIGIN:'https://example.com', SQUARE_ENVIRONMENT:'sandbox', SQUARE_APP_ID:'app-id', SQUARE_APP_SECRET:'app-secret', SQUARE_API_VERSION:'2026-09-16', SQUARE_WEBHOOK_URL:'https://example.com/api/account/square/webhook', SQUARE_WEBHOOK_SIGNATURE_KEY:'webhook-key' };
 const tokens = { merchant_id:'merchant', access_token:'access-secret', refresh_token:'refresh-secret', expires_at:'2026-12-12T12:00:00Z' };
@@ -10,7 +11,7 @@ test('authorization has fixed origin, callback, state, minimal scope and fresh S
  assert.equal(url.origin,'https://connect.squareupsandbox.com');
  assert.equal(url.pathname,'/oauth2/authorize');
  assert.equal(url.searchParams.get('session'),'false');
- assert.equal(url.searchParams.get('scope'),'MERCHANT_PROFILE_READ');
+ assert.equal(url.searchParams.get('scope'),'MERCHANT_PROFILE_READ ITEMS_READ ORDERS_READ ORDERS_WRITE PAYMENTS_READ PAYMENTS_WRITE');
  assert.equal(url.searchParams.get('state'),'state-secret');
  assert.equal(url.searchParams.get('redirect_uri'),'https://example.com/api/account/square/callback');
  assert.equal(new URL(authorizationUrl({...env,SQUARE_ENVIRONMENT:'production'},'state')).origin,'https://connect.squareup.com');
@@ -66,4 +67,25 @@ test('webhook verification signs exact configured URL and unmodified body', asyn
  assert.equal(await verifyWebhook(env,body,'bad'),false);
  assert.equal(await verifyWebhook(env,body,null),false);
  await assert.rejects(()=>verifyWebhook({...env,SQUARE_WEBHOOK_SIGNATURE_KEY:''},body,signature),{code:'configuration_unavailable'});
+});
+
+test('token introspection verifies the actual grant and merchant/app identity',async()=>{
+ const status=await square.retrieveTokenStatus(env,'private-token','merchant-123',async(url,options)=>{
+  assert.equal(url,'https://connect.squareupsandbox.com/oauth2/token/status');assert.equal(options.method,'POST');assert.equal(options.redirect,'manual');assert.equal(options.headers.Authorization,'Bearer private-token');
+  return json({client_id:'app-id',merchant_id:'merchant-123',scopes:['MERCHANT_PROFILE_READ']});
+ });
+ assert.equal(status.capabilities.menu,false);assert.equal(status.capabilities.checkout,false);assert.ok(status.missing.includes('ITEMS_READ'));
+ assert.ok(!JSON.stringify(status).includes('private-token'));
+ const granted=await square.retrieveTokenStatus(env,'token','merchant-123',async()=>json({client_id:'app-id',merchant_id:'merchant-123',scopes:['MERCHANT_PROFILE_READ','ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_READ','PAYMENTS_WRITE']}));
+ assert.deepEqual(granted.missing,[]);assert.equal(granted.capabilities.checkout,true);
+});
+test('introspection rejects another application, merchant and malformed scopes',async()=>{
+ for(const patch of [{client_id:'another-app'},{merchant_id:'other-merchant'},{scopes:'ITEMS_READ'},{scopes:[null]}]){
+  await assert.rejects(()=>square.retrieveTokenStatus(env,'token','merchant-123',async()=>json({client_id:'app-id',merchant_id:'merchant-123',scopes:[],...patch})),{code:'square_unavailable'});
+ }
+});
+
+test('catalog-backed checkout readiness requires menu permission too',async()=>{
+ const result=await square.retrieveTokenStatus(env,'token','merchant-123',async()=>json({client_id:'app-id',merchant_id:'merchant-123',scopes:['MERCHANT_PROFILE_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_READ','PAYMENTS_WRITE']}));
+ assert.equal(result.capabilities.checkout,false);
 });

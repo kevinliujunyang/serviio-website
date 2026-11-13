@@ -9,8 +9,8 @@
 <title>您的餐厅账户 | Serviio</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
 <link rel="stylesheet" href="/assets/css/styles.css">
-<link rel="stylesheet" href="/assets/css/account.css?v=20261113-3">
-<script src="/assets/js/account.js?v=20261113-3" defer></script>
+<link rel="stylesheet" href="/assets/css/account.css?v=20261113-4">
+<script src="/assets/js/account.js?v=20261113-4" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳至正文</a>
@@ -26,7 +26,7 @@
 <ol class="steps" aria-label="设置步骤">
 <li><span class="step-number">01</span><div><h2>使用邮箱登录</h2><p>无需记住密码，通过安全链接即可登录。</p></div></li>
 <li><span class="step-number">02</span><div><h2>填写餐厅资料</h2><p>填写餐厅名称和联系方式。</p></div></li>
-<li><span class="step-number">03</span><div><h2>连接 Square 门店</h2><p>授权只读访问，然后选择您的门店。</p></div></li>
+<li><span class="step-number">03</span><div><h2>连接 Square 门店</h2><p>授权菜单、订单和结账访问，然后选择您的门店。</p></div></li>
 </ol>
 <div class="help-note"><p>设置过程中需要帮助？</p><a href="mailto:info@serviio.ai">info@serviio.ai <span aria-hidden="true">↗</span></a></div>
 </aside>
@@ -55,13 +55,14 @@
 <button id="save-profile" aria-live="polite" class="primary" type="submit">保存餐厅资料</button></form></section>
 <section class="card" aria-labelledby="square-heading"><div class="section-heading"><span class="section-number">02</span><h2 id="square-heading">Square 连接</h2></div>
 <p id="connection-status" class="status-badge"></p><p id="connection-details"></p><p id="connection-dates" class="fine-print"></p>
-<div class="permission-note"><h3>您将授予的权限</h3><p>Serviio 申请只读访问您的 Square 商家资料和门店（MERCHANT_PROFILE_READ），以便您选择正确的餐厅门店。登录和授权均由 Square 处理。</p><p>此步骤不会申请支付或写入订单的权限。您可以在下方断开连接。</p></div>
-<p class="fine-print">连接不会自动开通语音点餐、支付、厨房打印或订单提交，还需要与 Serviio 完成后续设置。</p>
+<div class="permission-note"><h3>您将授权哪些访问</h3><p>Serviio 请求访问您的商家资料和门店、菜单项目和价格、订单及支付信息，以支持订单提交、Square 托管结账及支付状态查询。登录和授权由 Square 处理。</p><p>这些权限允许创建订单及支付。顾客在 Square 托管的结账页面填写支付资料。您可以在下方断开连接。</p></div>
+<p class="fine-print">仅连接账户不会自动提交订单或扣款。语音点餐和厨房流程需要单独设置。</p>
 <button id="connect-square" class="primary" type="button">连接 Square</button>
 <p id="square-notice" class="fine-print" role="status" hidden></p>
 <p class="fine-print">请先保存上方餐厅资料以启用此步骤。随后将跳转至 Square 授权页面。</p>
 <div id="locations-panel" class="location-section" hidden><h3>选择餐厅门店</h3><p id="selected-location"></p><p id="location-loading" class="fine-print" role="status"></p>
 <form id="location-form"><div class="field"><label for="location">Square 门店</label><select id="location" name="location" required></select></div><button id="save-location" class="primary" type="submit">保存门店</button></form><button id="refresh-locations" class="text-button" type="button">刷新门店</button></div>
+<section id="access-panel" class="location-section" hidden><h3>菜单、订单和结账访问</h3><p id="access-status" role="status"></p><ul><li id="menu-access"></li><li id="orders-access"></li><li id="payments-access"></li></ul><button id="refresh-permissions" class="secondary" type="button">验证 API 权限</button><h3>Square 菜单</h3><p class="fine-print">读取已保存门店的菜单，不会创建订单或支付。</p><button id="load-menu" class="secondary" type="button" disabled>加载菜单</button><p id="menu-status" role="status"></p><ul id="menu-items"></ul><button id="more-menu" class="text-button" type="button" hidden>加载更多菜单项目</button></section>
 <button id="disconnect-square" class="text-button danger" type="button" hidden>断开 Square 连接</button>
 <div id="disconnect-confirm" class="disconnect-confirm" hidden><h3>确定断开 Square 连接？</h3><p>Serviio 将撤销此连接并移除保存的授权凭据。您可以稍后重新连接。</p><div class="button-row"><button id="confirm-disconnect" class="secondary danger" type="button">确认断开</button><button id="cancel-disconnect" class="secondary" type="button">保留连接</button></div></div>
 </section></div>

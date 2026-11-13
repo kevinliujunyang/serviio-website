@@ -11,10 +11,16 @@ async function fixture(email = 'owner@example.test', shared) {
   const store = new Store(env.ACCOUNT_DB); const rawSession = randomToken();
   const account = await store.createSession(email, await hashToken(rawSession), now + 7 * 86400000, now);
   await store.saveRestaurant(account.id, 'Example Restaurant', 'Owner', '+1 408 555 0100', now);
-  const calls = []; let mode = 'healthy'; let merchant = 'merchant-1'; let tokenGate; let revokeGate;
+  const calls = []; let mode = 'healthy'; let scopes = ['MERCHANT_PROFILE_READ']; let merchant = 'merchant-1'; let tokenGate; let revokeGate; let catalogGate; let checkoutGate; let checkoutStarted;
   const tokens = () => ({ merchant_id: merchant, access_token: 'private-access', refresh_token: 'private-refresh', expires_at: new Date(now + 30 * 86400000).toISOString() });
   const fetcher = async (url, options) => {
     calls.push({ url, options });
+    if (url.includes('/v2/catalog/list?')) { if (catalogGate) await catalogGate; return Response.json({objects:[{id:'ITEM1',type:'ITEM',item_data:{name:'Noodles',variations:[{id:'VAR1',type:'ITEM_VARIATION',item_variation_data:{item_id:'ITEM1',name:'Regular',pricing_type:'FIXED_PRICING',price_money:{amount:1250,currency:'USD'}}}]}}]}); }
+    if (url.endsWith('/v2/orders/calculate')) return Response.json({order:{location_id:'location-1',total_money:{amount:1250,currency:'USD'}}});
+    if (url.endsWith('/v2/online-checkout/payment-links')) { checkoutStarted?.(); if (checkoutGate) await checkoutGate; return Response.json({payment_link:{id:'LINK1',order_id:'ORDER1',url:'https://square.link/u/test'}}); }
+    if (url.includes('/v2/orders/')) return Response.json({order:{id:'ORDER1',location_id:mode==='foreign-location'?'other-location':'location-1'}});
+    if (url.includes('/v2/payments/')) return Response.json({payment:{id:'PAY1',location_id:mode==='foreign-location'?'other-location':'location-1',status:'COMPLETED'}});
+    if (url.endsWith('/oauth2/token/status')) return Response.json({client_id:env.SQUARE_APP_ID,merchant_id:merchant,scopes});
     if (url.endsWith('/oauth2/token')) { if (tokenGate) await tokenGate; return Response.json(tokens()); }
     if (url.endsWith('/oauth2/revoke')) { if (revokeGate) await revokeGate; return Response.json(mode === 'revoke-failed' ? { success: false } : { success: true }); }
     if (mode === 'revoked') return Response.json({ errors: [{ code: 'ACCESS_TOKEN_REVOKED', detail: 'secret-provider-detail' }] }, { status: 401 });
@@ -31,11 +37,11 @@ async function fixture(email = 'owner@example.test', shared) {
     const result = await request(`square/callback?state=${state}&code=synthetic-code`);
     return { state, result, authorize };
   }
-  return { env, account, store, calls, request, connect, setMode(value) { mode = value; }, setMerchant(value) { merchant = value; }, setGates(token, revoke) { tokenGate = token; revokeGate = revoke; } };
+  return { env, account, store, calls, request, connect, setMode(value) { mode = value; }, setScopes(value) { scopes = value; }, setMerchant(value) { merchant = value; }, setGates(token, revoke) { tokenGate = token; revokeGate = revoke; }, setCatalogGate(value) { catalogGate=value; }, setCheckoutGate(value,onStart) { checkoutGate=value;checkoutStarted=onStart; } };
 }
 test('complete OAuth, active location selection and confirmed revocation work without leaking tokens', async () => {
   const f = await fixture(); const { authorize, result, state } = await f.connect();
-  assert.equal(authorize.searchParams.get('scope'), 'MERCHANT_PROFILE_READ');
+  assert.equal(authorize.searchParams.get('scope'), 'MERCHANT_PROFILE_READ ITEMS_READ ORDERS_READ ORDERS_WRITE PAYMENTS_READ PAYMENTS_WRITE');
   assert.equal(authorize.searchParams.get('session'), 'false');
   assert.match(result.headers.get('Location'), /square=connected$/);
   const stored = await f.store.connection(f.account.id);
@@ -162,4 +168,53 @@ test('account readiness reports missing Square setup without exposing credential
  const response=await f.request('me');assert.equal(response.status,200);
  const body=await response.json();assert.equal(body.square_configured,false);assert.equal(f.calls.length,0);
  assert.ok(!JSON.stringify(body).includes('private-app-secret'));
+});
+
+test('permission verification reports legacy grants honestly and isolates account access',async()=>{
+ const f=await fixture();await f.connect();
+ assert.equal((await f.request('square/permissions',undefined,'')).status,401);
+ const old=await f.request('square/permissions');assert.equal(old.status,200);const limited=await old.json();
+ assert.equal(limited.capabilities.menu,false);assert.ok(limited.missing.includes('ORDERS_WRITE'));
+ f.setScopes(['MERCHANT_PROFILE_READ','ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_READ','PAYMENTS_WRITE']);
+ const expanded=await (await f.request('square/permissions')).json();assert.deepEqual(expanded.missing,[]);assert.equal(expanded.capabilities.checkout,true);
+ assert.ok(!JSON.stringify(expanded).includes('private-access'));
+});
+
+const allCommerceScopes=['MERCHANT_PROFILE_READ','ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_READ','PAYMENTS_WRITE'];
+const checkoutInput={idempotency_key:'owner-intent-000001',line_items:[{catalog_object_id:'VAR1',quantity:1}],buyer:{name:'Test Buyer',phone:'+14085550100'}};
+test('commerce APIs require a saved active location and actual granted permissions before provider mutation',async()=>{
+ const f=await fixture();await f.connect();f.setScopes(allCommerceScopes);
+ assert.equal((await f.request('square/menu')).status,400);
+ await f.request('square/location',{location_id:'location-1'});
+ f.setScopes(['MERCHANT_PROFILE_READ']);
+ assert.equal((await f.request('square/menu')).status,409);
+ assert.equal((await f.request('square/checkout',checkoutInput)).status,409);
+ assert.equal(f.calls.some(call=>call.url.endsWith('/v2/online-checkout/payment-links')),false);
+});
+test('catalog, quote, checkout and readback stay bound to the authenticated saved location',async()=>{
+ const f=await fixture();await f.connect();f.setScopes(allCommerceScopes);await f.request('square/location',{location_id:'location-1'});
+ assert.equal((await f.request('square/menu')).status,200);
+ assert.equal((await f.request('square/quote',checkoutInput)).status,200);
+ assert.equal((await f.request('square/checkout',{...checkoutInput,location_id:'other'})).status,400);
+ const response=await f.request('square/checkout',checkoutInput);assert.equal(response.status,200);assert.equal((await response.json()).url,'https://square.link/u/test');
+ const sent=JSON.parse(f.calls.find(call=>call.url.endsWith('/v2/online-checkout/payment-links')).options.body);
+ assert.equal(sent.order.location_id,'location-1');assert.equal(sent.idempotency_key,checkoutInput.idempotency_key);assert.equal(sent.order.line_items[0].base_price_money,undefined);
+ assert.equal((await f.request('square/order?id=ORDER1')).status,200);assert.equal((await f.request('square/payment?id=PAY1')).status,200);
+ f.setMode('foreign-location');assert.equal((await f.request('square/order?id=ORDER1')).status,400);assert.equal((await f.request('square/payment?id=PAY1')).status,400);
+ assert.equal((await f.request('square/checkout',checkoutInput,'')).status,401);
+});
+
+test('checkout refuses to submit after logout during catalog validation',async()=>{
+ const f=await fixture();await f.connect();f.setScopes(allCommerceScopes);await f.request('square/location',{location_id:'location-1'});
+ let release;f.setCatalogGate(new Promise(resolve=>{release=resolve;}));
+ const pending=f.request('square/checkout',checkoutInput);await new Promise(resolve=>setImmediate(resolve));
+ await f.request('logout',{});release();
+ assert.equal((await pending).status,409);assert.equal(f.calls.some(call=>call.url.endsWith('/v2/online-checkout/payment-links')),false);
+});
+test('in-flight checkout blocks disconnect and releases its lease after receipt',async()=>{
+ const f=await fixture();await f.connect();f.setScopes(allCommerceScopes);await f.request('square/location',{location_id:'location-1'});
+ let release,started;const start=new Promise(resolve=>{started=resolve;});f.setCheckoutGate(new Promise(resolve=>{release=resolve;}),started);
+ const pending=f.request('square/checkout',checkoutInput);await start;
+ try { assert.equal((await f.request('square/disconnect',{})).status,409);assert.equal((await f.request('square/location',{location_id:'location-1'})).status,409); } finally { release(); }
+ assert.equal((await pending).status,200);assert.equal((await f.request('square/disconnect',{})).status,200);
 });

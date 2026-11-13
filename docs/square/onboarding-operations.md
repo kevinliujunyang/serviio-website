@@ -91,3 +91,7 @@ Provider documentation was reviewed; this does not establish that this Cloudflar
 - https://developers.cloudflare.com/email-service/platform/pricing/
 
 Production D1 activation progress is recorded separately in `service-activation-2026-11-13.md`. Email sign-in remains unqualified until provider configuration and a real authorized mailbox test complete.
+
+## Website commerce API phase
+
+The location-only capability descriptions in the initial onboarding record are historical. Current website permissions, menu preview, authenticated order/hosted-checkout APIs, limitations and qualification boundaries are specified in [commerce-api.md](commerce-api.md). Existing owners must reconnect and approve the expanded request; verify actual scopes rather than treating connection status as permission evidence. Do not claim live ordering/payment completion from offline tests.

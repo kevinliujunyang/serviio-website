@@ -5,6 +5,11 @@
   const el = id => document.getElementById(id);
   let session = null;
   let profileSaving = false;
+  let menuCursor = '';
+  let menuCount = 0;
+  let menuGeneration = 0;
+  let accessGeneration = 0;
+  let menuBusy = 0;
   let pendingToken = new URLSearchParams(location.hash.slice(1)).get('token');
   // Remove the challenge before fetching or following any links. Landing never consumes it.
   if (location.hash) history.replaceState(null, '', location.pathname + location.search);
@@ -22,6 +27,9 @@
     invalid_location: t('This location is unavailable. Refresh the locations and choose an active location.', '该门店不可用。请刷新门店列表并选择营业中的门店。'),
     reconnect_required: t('Square access needs to be renewed. Reconnect your account.', '需要重新授权 Square，请重新连接账户。')
   };
+  messages.permissions_required = t('Reconnect Square and approve menu, order, and hosted-checkout access.', '请重新连接 Square 并授权菜单、订单和托管结账访问。');
+  messages.invalid_order = t('Check the catalog items, quantities, modifiers, and pickup details.', '请检查菜单项目、数量、选项和取餐信息。');
+  messages.unsupported_menu = t('This menu configuration needs additional setup before checkout.', '此菜单配置尚需额外设置才能结账。');
   messages.authentication_required = messages.unauthorized;
   messages.square_setup = t('Square connection is not available yet. Serviio must finish its Square setup.', 'Square 连接暂不可用，Serviio 尚需完成 Square 配置。');
   messages.configuration_unavailable = messages.unavailable;
@@ -42,12 +50,15 @@
   }
   function signedOut() {
     session = null;
+    accessGeneration++; resetMenu(); updateMenuButtons();
+    el('refresh-permissions').disabled = true;
     el('sign-in-panel').hidden = false;
     el('workspace').hidden = true;
     el('logout').hidden = true;
   }
   async function api(path, data) {
     let response;
+    const requestSession = session;
     try {
       response = await fetch('/api/account/' + path, {
         method: data === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store',
@@ -58,7 +69,7 @@
     let body;
     try { body = await response.json(); } catch { throw new Error(response.status === 503 ? messages.unavailable : fallback); }
     if (!response.ok) {
-      if (response.status === 401) signedOut();
+      if (response.status === 401 && session === requestSession) signedOut();
       if (path.startsWith('square/') && body.error === 'configuration_unavailable') throw new Error(messages.square_setup);
       throw new Error(messages[body.error] || (response.status === 503 ? messages.unavailable : fallback));
     }
@@ -72,10 +83,15 @@
     notice('');
     if (buttonId === 'connect-square') el('square-notice').hidden = true;
     try { await run(); } catch (error) {
-      if (buttonId === 'connect-square') { el('square-notice').textContent = error.message || fallback; el('square-notice').hidden = false; }
+      const target = { 'connect-square': 'square-notice', 'refresh-permissions': 'access-status', 'load-menu': 'menu-status', 'more-menu': 'menu-status' }[buttonId];
+      if (target) { el(target).textContent = error.message || fallback; el(target).hidden = false; }
       else notice(error.message || fallback, true);
     }
-    finally { button.disabled = false; button.setAttribute('aria-busy', 'false'); }
+    finally {
+      button.disabled = false; button.setAttribute('aria-busy', 'false');
+      if (['load-menu','more-menu'].includes(buttonId)) updateMenuButtons();
+      if (buttonId === 'refresh-permissions') button.disabled = session?.connection?.status !== 'connected';
+    }
   }
   function profileValues() {
     return { name: el('restaurant-name').value.trim(), contact_name: el('contact-name').value.trim(), phone: el('phone').value.trim() };
@@ -112,7 +128,7 @@
     el('connection-details').textContent = status === 'renewal_failed'
       ? t('We could not renew Square access. Reconnect to restore the connection.', '无法续期 Square 授权。请重新连接以恢复访问。')
       : status === 'reconnect_required' ? t('Square access has expired or was revoked. Authorize again to continue.', 'Square 授权已过期或被撤销，请重新授权。')
-      : t('Connecting Square does not activate voice ordering, payments, kitchen printing, or order submission.', '连接 Square 不会自动开通语音点餐、支付、厨房打印或订单提交。');
+      : t('API access lets Serviio work with Square. Connecting alone does not submit orders or charge payments.', 'API 授权允许 Serviio 连接 Square；仅连接账户不会自动提交订单或扣款。');
     const dates = [];
     for (const [key, label] of [['verified_at', t('Last checked', '最近验证')], ['renewed_at', t('Last renewed', '最近续期')]]) {
       if (connection?.[key]) {
@@ -122,8 +138,73 @@
     }
     el('connection-dates').textContent = dates.join(' · ');
     el('connect-square').disabled = !session?.restaurant || session?.square_configured === false;
+    renderAccess(null);
     el('square-notice').textContent = session?.square_configured === false ? messages.square_setup : '';
     el('square-notice').hidden = session?.square_configured !== false;
+  }
+  function updateMenuButtons() {
+    const allowed = session?.connection?.status === 'connected' && session.connection.location_id && session.square_access?.capabilities?.menu;
+    el('load-menu').disabled = menuBusy > 0 || !allowed;
+    el('more-menu').disabled = menuBusy > 0 || !allowed;
+  }
+  function resetMenu() {
+    menuGeneration++;
+    menuCursor = ''; menuCount = 0;
+    el('menu-items').replaceChildren(); el('more-menu').hidden = true;
+    el('menu-status').textContent = '';
+  }
+  function renderAccess(access) {
+    if (!access) accessGeneration++;
+    if (session) session.square_access = access;
+    const connected = session?.connection?.status === 'connected';
+    el('access-panel').hidden = !connected;
+    el('refresh-permissions').disabled = !connected;
+    updateMenuButtons();
+    for (const [id, capability, label] of [['menu-access','menu',t('Menu access', '菜单访问')], ['orders-access','orders',t('Order access', '订单访问')], ['payments-access','checkout',t('Hosted checkout access', '托管结账访问')]]) {
+      el(id).textContent = label + ': ' + (!access ? t('not checked', '尚未验证') : access.capabilities?.[capability] ? t('approved', '已授权') : t('approval needed', '需要授权'));
+    }
+    el('access-status').textContent = !access ? t('Check which API permissions Square has granted. Reconnect to approve any added permissions.', '请验证 Square 已授予的 API 权限；新增权限需要重新连接并批准。') : access.missing?.length ? t('Additional permissions are needed. Reconnect Square and approve access, then check again.', '需要额外权限。请重新连接 Square 并批准访问，然后再次验证。') : t('API permissions verified with Square. Voice ordering and live checkout still require their own setup and testing.', '已向 Square 验证 API 权限。语音点餐和实际结账仍需单独设置与测试。');
+    resetMenu();
+  }
+  async function loadPermissions() {
+    el('access-status').textContent = t('Checking permissions with Square…', '正在向 Square 验证权限…');
+    const requestedSession = session; const generation = ++accessGeneration;
+    try {
+      const data = await api('square/permissions');
+      if (session === requestedSession && generation === accessGeneration) renderAccess(data);
+    } catch (error) { if (session === requestedSession && generation === accessGeneration) throw error; }
+  }
+  async function loadMenu(append = false) {
+    if (!append) resetMenu();
+    el('menu-status').textContent = t('Loading menu from Square…', '正在从 Square 加载菜单…');
+    const requestedSession = session; const requestedLocation = session?.connection?.location_id;
+    const generation = menuGeneration; menuBusy++; updateMenuButtons();
+    try {
+    const data = await api('square/menu' + (append && menuCursor ? '?cursor=' + encodeURIComponent(menuCursor) : ''));
+    if (session !== requestedSession || generation !== menuGeneration || session?.connection?.location_id !== requestedLocation) return;
+    const items = (data.objects || []).filter(object => object.type === 'ITEM');
+    for (const object of items) {
+      const row = document.createElement('li');
+      const prices = (object.item_data?.variations || []).map(variation => {
+        const details = variation.item_variation_data || {};
+        const override = details.location_overrides?.find(location => location.location_id === requestedLocation);
+        const money = override?.price_money || details.price_money;
+        let amount = t('price varies', '价格另定');
+        if (money && Number.isSafeInteger(money.amount) && typeof money.currency === 'string') {
+          const formatter = new Intl.NumberFormat(zh ? 'zh-CN' : 'en-US', { style: 'currency', currency: money.currency });
+          amount = formatter.format(money.amount / (10 ** formatter.resolvedOptions().maximumFractionDigits));
+        }
+        return [details.name, amount, override?.sold_out ? t('sold out', '已售罄') : ''].filter(Boolean).join(' · ');
+      }).join('; ');
+      row.textContent = (object.item_data?.name || t('Unnamed item', '未命名菜品')) + (prices ? ' — ' + prices : '');
+      el('menu-items').append(row);
+    }
+    menuCount += items.length; menuCursor = data.cursor || '';
+    el('more-menu').hidden = !menuCursor;
+    el('menu-status').textContent = menuCount ? t(`${menuCount} menu item${menuCount === 1 ? '' : 's'} loaded from Square.`, `已从 Square 加载 ${menuCount} 个菜单项目。`) : t('No menu items were returned for this location.', '此门店未返回菜单项目。');
+    } catch (error) {
+      if (session === requestedSession && generation === menuGeneration && session?.connection?.location_id === requestedLocation) throw error;
+    } finally { menuBusy--; updateMenuButtons(); }
   }
   async function loadLocations() {
     el('location').disabled = true;
@@ -202,10 +283,14 @@
       if (!locationId) throw new Error(messages.invalid_location);
       await api('square/location', {location_id: locationId});
       session.connection.location_id = locationId;
+      renderAccess(session.square_access);
       el('selected-location').textContent = t('Selected location ID: ', '已选门店 ID：') + locationId;
       notice(t('Square location saved. Ordering is not activated.', 'Square 门店已保存，点餐服务尚未开通。'));
     });
   });
+  el('refresh-permissions').addEventListener('click', () => action('refresh-permissions', loadPermissions));
+  el('load-menu').addEventListener('click', () => action('load-menu', () => loadMenu()));
+  el('more-menu').addEventListener('click', () => action('more-menu', () => loadMenu(true)));
   el('refresh-locations').addEventListener('click', () => action('refresh-locations', loadLocations));
   el('disconnect-square').addEventListener('click', () => { el('disconnect-confirm').hidden = false; el('confirm-disconnect').focus(); });
   el('cancel-disconnect').addEventListener('click', () => { el('disconnect-confirm').hidden = true; el('disconnect-square').focus(); });

@@ -1,3 +1,4 @@
+export const SQUARE_SCOPES = Object.freeze(['MERCHANT_PROFILE_READ','ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_READ','PAYMENTS_WRITE']);
 const encoder = new TextEncoder();
 const BASES = { sandbox: 'https://connect.squareupsandbox.com', production: 'https://connect.squareup.com' };
 const ADDRESS_FIELDS = ['address_line_1', 'address_line_2', 'address_line_3', 'locality', 'sublocality', 'administrative_district_level_1', 'administrative_district_level_2', 'postal_code', 'country'];
@@ -36,7 +37,7 @@ export function authorizationUrl(env, state) {
   const options = config(env);
   if (typeof state !== 'string' || !state) throw failure();
   const url = new URL(`${options.base}/oauth2/authorize`);
-  url.search = new URLSearchParams({ client_id: options.client_id, scope: 'MERCHANT_PROFILE_READ', session: 'false', state, redirect_uri: options.redirect_uri });
+  url.search = new URLSearchParams({ client_id: options.client_id, scope: SQUARE_SCOPES.join(' '), session: 'false', state, redirect_uri: options.redirect_uri });
   return url.toString();
 }
 
@@ -51,11 +52,13 @@ async function request(options, path, body, authorization, fetcher) {
     if (!response.ok || (Array.isArray(data?.errors) && data.errors.length)) {
       const authCodes = new Set(['INVALID_GRANT', 'UNAUTHORIZED', 'ACCESS_TOKEN_EXPIRED', 'ACCESS_TOKEN_REVOKED', 'invalid_grant']);
       const reconnect = response.status === 401 || (Array.isArray(data?.errors) && data.errors.some(error => authCodes.has(error.code))) || authCodes.has(data?.error);
+      if (response.status === 403 && data.errors?.some(error => error.code === 'INSUFFICIENT_SCOPES' || error.code === 'FORBIDDEN')) throw Object.assign(new Error('Square permissions are required.'), { code: 'permissions_required', status: 409 });
       throw failure(reconnect ? 'square_reconnect_required' : 'square_unavailable');
     }
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw failure();
     return data;
   } catch (error) {
+    if (error?.code === 'permissions_required' || error?.code === 'connection_busy') throw error;
     if (error?.code === 'square_reconnect_required') throw failure(error.code);
     throw failure();
   } finally { clearTimeout(timer); }
@@ -101,4 +104,20 @@ export async function verifyWebhook(env, rawBody, signature) {
   const cryptoKey = await crypto.subtle.importKey('raw', encoder.encode(key), {name: 'HMAC', hash: 'SHA-256'}, false, ['verify']);
   const bytes = Uint8Array.from(atob(signature), char => char.charCodeAt(0));
   return crypto.subtle.verify('HMAC', cryptoKey, bytes, encoder.encode(env.SQUARE_WEBHOOK_URL + rawBody));
+}
+
+export async function squareRequest(env, path, body, accessToken, fetcher = fetch) {
+  if (typeof accessToken !== 'string' || !accessToken) throw failure('square_reconnect_required');
+  const options = config(env);
+  const target = new URL(options.base + path);
+  if (!path.startsWith('/') || target.origin !== options.base || target.hash || target.username || target.password) throw failure();
+  return request(options, path, body, `Bearer ${accessToken}`, fetcher);
+}
+
+export async function retrieveTokenStatus(env, accessToken, merchantId, fetcher = fetch) {
+  const data = await squareRequest(env, '/oauth2/token/status', {}, accessToken, fetcher);
+  if (data.client_id !== env.SQUARE_APP_ID || data.merchant_id !== merchantId || !Array.isArray(data.scopes) || data.scopes.length > 100 || data.scopes.some(scope => typeof scope !== 'string' || !/^[A-Z_]{1,100}$/.test(scope))) throw failure();
+  const scopes = SQUARE_SCOPES.filter(scope => data.scopes.includes(scope));
+  const has = (...required) => required.every(scope => scopes.includes(scope));
+  return { scopes, missing: SQUARE_SCOPES.filter(scope => !scopes.includes(scope)), capabilities: { menu: has('ITEMS_READ'), orders: has('ORDERS_READ','ORDERS_WRITE'), payments: has('PAYMENTS_READ','PAYMENTS_WRITE'), checkout: has('ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_WRITE') } };
 }

@@ -1,3 +1,5 @@
+> Capability update, 2026-11-13: the draft below describes the initial location-only release. The website commerce phase now requests menu, order and hosted-checkout permissions and implements server APIs and a read-only menu preview. See [commerce-api.md](commerce-api.md). Live transaction qualification and a revised Marketplace listing are required before submission; this historical draft must not be submitted unchanged.
+
 # Square App Partner application draft
 
 Prepared 2026-11-12. Internal preparation only. Nothing has been submitted or approved. Do not accept a partnership agreement or submit this draft without the owner's review and authorization.

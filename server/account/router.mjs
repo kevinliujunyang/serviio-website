@@ -1,13 +1,14 @@
+import { listMenu, calculateCheckout, createCheckout, getOrder, getPayment } from './commerce.mjs';
 import { Store } from './store.mjs';
 import { randomToken, hashToken, encrypt, decrypt, parseCookie, sessionCookie } from './security.mjs';
 import { emailConfigured, sendSignIn } from './email.mjs';
-import { authorizationUrl, exchangeCode, listLocations, revokeToken, verifyWebhook } from './square.mjs';
+import { authorizationUrl, retrieveTokenStatus, exchangeCode, listLocations, revokeToken, verifyWebhook } from './square.mjs';
 import { renewConnection } from './renewal.mjs';
 
 const DAY = 86400000;
-const POST_ROUTES = new Set(['sign-in','verify','logout','restaurant','square/connect','square/location','square/disconnect','square/webhook']);
-const GET_ROUTES = new Set(['me','square/locations','square/callback']);
-const PUBLIC_ERRORS = new Set(['configuration_unavailable','email_unavailable','rate_limited','invalid_email','invalid_link','invalid_request','invalid_restaurant','forbidden','authentication_required','square_unavailable','square_reconnect_required','merchant_already_connected','merchant_mismatch','connection_busy','invalid_location','restaurant_required','not_found','method_not_allowed','request_too_large','connection_required']);
+const POST_ROUTES = new Set(['sign-in','verify','logout','restaurant','square/connect','square/location','square/disconnect','square/webhook','square/quote','square/checkout']);
+const GET_ROUTES = new Set(['me','square/locations','square/callback','square/permissions','square/menu','square/order','square/payment']);
+const PUBLIC_ERRORS = new Set(['configuration_unavailable','email_unavailable','rate_limited','invalid_email','invalid_link','invalid_request','invalid_restaurant','forbidden','authentication_required','square_unavailable','square_reconnect_required','merchant_already_connected','merchant_mismatch','connection_busy','invalid_location','invalid_order','unsupported_menu','permissions_required','restaurant_required','not_found','method_not_allowed','request_too_large','connection_required']);
 function fail(code, status = 400) { throw Object.assign(new Error(code), { code, status }); }
 function reply(body, status = 200, headers = {}) {
   return Response.json(body, { status, headers: { 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff', ...headers } });
@@ -209,6 +210,37 @@ export async function handleAccount(request, env, options = {}) {
         if (!completed && !(await store.clearRevokedConnection(session.id, now))) fail('connection_busy', 409);
       } catch (error) { await store.failDisconnect(session.id, lease); throw error; }
       return reply({ ok: true });
+    }
+    if (['square/menu','square/quote','square/checkout','square/order','square/payment'].includes(route)) {
+      const body = request.method === 'POST' ? await readBody(request) : null;
+      const connection = await activeConnection(env, store, session.id, now, fetcher);
+      const tokens = JSON.parse(await decrypt(connection.token_cipher, env.TOKEN_ENCRYPTION_KEY));
+      const access = await retrieveTokenStatus(env, tokens.access_token, connection.merchant_id, fetcher);
+      const required = { 'square/menu':['ITEMS_READ'], 'square/quote':['ITEMS_READ'], 'square/checkout':['ITEMS_READ','ORDERS_READ','ORDERS_WRITE','PAYMENTS_WRITE'], 'square/order':['ORDERS_READ'], 'square/payment':['PAYMENTS_READ'] }[route];
+      if (required.some(scope => !access.scopes.includes(scope))) fail('permissions_required', 409);
+      const locations = await checkedLocations(env, store, connection, now, fetcher);
+      const locationId = connection.location_id;
+      if (!locationId || !locations.some(location => location.id === locationId && location.status === 'ACTIVE')) fail('invalid_location');
+      if (route === 'square/menu') return reply(await listMenu(env, tokens.access_token, locationId, url.searchParams.get('cursor') || '', fetcher));
+      if (route === 'square/quote') return reply(await calculateCheckout(env, tokens.access_token, locationId, body, fetcher));
+      if (route === 'square/order') return reply(await getOrder(env, tokens.access_token, locationId, url.searchParams.get('id'), fetcher));
+      if (route === 'square/payment') return reply(await getPayment(env, tokens.access_token, locationId, url.searchParams.get('id'), fetcher));
+      const lease = randomToken(); let claimed = false;
+      const checkoutFetcher = async (target, init) => {
+        if (new URL(target).pathname === '/v2/online-checkout/payment-links') {
+          const operationNow = options.now ?? Date.now();
+          if (!(await store.claimCheckout(session.id, connection.version, locationId, session.session_hash, lease, operationNow))) fail('connection_busy', 409);
+          claimed = true;
+        }
+        return fetcher(target, init);
+      };
+      try { return reply(await createCheckout(env, tokens.access_token, locationId, body, checkoutFetcher)); }
+      finally { if (claimed) await store.releaseCheckout(session.id, lease); }
+    }
+    if (route === 'square/permissions') {
+      const connection = await activeConnection(env, store, session.id, now, fetcher);
+      const tokens = JSON.parse(await decrypt(connection.token_cipher, env.TOKEN_ENCRYPTION_KEY));
+      return reply({ ...await retrieveTokenStatus(env, tokens.access_token, connection.merchant_id, fetcher), checked_at: now });
     }
     if (route === 'square/locations' || route === 'square/location') {
       const body = route === 'square/location' ? await readBody(request) : null;

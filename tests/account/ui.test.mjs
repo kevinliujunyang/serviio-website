@@ -43,7 +43,7 @@ test('Square redirect rejects an unrelated or non-HTTPS destination',async()=>{
  const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A',contact_name:'B',phone:'123'},connection:null}},{status:200,body:{url:'https://evil.example/oauth2/authorize'}}]});await ui.flush();await ui.click('connect-square');assert.deepEqual(ui.redirects,[]);assert.match(ui.element('square-notice').textContent,/try again/i);
 });
 for(const page of ['account/index.html','zh/account/index.html']) test(`${page} is private, accessible, and contains explicit scope and activation copy`,async()=>{
- const html=await readFile(new URL(`../../${page}`,import.meta.url),'utf8');assert.match(html,/name="robots" content="noindex, nofollow"/);assert.match(html,/name="referrer" content="no-referrer"/);assert.match(html,/role="status"/);assert.match(html,/for="email"/);assert.match(html,/noscript/);assert.match(html,/MERCHANT_PROFILE_READ/);assert.match(html,/account\.js/);
+ const html=await readFile(new URL(`../../${page}`,import.meta.url),'utf8');assert.match(html,/name="robots" content="noindex, nofollow"/);assert.match(html,/name="referrer" content="no-referrer"/);assert.match(html,/role="status"/);assert.match(html,/for="email"/);assert.match(html,/noscript/);assert.doesNotMatch(html,/requests read-only|does not request payment/);assert.match(html,/account\.js/);
 });
 test('successful email request never reveals whether an account exists',async()=>{
  const ui=setup({responses:[{status:401,body:{error:'authentication_required'}},{status:200,body:{ok:true}}]});await ui.flush();
@@ -115,4 +115,33 @@ test('missing Square setup is explained beside its disabled button without block
 test('Square configuration failure during connect has a specific nearby message',async()=>{
  const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:null}},{status:503,body:{error:'configuration_unavailable'}}]});await ui.flush();await ui.click('connect-square');
  assert.match(ui.element('square-notice').textContent,/Square.*setup/i);assert.doesNotMatch(ui.element('notice').textContent,/Account service is temporarily unavailable/);
+});
+
+test('actual Square grants show missing access and keep menu reading disabled',async()=>{
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:{status:'connected',location_id:'L1'}}},{status:200,body:{locations:[{id:'L1',name:'Main',status:'ACTIVE'}]}},{status:200,body:{scopes:['MERCHANT_PROFILE_READ'],missing:['ITEMS_READ','ORDERS_WRITE','PAYMENTS_WRITE'],capabilities:{menu:false,orders:false,payments:false,checkout:false}}}]});await ui.flush();await ui.flush();await ui.click('refresh-permissions');
+ assert.match(ui.element('access-status').textContent,/reconnect/i);assert.equal(ui.element('load-menu').disabled,true);
+ assert.equal(ui.element('menu-access').textContent,'Menu access: approval needed');
+});
+test('verified permissions enable safe paginated menu rendering for the saved location',async()=>{
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:{status:'connected',location_id:'L1'}}},{status:200,body:{locations:[{id:'L1',name:'Main',status:'ACTIVE'}]}},{status:200,body:{scopes:[],missing:[],capabilities:{menu:true,orders:true,payments:true,checkout:true}}},{status:200,body:{objects:[{id:'I1',type:'ITEM',item_data:{name:'<script>Dish</script>',variations:[{item_variation_data:{name:'Regular',price_money:{amount:1250,currency:'USD'}}}]}}],cursor:'next-page'}}]});await ui.flush();await ui.flush();await ui.click('refresh-permissions');
+ assert.equal(ui.element('load-menu').disabled,false);assert.match(ui.element('access-status').textContent,/verified/i);
+ await ui.click('load-menu');assert.match(ui.element('menu-items').children[0].textContent,/<script>Dish<\/script>/);assert.equal(ui.element('more-menu').hidden,false);
+ assert.match(ui.element('menu-status').textContent,/1 menu item/);
+});
+
+test('menu prices use the currency minor units rather than assuming cents',async()=>{
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:{status:'connected',location_id:'L1'}}},{status:200,body:{locations:[]}},{status:200,body:{missing:[],capabilities:{menu:true,orders:true,payments:true,checkout:true}}},{status:200,body:{objects:[{type:'ITEM',item_data:{name:'Dish',variations:[{item_variation_data:{price_money:{amount:1250,currency:'JPY'}}}]}}],cursor:''}}]});await ui.flush();await ui.flush();await ui.click('refresh-permissions');await ui.click('load-menu');
+ assert.match(ui.element('menu-items').children[0].textContent,/1,250/);
+});
+test('menu results from an earlier location cannot repopulate the new location',async()=>{
+ let finish;const pending=new Promise(resolve=>{finish=resolve;});
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:{status:'connected',location_id:'L1'}}},{status:200,body:{locations:[{id:'L1',status:'ACTIVE'},{id:'L2',status:'ACTIVE'}]}},{status:200,body:{missing:[],capabilities:{menu:true,orders:true,payments:true,checkout:true}}},pending,{status:200,body:{ok:true}}]});await ui.flush();await ui.flush();await ui.click('refresh-permissions');
+ const loading=ui.click('load-menu');ui.element('location').value='L2';await ui.submit('location-form');
+ finish({status:200,body:{objects:[{type:'ITEM',item_data:{name:'Old location dish'}}],cursor:'old-location-cursor'}});await loading;
+ assert.equal(ui.element('menu-items').children.length,0);assert.equal(ui.element('more-menu').hidden,true);assert.equal(ui.element('load-menu').disabled,false);
+});
+test('old menu errors after logout are discarded without reenabling menu access',async()=>{
+ let finish;const pending=new Promise(resolve=>{finish=resolve;});
+ const ui=setup({responses:[{status:200,body:{account:{email:'a@b.com'},restaurant:{name:'A'},connection:{status:'connected',location_id:'L1'}}},{status:200,body:{locations:[]}},{status:200,body:{missing:[],capabilities:{menu:true}}},pending,{status:200,body:{ok:true}}]});await ui.flush();await ui.flush();await ui.click('refresh-permissions');const loading=ui.click('load-menu');await ui.click('logout');
+ finish({status:503,body:{error:'square_unavailable'}});await loading;assert.equal(ui.element('workspace').hidden,true);assert.equal(ui.element('menu-status').textContent,'');assert.equal(ui.element('load-menu').disabled,true);
 });
