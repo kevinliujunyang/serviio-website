@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { emailConfigured, sendSignIn } from '../../server/account/email.mjs';
 const env = { EMAIL_ACCOUNT_ID: 'a'.repeat(32), EMAIL_API_TOKEN: 'private', EMAIL_FROM: 'accounts@example.test' };
@@ -93,4 +93,27 @@ test('Resend denied, rate-limited, redirected and aborted requests return safe e
       return true;
     });
   }
+});
+
+test('email failure diagnostics distinguish provider rejection without leaking secrets', async () => {
+  const warn = mock.method(console, 'warn', () => {});
+  try {
+    await assert.rejects(() => sendSignIn(resendEnv, recipient, signInLink, 'en', async () => Response.json({ name: 'invalid_api_key', message: resendEnv.RESEND_API_KEY + signInLink + recipient }, { status: 401 })), { code: 'email_unavailable' });
+    assert.equal(warn.mock.callCount(), 1);
+    assert.deepEqual(JSON.parse(warn.mock.calls[0].arguments[0]), { event: 'account_email_failure', provider: 'resend', stage: 'provider_response', status: 401, reason: 'invalid_api_key' });
+    const serialized = JSON.stringify(warn.mock.calls);
+    for (const secret of [resendEnv.RESEND_API_KEY, signInLink, recipient]) assert.ok(!serialized.includes(secret));
+  } finally { warn.mock.restore(); }
+});
+test('email diagnostics never log arbitrary response bodies or transport exception messages', async () => {
+  const warn = mock.method(console, 'warn', () => {});
+  try {
+    for (const fetcher of [async () => Response.json({ name: resendEnv.RESEND_API_KEY }, { status: 403 }), async () => { throw new Error(signInLink + recipient); }]) {
+      await assert.rejects(() => sendSignIn(resendEnv, recipient, signInLink, 'en', fetcher), { code: 'email_unavailable' });
+    }
+    assert.equal(warn.mock.callCount(), 2);
+    assert.equal(JSON.parse(warn.mock.calls[0].arguments[0]).reason, 'unspecified');
+    assert.equal(JSON.parse(warn.mock.calls[1].arguments[0]).stage, 'transport');
+    for (const secret of [resendEnv.RESEND_API_KEY, signInLink, recipient]) assert.ok(!JSON.stringify(warn.mock.calls).includes(secret));
+  } finally { warn.mock.restore(); }
 });
