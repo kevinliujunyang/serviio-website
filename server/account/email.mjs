@@ -18,7 +18,7 @@ export async function sendSignIn(env, to, link, locale, fetcher = fetch) {
   try {
     const url = resend ? 'https://api.resend.com/emails' : `https://api.cloudflare.com/client/v4/accounts/${env.EMAIL_ACCOUNT_ID}/email/sending/send`;
     const response = await fetcher(url, {
-      method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000),
+      method: 'POST', redirect: 'manual', signal: AbortSignal.timeout(10000),
       headers: { Authorization: `Bearer ${resend ? env.RESEND_API_KEY : env.EMAIL_API_TOKEN}`, 'Content-Type': 'application/json', ...(resend ? { 'User-Agent': 'Serviio-Accounts/1.0' } : {}) },
       body: JSON.stringify({ from: env.EMAIL_FROM, to, subject: zh ? '登录 Serviio' : 'Sign in to Serviio', text })
     });

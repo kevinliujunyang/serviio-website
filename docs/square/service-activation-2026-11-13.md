@@ -27,3 +27,9 @@ Production EMAIL_PROVIDER=resend and EMAIL_FROM=signin@auth.serviio.ai are saved
 Retried production commit 648816ea2201fc4fe2576e1e669f750b3681dc19 after saving configuration. Cloudflare reported deployment 215719be-6cc5-4d8a-ac82-7607d120bf26 successful in 36 seconds on 2026-11-13. Email delivery and end-to-end sign-in remain unverified pending an authorized recipient. Automatic approval review rejected the proposed POST to delivered@resend.dev because the recipient and test message were not explicitly authorized; that POST was not executed.
 
 Square authorization remains unconfigured and unverified. Database readiness alone does not establish working email sign-in or Square integration.
+
+## Sign-in runtime failure investigation
+
+Two approved diagnostic attempts returned HTTP 503 email_unavailable. After safe diagnostics were deployed as commit 98655ff, the live event classified the failure as transport, before any provider response; Resend had no matching logs. The provider adapters used redirect: error. Cloudflare documents this mode as unsupported and throwing during Request construction before a network request is sent: https://developers.cloudflare.com/workers/runtime-apis/request/.
+
+Reproduced the failure in local workerd via the installed Miniflare runtime with all outbound requests mocked. The same setting affected both email and Square adapters. Changed both to redirect: manual; existing non-success response checks reject redirects without forwarding credentials. New runtime regression tests verify accepted provider responses and refusal to follow a redirect for each adapter. All 75 account tests passed. Earlier Node-only fetch mocks incorrectly accepted the unsupported mode, so their passing results did not establish Cloudflare runtime compatibility. Live post-fix delivery remains pending.

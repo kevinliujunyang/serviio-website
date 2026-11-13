@@ -44,7 +44,7 @@ test('Resend sends the English template to the fixed API with server-only authen
   const result = await sendSignIn(resendEnv, recipient, signInLink, 'en', async (url, options) => {
     assert.equal(url, 'https://api.resend.com/emails');
     assert.equal(options.method, 'POST');
-    assert.equal(options.redirect, 'error');
+    assert.equal(options.redirect, 'manual');
     assert.ok(options.signal instanceof AbortSignal);
     assert.equal(options.headers.Authorization, `Bearer ${resendEnv.RESEND_API_KEY}`);
     assert.equal(options.headers['Content-Type'], 'application/json');

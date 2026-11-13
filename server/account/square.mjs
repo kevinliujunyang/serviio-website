@@ -46,7 +46,7 @@ async function request(options, path, body, authorization, fetcher) {
   try {
     const headers = { 'Square-Version': options.version, 'Content-Type': 'application/json' };
     if (authorization) headers.Authorization = authorization;
-    const response = await fetcher(`${options.base}${path}`, { method: body ? 'POST' : 'GET', headers, ...(body ? {body: JSON.stringify(body)} : {}), signal: controller.signal, redirect: 'error' });
+    const response = await fetcher(`${options.base}${path}`, { method: body ? 'POST' : 'GET', headers, ...(body ? {body: JSON.stringify(body)} : {}), signal: controller.signal, redirect: 'manual' });
     const data = await response.json();
     if (!response.ok || (Array.isArray(data?.errors) && data.errors.length)) {
       const authCodes = new Set(['INVALID_GRANT', 'UNAUTHORIZED', 'ACCESS_TOKEN_EXPIRED', 'ACCESS_TOKEN_REVOKED', 'invalid_grant']);
