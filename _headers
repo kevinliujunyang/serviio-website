@@ -14,3 +14,8 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
   Referrer-Policy: no-referrer
+
+/assets/js/account.js
+  Cache-Control: no-cache
+/assets/css/account.css
+  Cache-Control: no-cache
