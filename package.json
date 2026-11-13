@@ -4,7 +4,10 @@
   "description": "Serviio - AI Voice Agent for Restaurants",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
+    "build": "npm run build:pages",
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
+    "build:pages": "npm run build:css && node scripts/build-pages.mjs",
+    "test:account": "node --test tests/account/*.test.mjs",
     "validate:seo": "node scripts/validate-seo.js",
     "validate:seo:test": "node scripts/test-validate-seo.js",
     "smoke:http": "node scripts/http-smoke.js",
@@ -88,9 +91,12 @@
     "generate:city-pages": "node scripts/generate-service-area-city-pages.js",
     "generate:state-pages": "node scripts/generate-service-area-state-pages.js",
     "generate:service-area-pages": "node scripts/generate-service-area-pages.js",
-    "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
+    "watch": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch",
+    "db:account:local": "wrangler d1 execute ACCOUNT_DB --local --config config/account-local.example.json --file migrations/0001_accounts.sql --persist-to .wrangler/account-local",
+    "dev:account": "wrangler pages functions build functions --outdir .wrangler/account-worker && wrangler dev --local --config config/account-local.example.json --persist-to .wrangler/account-local --ip 127.0.0.1 --port 8788"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "wrangler": "^4.161.0"
   }
 }

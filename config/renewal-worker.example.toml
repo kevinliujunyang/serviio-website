@@ -1,0 +1,25 @@
+# Example only. Copy to an ignored local file and replace placeholders after authorization.
+name = "serviio-square-renewal-preview"
+main = "../workers/square-renewal.mjs"
+compatibility_date = "2026-11-12"
+workers_dev = false
+
+[triggers]
+crons = ["17 9 * * *"] # Daily, UTC. This is not a Pages cron.
+
+[[d1_databases]]
+binding = "ACCOUNT_DB"
+database_name = "REPLACE_WITH_PREVIEW_DATABASE_NAME"
+database_id = "REPLACE_WITH_PREVIEW_DATABASE_ID"
+migrations_dir = "../migrations"
+
+[vars]
+APP_ORIGIN = "https://preview.example.invalid"
+SQUARE_ENVIRONMENT = "sandbox"
+SQUARE_APP_ID = "REPLACE_WITH_SANDBOX_APPLICATION_ID"
+SQUARE_API_VERSION = "REPLACE_WITH_VERIFIED_YYYY-MM-DD_VERSION"
+
+# Set via a secret mechanism, never in this file:
+# SQUARE_APP_SECRET, TOKEN_ENCRYPTION_KEY
+# Use the SAME environment database and encryption key as Pages.
+# No email credentials or public HTTP route are needed for scheduled renewal.

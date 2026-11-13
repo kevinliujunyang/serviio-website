@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#4f46e5">
+<title>Your restaurant account | Serviio</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/account.css">
+<script src="/assets/js/account.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="account-header"><div class="header-inner">
+<a href="/" class="brand" aria-label="Serviio home"><img src="/assets/logo.svg" width="128" height="32" alt="Serviio"></a>
+<nav aria-label="Account navigation"><a href="/">Back to website</a><a href="/zh/account/" hreflang="zh" lang="zh-CN">中文</a><button id="logout" class="text-button" type="button" hidden>Sign out</button></nav>
+</div></header>
+<main id="main" class="account-layout">
+<aside class="account-intro">
+<p class="eyebrow">FOR RESTAURANT OWNERS</p>
+<h1>Your restaurant account</h1>
+<p class="intro-copy">One place for your restaurant details and your Square connection.</p>
+<ol class="steps" aria-label="Setup steps">
+<li><span class="step-number">01</span><div><h2>Sign in with email</h2><p>No password to remember. A secure link gets you in.</p></div></li>
+<li><span class="step-number">02</span><div><h2>Add your restaurant</h2><p>Tell us your restaurant name and how to reach you.</p></div></li>
+<li><span class="step-number">03</span><div><h2>Connect your Square location</h2><p>Authorize read-only access, then choose your location.</p></div></li>
+</ol>
+<div class="help-note"><p>Need a hand with setup?</p><a href="mailto:info@serviio.ai">info@serviio.ai <span aria-hidden="true">↗</span></a></div>
+</aside>
+<div class="account-content">
+<noscript><div class="notice">JavaScript is required for secure sign-in and Square connection management. Enable JavaScript or contact info@serviio.ai.</div></noscript>
+<div id="notice" class="notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+<p id="loading" class="loading" role="status">Checking your account…</p>
+<section id="confirm-panel" class="card" aria-labelledby="confirm-heading" hidden>
+<p class="eyebrow">EMAIL SIGN-IN</p><h2 id="confirm-heading">Confirm your sign-in</h2>
+<p>Continue to sign in to Serviio with the link from your email. This link expires in 15 minutes and can only be used once.</p>
+<button id="confirm-sign-in" type="button" class="primary">Confirm and sign in</button>
+<p class="fine-print">Only continue if you requested this link.</p>
+</section>
+<section id="sign-in-panel" class="card" aria-labelledby="sign-in-heading" hidden>
+<p class="eyebrow">WELCOME TO SERVIIO</p><h2 id="sign-in-heading">Sign in or create an account</h2>
+<p>Enter your email and we will send a sign-in link. Your first verified sign-in creates your account.</p>
+<form id="sign-in-form"><div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div><button id="sign-in-button" class="primary" type="submit">Email me a sign-in link</button></form>
+<p class="fine-print">The link expires in 15 minutes. Check your spam folder if it does not arrive.</p>
+</section>
+<div id="workspace" hidden>
+<div class="signed-in"><span>Signed in as</span><strong id="account-email"></strong></div>
+<section class="card" aria-labelledby="profile-heading"><div class="section-heading"><span class="section-number">01</span><h2 id="profile-heading">Restaurant details</h2></div>
+<p>Save your details before connecting Square. You can update them here at any time.</p>
+<form id="profile-form"><div class="field"><label for="restaurant-name">Restaurant name</label><input id="restaurant-name" name="restaurant-name" type="text" autocomplete="organization" maxlength="160" required></div>
+<div class="field-row"><div class="field"><label for="contact-name">Contact name</label><input id="contact-name" name="contact-name" type="text" autocomplete="name" maxlength="160" required></div><div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required></div></div>
+<button id="save-profile" class="primary" type="submit">Save restaurant details</button></form></section>
+<section class="card" aria-labelledby="square-heading"><div class="section-heading"><span class="section-number">02</span><h2 id="square-heading">Square connection</h2></div>
+<p id="connection-status" class="status-badge"></p><p id="connection-details"></p><p id="connection-dates" class="fine-print"></p>
+<div class="permission-note"><h3>What you are authorizing</h3><p>Serviio requests read-only access to your Square business profile and locations (MERCHANT_PROFILE_READ), so you can select the right restaurant location. Square handles your login and authorization.</p><p>This step does not request payment or order-writing access. You can disconnect below.</p></div>
+<p class="fine-print">Connecting does not activate voice ordering, payments, kitchen printing, or order submission. Further setup with Serviio is required.</p>
+<button id="connect-square" class="primary" type="button">Connect Square</button>
+<p class="fine-print">Save your restaurant details above to enable this step. You will continue on Square to authorize access.</p>
+<div id="locations-panel" class="location-section" hidden><h3>Choose your restaurant location</h3><p id="selected-location"></p><p id="location-loading" class="fine-print" role="status"></p>
+<form id="location-form"><div class="field"><label for="location">Square location</label><select id="location" name="location" required></select></div><button id="save-location" class="primary" type="submit">Save location</button></form><button id="refresh-locations" class="text-button" type="button">Refresh locations</button></div>
+<button id="disconnect-square" class="text-button danger" type="button" hidden>Disconnect Square</button>
+<div id="disconnect-confirm" class="disconnect-confirm" hidden><h3>Disconnect Square?</h3><p>Serviio will revoke this connection and remove its stored credentials. You can reconnect later.</p><div class="button-row"><button id="confirm-disconnect" class="secondary danger" type="button">Yes, disconnect</button><button id="cancel-disconnect" class="secondary" type="button">Keep connection</button></div></div>
+</section></div>
+<div class="account-footer"><button id="retry-account" class="text-button" type="button">Refresh account</button><a href="mailto:info@serviio.ai">Contact support</a></div>
+</div></main>
+<footer class="page-footer">© 2026 Serviio · Restaurant account</footer>
+</body></html>

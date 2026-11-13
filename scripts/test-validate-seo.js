@@ -1,6 +1,22 @@
 const assert = require('assert');
 const fs = require('fs');
-const { runValidation, validateSitemap } = require('./validate-seo');
+const path = require('path');
+const os = require('os');
+const { runValidation, validateSitemap, walkHtmlPages } = require('./validate-seo');
+
+const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'serviio-seo-'));
+try {
+  for (const file of ['index.html', 'account/index.html', 'zh/account/index.html', 'ordinary/index.html', 'account/help/index.html', 'public-dist/index.html', 'docs/index.html', 'server/index.html', 'tests/index.html', 'config/index.html', 'migrations/index.html', 'workers/index.html', '.wrangler/index.html']) {
+    fs.mkdirSync(path.dirname(path.join(fixtureRoot, file)), { recursive: true });
+    fs.writeFileSync(path.join(fixtureRoot, file), '<meta name="robots" content="noindex, nofollow">');
+  }
+  const discovered = () => walkHtmlPages(fixtureRoot).map(file => path.relative(fixtureRoot, file).split(path.sep).join('/'));
+  assert.deepStrictEqual(discovered(), ['account/help/index.html', 'index.html', 'ordinary/index.html']);
+  fs.writeFileSync(path.join(fixtureRoot, 'account/index.html'), '<title>Indexable account page</title>');
+  assert.ok(discovered().includes('account/index.html'), 'account without explicit noindex must still be validated');
+} finally {
+  fs.rmSync(fixtureRoot, { recursive: true, force: true });
+}
 
 assert.strictEqual(typeof validateSitemap, 'function');
 
@@ -26,6 +42,10 @@ trailing garbage`;
   assert.ok(
     result.errors.some((error) => /trailing content after closing urlset/.test(error)),
     `expected trailing sitemap content error, got: ${result.errors.join('; ')}`
+  );
+  assert.ok(
+    validateSitemap(['index.html', 'ordinary/index.html']).errors.some(error => error === 'sitemap: missing https://serviio.ai/ordinary/'),
+    'ordinary pages must still require sitemap coverage'
   );
 } finally {
   fs.readFileSync = originalReadFileSync;

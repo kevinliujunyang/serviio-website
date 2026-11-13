@@ -1,0 +1,8 @@
+{
+  "name": "serviio-account-local",
+  "main": "../.wrangler/account-worker/index.js",
+  "compatibility_date": "2026-11-12",
+  "assets": { "directory": "../public-dist", "binding": "ASSETS", "run_worker_first": true },
+  "vars": { "APP_ORIGIN": "http://127.0.0.1:8788" },
+  "d1_databases": [{ "binding": "ACCOUNT_DB", "database_name": "serviio-account-local", "database_id": "00000000-0000-0000-0000-000000000000" }]
+}

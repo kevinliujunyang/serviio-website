@@ -2,7 +2,7 @@
 
 Date: 2026-11-12
 Repository: /Users/kevin/Downloads/Serviio/serviio-website
-Status: Product flow approved in conversation. Written design ready for review.
+Status: Approved in conversation and implemented locally. External service setup and qualification remain pending.
 
 ## Objective and approved scope
 

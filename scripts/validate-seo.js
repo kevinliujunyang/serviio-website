@@ -47,16 +47,34 @@ const REQUIRED_ORGANIZATION_TOPICS = [
   'Mealkeyway POS',
 ];
 
-function walkHtmlPages(dir = '.') {
+const NONPUBLIC_DIRECTORIES = new Set([
+  'node_modules', 'public-dist', 'server', 'workers', 'functions', 'migrations',
+  'tests', 'docs', 'config', 'scripts', 'src', 'secrets', 'secret-exports',
+  'screenshots', 'test-results', 'playwright-report',
+]);
+const NOINDEX_ACCOUNT_PAGES = new Set(['account/index.html', 'zh/account/index.html']);
+
+function isNoindexAccountPage(file, relativePath) {
+  if (!NOINDEX_ACCOUNT_PAGES.has(relativePath)) return false;
+  const html = fs.readFileSync(file, 'utf8');
+  return (html.match(/<meta\b[^>]*>/gi) || []).some(tag => {
+    const name = tag.match(/\bname\s*=\s*["']([^"']+)["']/i)?.[1];
+    const content = tag.match(/\bcontent\s*=\s*["']([^"']+)["']/i)?.[1];
+    return name?.toLowerCase() === 'robots' && /(?:^|[\s,])noindex(?:$|[\s,])/i.test(content || '');
+  });
+}
+
+function walkHtmlPages(dir = '.', root = dir) {
   const pages = [];
   for (const name of fs.readdirSync(dir)) {
-    if (name === 'node_modules' || name === '.git') continue;
+    if (name.startsWith('.') || NONPUBLIC_DIRECTORIES.has(name)) continue;
     const filePath = path.join(dir, name);
     const stat = fs.statSync(filePath);
     if (stat.isDirectory()) {
-      pages.push(...walkHtmlPages(filePath));
+      pages.push(...walkHtmlPages(filePath, root));
     } else if (name === 'index.html') {
-      pages.push(filePath.replace(/^\.\//, ''));
+      const relativePath = path.relative(root, filePath).split(path.sep).join('/');
+      if (!isNoindexAccountPage(filePath, relativePath)) pages.push(filePath.replace(/^\.\//, ''));
     }
   }
   return pages.sort();
@@ -1682,6 +1700,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  walkHtmlPages,
   runValidation,
   validateSitemap,
 };

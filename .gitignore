@@ -8,3 +8,23 @@ node_modules/
 lead-tokens.csv
 links.txt
 recipients.csv
+
+# Account credentials, local databases, and generated output
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.pem
+*.key
+secrets/
+secret-exports/
+test-results/
+playwright-report/
+screenshots/
+public-dist/
+config/*.local.toml
+config/*.local.json
