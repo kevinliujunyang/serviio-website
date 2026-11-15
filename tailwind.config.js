@@ -1,8 +1,19 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
+const sitemap = fs.readFileSync(path.join(__dirname, 'sitemap.xml'), 'utf8');
+const publicPages = [...sitemap.matchAll(/<loc>\s*([^<]+)\s*<\/loc>/g)].map(([, loc]) => {
+  const pathname = new URL(loc.trim()).pathname;
+  return '.' + pathname + (pathname.endsWith('/') ? 'index.html' : '');
+});
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./index.html",
-    "./zh/index.html"
+    ...publicPages,
+    "./interested.html",
+    "./account/index.html",
+    "./zh/account/index.html"
   ],
   theme: {
     extend: {

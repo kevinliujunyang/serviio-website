@@ -217,7 +217,7 @@ assert.strictEqual(noPosForm.querySelector('input[name="lead_route_hint"]').valu
 assert.strictEqual(noPosForm.querySelector('input[name="monetization_route_hint"]').value, 'pos_partner_referral');
 assert.strictEqual(noPosForm.querySelector('[name="pos_partner_consent"]').required, true);
 assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /39_miles/);
-assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /menusifu/);
+assert.doesNotMatch(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /menusifu/);
 assert.match(noPosForm.querySelector('input[name="recommended_pos_partner_targets"]').value, /chowbus/);
 assert.strictEqual(noPosForm.querySelector('input[name="lead_acquisition_channel"]').value, 'partner_referral');
 
